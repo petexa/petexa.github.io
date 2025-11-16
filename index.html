@@ -118,10 +118,7 @@
         font-weight: 700;
         color: #fff !important;
         margin-bottom: 5px;
-        background: #000080;
-        padding: 8px 12px;
-        border-radius: 8px;
-        margin: -20px -18px 8px -18px;
+        text-align: center;
     }
     .event-date {
         color: #fff;
@@ -369,32 +366,29 @@ function showToast(msg) {
 // Build HTML for the main event section:
 function renderEvents() {
     const now = new Date();
-    // Choose how to filter for "empty state"
-    const upcomingOrCurrent = sortedEvents.filter(ev => new Date(ev.date) > now || (Math.abs(new Date(ev.date)-now)<36e5));
+    // Filter to only show upcoming events (not past)
+    const upcomingEvents = sortedEvents.filter(ev => new Date(ev.date) >= now);
     let eventListHtml = "";
     if (sortedEvents.length === 0) {
         // Completely empty event list (shouldn't ever happen)
         eventListHtml = `<div class="empty-events" role="alert">No events are currently scheduled. Please check back soon!</div>`;
-    } else if (upcomingOrCurrent.length === 0) {
+    } else if (upcomingEvents.length === 0) {
         // No future events
         eventListHtml = `<div class="empty-events" role="alert">There are no upcoming events.<br>Check back soon, or follow us on social for the latest updates!</div>`;
     } else {
-        document.getElementById("events-list").ariaLabel = "Upcoming and past events";
+        document.getElementById("events-list").ariaLabel = "Upcoming events";
     }
 
-    // If all events are in the past, don't highlight
-    if (nextIdx < 0) nextIdx = -1;
-
-    if (upcomingOrCurrent.length > 0) {
-        eventListHtml = sortedEvents.map((ev, i) => {
+    if (upcomingEvents.length > 0) {
+        // Find the next event (first event in the filtered upcoming list)
+        const nextEventIndex = 0; // The first upcoming event is always the next one
+        
+        eventListHtml = upcomingEvents.map((ev, i) => {
             let evDate = new Date(ev.date);
-            let isPast = evDate < now;
-            let nextClass = (i === nextIdx) ? " next" : "";
-            let pastClass = isPast ? " past" : "";
+            let nextClass = (i === nextEventIndex) ? " next" : "";
             // Logic to check custom visibility flags (default to true if undefined)
-            // For past events, only show More Info button
-            const shouldShowBookNow = !isPast && (ev.showBookNow !== false);
-            const shouldShowRemindMe = !isPast && (ev.showRemindMe !== false);
+            const shouldShowBookNow = ev.showBookNow !== false;
+            const shouldShowRemindMe = ev.showRemindMe !== false;
             const shouldShowMoreInfo = ev.showMoreInfo !== false;
 
             let actionButtonsHtml = `<div class="card-actions">`;
@@ -418,16 +412,13 @@ function renderEvents() {
             const imgId = `event-img-${i}`;
             let imgHtml = `<img src="${ev.image}" class="event-img" id="${imgId}" alt="Preview for ${ev.name}" loading="lazy" onerror="onImgError('${imgId}')">`;
 
-            // Only show countdown for future events
-            let countdownHtml = '';
-            if (!isPast) {
-                countdownHtml = `<div class="countdown" id="countdown-${i}">
+            // Show countdown for all events (since we're only showing future events)
+            let countdownHtml = `<div class="countdown" id="countdown-${i}">
                       <i class="fa-regular fa-clock"></i>
                       <span></span>
                   </div>`;
-            }
 
-            return `<section class="event-card${nextClass}${pastClass}">
+            return `<section class="event-card${nextClass}">
                 ${imgHtml}
                 <div class="event-content">
                   <header>
@@ -470,7 +461,9 @@ window.handleCalendarDownload = function(e, eventName) {
 // Build countdowns for each event
 function updateCountdowns() {
     const now = new Date().getTime();
-    sortedEvents.forEach((ev,i) => {
+    // Filter to only upcoming events to match what's rendered
+    const upcomingEvents = sortedEvents.filter(ev => new Date(ev.date).getTime() >= now);
+    upcomingEvents.forEach((ev,i) => {
         const countdownEl = document.getElementById("countdown-"+i)?.querySelector("span") || null;
         if (!countdownEl) return;
         const evDate = new Date(ev.date).getTime();
