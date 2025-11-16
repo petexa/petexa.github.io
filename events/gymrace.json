@@ -1,0 +1,15 @@
+{
+  "name": "Gymrace",
+  "date": "2026-03-21T00:00:00",
+  "link": "https://www.gymrace.com/event/london-march-2026",
+  "image": "https://cdn.prod.website-files.com/67239532db505eb438fba1e9/68e3ddaa2e1c2e61052b4ae5_Header-aftermovie-GYMRACE.jpg",
+  "description": "London's premier gym challenge. Tackle obstacles and compete for the finish line. Teams and solo entries welcome.",
+  "calendarDetails": {
+    "location": "London, UK",
+    "description": "Compete in Gymrace London 2026.",
+    "durationHours": 8
+  },
+  "showMoreInfo": true,
+  "showBookNow": false,
+  "showRemindMe": true
+}

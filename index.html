@@ -261,7 +261,7 @@
 </main>
 <footer>
   <div>
-    &copy; <span id="footerYear"></span> Have an event? <a href="https://media1.tenor.com/m/CxMpURzxtpYAAAAC/monkey-phone-call.gif" style="color:#fff;text-decoration:underline;" target="_blank" rel="noopener noreferrer">Contact us</a>
+    &copy; <span id="footerYear"></span> Have an event? <a href="images/callme.gif" style="color:#fff;text-decoration:underline;" target="_blank" rel="noopener noreferrer">Contact us</a>
   </div>
   <div class="footer-links">
     <a href="https://facebook.com" target="_blank" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
@@ -271,6 +271,39 @@
 </footer>
 <div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite"></div>
 <script>
+// Event data will be loaded from separate JSON files
+let events = [];
+let sortedEvents = [];
+let nextIdx = -1;
+
+// Load events from JSON files
+async function loadEvents() {
+    try {
+        // First, load the list of event files
+        const response = await fetch('events/events-list.json');
+        const eventFiles = await response.json();
+        
+        // Load all event files
+        const eventPromises = eventFiles.map(file => 
+            fetch(file).then(res => res.json())
+        );
+        
+        events = await Promise.all(eventPromises);
+        
+        // Sort events by date and find next event
+        const now = new Date();
+        sortedEvents = events.slice().sort((a,b) => new Date(a.date)-new Date(b.date));
+        nextIdx = sortedEvents.findIndex(ev => new Date(ev.date) > now);
+        
+        // Render the events
+        renderEvents();
+        updateCountdowns();
+        setInterval(updateCountdowns, 1000);
+    } catch (error) {
+        console.error('Error loading events:', error);
+        document.getElementById("events-list").innerHTML = `<div class="empty-events" role="alert">Unable to load events. Please try again later.</div>`;
+    }
+}
 // Event data array
 const events = [
   {
@@ -417,12 +450,9 @@ function showToast(msg) {
 }
 
 // --- Render event cards, ordered by date, next event highlighted, past events grayed out
-const now = new Date();
-const sortedEvents = events.slice().sort((a,b) => new Date(a.date)-new Date(b.date));
-let nextIdx = sortedEvents.findIndex(ev => new Date(ev.date) > now);
-
 // Build HTML for the main event section:
 function renderEvents() {
+    const now = new Date();
     // Choose how to filter for "empty state"
     const upcomingOrCurrent = sortedEvents.filter(ev => new Date(ev.date) > now || (Math.abs(new Date(ev.date)-now)<36e5));
     let eventListHtml = "";
@@ -538,12 +568,11 @@ function updateCountdowns() {
     });
 }
 
-renderEvents();
-setInterval(updateCountdowns, 1000);
-updateCountdowns();
-
 // Update footer year dynamically
 document.getElementById("footerYear").textContent = new Date().getFullYear();
+
+// Load events from JSON files on page load
+loadEvents();
 
 </script>
 </body>
