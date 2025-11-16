@@ -47,6 +47,19 @@
         font-weight: 400;
         display: block;
     }
+    .empty-events {
+        color: #fff;
+        background: #233fc2;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-radius: 14px;
+        margin: 42px auto;
+        padding: 25px 18px;
+        max-width: 430px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.14);
+        outline: 2.5px dashed #23bb57;
+    }
     main {
         display: flex;
         flex-wrap: wrap;
@@ -74,13 +87,24 @@
     }
     .event-card.next {
         border: 2.5px solid #23bb57;
-        box-shadow: 0 4px 24px rgba(35, 187, 87, 0.12);
+        box-shadow: 0 4px 24px rgba(35, 187, 87, 0.20);
     }
     .event-img {
         width: 100%;
         height: 120px;
         object-fit: scale-down;
         background: #e4ecfc;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .event-img.placeholder {
+        background: #c8c8ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #555;
+        font-size: 1.3rem;
+        font-style: italic;
     }
     .event-content {
         padding: 20px 18px 17px 18px;
@@ -92,11 +116,11 @@
     .event-title {
         font-size: 18px;
         font-weight: 700;
-        color: #111 !important;
+        color: #fff !important;
         margin-bottom: 5px;
     }
     .event-date {
-        color: #000;
+        color: #fff;
         font-size: 15px;
         font-weight: 600;
         margin-bottom: 8px;
@@ -141,11 +165,25 @@
         border-radius: 11px;
         font-size: 1rem;
         font-weight: 700;
-        background: #000080;
+        background: #01007a;
         border: none;
         transition: background 0.19s, color 0.19s, box-shadow 0.17s;
         box-shadow: 0 1px 7px rgba(0,0,0,0.09);
         outline: none;
+    }
+    .button[aria-label] {
+        cursor: pointer;
+    }
+    .button.info {
+        background: #087ec0;
+        color: #fff;
+        border: none;
+        font-weight: 700;
+    }
+    .button.info:hover,
+    .button.info:focus {
+        background: #055f90;
+        color: #fff;
     }
     .calendar-link {
         background: #fb6a12;
@@ -158,13 +196,32 @@
         gap: 6px;
         border-radius: 11px;
     }
-    .button:hover {
+    .button:hover, .button:focus {
         background: #233fc2;
         color: #fff;
     }
-    .calendar-link:hover {
+    .calendar-link:hover, .calendar-link:focus {
         background: #f98944;
+        color: #fff;
     }
+    .toast-message {
+        position: fixed;
+        z-index: 9999;
+        bottom: 36px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #222;
+        color: #62fa99;
+        font-size: 1rem;
+        padding: 13px 26px;
+        border-radius: 18px;
+        box-shadow: 0 1px 8px rgba(0,0,0,0.19);
+        opacity: 0.95;
+        animation: fadein 0.25s, fadeout 0.55s 2.3s;
+        pointer-events: none;
+    }
+    @keyframes fadein { from {opacity:0} to {opacity:0.95} }
+    @keyframes fadeout { from {opacity:0.95} to {opacity:0} }
     @media (max-width: 850px) {
       main {
         flex-direction: column;
@@ -191,7 +248,8 @@
       text-decoration: none;
       transition: color 0.18s;
     }
-    .footer-links a:hover {color: #29ffb4;}
+    .footer-links a:hover,
+    .footer-links a:focus {color: #29ffb4;}
 </style>
 </head>
 <body>
@@ -199,18 +257,19 @@
     <h1>Events</h1>
     <div class="subtitle">Your calendar for fitness and race events – Click to book or add to your schedule!</div>
 </header>
-<main id="events-list">
+<main id="events-list" aria-live="polite">
 </main>
 <footer>
   <div>
-    &copy; <span id="footerYear"></span> Have an event? <a href="https://media1.tenor.com/m/CxMpURzxtpYAAAAC/monkey-phone-call.gif" style="color:#fff;text-decoration:underline;" target="_blank" rel="noopener">Contact the Social Secretary</a> to add it to this calendar!
+    &copy; <span id="footerYear"></span> Have an event? <a href="https://media1.tenor.com/m/CxMpURzxtpYAAAAC/monkey-phone-call.gif" style="color:#fff;text-decoration:underline;" target="_blank" rel="noopener noreferrer">Contact us</a>
   </div>
   <div class="footer-links">
-    <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
-    <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="https://twitter.com" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+    <a href="https://facebook.com" target="_blank" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
+    <a href="https://instagram.com" target="_blank" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
+    <a href="https://twitter.com" target="_blank" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
   </div>
 </footer>
+<div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite"></div>
 <script>
 // Event data array
 const events = [
@@ -225,7 +284,9 @@ const events = [
       description: "Take part in the annual 24 Hour Workout Challenge at IDFit Gym.",
       durationHours: 24
     },
-    showBookNow: false
+    showMoreInfo: true,
+    showBookNow: false,
+    showRemindMe: true
   },
   {
     name: "Christmas Drinks",
@@ -238,8 +299,9 @@ const events = [
       description: "Annual IDFit Christmas Drinks - celebrate the end of another great year.",
       durationHours: 5
     },
+    showMoreInfo: false,
     showBookNow: false,
-    showRemindMe: false
+    showRemindMe: true
   },
   {
     name: "Gymrace",
@@ -251,19 +313,25 @@ const events = [
       location: "London, UK",
       description: "Compete in Gymrace London 2026.",
       durationHours: 8
-    }
+    },
+    showMoreInfo: true,
+    showBookNow: false,
+    showRemindMe: true
   },
-  {
-    name: "Deadly Dozen",
-    date: "2026-04-25T00:00:00",
-    link: "https://www.deadlydozen.com/ultimate-fitness-race-track-races/deadly-dozen-lea-valley-athletics-track-25th-april-2026",
-    image: "https://cdn.evbuc.com/images/1078377483/2552894018881/1/original.jpg",
-    description: "Test your strength and agility at the famous Lea Valley track. 12 grueling stages.",
-    calendarDetails: {
-      location: "Lea Valley Athletics Track, UK",
-      description: "Run the Deadly Dozen Ultimate Fitness Race.",
-      durationHours: 6
-    }
+    {
+      name: "Deadly Dozen",
+      date: "2026-04-25T00:00:00",
+      link: "https://www.deadlydozen.com/ultimate-fitness-race-track-races/deadly-dozen-lea-valley-athletics-track-25th-april-2026",
+      image: "images/deadly-dozen-alt.jpg",
+      description: "Test your strength and agility at the famous Lea Valley track. 12 grueling stages.",
+      calendarDetails: {
+        location: "Lea Valley Athletics Track, UK",
+        description: "Run the Deadly Dozen Ultimate Fitness Race.",
+        durationHours: 6
+    },
+    showMoreInfo: true,
+    showBookNow: false,
+    showRemindMe: true
   },
   {
     name: "Nuclear Races",
@@ -275,19 +343,25 @@ const events = [
       location: "Kelvedon Hatch, UK",
       description: "Nuclear Races Rush 2026 - obstacle mud run.",
       durationHours: 8
-    }
+    },
+    showMoreInfo: true,
+    showBookNow: false,
+    showRemindMe: true
   },
   {
     name: "Nuclear Fit",
-    date: "2026-07-18T00:00:00",
+    date: "2026-07-18T09:20:00",
     link: "https://www.nuclearfit.co.uk/racedates",
     image: "https://static.wixstatic.com/media/a078c1_cca964afd68a4c2997b9003285eb691d~mv2.png",
-    description: "Summer event featuring strength circuits and fun in the sun. 09:20am start!",
+    description: "Summer event featuring strength circuits and fun in the sun.",
     calendarDetails: {
       location: "Kelvedon Hatch, UK",
       description: "Nuclear Fit Summer Games 2026.",
       durationHours: 6
-    }
+    },
+    showMoreInfo: true,
+    showBookNow: false,
+    showRemindMe: true
   }
 ];
 
@@ -332,52 +406,113 @@ function icsUrl(event){
     ].join('\r\n'));
     return url;
 }
+
+// Show or update the toast message
+function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    toast.style.display = "block";
+    // Remove after 2.8s (matches fadeout animation)
+    setTimeout(() => toast.style.display = "none", 2800);
+}
+
 // --- Render event cards, ordered by date, next event highlighted, past events grayed out
 const now = new Date();
 const sortedEvents = events.slice().sort((a,b) => new Date(a.date)-new Date(b.date));
 let nextIdx = sortedEvents.findIndex(ev => new Date(ev.date) > now);
-// If all events are in the past, don't highlight
-if (nextIdx < 0) nextIdx = -1;
-document.getElementById("events-list").innerHTML = sortedEvents.map((ev,i)=>{
-  let evDate = new Date(ev.date);
-  let isPast = evDate < now;
-  let nextClass = (i===nextIdx) ? " next" : "";
-  let pastClass = isPast ? " past" : "";
 
-  // Logic to check custom visibility flags (default to true if undefined)
-  const shouldShowBookNow = ev.showBookNow !== false;
-  const shouldShowRemindMe = ev.showRemindMe !== false;
+// Build HTML for the main event section:
+function renderEvents() {
+    // Choose how to filter for "empty state"
+    const upcomingOrCurrent = sortedEvents.filter(ev => new Date(ev.date) > now || (Math.abs(new Date(ev.date)-now)<36e5));
+    let eventListHtml = "";
+    if (sortedEvents.length === 0) {
+        // Completely empty event list (shouldn't ever happen)
+        eventListHtml = `<div class="empty-events" role="alert">No events are currently scheduled. Please check back soon!</div>`;
+    } else if (upcomingOrCurrent.length === 0) {
+        // No future events
+        eventListHtml = `<div class="empty-events" role="alert">There are no upcoming events.<br>Check back soon, or follow us on social for the latest updates!</div>`;
+    } else {
+        document.getElementById("events-list").ariaLabel = "Upcoming and past events";
+    }
 
-  let actionButtonsHtml = '';
-  if (shouldShowBookNow || shouldShowRemindMe) {
-      actionButtonsHtml = `<div class="card-actions">`;
-      if (shouldShowBookNow) {
-          actionButtonsHtml += `<a class="button" href="${ev.link}" target="_blank" rel="noopener">Book Now</a>`;
-      }
-      if (shouldShowRemindMe) {
-          actionButtonsHtml += `<a class="calendar-link" href="${icsUrl(ev)}" title="Add to calendar" download="${ev.name.replace(/\s+/g,'_')}.ics">
-                <i class="fa-regular fa-calendar-plus"></i> Remind Me
-            </a>`;
-      }
-      actionButtonsHtml += `</div>`;
-  }
+    // If all events are in the past, don't highlight
+    if (nextIdx < 0) nextIdx = -1;
 
-  return `<section class="event-card${nextClass}${pastClass}">
-      <img src="${ev.image}" class="event-img" alt="Preview for ${ev.name}" loading="lazy">
-      <div class="event-content">
-        <header>
-          <div class="event-title">${ev.name}</div>
-          <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
-        </header>
-        <div class="event-desc">${ev.description}</div>
-        <div class="countdown" id="countdown-${i}">
-            <i class="fa-regular fa-clock"></i>
-            <span></span>
-        </div>
-        ${actionButtonsHtml}
-      </div>
-    </section>`;
-}).join("");
+    if (upcomingOrCurrent.length > 0) {
+        eventListHtml = sortedEvents.map((ev, i) => {
+            let evDate = new Date(ev.date);
+            let isPast = evDate < now;
+            let nextClass = (i === nextIdx) ? " next" : "";
+            let pastClass = isPast ? " past" : "";
+            // Logic to check custom visibility flags (default to true if undefined)
+            const shouldShowBookNow = ev.showBookNow !== false;
+            const shouldShowRemindMe = ev.showRemindMe !== false;
+            const shouldShowMoreInfo = ev.showMoreInfo !== false;
+
+            let actionButtonsHtml = `<div class="card-actions">`;
+
+            // Conditionally show More Info
+            if (shouldShowMoreInfo) {
+                actionButtonsHtml += `<a class="button info" href="${ev.link}" target="_blank" rel="noopener noreferrer" aria-label="More information about ${ev.name} (opens in new tab)">More Info</a>`;
+            }
+
+            if (shouldShowBookNow) {
+                actionButtonsHtml += `<a class="button" href="${ev.link}" target="_blank" rel="noopener" aria-label="Book now for ${ev.name} (opens in new tab)">Book Now</a>`;
+            }
+            if (shouldShowRemindMe) {
+                actionButtonsHtml += `<a class="calendar-link" href="${icsUrl(ev)}" title="Add to calendar" aria-label="Add a reminder for ${ev.name} to your calendar" download="${ev.name.replace(/\s+/g, '_')}.ics" onclick="handleCalendarDownload(event, '${ev.name.replace(/'/g, "\\'")}')">
+                  <i class="fa-regular fa-calendar-plus"></i> Remind Me
+              </a>`;
+            }
+            actionButtonsHtml += `</div>`;
+
+            // Event image with error fallback
+            const imgId = `event-img-${i}`;
+            let imgHtml = `<img src="${ev.image}" class="event-img" id="${imgId}" alt="Preview for ${ev.name}" loading="lazy" onerror="onImgError('${imgId}')">`;
+
+            return `<section class="event-card${nextClass}${pastClass}">
+                ${imgHtml}
+                <div class="event-content">
+                  <header>
+                    <div class="event-title">${ev.name}</div>
+                    <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
+                  </header>
+                  <div class="event-desc">${ev.description}</div>
+                  <div class="countdown" id="countdown-${i}">
+                      <i class="fa-regular fa-clock"></i>
+                      <span></span>
+                  </div>
+                  ${actionButtonsHtml}
+                </div>
+              </section>`;
+        }).join("");
+    }
+
+    document.getElementById("events-list").innerHTML = eventListHtml;
+}
+
+// Event image fallback
+window.onImgError = function(id) {
+    var img = document.getElementById(id);
+    if (img) {
+        img.onerror = null;
+        img.classList.add("placeholder");
+        img.src = "";
+        img.alt = "Image unavailable";
+        img.style.background = "#b8b8f0";
+        img.style.display = "flex";
+        img.style.justifyContent = "center";
+        img.style.alignItems = "center";
+        img.outerHTML = `<div class="event-img placeholder" title="Preview image unavailable">Image unavailable</div>`;
+    }
+};
+
+// Handle .ics calendar download and confirmation
+window.handleCalendarDownload = function(e, eventName) {
+    showToast(`Calendar event for "${eventName}" downloaded!`);
+    // Let browser handle .ics file
+};
 
 // Build countdowns for each event
 function updateCountdowns() {
@@ -395,18 +530,21 @@ function updateCountdowns() {
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        countdownEl.innerHTML = 
-            (days>0 ? `<b>${days}</b>d ` : "") + 
-            (hours>0 ? `<b>${hours}</b>h ` : "") + 
-            (minutes>0 ? `<b>${minutes}</b>m ` : "") + 
+        countdownEl.innerHTML =
+            (days>0 ? `<b>${days}</b>d ` : "") +
+            (hours>0 ? `<b>${hours}</b>h ` : "") +
+            (minutes>0 ? `<b>${minutes}</b>m ` : "") +
             `<b>${seconds}</b>s left`;
     });
 }
+
+renderEvents();
 setInterval(updateCountdowns, 1000);
 updateCountdowns();
 
 // Update footer year dynamically
 document.getElementById("footerYear").textContent = new Date().getFullYear();
+
 </script>
 </body>
 </html>
