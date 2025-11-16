@@ -3,110 +3,385 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 IDFit Events</title>
+<title>IDFit Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <style>
     body {
         font-family: Arial, sans-serif;
         background: #000080;
         margin: 0;
-        padding: 40px 20px;
-        text-align: center;
+        padding: 0;
         min-height: 100vh;
     }
+    header {
+        text-align: center;
+        padding: 40px 10px 15px 10px;
+        background: #001284;
+    }
+    .logo {
+        width: 85px;
+        height: 85px;
+        border-radius: 50%;
+        margin-bottom: 12px;
+        object-fit: cover;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
     h1 {
-        font-size: 28px;
-        margin-bottom: 40px;
+        font-size: 2.1rem;
         font-weight: 700;
         color: #fff;
         letter-spacing: 1px;
+        border-bottom: 2.5px solid #fff;
+        display: inline-block;
+        padding-bottom: 6px;
+        margin: 0 auto 6px auto;
     }
-    .event {
-        margin-bottom: 28px;
-    }
-    .button {
+    .subtitle {
+        font-size: 1rem;
+        color: #e4ecfc;
+        margin-bottom: 0;
+        letter-spacing: 0.4px;
+        font-weight: 400;
         display: block;
-        width: 90%;
-        max-width: 350px;
-        margin: 0 auto 8px auto;
-        padding: 18px 20px;
-        background: #fff;
-        color: #000080;
-        text-decoration: none;
-        border-radius: 14px;
-        font-size: 18px;
-        font-weight: 600;
-        border: 2px solid #000080;
-        transition: background 0.25s, color 0.25s, font-weight 0.15s;
-        box-sizing: border-box;
     }
-    .button:hover {
+    main {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+        padding: 30px 10px 35px 10px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+    .event-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+        width: 355px;
+        min-width: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: border 0.2s, box-shadow 0.2s;
+        border: 2px solid transparent;
+    }
+    .event-card.past {
+        opacity: 0.56;
+        filter: grayscale(0.5);
+    }
+    .event-card.next {
+        border: 2.5px solid #23bb57;
+        box-shadow: 0 4px 24px rgba(35, 187, 87, 0.12);
+    }
+    .event-img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
         background: #e4ecfc;
-        color: #0048c4;
+    }
+    .event-content {
+        padding: 20px 18px 17px 18px;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .event-title {
+        font-size: 18px;
         font-weight: 700;
+        color: #000080;
+        margin-bottom: 5px;
+    }
+    .event-date {
+        color: #384999;
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .event-desc {
+        font-size: 14px;
+        color: #092266;
+        margin-bottom: 12px;
+        min-height: 38px;
     }
     .countdown {
-        font-size: 16px;
-        color: #fff;
-        margin-bottom: 10px;
-        min-height: 22px;
+        color: #023;
+        background: #f0f4ff;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 6px 0 4px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        min-height: 34px;
         letter-spacing: 0.5px;
     }
+    .countdown i {
+        color: #385ffb;
+        margin-right: 5px;
+    }
+    .card-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 2px;
+    }
+    .button, .calendar-link {
+        /* Buttons for actions */
+        flex: 1 1 auto;
+        display: inline-block;
+        text-align: center;
+        padding: 11px 0;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 11px;
+        font-size: 1rem;
+        font-weight: 700;
+        background: #000080;
+        border: none;
+        transition: background 0.19s, color 0.19s, box-shadow 0.17s;
+        box-shadow: 0 1px 7px rgba(0,0,0,0.09);
+        outline: none;
+    }
+    .calendar-link {
+        background: #fb6a12;
+        color: #fff;
+        font-size: 0.97rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border-radius: 11px;
+    }
+    .button:hover {
+        background: #233fc2;
+        color: #fff;
+    }
+    .calendar-link:hover {
+        background: #f98944;
+    }
+    @media (max-width: 850px) {
+      main {
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+      .event-card {width: 97vw; max-width: 370px;}
+    }
+    footer {
+      text-align: center;
+      color: #bed;
+      font-size: 15px;
+      padding: 32px 6px 24px 6px;
+      background: #001040;
+      margin-top: 25px;
+    }
+    .footer-links {
+      margin-top: 9px;
+      font-size: 1.2rem;
+    }
+    .footer-links a {
+      color: #80affe;
+      margin: 0 10px;
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+    .footer-links a:hover {color: #29ffb4;}
 </style>
 </head>
 <body>
-
-<h1>2026 IDFit Events</h1>
-
-<div class="event">
-    <a class="button" href="https://www.gymrace.com/event/london-march-2026">21 March – Gymrace</a>
-    <div class="countdown" id="countdown-gymrace"></div>
-</div>
-<div class="event">
-    <a class="button" href="https://www.deadlydozen.com/ultimate-fitness-race-track-races/deadly-dozen-lea-valley-athletics-track-25th-april-2026?srsltid=AfmBOopHycS6vINJ2-7XAUXO2l_Su3SAWRkgzuORBzdjYGZjJDWKo7N4r_I">25 April – Deadly Dozen</a>
-    <div class="countdown" id="countdown-deadlydozen"></div>
-</div>
-<div class="event">
-    <a class="button" href="https://nuclear-races.co.uk/event/rush-2026/">10 May – Nuclear Races</a>
-    <div class="countdown" id="countdown-nuclear"></div>
-</div>
-<div class="event">
-    <a class="button" href="https://www.nuclearfit.co.uk/racedates">18 July – Nuclear Fit</a>
-    <div class="countdown" id="countdown-nuclearfit"></div>
-</div>
-
+<header>
+    <!-- Update src as needed for your logo -->
+    <img src="https://via.placeholder.com/85x85.png?text=LOGO" class="logo" alt="IDFit Logo" />
+    <h1>IDFit Events</h1>
+    <div class="subtitle">Your calendar for fitness and race events – Click to book or add to your schedule!</div>
+</header>
+<main id="events-list">
+    <!-- Event Cards Render Here -->
+</main>
+<footer>
+  <div>
+    &copy; <span id="footerYear"></span> IDFit | Need help? <a href="mailto:info@theidfit.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
+  </div>
+  <div class="footer-links">
+    <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+    <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://twitter.com" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+  </div>
+</footer>
 <script>
-function updateCountdown(id, targetDate) {
-    var now = new Date().getTime();
-    var distance = targetDate - now;
-
-    if (distance < 0) {
-        document.getElementById(id).innerHTML = "Event has started!";
-        return;
+// Event data array
+const events = [
+  {
+    name: "24 Hour Work Out",
+    date: "2025-11-22T12:00:00",
+    link: "https://www.theidfit.co.uk/",
+    image: "https://via.placeholder.com/600x120/234bc6/ffffff?text=24+Hour+Work+Out",
+    description: "Push your limits in this all-day challenge! Open to all abilities. Prizes for best efforts.",
+    calendarDetails: {
+      location: "IDFit Gym",
+      description: "Take part in the annual 24 Hour Workout Challenge at IDFit Gym.",
+      durationHours: 24
     }
+  },
+  {
+    name: "Gymrace",
+    date: "2026-03-21T00:00:00",
+    link: "https://www.gymrace.com/event/london-march-2026",
+    image: "https://via.placeholder.com/600x120/385ffb/fff?text=Gymrace",
+    description: "London's premier gym challenge. Tackle obstacles and compete for the finish line. Teams and solo entries welcome.",
+    calendarDetails: {
+      location: "London, UK",
+      description: "Compete in Gymrace London 2026.",
+      durationHours: 8
+    }
+  },
+  {
+    name: "Deadly Dozen",
+    date: "2026-04-25T00:00:00",
+    link: "https://www.deadlydozen.com/ultimate-fitness-race-track-races/deadly-dozen-lea-valley-athletics-track-25th-april-2026",
+    image: "https://via.placeholder.com/600x120/ed3252/fff?text=Deadly+Dozen",
+    description: "Test your strength and agility at the famous Lea Valley track. 12 grueling stages.",
+    calendarDetails: {
+      location: "Lea Valley Athletics Track, UK",
+      description: "Run the Deadly Dozen Ultimate Fitness Race.",
+      durationHours: 6
+    }
+  },
+  {
+    name: "Nuclear Races",
+    date: "2026-05-10T00:00:00",
+    link: "https://nuclear-races.co.uk/event/rush-2026/",
+    image: "https://via.placeholder.com/600x120/223b32/eee?text=Nuclear+Races",
+    description: "Go muddy at Nuclear Races Rush 2026. Obstacles, mud and glory await!",
+    calendarDetails: {
+      location: "Kelvedon Hatch, UK",
+      description: "Nuclear Races Rush 2026 - obstacle mud run.",
+      durationHours: 8
+    }
+  },
+  {
+    name: "Nuclear Fit",
+    date: "2026-07-18T00:00:00",
+    link: "https://www.nuclearfit.co.uk/racedates",
+    image: "https://via.placeholder.com/600x120/fbe132/123?text=Nuclear+Fit",
+    description: "Summer event featuring strength circuits and fun in the sun.",
+    calendarDetails: {
+      location: "Kelvedon Hatch, UK",
+      description: "Nuclear Fit Summer Games 2026.",
+      durationHours: 6
+    }
+  }
+];
 
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById(id).innerHTML =
-        days + "d " + hours + "h " + minutes + "m " + seconds + "s left";
+// Utility: Ordinal suffix
+function getOrdinal(n) {
+    let s = ["th","st","nd","rd"],
+        v = n%100;
+    return n + (s[(v-20)%10] || s[v] || s[0]);
 }
-
-function runCountdowns() {
-    var gymraceDate     = new Date("2026-03-21T00:00:00").getTime();
-    var deadlyDozenDate = new Date("2026-04-25T00:00:00").getTime();
-    var nuclearDate     = new Date("2026-05-10T00:00:00").getTime();
-    var nuclearFitDate  = new Date("2026-07-18T00:00:00").getTime();
-    setInterval(function() {
-        updateCountdown("countdown-gymrace", gymraceDate);
-        updateCountdown("countdown-deadlydozen", deadlyDozenDate);
-        updateCountdown("countdown-nuclear", nuclearDate);
-        updateCountdown("countdown-nuclearfit", nuclearFitDate);
-    }, 1000);
+// Utility: Format date e.g. 22nd Nov 2025, 12:00
+function formatEventDate(dateString) {
+    const d = new Date(dateString);
+    const day = getOrdinal(d.getDate());
+    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const month = monthNames[d.getMonth()];
+    const year = d.getFullYear();
+    let pieces = [`${day} ${month} ${year}`];
+    if (d.getHours() + d.getMinutes() > 0) {
+        let mins = String(d.getMinutes()).padStart(2, "0");
+        pieces.push(`${d.getHours()}:${mins}`);
+    }
+    return pieces.join(", ");
 }
-document.addEventListener("DOMContentLoaded", runCountdowns);
+// Utility: ICS calendar link generator
+function icsUrl(event){
+    let d = new Date(event.date);
+    let end = new Date(d.getTime() + 60000*60*(event.calendarDetails?.durationHours||4));
+    let pad = n => String(n).padStart(2,"0");
+    let fmt = dt => `${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}00Z`;
+    let url = 'data:text/calendar;charset=utf8,' + encodeURIComponent([
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'CALSCALE:GREGORIAN',
+      'BEGIN:VEVENT',
+      `DTSTART:${fmt(d)}`,
+      `DTEND:${fmt(end)}`,
+      `SUMMARY:${event.name}`,
+      `LOCATION:${event.calendarDetails.location||""}`,
+      `DESCRIPTION:${event.calendarDetails.description||""}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n'));
+    return url;
+}
+// --- Render event cards, ordered by date, next event highlighted, past events grayed out
+// Find next upcoming event (not started)
+const now = new Date();
+const sortedEvents = events.slice().sort((a,b) => new Date(a.date)-new Date(b.date));
+let nextIdx = sortedEvents.findIndex(ev => new Date(ev.date) > now);
+// If all events are in the past, don't highlight
+if (nextIdx < 0) nextIdx = -1;
+document.getElementById("events-list").innerHTML = sortedEvents.map((ev,i)=>{
+  let evDate = new Date(ev.date);
+  let isPast = evDate < now;
+  let nextClass = (i===nextIdx) ? " next" : "";
+  let pastClass = isPast ? " past" : "";
+  return `<section class="event-card${nextClass}${pastClass}">
+      <img src="${ev.image}" class="event-img" alt="Preview for ${ev.name}" loading="lazy">
+      <div class="event-content">
+        <header>
+          <div class="event-title">${ev.name}</div>
+          <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
+        </header>
+        <div class="event-desc">${ev.description}</div>
+        <div class="countdown" id="countdown-${i}">
+            <i class="fa-regular fa-clock"></i>
+            <span></span>
+        </div>
+        <div class="card-actions">
+            <a class="button" href="${ev.link}" target="_blank" rel="noopener">Book Now</a>
+            <a class="calendar-link" href="${icsUrl(ev)}" title="Add to calendar" download="${ev.name.replace(/\s+/g,'_')}.ics">
+                <i class="fa-regular fa-calendar-plus"></i> Remind Me
+            </a>
+        </div>
+      </div>
+    </section>`;
+}).join("");
+
+// Build countdowns for each event
+function updateCountdowns() {
+    const now = new Date().getTime();
+    sortedEvents.forEach((ev,i) => {
+        const countdownEl = document.getElementById("countdown-"+i)?.querySelector("span") || null;
+        if (!countdownEl) return;
+        const evDate = new Date(ev.date).getTime();
+        let distance = evDate - now;
+        if (distance <= 0) {
+            countdownEl.innerHTML = "Event has started!";
+            return;
+        }
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        countdownEl.innerHTML = 
+            (days>0 ? `<b>${days}</b>d ` : "") + 
+            (hours>0 ? `<b>${hours}</b>h ` : "") + 
+            (minutes>0 ? `<b>${minutes}</b>m ` : "") + 
+            `<b>${seconds}</b>s left`;
+    });
+}
+setInterval(updateCountdowns, 1000);
+updateCountdowns();
+
+// Update footer year dynamically
+document.getElementById("footerYear").textContent = new Date().getFullYear();
 </script>
-
 </body>
 </html>
