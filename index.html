@@ -91,11 +91,11 @@
     .event-title {
         font-size: 18px;
         font-weight: 700;
-        color: #fff;
+        color: #092266; /* Corrected: Changed from #fff to a dark color to be visible on white card background */
         margin-bottom: 5px;
     }
     .event-date {
-        color: #fff;
+        color: #000; /* Corrected: Changed from #fff to a dark color to be visible on white card background */
         font-size: 15px;
         font-weight: 600;
         margin-bottom: 8px;
@@ -196,14 +196,12 @@
 </head>
 <body>
 <header>
-    <!-- Update src as needed for your logo -->
-    
+        
     <h1>Events</h1>
     <div class="subtitle">Your calendar for fitness and race events – Click to book or add to your schedule!</div>
 </header>
 <main id="events-list">
-    <!-- Event Cards Render Here -->
-</main>
+    </main>
 <footer>
   <div>
     &copy; <span id="footerYear"></span> Have an event? <a href="https://media1.tenor.com/m/CxMpURzxtpYAAAAC/monkey-phone-call.gif" style="color:#fff;text-decoration:underline;">Contact the Social Secretary</a>
@@ -218,17 +216,6 @@
 // Event data array
 const events = [
   {
-    name: "Christmas Drinks",
-    date: "2025-11-28T19:00:00",
-    link: "https://www.theidfit.co.uk/",
-    image: "https://d347bo4ltvvnaz.cloudfront.net/images/preview/KS_ChristmasParty2023_PS_Logo.jpg",
-    description: "🎄 Festive cheer, delicious food, great company. Celebrate Christmas together!",
-    calendarDetails: {
-      location: "IDFit Gym",
-      description: "Take part in the annual 24 Hour Workout Challenge at IDFit Gym.",
-      durationHours: 24
-    }
-  },  {
     name: "24 Hour Work Out",
     date: "2025-11-22T12:00:00",
     link: "https://www.instagram.com/p/DB8uazSNM1W/?img_index=1&igsh=MWt3bnV6a2djZThkYQ==",
@@ -238,7 +225,24 @@ const events = [
       location: "IDFit Gym",
       description: "Take part in the annual 24 Hour Workout Challenge at IDFit Gym.",
       durationHours: 24
-    }
+    },
+    // Hiding Book Now, keeping Remind Me for 24 Hour Work Out
+    showBookNow: false 
+  },
+  {
+    name: "Christmas Drinks",
+    date: "2025-11-28T19:00:00",
+    link: "https://www.theidfit.co.uk/",
+    image: "https://d347bo4ltvvnaz.cloudfront.net/images/preview/KS_ChristmasParty2023_PS_Logo.jpg",
+    description: "🎄 Festive cheer, delicious food, great company. Celebrate Christmas together!",
+    calendarDetails: {
+      location: "IDFit Gym",
+      description: "Take part in the annual 24 Hour Workout Challenge at IDFit Gym.",
+      durationHours: 24
+    },
+    // Hiding both buttons for Christmas Drinks
+    showBookNow: false,  
+    showRemindMe: false  
   },
   {
     name: "Gymrace",
@@ -343,6 +347,26 @@ document.getElementById("events-list").innerHTML = sortedEvents.map((ev,i)=>{
   let isPast = evDate < now;
   let nextClass = (i===nextIdx) ? " next" : "";
   let pastClass = isPast ? " past" : "";
+
+  // Logic to check custom visibility flags (default to true if undefined)
+  const shouldShowBookNow = ev.showBookNow !== false;
+  const shouldShowRemindMe = ev.showRemindMe !== false;
+
+  let actionButtonsHtml = '';
+  if (shouldShowBookNow || shouldShowRemindMe) {
+      // Only create the card-actions container if at least one button is needed
+      actionButtonsHtml = `<div class="card-actions">`;
+      if (shouldShowBookNow) {
+          actionButtonsHtml += `<a class="button" href="${ev.link}" target="_blank" rel="noopener">Book Now</a>`;
+      }
+      if (shouldShowRemindMe) {
+          actionButtonsHtml += `<a class="calendar-link" href="${icsUrl(ev)}" title="Add to calendar" download="${ev.name.replace(/\s+/g,'_')}.ics">
+                <i class="fa-regular fa-calendar-plus"></i> Remind Me
+            </a>`;
+      }
+      actionButtonsHtml += `</div>`;
+  }
+
   return `<section class="event-card${nextClass}${pastClass}">
       <img src="${ev.image}" class="event-img" alt="Preview for ${ev.name}" loading="lazy">
       <div class="event-content">
@@ -355,12 +379,7 @@ document.getElementById("events-list").innerHTML = sortedEvents.map((ev,i)=>{
             <i class="fa-regular fa-clock"></i>
             <span></span>
         </div>
-        <div class="card-actions">
-            <a class="button" href="${ev.link}" target="_blank" rel="noopener">Book Now</a>
-            <a class="calendar-link" href="${icsUrl(ev)}" title="Add to calendar" download="${ev.name.replace(/\s+/g,'_')}.ics">
-                <i class="fa-regular fa-calendar-plus"></i> Remind Me
-            </a>
-        </div>
+        ${actionButtonsHtml}
       </div>
     </section>`;
 }).join("");
