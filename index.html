@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IDFit Events</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <style>
     body {
@@ -91,11 +92,11 @@
     .event-title {
         font-size: 18px;
         font-weight: 700;
-        color: #111 !important; /* Increased contrast for visibility on white */
+        color: #111 !important;
         margin-bottom: 5px;
     }
     .event-date {
-        color: #000; /* Ensures date stands out on white */
+        color: #000;
         font-size: 15px;
         font-weight: 600;
         margin-bottom: 8px;
@@ -131,7 +132,6 @@
         margin-top: 2px;
     }
     .button, .calendar-link {
-        /* Buttons for actions */
         flex: 1 1 auto;
         display: inline-block;
         text-align: center;
@@ -196,15 +196,14 @@
 </head>
 <body>
 <header>
-        
     <h1>Events</h1>
     <div class="subtitle">Your calendar for fitness and race events – Click to book or add to your schedule!</div>
 </header>
 <main id="events-list">
-    </main>
+</main>
 <footer>
   <div>
-    &copy; <span id="footerYear"></span> Have an event? <a href="https://media1.tenor.com/m/CxMpURzxtpYAAAAC/monkey-phone-call.gif" style="color:#fff;text-decoration:underline;">Contact the Social Sec[...]
+    &copy; <span id="footerYear"></span> Have an event? <a href="https://media1.tenor.com/m/CxMpURzxtpYAAAAC/monkey-phone-call.gif" style="color:#fff;text-decoration:underline;" target="_blank" rel="noopener">Contact the Social Secretary</a> to add it to this calendar!
   </div>
   <div class="footer-links">
     <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
@@ -226,8 +225,7 @@ const events = [
       description: "Take part in the annual 24 Hour Workout Challenge at IDFit Gym.",
       durationHours: 24
     },
-    // Hiding Book Now, keeping Remind Me for 24 Hour Work Out
-    showBookNow: false 
+    showBookNow: false
   },
   {
     name: "Christmas Drinks",
@@ -237,18 +235,17 @@ const events = [
     description: "🎄 Festive cheer, delicious food, great company. Celebrate Christmas together!",
     calendarDetails: {
       location: "IDFit Gym",
-      description: "Take part in the annual 24 Hour Workout Challenge at IDFit Gym.",
-      durationHours: 24
+      description: "Annual IDFit Christmas Drinks - celebrate the end of another great year.",
+      durationHours: 5
     },
-    // Hiding both buttons for Christmas Drinks
-    showBookNow: false,  
-    showRemindMe: false  
+    showBookNow: false,
+    showRemindMe: false
   },
   {
     name: "Gymrace",
     date: "2026-03-21T00:00:00",
     link: "https://www.gymrace.com/event/london-march-2026",
-    image: "https://cdn.prod.website-files.com/67239532db505eb438fba1e9/68e3ddaa2e1c2e61052b4ae5_Header-aftermovie-GYMRACE.jpg?text=Gymrace",
+    image: "https://cdn.prod.website-files.com/67239532db505eb438fba1e9/68e3ddaa2e1c2e61052b4ae5_Header-aftermovie-GYMRACE.jpg",
     description: "London's premier gym challenge. Tackle obstacles and compete for the finish line. Teams and solo entries welcome.",
     calendarDetails: {
       location: "London, UK",
@@ -260,7 +257,7 @@ const events = [
     name: "Deadly Dozen",
     date: "2026-04-25T00:00:00",
     link: "https://www.deadlydozen.com/ultimate-fitness-race-track-races/deadly-dozen-lea-valley-athletics-track-25th-april-2026",
-    image: "https://www.eventbrite.com/e/_next/image?url=https%3A%2F%2Fimg.evbuc.com%2Fhttps%253A%252F%252Fcdn.evbuc.com%252Fimages%252F1078377483%252F2552894018881%252F1%252Foriginal.20250722-003607%[...]
+    image: "https://cdn.evbuc.com/images/1078377483/2552894018881/1/original.jpg",
     description: "Test your strength and agility at the famous Lea Valley track. 12 grueling stages.",
     calendarDetails: {
       location: "Lea Valley Athletics Track, UK",
@@ -272,7 +269,7 @@ const events = [
     name: "Nuclear Races",
     date: "2026-05-10T10:00:00",
     link: "https://nuclear-races.co.uk/event/rush-2026/",
-    image: "https://assets.eventcalendars.net/images/nuclear-races-uk.jpg?text=Nuclear+Races",
+    image: "https://assets.eventcalendars.net/images/nuclear-races-uk.jpg",
     description: "Go muddy at Nuclear Races Rush 2026. Obstacles, mud and glory await! 10am start!",
     calendarDetails: {
       location: "Kelvedon Hatch, UK",
@@ -284,7 +281,7 @@ const events = [
     name: "Nuclear Fit",
     date: "2026-07-18T00:00:00",
     link: "https://www.nuclearfit.co.uk/racedates",
-    image: "https://static.wixstatic.com/media/a078c1_cca964afd68a4c2997b9003285eb691d~mv2.png?text=Nuclear+Fit",
+    image: "https://static.wixstatic.com/media/a078c1_cca964afd68a4c2997b9003285eb691d~mv2.png",
     description: "Summer event featuring strength circuits and fun in the sun. 09:20am start!",
     calendarDetails: {
       location: "Kelvedon Hatch, UK",
@@ -336,7 +333,6 @@ function icsUrl(event){
     return url;
 }
 // --- Render event cards, ordered by date, next event highlighted, past events grayed out
-// Find next upcoming event (not started)
 const now = new Date();
 const sortedEvents = events.slice().sort((a,b) => new Date(a.date)-new Date(b.date));
 let nextIdx = sortedEvents.findIndex(ev => new Date(ev.date) > now);
@@ -354,7 +350,6 @@ document.getElementById("events-list").innerHTML = sortedEvents.map((ev,i)=>{
 
   let actionButtonsHtml = '';
   if (shouldShowBookNow || shouldShowRemindMe) {
-      // Only create the card-actions container if at least one button is needed
       actionButtonsHtml = `<div class="card-actions">`;
       if (shouldShowBookNow) {
           actionButtonsHtml += `<a class="button" href="${ev.link}" target="_blank" rel="noopener">Book Now</a>`;
