@@ -7,43 +7,106 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background: #f7f9fc;
+        background: #1766f2;
         margin: 0;
         padding: 40px 20px;
         text-align: center;
+        min-height: 100vh;
     }
     h1 {
         font-size: 28px;
         margin-bottom: 40px;
         font-weight: 700;
-        color: #333;
+        color: #fff;
+        letter-spacing: 1px;
+    }
+    .event {
+        margin-bottom: 28px;
     }
     .button {
         display: block;
         width: 90%;
         max-width: 350px;
-        margin: 15px auto;
+        margin: 0 auto 8px auto;
         padding: 18px 20px;
-        background: #005eff;
-        color: #fff;
+        background: #fff;
+        color: #1766f2;
         text-decoration: none;
         border-radius: 14px;
         font-size: 18px;
         font-weight: 600;
+        border: 2px solid #1766f2;
+        transition: background 0.25s, color 0.25s, font-weight 0.15s;
+        box-sizing: border-box;
     }
     .button:hover {
-        background: #0048c4;
+        background: #e4ecfc;
+        color: #0048c4;
+        font-weight: 700;
+    }
+    .countdown {
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 10px;
+        min-height: 22px;
+        letter-spacing: 0.5px;
     }
 </style>
 </head>
 <body>
 
-<h1>2026 IDFit Events</h1>
+<h1>2026 Gym Team Events</h1>
 
-<a class="button" href="https://www.gymrace.com/event/london-march-2026">21 March – Gymrace</a>
-<a class="button" href="https://www.deadlydozen.com/ultimate-fitness-race-track-races/deadly-dozen-lea-valley-athletics-track-25th-april-2026?srsltid=AfmBOopHycS6vINJ2-7XAUXO2l_Su3SAWRkgzuORBzdjYGkmX7A6-cq-">25 April – Deadly Dozen</a>
-<a class="button" href="https://nuclear-races.co.uk/event/rush-2026/">10 May @10:00 – Nuclear Races</a>
-<a class="button" href="https://www.nuclearfit.co.uk/racedates">18 July @09:20 – Nuclear Fit</a>
+<div class="event">
+    <a class="button" href="https://www.gymrace.com/event/london-march-2026">21 March – Gymrace</a>
+    <div class="countdown" id="countdown-gymrace"></div>
+</div>
+<div class="event">
+    <a class="button" href="https://www.deadlydozen.com/ultimate-fitness-race-track-races/deadly-dozen-lea-valley-athletics-track-25th-april-2026?srsltid=AfmBOopHycS6vINJ2-7XAUXO2l_Su3SAWRkgzuORBzdjYGZjJDWKo7N4r_I">25 April – Deadly Dozen</a>
+    <div class="countdown" id="countdown-deadlydozen"></div>
+</div>
+<div class="event">
+    <a class="button" href="https://nuclear-races.co.uk/event/rush-2026/">10 May – Nuclear Races</a>
+    <div class="countdown" id="countdown-nuclear"></div>
+</div>
+<div class="event">
+    <a class="button" href="https://www.nuclearfit.co.uk/racedates">18 July – Nuclear Fit</a>
+    <div class="countdown" id="countdown-nuclearfit"></div>
+</div>
+
+<script>
+function updateCountdown(id, targetDate) {
+    var now = new Date().getTime();
+    var distance = targetDate - now;
+
+    if (distance < 0) {
+        document.getElementById(id).innerHTML = "Event has started!";
+        return;
+    }
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById(id).innerHTML =
+        days + "d " + hours + "h " + minutes + "m " + seconds + "s left";
+}
+
+function runCountdowns() {
+    var gymraceDate     = new Date("2026-03-21T00:00:00").getTime();
+    var deadlyDozenDate = new Date("2026-04-25T00:00:00").getTime();
+    var nuclearDate     = new Date("2026-05-10T00:00:00").getTime();
+    var nuclearFitDate  = new Date("2026-07-18T00:00:00").getTime();
+    setInterval(function() {
+        updateCountdown("countdown-gymrace", gymraceDate);
+        updateCountdown("countdown-deadlydozen", deadlyDozenDate);
+        updateCountdown("countdown-nuclear", nuclearDate);
+        updateCountdown("countdown-nuclearfit", nuclearFitDate);
+    }, 1000);
+}
+document.addEventListener("DOMContentLoaded", runCountdowns);
+</script>
 
 </body>
 </html>
