@@ -118,6 +118,10 @@
         font-weight: 700;
         color: #fff !important;
         margin-bottom: 5px;
+        background: #000080;
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin: -20px -18px 8px -18px;
     }
     .event-date {
         color: #fff;
@@ -388,8 +392,9 @@ function renderEvents() {
             let nextClass = (i === nextIdx) ? " next" : "";
             let pastClass = isPast ? " past" : "";
             // Logic to check custom visibility flags (default to true if undefined)
-            const shouldShowBookNow = ev.showBookNow !== false;
-            const shouldShowRemindMe = ev.showRemindMe !== false;
+            // For past events, only show More Info button
+            const shouldShowBookNow = !isPast && (ev.showBookNow !== false);
+            const shouldShowRemindMe = !isPast && (ev.showRemindMe !== false);
             const shouldShowMoreInfo = ev.showMoreInfo !== false;
 
             let actionButtonsHtml = `<div class="card-actions">`;
@@ -413,6 +418,15 @@ function renderEvents() {
             const imgId = `event-img-${i}`;
             let imgHtml = `<img src="${ev.image}" class="event-img" id="${imgId}" alt="Preview for ${ev.name}" loading="lazy" onerror="onImgError('${imgId}')">`;
 
+            // Only show countdown for future events
+            let countdownHtml = '';
+            if (!isPast) {
+                countdownHtml = `<div class="countdown" id="countdown-${i}">
+                      <i class="fa-regular fa-clock"></i>
+                      <span></span>
+                  </div>`;
+            }
+
             return `<section class="event-card${nextClass}${pastClass}">
                 ${imgHtml}
                 <div class="event-content">
@@ -421,10 +435,7 @@ function renderEvents() {
                     <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
                   </header>
                   <div class="event-desc">${ev.description}</div>
-                  <div class="countdown" id="countdown-${i}">
-                      <i class="fa-regular fa-clock"></i>
-                      <span></span>
-                  </div>
+                  ${countdownHtml}
                   ${actionButtonsHtml}
                 </div>
               </section>`;
@@ -469,14 +480,7 @@ function updateCountdowns() {
             return;
         }
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        countdownEl.innerHTML =
-            (days>0 ? `<b>${days}</b>d ` : "") +
-            (hours>0 ? `<b>${hours}</b>h ` : "") +
-            (minutes>0 ? `<b>${minutes}</b>m ` : "") +
-            `<b>${seconds}</b>s left`;
+        countdownEl.innerHTML = `<b>${days}</b> day${days !== 1 ? 's' : ''} left`;
     });
 }
 
