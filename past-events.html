@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IDFit Events</title>
+<title>Past Events - IDFit Events</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -47,6 +47,20 @@
         font-weight: 400;
         display: block;
     }
+    .back-link {
+        margin-top: 15px;
+    }
+    .back-link a {
+        color: #80affe;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.18s;
+    }
+    .back-link a:hover,
+    .back-link a:focus {
+        color: #29ffb4;
+        text-decoration: underline;
+    }
     .empty-events {
         color: #fff;
         background: #233fc2;
@@ -80,14 +94,7 @@
         flex-direction: column;
         transition: border 0.2s, box-shadow 0.2s;
         border: 2px solid transparent;
-    }
-    .event-card.past {
-        opacity: 0.56;
-        filter: grayscale(0.5);
-    }
-    .event-card.next {
-        border: 2.5px solid #23bb57;
-        box-shadow: 0 4px 24px rgba(35, 187, 87, 0.20);
+        opacity: 0.85;
     }
     .event-img {
         width: 100%;
@@ -131,11 +138,11 @@
         margin-bottom: 12px;
         min-height: 38px;
     }
-    .countdown {
+    .event-status {
         color: #023;
         background: #f0f4ff;
         border-radius: 8px;
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 600;
         padding: 6px 0 4px 0;
         display: flex;
@@ -146,16 +153,11 @@
         min-height: 34px;
         letter-spacing: 0.5px;
     }
-    .countdown i {
-        color: #385ffb;
+    .event-status i {
+        color: #666;
         margin-right: 5px;
     }
-    .card-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 2px;
-    }
-    .button, .calendar-link {
+    .button {
         flex: 1 1 auto;
         display: inline-block;
         text-align: center;
@@ -165,63 +167,17 @@
         border-radius: 11px;
         font-size: 1rem;
         font-weight: 700;
-        background: #01007a;
+        background: #087ec0;
         border: none;
         transition: background 0.19s, color 0.19s, box-shadow 0.17s;
         box-shadow: 0 1px 7px rgba(0,0,0,0.09);
         outline: none;
     }
-    .button[aria-label] {
-        cursor: pointer;
-    }
-    .button.info {
-        background: #087ec0;
-        color: #fff;
-        border: none;
-        font-weight: 700;
-    }
-    .button.info:hover,
-    .button.info:focus {
+    .button:hover,
+    .button:focus {
         background: #055f90;
         color: #fff;
     }
-    .calendar-link {
-        background: #fb6a12;
-        color: #fff;
-        font-size: 0.97rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        border-radius: 11px;
-    }
-    .button:hover, .button:focus {
-        background: #233fc2;
-        color: #fff;
-    }
-    .calendar-link:hover, .calendar-link:focus {
-        background: #f98944;
-        color: #fff;
-    }
-    .toast-message {
-        position: fixed;
-        z-index: 9999;
-        bottom: 36px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #222;
-        color: #62fa99;
-        font-size: 1rem;
-        padding: 13px 26px;
-        border-radius: 18px;
-        box-shadow: 0 1px 8px rgba(0,0,0,0.19);
-        opacity: 0.95;
-        animation: fadein 0.25s, fadeout 0.55s 2.3s;
-        pointer-events: none;
-    }
-    @keyframes fadein { from {opacity:0} to {opacity:0.95} }
-    @keyframes fadeout { from {opacity:0.95} to {opacity:0} }
     @media (max-width: 850px) {
       main {
         flex-direction: column;
@@ -254,18 +210,16 @@
 </head>
 <body>
 <header>
-    <h1>Events</h1>
-    <div class="subtitle">Your calendar for fitness and race events – Click to book or add to your schedule!</div>
+    <h1>Past Events</h1>
+    <div class="subtitle">Browse through events that have already taken place</div>
+    <div class="back-link">
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to Upcoming Events</a>
+    </div>
 </header>
 <main id="events-list" aria-live="polite">
 </main>
 <footer>
   <div>
-    <a href="past-events.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
-      <i class="fa-solid fa-calendar-check"></i> View Past Events
-    </a>
-  </div>
-  <div style="margin-top: 15px;">
     &copy; <span id="footerYear"></span> Have an event? <a href="images/callme.gif" style="color:#fff;text-decoration:underline;" target="_blank" rel="noopener noreferrer">Contact us</a>
   </div>
   <div class="footer-links">
@@ -274,12 +228,10 @@
     <a href="https://twitter.com" target="_blank" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
   </div>
 </footer>
-<div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite"></div>
 <script>
 // Event data will be loaded from separate JSON files
 let events = [];
-let sortedEvents = [];
-let nextIdx = -1;
+let pastEvents = [];
 
 // Load events from JSON files
 async function loadEvents() {
@@ -295,15 +247,14 @@ async function loadEvents() {
         
         events = await Promise.all(eventPromises);
         
-        // Sort events by date and find next event
+        // Filter for past events and sort by date (most recent first)
         const now = new Date();
-        sortedEvents = events.slice().sort((a,b) => new Date(a.date)-new Date(b.date));
-        nextIdx = sortedEvents.findIndex(ev => new Date(ev.date) > now);
+        pastEvents = events
+            .filter(ev => new Date(ev.date) < now)
+            .sort((a,b) => new Date(b.date) - new Date(a.date));
         
         // Render the events
         renderEvents();
-        updateCountdowns();
-        setInterval(updateCountdowns, 1000);
     } catch (error) {
         console.error('Error loading events:', error);
         document.getElementById("events-list").innerHTML = `<div class="empty-events" role="alert">Unable to load events. Please try again later.</div>`;
@@ -330,90 +281,20 @@ function formatEventDate(dateString) {
     }
     return pieces.join(", ");
 }
-// Utility: ICS calendar link generator
-function icsUrl(event){
-    let d = new Date(event.date);
-    let end = new Date(d.getTime() + 60000*60*(event.calendarDetails?.durationHours||4));
-    let pad = n => String(n).padStart(2,"0");
-    let fmt = dt => `${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}00Z`;
-    let url = 'data:text/calendar;charset=utf8,' + encodeURIComponent([
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'CALSCALE:GREGORIAN',
-      'BEGIN:VEVENT',
-      `DTSTART:${fmt(d)}`,
-      `DTEND:${fmt(end)}`,
-      `SUMMARY:${event.name}`,
-      `LOCATION:${event.calendarDetails.location||""}`,
-      `DESCRIPTION:${event.calendarDetails.description||""}`,
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ].join('\r\n'));
-    return url;
-}
 
-// Show or update the toast message
-function showToast(msg) {
-    const toast = document.getElementById("toast");
-    toast.textContent = msg;
-    toast.style.display = "block";
-    // Remove after 2.8s (matches fadeout animation)
-    setTimeout(() => toast.style.display = "none", 2800);
-}
-
-// --- Render event cards, ordered by date, next event highlighted, past events grayed out
-// Build HTML for the main event section:
+// Render past event cards
 function renderEvents() {
-    const now = new Date();
-    // Choose how to filter for "empty state"
-    const upcomingOrCurrent = sortedEvents.filter(ev => new Date(ev.date) > now || (Math.abs(new Date(ev.date)-now)<36e5));
     let eventListHtml = "";
-    if (sortedEvents.length === 0) {
-        // Completely empty event list (shouldn't ever happen)
-        eventListHtml = `<div class="empty-events" role="alert">No events are currently scheduled. Please check back soon!</div>`;
-    } else if (upcomingOrCurrent.length === 0) {
-        // No future events
-        eventListHtml = `<div class="empty-events" role="alert">There are no upcoming events.<br>Check back soon, or follow us on social for the latest updates!</div>`;
+    
+    if (pastEvents.length === 0) {
+        eventListHtml = `<div class="empty-events" role="alert">No past events found. Check back after some events have taken place!</div>`;
     } else {
-        document.getElementById("events-list").ariaLabel = "Upcoming and past events";
-    }
-
-    // If all events are in the past, don't highlight
-    if (nextIdx < 0) nextIdx = -1;
-
-    if (upcomingOrCurrent.length > 0) {
-        eventListHtml = sortedEvents.map((ev, i) => {
-            let evDate = new Date(ev.date);
-            let isPast = evDate < now;
-            let nextClass = (i === nextIdx) ? " next" : "";
-            let pastClass = isPast ? " past" : "";
-            // Logic to check custom visibility flags (default to true if undefined)
-            const shouldShowBookNow = ev.showBookNow !== false;
-            const shouldShowRemindMe = ev.showRemindMe !== false;
-            const shouldShowMoreInfo = ev.showMoreInfo !== false;
-
-            let actionButtonsHtml = `<div class="card-actions">`;
-
-            // Conditionally show More Info
-            if (shouldShowMoreInfo) {
-                actionButtonsHtml += `<a class="button info" href="${ev.link}" target="_blank" rel="noopener noreferrer" aria-label="More information about ${ev.name} (opens in new tab)">More Info</a>`;
-            }
-
-            if (shouldShowBookNow) {
-                actionButtonsHtml += `<a class="button" href="${ev.link}" target="_blank" rel="noopener" aria-label="Book now for ${ev.name} (opens in new tab)">Book Now</a>`;
-            }
-            if (shouldShowRemindMe) {
-                actionButtonsHtml += `<a class="calendar-link" href="${icsUrl(ev)}" title="Add to calendar" aria-label="Add a reminder for ${ev.name} to your calendar" download="${ev.name.replace(/\s+/g, '_')}.ics" onclick="handleCalendarDownload(event, '${ev.name.replace(/'/g, "\\'")}')">
-                  <i class="fa-regular fa-calendar-plus"></i> Remind Me
-              </a>`;
-            }
-            actionButtonsHtml += `</div>`;
-
+        eventListHtml = pastEvents.map((ev, i) => {
             // Event image with error fallback
             const imgId = `event-img-${i}`;
             let imgHtml = `<img src="${ev.image}" class="event-img" id="${imgId}" alt="Preview for ${ev.name}" loading="lazy" onerror="onImgError('${imgId}')">`;
 
-            return `<section class="event-card${nextClass}${pastClass}">
+            return `<section class="event-card">
                 ${imgHtml}
                 <div class="event-content">
                   <header>
@@ -421,11 +302,11 @@ function renderEvents() {
                     <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
                   </header>
                   <div class="event-desc">${ev.description}</div>
-                  <div class="countdown" id="countdown-${i}">
-                      <i class="fa-regular fa-clock"></i>
-                      <span></span>
+                  <div class="event-status">
+                      <i class="fa-solid fa-check-circle"></i>
+                      <span>Event Completed</span>
                   </div>
-                  ${actionButtonsHtml}
+                  <a class="button" href="${ev.link}" target="_blank" rel="noopener noreferrer" aria-label="More information about ${ev.name} (opens in new tab)">More Info</a>
                 </div>
               </section>`;
         }).join("");
@@ -449,36 +330,6 @@ window.onImgError = function(id) {
         img.outerHTML = `<div class="event-img placeholder" title="Preview image unavailable">Image unavailable</div>`;
     }
 };
-
-// Handle .ics calendar download and confirmation
-window.handleCalendarDownload = function(e, eventName) {
-    showToast(`Calendar event for "${eventName}" downloaded!`);
-    // Let browser handle .ics file
-};
-
-// Build countdowns for each event
-function updateCountdowns() {
-    const now = new Date().getTime();
-    sortedEvents.forEach((ev,i) => {
-        const countdownEl = document.getElementById("countdown-"+i)?.querySelector("span") || null;
-        if (!countdownEl) return;
-        const evDate = new Date(ev.date).getTime();
-        let distance = evDate - now;
-        if (distance <= 0) {
-            countdownEl.innerHTML = "Event has started!";
-            return;
-        }
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        countdownEl.innerHTML =
-            (days>0 ? `<b>${days}</b>d ` : "") +
-            (hours>0 ? `<b>${hours}</b>h ` : "") +
-            (minutes>0 ? `<b>${minutes}</b>m ` : "") +
-            `<b>${seconds}</b>s left`;
-    });
-}
 
 // Update footer year dynamically
 document.getElementById("footerYear").textContent = new Date().getFullYear();
