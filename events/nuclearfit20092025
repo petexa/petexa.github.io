@@ -1,0 +1,15 @@
+{
+  "name": "Nuclear Fit",
+  "date": "2025-09-20T09:20:00",
+  "link": "https://www.nuclearfit.co.uk/racedates",
+  "image": "images/nfit.png",
+  "description": "Summer event featuring strength circuits and fun in the sun.",
+  "calendarDetails": {
+    "location": "Kelvedon Hatch, UK",
+    "description": "Nuclear Fit Summer Games 2026.",
+    "durationHours": 6
+  },
+  "showMoreInfo": true,
+  "showBookNow": false,
+  "showRemindMe": true
+}
