@@ -1,0 +1,15 @@
+{
+  "name": "Deadly Dozen",
+  "date": "2026-04-25T00:00:00",
+  "link": "https://www.deadlydozen.com/ultimate-fitness-race-track-races/deadly-dozen-lea-valley-athletics-track-25th-april-2026",
+  "image": "images/deadly-dozen-alt.jpg",
+  "description": "Test your strength and agility at the famous Lea Valley track. 12 grueling stages.",
+  "calendarDetails": {
+    "location": "Lea Valley Athletics Track, UK",
+    "description": "Run the Deadly Dozen Ultimate Fitness Race.",
+    "durationHours": 6
+  },
+  "showMoreInfo": true,
+  "showBookNow": false,
+  "showRemindMe": true
+}

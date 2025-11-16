@@ -271,99 +271,39 @@
 </footer>
 <div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite"></div>
 <script>
-// Event data array
-const events = [
-  {
-    name: "24 Hour Work Out",
-    date: "2025-11-22T12:00:00",
-    link: "https://www.instagram.com/p/DB8uazSNM1W/?img_index=1&igsh=MWt3bnV6a2djZThkYQ==",
-    image: "https://static.wixstatic.com/media/42054f_008c4ff7b9564e3296e61757181d631a~mv2.png/v1/fill/w_199,h_54,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ID%20fit%20logos%20final-02.png",
-    description: "Push your limits in this all-day challenge! Open to all abilities.",
-    calendarDetails: {
-      location: "IDFit Gym",
-      description: "Take part in the annual 24 Hour Workout Challenge at IDFit Gym.",
-      durationHours: 24
-    },
-    showMoreInfo: true,
-    showBookNow: false,
-    showRemindMe: true
-  },
-  {
-    name: "Christmas Drinks",
-    date: "2025-11-28T19:00:00",
-    link: "https://www.theidfit.co.uk/",
-    image: "https://d347bo4ltvvnaz.cloudfront.net/images/preview/KS_ChristmasParty2023_PS_Logo.jpg",
-    description: "🎄 Festive cheer, delicious food, great company. Celebrate Christmas together!",
-    calendarDetails: {
-      location: "IDFit Gym",
-      description: "Annual IDFit Christmas Drinks - celebrate the end of another great year.",
-      durationHours: 5
-    },
-    showMoreInfo: false,
-    showBookNow: false,
-    showRemindMe: true
-  },
-  {
-    name: "Gymrace",
-    date: "2026-03-21T00:00:00",
-    link: "https://www.gymrace.com/event/london-march-2026",
-    image: "https://cdn.prod.website-files.com/67239532db505eb438fba1e9/68e3ddaa2e1c2e61052b4ae5_Header-aftermovie-GYMRACE.jpg",
-    description: "London's premier gym challenge. Tackle obstacles and compete for the finish line. Teams and solo entries welcome.",
-    calendarDetails: {
-      location: "London, UK",
-      description: "Compete in Gymrace London 2026.",
-      durationHours: 8
-    },
-    showMoreInfo: true,
-    showBookNow: false,
-    showRemindMe: true
-  },
-    {
-      name: "Deadly Dozen",
-      date: "2026-04-25T00:00:00",
-      link: "https://www.deadlydozen.com/ultimate-fitness-race-track-races/deadly-dozen-lea-valley-athletics-track-25th-april-2026",
-      image: "images/deadly-dozen-alt.jpg",
-      description: "Test your strength and agility at the famous Lea Valley track. 12 grueling stages.",
-      calendarDetails: {
-        location: "Lea Valley Athletics Track, UK",
-        description: "Run the Deadly Dozen Ultimate Fitness Race.",
-        durationHours: 6
-      },
-    showMoreInfo: true,
-    showBookNow: false,
-    showRemindMe: true
-  },
-  {
-    name: "Nuclear Races",
-    date: "2026-05-10T10:00:00",
-    link: "https://nuclear-races.co.uk/event/rush-2026/",
-    image: "https://assets.eventcalendars.net/images/nuclear-races-uk.jpg",
-    description: "Go muddy at Nuclear Races Rush 2026. Obstacles, mud and glory await! 10am start!",
-    calendarDetails: {
-      location: "Kelvedon Hatch, UK",
-      description: "Nuclear Races Rush 2026 - obstacle mud run.",
-      durationHours: 8
-    },
-    showMoreInfo: true,
-    showBookNow: false,
-    showRemindMe: true
-  },
-  {
-    name: "Nuclear Fit",
-    date: "2026-07-18T09:20:00",
-    link: "https://www.nuclearfit.co.uk/racedates",
-    image: "https://static.wixstatic.com/media/a078c1_cca964afd68a4c2997b9003285eb691d~mv2.png",
-    description: "Summer event featuring strength circuits and fun in the sun.",
-    calendarDetails: {
-      location: "Kelvedon Hatch, UK",
-      description: "Nuclear Fit Summer Games 2026.",
-      durationHours: 6
-    },
-    showMoreInfo: true,
-    showBookNow: false,
-    showRemindMe: true
-  }
-];
+// Event data will be loaded from separate JSON files
+let events = [];
+let sortedEvents = [];
+let nextIdx = -1;
+
+// Load events from JSON files
+async function loadEvents() {
+    try {
+        // First, load the list of event files
+        const response = await fetch('events/events-list.json');
+        const eventFiles = await response.json();
+        
+        // Load all event files
+        const eventPromises = eventFiles.map(file => 
+            fetch(file).then(res => res.json())
+        );
+        
+        events = await Promise.all(eventPromises);
+        
+        // Sort events by date and find next event
+        const now = new Date();
+        sortedEvents = events.slice().sort((a,b) => new Date(a.date)-new Date(b.date));
+        nextIdx = sortedEvents.findIndex(ev => new Date(ev.date) > now);
+        
+        // Render the events
+        renderEvents();
+        updateCountdowns();
+        setInterval(updateCountdowns, 1000);
+    } catch (error) {
+        console.error('Error loading events:', error);
+        document.getElementById("events-list").innerHTML = `<div class="empty-events" role="alert">Unable to load events. Please try again later.</div>`;
+    }
+}
 
 // Utility: Ordinal suffix
 function getOrdinal(n) {
@@ -417,12 +357,9 @@ function showToast(msg) {
 }
 
 // --- Render event cards, ordered by date, next event highlighted, past events grayed out
-const now = new Date();
-const sortedEvents = events.slice().sort((a,b) => new Date(a.date)-new Date(b.date));
-let nextIdx = sortedEvents.findIndex(ev => new Date(ev.date) > now);
-
 // Build HTML for the main event section:
 function renderEvents() {
+    const now = new Date();
     // Choose how to filter for "empty state"
     const upcomingOrCurrent = sortedEvents.filter(ev => new Date(ev.date) > now || (Math.abs(new Date(ev.date)-now)<36e5));
     let eventListHtml = "";
@@ -538,12 +475,11 @@ function updateCountdowns() {
     });
 }
 
-renderEvents();
-setInterval(updateCountdowns, 1000);
-updateCountdowns();
-
 // Update footer year dynamically
 document.getElementById("footerYear").textContent = new Date().getFullYear();
+
+// Load events from JSON files on page load
+loadEvents();
 
 </script>
 </body>
