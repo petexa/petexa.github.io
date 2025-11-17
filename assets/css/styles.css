@@ -1,0 +1,303 @@
+/* IDFit Events - Main Stylesheet */
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: #000080;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 40px 10px 15px 10px;
+    border-radius: 8px;
+    background: #001284;
+}
+
+.logo {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    object-fit: cover;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    border-bottom: 2.5px solid #fff;
+    display: inline-block;
+    padding-bottom: 6px;
+    margin: 0 auto 6px auto;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #e4ecfc;
+    margin-bottom: 0;
+    letter-spacing: 0.4px;
+    font-weight: 400;
+    display: block;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #23bb57;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0 0 4px 0;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+.empty-events {
+    color: #fff;
+    background: #233fc2;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 14px;
+    margin: 42px auto;
+    padding: 25px 18px;
+    max-width: 430px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.14);
+    outline: 2.5px dashed #23bb57;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    padding: 30px 10px 35px 10px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.event-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    width: 355px;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+}
+
+.event-card.past {
+    opacity: 0.56;
+    filter: grayscale(0.5);
+}
+
+.event-card.next {
+    border: 2.5px solid #23bb57;
+    box-shadow: 0 4px 24px rgba(35, 187, 87, 0.20);
+}
+
+.event-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    background: #e4ecfc;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.event-img.placeholder {
+    background: #c8c8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 1.3rem;
+    font-style: italic;
+}
+
+.event-content {
+    padding: 20px 18px 17px 18px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.event-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #092266;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.event-date {
+    color: #092266;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.event-desc {
+    font-size: 14px;
+    color: #092266;
+    margin-bottom: 12px;
+    min-height: 38px;
+}
+
+.countdown {
+    color: #023;
+    background: #f0f4ff;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 6px 0 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    min-height: 34px;
+    letter-spacing: 0.5px;
+}
+
+.countdown i {
+    color: #385ffb;
+    margin-right: 5px;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.button, .calendar-link {
+    flex: 1 1 auto;
+    display: inline-block;
+    text-align: center;
+    padding: 11px 0;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 11px;
+    font-size: 1rem;
+    font-weight: 700;
+    background: #01007a;
+    border: none;
+    transition: background 0.19s, color 0.19s, box-shadow 0.17s;
+    box-shadow: 0 1px 7px rgba(0,0,0,0.09);
+    outline: none;
+}
+
+.button[aria-label] {
+    cursor: pointer;
+}
+
+.button.info {
+    background: #087ec0;
+    color: #fff;
+    border: none;
+    font-weight: 700;
+}
+
+.button.info:hover,
+.button.info:focus {
+    background: #055f90;
+    color: #fff;
+}
+
+.calendar-link {
+    background: #fb6a12;
+    color: #fff;
+    font-size: 0.97rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 11px;
+}
+
+.button:hover, .button:focus {
+    background: #233fc2;
+    color: #fff;
+}
+
+.calendar-link:hover, .calendar-link:focus {
+    background: #f98944;
+    color: #fff;
+}
+
+/* Focus visible styles for accessibility */
+.button:focus-visible,
+.calendar-link:focus-visible,
+a:focus-visible {
+    outline: 3px solid #23bb57;
+    outline-offset: 2px;
+}
+
+.toast-message {
+    position: fixed;
+    z-index: 9999;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: #62fa99;
+    font-size: 1rem;
+    padding: 13px 26px;
+    border-radius: 18px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.19);
+    opacity: 0.95;
+    animation: fadein 0.25s, fadeout 0.55s 2.3s;
+    pointer-events: none;
+}
+
+@keyframes fadein { from {opacity:0} to {opacity:0.95} }
+@keyframes fadeout { from {opacity:0.95} to {opacity:0} }
+
+@media (max-width: 850px) {
+  main {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .event-card {width: 97vw; max-width: 370px;}
+}
+
+footer {
+  text-align: center;
+  color: #bed;
+  font-size: 15px;
+  padding: 32px 6px 24px 6px;
+  background: #001040;
+  margin-top: 25px;
+}
+
+.footer-links {
+  margin-top: 9px;
+  font-size: 1.2rem;
+}
+
+.footer-links a {
+  color: #80affe;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+
+.footer-links a:hover,
+.footer-links a:focus {color: #29ffb4;}

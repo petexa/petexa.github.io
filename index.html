@@ -3,264 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Your calendar for fitness and race events. Browse upcoming events, book your spot, and add reminders to your calendar.">
+<meta property="og:title" content="IDFit Events">
+<meta property="og:description" content="Your calendar for fitness and race events. Browse upcoming events, book your spot, and add reminders to your calendar.">
+<meta property="og:type" content="website">
 <title>IDFit Events</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #000080;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-    }
-    header {
-        text-align: center;
-        padding: 40px 10px 15px 10px;
-        border-radius: 8px;
-        background: #001284;
-    }
-    .logo {
-        width: 85px;
-        height: 85px;
-        border-radius: 50%;
-        margin-bottom: 12px;
-        object-fit: cover;
-        background: #fff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-    h1 {
-        font-size: 2.1rem;
-        font-weight: 700;
-        color: #fff;
-        letter-spacing: 1px;
-        border-bottom: 2.5px solid #fff;
-        display: inline-block;
-        padding-bottom: 6px;
-        margin: 0 auto 6px auto;
-    }
-    .subtitle {
-        font-size: 1rem;
-        color: #e4ecfc;
-        margin-bottom: 0;
-        letter-spacing: 0.4px;
-        font-weight: 400;
-        display: block;
-    }
-    .empty-events {
-        color: #fff;
-        background: #233fc2;
-        text-align: center;
-        font-size: 1.2rem;
-        font-weight: 600;
-        border-radius: 14px;
-        margin: 42px auto;
-        padding: 25px 18px;
-        max-width: 430px;
-        box-shadow: 0 2px 16px rgba(0,0,0,0.14);
-        outline: 2.5px dashed #23bb57;
-    }
-    main {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 24px;
-        justify-content: center;
-        padding: 30px 10px 35px 10px;
-        max-width: 1100px;
-        margin: 0 auto;
-    }
-    .event-card {
-        background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 2px 16px rgba(0,0,0,0.12);
-        width: 355px;
-        min-width: 0;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transition: border 0.2s, box-shadow 0.2s;
-        border: 2px solid transparent;
-    }
-    .event-card.past {
-        opacity: 0.56;
-        filter: grayscale(0.5);
-    }
-    .event-card.next {
-        border: 2.5px solid #23bb57;
-        box-shadow: 0 4px 24px rgba(35, 187, 87, 0.20);
-    }
-    .event-img {
-        width: 100%;
-        height: 120px;
-        object-fit: cover;
-        background: #e4ecfc;
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-    .event-img.placeholder {
-        background: #c8c8ff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #555;
-        font-size: 1.3rem;
-        font-style: italic;
-    }
-    .event-content {
-        padding: 20px 18px 17px 18px;
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    .event-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: #fff !important;
-        margin-bottom: 5px;
-        text-align: center;
-    }
-    .event-date {
-        color: #fff;
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 8px;
-    }
-    .event-desc {
-        font-size: 14px;
-        color: #092266;
-        margin-bottom: 12px;
-        min-height: 38px;
-    }
-    .countdown {
-        color: #023;
-        background: #f0f4ff;
-        border-radius: 8px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        padding: 6px 0 4px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        margin-bottom: 12px;
-        min-height: 34px;
-        letter-spacing: 0.5px;
-    }
-    .countdown i {
-        color: #385ffb;
-        margin-right: 5px;
-    }
-    .card-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 2px;
-    }
-    .button, .calendar-link {
-        flex: 1 1 auto;
-        display: inline-block;
-        text-align: center;
-        padding: 11px 0;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 11px;
-        font-size: 1rem;
-        font-weight: 700;
-        background: #01007a;
-        border: none;
-        transition: background 0.19s, color 0.19s, box-shadow 0.17s;
-        box-shadow: 0 1px 7px rgba(0,0,0,0.09);
-        outline: none;
-    }
-    .button[aria-label] {
-        cursor: pointer;
-    }
-    .button.info {
-        background: #087ec0;
-        color: #fff;
-        border: none;
-        font-weight: 700;
-    }
-    .button.info:hover,
-    .button.info:focus {
-        background: #055f90;
-        color: #fff;
-    }
-    .calendar-link {
-        background: #fb6a12;
-        color: #fff;
-        font-size: 0.97rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        border-radius: 11px;
-    }
-    .button:hover, .button:focus {
-        background: #233fc2;
-        color: #fff;
-    }
-    .calendar-link:hover, .calendar-link:focus {
-        background: #f98944;
-        color: #fff;
-    }
-    .toast-message {
-        position: fixed;
-        z-index: 9999;
-        bottom: 36px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #222;
-        color: #62fa99;
-        font-size: 1rem;
-        padding: 13px 26px;
-        border-radius: 18px;
-        box-shadow: 0 1px 8px rgba(0,0,0,0.19);
-        opacity: 0.95;
-        animation: fadein 0.25s, fadeout 0.55s 2.3s;
-        pointer-events: none;
-    }
-    @keyframes fadein { from {opacity:0} to {opacity:0.95} }
-    @keyframes fadeout { from {opacity:0.95} to {opacity:0} }
-    @media (max-width: 850px) {
-      main {
-        flex-direction: column;
-        align-items: center;
-        gap: 18px;
-      }
-      .event-card {width: 97vw; max-width: 370px;}
-    }
-    footer {
-      text-align: center;
-      color: #bed;
-      font-size: 15px;
-      padding: 32px 6px 24px 6px;
-      background: #001040;
-      margin-top: 25px;
-    }
-    .footer-links {
-      margin-top: 9px;
-      font-size: 1.2rem;
-    }
-    .footer-links a {
-      color: #80affe;
-      margin: 0 10px;
-      text-decoration: none;
-      transition: color 0.18s;
-    }
-    .footer-links a:hover,
-    .footer-links a:focus {color: #29ffb4;}
-</style>
+<link rel="stylesheet" href="assets/css/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "IDFit Events",
+  "description": "Fitness and race events calendar"
+}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#events-list">Skip to content</a>
 <header>
     <h1>Events</h1>
     <div class="subtitle">Your calendar for fitness and race events – Click to book or add to your schedule!</div>
 </header>
 <main id="events-list" aria-live="polite">
 </main>
+
+<!-- Event card template -->
+<template id="event-card-template">
+    <section class="event-card">
+        <img src="" class="event-img" alt="" loading="lazy">
+        <div class="event-content">
+            <header>
+                <div class="event-title"></div>
+                <time class="event-date" datetime=""></time>
+            </header>
+            <div class="event-desc"></div>
+            <div class="countdown">
+                <i class="fa-regular fa-clock"></i>
+                <span></span>
+            </div>
+            <div class="card-actions">
+                <!-- Buttons will be added dynamically -->
+            </div>
+        </div>
+    </section>
+</template>
+
 <footer>
   <div>
     <a href="past-events.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
@@ -271,219 +61,15 @@
     &copy; <span id="footerYear"></span> Have an event? <a href="images/callme.gif" style="color:#fff;text-decoration:underline;" target="_blank" rel="noopener noreferrer">Contact us</a>
   </div>
   <div class="footer-links">
-    <a href="https://facebook.com" target="_blank" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
-    <a href="https://instagram.com" target="_blank" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
-    <a href="https://twitter.com" target="_blank" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
+    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
   </div>
 </footer>
-<div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite"></div>
-<script>
-// Event data will be loaded from separate JSON files
-let events = [];
-let sortedEvents = [];
-let nextIdx = -1;
 
-// Load events from JSON files
-async function loadEvents() {
-    try {
-        // First, load the list of event files
-        const response = await fetch('events/events-list.json');
-        const eventFiles = await response.json();
-        
-        // Load all event files
-        const eventPromises = eventFiles.map(file => 
-            fetch(file).then(res => res.json())
-        );
-        
-        events = await Promise.all(eventPromises);
-        
-        // Sort events by date and find next event
-        const now = new Date();
-        sortedEvents = events.slice().sort((a,b) => new Date(a.date)-new Date(b.date));
-        nextIdx = sortedEvents.findIndex(ev => new Date(ev.date) > now);
-        
-        // Render the events
-        renderEvents();
-        updateCountdowns();
-        setInterval(updateCountdowns, 1000);
-    } catch (error) {
-        console.error('Error loading events:', error);
-        document.getElementById("events-list").innerHTML = `<div class="empty-events" role="alert">Unable to load events. Please try again later.</div>`;
-    }
-}
+<div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite" aria-atomic="true"></div>
 
-// Utility: Ordinal suffix
-function getOrdinal(n) {
-    let s = ["th","st","nd","rd"],
-        v = n%100;
-    return n + (s[(v-20)%10] || s[v] || s[0]);
-}
-// Utility: Format date e.g. 22nd Nov 2025, 12:00
-function formatEventDate(dateString) {
-    const d = new Date(dateString);
-    const day = getOrdinal(d.getDate());
-    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const month = monthNames[d.getMonth()];
-    const year = d.getFullYear();
-    let pieces = [`${day} ${month} ${year}`];
-    if (d.getHours() + d.getMinutes() > 0) {
-        let mins = String(d.getMinutes()).padStart(2, "0");
-        pieces.push(`${d.getHours()}:${mins}`);
-    }
-    return pieces.join(", ");
-}
-// Utility: ICS calendar link generator
-function icsUrl(event){
-    let d = new Date(event.date);
-    let end = new Date(d.getTime() + 60000*60*(event.calendarDetails?.durationHours||4));
-    let pad = n => String(n).padStart(2,"0");
-    let fmt = dt => `${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}00Z`;
-    let url = 'data:text/calendar;charset=utf8,' + encodeURIComponent([
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'CALSCALE:GREGORIAN',
-      'BEGIN:VEVENT',
-      `DTSTART:${fmt(d)}`,
-      `DTEND:${fmt(end)}`,
-      `SUMMARY:${event.name}`,
-      `LOCATION:${event.calendarDetails.location||""}`,
-      `DESCRIPTION:${event.calendarDetails.description||""}`,
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ].join('\r\n'));
-    return url;
-}
-
-// Show or update the toast message
-function showToast(msg) {
-    const toast = document.getElementById("toast");
-    toast.textContent = msg;
-    toast.style.display = "block";
-    // Remove after 2.8s (matches fadeout animation)
-    setTimeout(() => toast.style.display = "none", 2800);
-}
-
-// --- Render event cards, ordered by date, next event highlighted, past events grayed out
-// Build HTML for the main event section:
-function renderEvents() {
-    const now = new Date();
-    // Filter to only show upcoming events (not past)
-    const upcomingEvents = sortedEvents.filter(ev => new Date(ev.date) >= now);
-    let eventListHtml = "";
-    if (sortedEvents.length === 0) {
-        // Completely empty event list (shouldn't ever happen)
-        eventListHtml = `<div class="empty-events" role="alert">No events are currently scheduled. Please check back soon!</div>`;
-    } else if (upcomingEvents.length === 0) {
-        // No future events
-        eventListHtml = `<div class="empty-events" role="alert">There are no upcoming events.<br>Check back soon, or follow us on social for the latest updates!</div>`;
-    } else {
-        document.getElementById("events-list").ariaLabel = "Upcoming events";
-    }
-
-    if (upcomingEvents.length > 0) {
-        // Find the next event (first event in the filtered upcoming list)
-        const nextEventIndex = 0; // The first upcoming event is always the next one
-        
-        eventListHtml = upcomingEvents.map((ev, i) => {
-            let evDate = new Date(ev.date);
-            let nextClass = (i === nextEventIndex) ? " next" : "";
-            // Logic to check custom visibility flags (default to true if undefined)
-            const shouldShowBookNow = ev.showBookNow !== false;
-            const shouldShowRemindMe = ev.showRemindMe !== false;
-            const shouldShowMoreInfo = ev.showMoreInfo !== false;
-
-            let actionButtonsHtml = `<div class="card-actions">`;
-
-            // Conditionally show More Info
-            if (shouldShowMoreInfo) {
-                actionButtonsHtml += `<a class="button info" href="${ev.link}" target="_blank" rel="noopener noreferrer" aria-label="More information about ${ev.name} (opens in new tab)">More Info</a>`;
-            }
-
-            if (shouldShowBookNow) {
-                actionButtonsHtml += `<a class="button" href="${ev.link}" target="_blank" rel="noopener" aria-label="Book now for ${ev.name} (opens in new tab)">Book Now</a>`;
-            }
-            if (shouldShowRemindMe) {
-                actionButtonsHtml += `<a class="calendar-link" href="${icsUrl(ev)}" title="Add to calendar" aria-label="Add a reminder for ${ev.name} to your calendar" download="${ev.name.replace(/\s+/g, '_')}.ics" onclick="handleCalendarDownload(event, '${ev.name.replace(/'/g, "\\'")}')">
-                  <i class="fa-regular fa-calendar-plus"></i> Remind Me
-              </a>`;
-            }
-            actionButtonsHtml += `</div>`;
-
-            // Event image with error fallback
-            const imgId = `event-img-${i}`;
-            let imgHtml = `<img src="${ev.image}" class="event-img" id="${imgId}" alt="Preview for ${ev.name}" loading="lazy" onerror="onImgError('${imgId}')">`;
-
-            // Show countdown for all events (since we're only showing future events)
-            let countdownHtml = `<div class="countdown" id="countdown-${i}">
-                      <i class="fa-regular fa-clock"></i>
-                      <span></span>
-                  </div>`;
-
-            return `<section class="event-card${nextClass}">
-                ${imgHtml}
-                <div class="event-content">
-                  <header>
-                    <div class="event-title">${ev.name}</div>
-                    <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
-                  </header>
-                  <div class="event-desc">${ev.description}</div>
-                  ${countdownHtml}
-                  ${actionButtonsHtml}
-                </div>
-              </section>`;
-        }).join("");
-    }
-
-    document.getElementById("events-list").innerHTML = eventListHtml;
-}
-
-// Event image fallback
-window.onImgError = function(id) {
-    var img = document.getElementById(id);
-    if (img) {
-        img.onerror = null;
-        img.classList.add("placeholder");
-        img.src = "";
-        img.alt = "Image unavailable";
-        img.style.background = "#b8b8f0";
-        img.style.display = "flex";
-        img.style.justifyContent = "center";
-        img.style.alignItems = "center";
-        img.outerHTML = `<div class="event-img placeholder" title="Preview image unavailable">Image unavailable</div>`;
-    }
-};
-
-// Handle .ics calendar download and confirmation
-window.handleCalendarDownload = function(e, eventName) {
-    showToast(`Calendar event for "${eventName}" downloaded!`);
-    // Let browser handle .ics file
-};
-
-// Build countdowns for each event
-function updateCountdowns() {
-    const now = new Date().getTime();
-    // Filter to only upcoming events to match what's rendered
-    const upcomingEvents = sortedEvents.filter(ev => new Date(ev.date).getTime() >= now);
-    upcomingEvents.forEach((ev,i) => {
-        const countdownEl = document.getElementById("countdown-"+i)?.querySelector("span") || null;
-        if (!countdownEl) return;
-        const evDate = new Date(ev.date).getTime();
-        let distance = evDate - now;
-        if (distance <= 0) {
-            countdownEl.innerHTML = "Event has started!";
-            return;
-        }
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        countdownEl.innerHTML = `<b>${days}</b> day${days !== 1 ? 's' : ''} left`;
-    });
-}
-
-// Update footer year dynamically
-document.getElementById("footerYear").textContent = new Date().getFullYear();
-
-// Load events from JSON files on page load
-loadEvents();
-
-</script>
+<script src="assets/js/utils.js" defer></script>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>

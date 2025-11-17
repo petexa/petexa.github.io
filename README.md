@@ -4,13 +4,15 @@ A dynamic events calendar website for fitness and race events. This site display
 
 ## 🌟 Features
 
-- **Dynamic Event Loading**: Events are loaded from individual JSON files for easy management
-- **Event Countdown**: Real-time countdown timers for upcoming events
-- **Calendar Integration**: Download .ics files to add events to your calendar
+- **Dynamic Event Loading**: Events are loaded from individual JSON files for easy management with robust error handling
+- **Event Countdown**: Real-time countdown timers for upcoming events (updates every minute)
+- **Calendar Integration**: Download .ics files with sanitized filenames to add events to your calendar
 - **Responsive Design**: Mobile-friendly layout that works on all devices
+- **Accessibility**: Skip-to-content link, keyboard navigation, ARIA labels, and screen reader support
 - **Past Events Archive**: Browse through previously completed events
 - **Event Highlighting**: Next upcoming event is highlighted with a special border
-- **Past Event Styling**: Completed events are automatically grayed out
+- **Robust Error Handling**: Gracefully handles partial event loading failures
+- **Security**: All external links use `rel="noopener noreferrer"` for security
 
 ## 📁 Project Structure
 
@@ -18,6 +20,12 @@ A dynamic events calendar website for fitness and race events. This site display
 petexa.github.io/
 ├── index.html              # Main page showing upcoming events
 ├── past-events.html        # Archive page for past events
+├── assets/                 # Static assets
+│   ├── css/
+│   │   └── styles.css      # Main stylesheet
+│   └── js/
+│       ├── utils.js        # Utility functions (slugify, ICS generation, etc.)
+│       └── main.js         # Main application logic
 ├── events/                 # Event data directory
 │   ├── events-list.json    # List of all event JSON files
 │   ├── *.json              # Individual event data files
@@ -31,6 +39,34 @@ petexa.github.io/
 ### Viewing the Website
 
 Simply open `index.html` in a web browser, or visit the live site at: [https://petexa.github.io/](https://petexa.github.io/)
+
+### Local Development and Testing
+
+To test locally with a simple HTTP server:
+
+```bash
+# Using Python 3
+python3 -m http.server 8000
+
+# Then open http://localhost:8000 in your browser
+```
+
+Or use any other static file server like `live-server`, `http-server`, or VS Code's Live Server extension.
+
+### Testing Event Loading
+
+To test the robust error handling:
+1. Temporarily rename one of the event JSON files (e.g., add `.disabled` extension)
+2. Refresh the page
+3. You should see a toast message: "Some events failed to load; showing available events."
+4. The other events should still display correctly
+
+### Testing Calendar Downloads
+
+1. Click the "Remind Me" button on any event card
+2. A `.ics` file should download with a sanitized filename (e.g., `24-hour-work-out.ics`)
+3. Import the file into your calendar app (Google Calendar, Outlook, Apple Calendar, etc.)
+4. Verify the event details are correct
 
 ### Adding a New Event
 
@@ -73,12 +109,13 @@ For more detailed instructions, see the [events/README.md](events/README.md) fil
 
 ### Styling
 
-All styles are contained within the `<style>` tags in `index.html` and `past-events.html`. Key style variables:
+All styles are now in `assets/css/styles.css` for easy maintenance. Key style variables:
 
 - **Primary Background**: `#000080` (Navy Blue)
 - **Header Background**: `#001284` (Dark Blue)
 - **Highlight Color**: `#23bb57` (Green) - for next event
 - **Button Colors**: Various blues and oranges
+- **Font**: Roboto (loaded from Google Fonts)
 
 ### Event Display Options
 
@@ -110,9 +147,9 @@ Events automatically display in different states:
 
 ### Technologies Used
 
-- **HTML5**: Semantic markup
-- **CSS3**: Modern styling with flexbox
-- **JavaScript (ES6+)**: Dynamic content loading and updates
+- **HTML5**: Semantic markup with accessibility features
+- **CSS3**: Modern styling with flexbox and focus-visible support
+- **JavaScript (ES6+)**: Modular code with dynamic content loading
 - **Font Awesome 6**: Icons
 - **Google Fonts**: Roboto font family
 
@@ -124,12 +161,24 @@ The site works on all modern browsers including:
 - Safari (latest)
 - Mobile browsers (iOS Safari, Chrome Mobile)
 
-### Performance
+### Performance & Robustness
 
-- Events loaded asynchronously with `Promise.all()`
+- Events loaded asynchronously with `Promise.allSettled()` for fault tolerance
 - Images lazy-loaded with `loading="lazy"`
-- Countdown updates optimized with single interval
-- No external dependencies beyond CDN resources
+- Countdown updates optimized to run once per minute (not every second)
+- Stable event IDs generated from event name and date
+- Safe DOM manipulation using `textContent` to prevent XSS
+- ICS files generated using Blob API for reliable downloads
+- No build tools or dependencies required - pure static site
+
+### Accessibility Features
+
+- **Skip-to-content link**: First focusable element for keyboard users
+- **ARIA labels**: Descriptive labels for screen readers
+- **Focus-visible**: Clear focus indicators for keyboard navigation
+- **Semantic HTML**: Proper use of header, main, footer, section elements
+- **Live regions**: Toast notifications announced by screen readers
+- **Color contrast**: WCAG compliant button and text colors
 
 ## 📱 Pages
 
