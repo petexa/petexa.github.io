@@ -139,13 +139,13 @@ main {
 .event-title {
     font-size: 18px;
     font-weight: 700;
-    color: #092266;
+    color: #fff;
     margin-bottom: 5px;
     text-align: center;
 }
 
 .event-date {
-    color: #092266;
+    color: #fff;
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 8px;
