@@ -1,780 +1,657 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="24 Hour Workout Schedule - November 22-23rd 2025 in support of Ender's Touch charity">
-<meta property="og:title" content="24 Hour Workout Schedule - IDFit">
-<meta property="og:description" content="Complete 24 hour workout schedule for the charity event supporting Ender's Touch">
-<meta property="og:type" content="website">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="24 Hour Workout Schedule - November 22-23rd 2025 in support of Ender's Touch charity" />
 <title>24 Hour Workout Schedule - IDFit</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
 <style>
-body {
-    font-family: 'Roboto', Arial, sans-serif;
-    background: #1a1a1a;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+  /*
+    Colors adjusted to match the original site:
+    - page background: #1a1a1a (dark)
+    - panels: gradient #2a2a2a -> #1a1a1a
+    - accent / blue: #3366ff
+    - muted/content text: #e0e0e0
+  */
+  :root{
+    --page-bg-top: #1a1a1a;
+    --page-bg-bottom: #000000;
+    --panel-from: #2a2a2a;
+    --panel-to: #1a1a1a;
+    --accent: #3366ff;
+    --card-text: #e0e0e0;
+    --card-bg: rgba(255,255,255,0.02); /* subtle light overlay */
+    --focus: 3px solid rgba(51,102,255,0.14);
+    --active-glow: rgba(51,102,255,0.08);
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:'Roboto', Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background: linear-gradient(180deg,var(--page-bg-top), var(--page-bg-bottom));
+    color:var(--card-text);
+    padding:28px;
+  }
+
+  /* Top header with back link, page title and centered logos */
+  header.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    max-width:980px;
+    margin:0 auto 18px;
+  }
+  .top-left { flex:0 0 auto; }
+  .top-center { flex:1 1 auto; text-align:center; color:var(--card-text); display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .top-right { flex:0 0 auto; opacity:0; /* keep layout but hide right area */ }
+
+  .back-link {
+    color: var(--card-text);
+    text-decoration:none;
+    font-weight:600;
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+  }
+  .back-link i { color: var(--accent); }
+
+  .page-title {
+    margin:0;
+    font-size:1.15rem;
+    letter-spacing:0.4px;
+  }
+  .page-sub {
+    margin:4px 0 0;
+    font-size:0.88rem;
+    opacity:0.9;
+    color:var(--card-text);
+  }
+
+  /* IDFit logo (now shown in header center) */
+  .idfit-top {
+    width:220px;
+    height:auto;
+    display:block;
+    object-fit:contain;
+    border-radius:6px;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
+    background: #000;
+    padding:6px;
+  }
+
+  /* Charity logo centered under title */
+  .charity-top {
+    display:inline-block;
+    width:64px;
+    height:64px;
+    border-radius:8px;
+    overflow:hidden;
+    border:2px solid rgba(255,255,255,0.04);
+    background:transparent;
+    margin-top:6px;
+  }
+  .charity-top img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .charity-top:focus,
+  .charity-top:hover { outline: none; box-shadow: 0 8px 20px rgba(51,102,255,0.06); transform:translateY(-2px); }
+
+  /* One-column time-block list */
+  .timeblocks{
+    max-width:980px;
+    margin:18px auto 40px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  /* Card look matches original 'workout-card' look:
+     gradient background, rounded corners, blue border accent */
+  .block{
+    background: linear-gradient(135deg,var(--panel-from) 0%, var(--panel-to) 100%);
+    border-radius:16px;
+    padding:18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    border: 2px solid rgba(51,102,255,0.04);
+    color: var(--card-text);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    transition: transform .15s ease, box-shadow .15s ease, box-shadow .15s;
+  }
+  .block:focus-within,
+  .block:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,0.6); }
+
+  .time-box{
+    background: var(--accent);
     color: #fff;
-}
+    border-radius:8px;
+    padding:16px 18px;
+    width:100%;
+    max-width:520px;
+    margin:0 auto;
+    text-align:center;
+    box-shadow: inset 0 -6px 0 rgba(0,0,0,0.06);
+  }
+  .time-box .title{ font-weight:700; font-size:1.05rem; margin:0; text-transform:none; }
 
-.hero-section {
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-    position: relative;
-}
+  .workout{
+    max-width:760px;
+    margin:0 auto;
+    color:var(--card-text);
+    line-height:1.6;
+  }
+  .workout ul{ margin:8px 0 0; padding-left:18px; }
+  .workout li{ margin:6px 0; }
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0.15;
-    z-index: 0;
-}
+  /* Active block styling uses the site accent */
+  .block.active{
+    box-shadow: 0 0 0 6px var(--active-glow), 0 12px 36px rgba(0,0,0,0.6);
+    border-color: var(--accent);
+  }
 
-.hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-    margin: 0 auto;
-}
+  /* small screens */
+  @media (max-width:840px){
+    header.topbar { flex-direction:column; align-items:stretch; gap:8px; padding:0 8px; }
+    .top-center { text-align:center; padding-left:0; }
+    .idfit-top { width:180px; }
+    .charity-top { width:56px; height:56px; }
+    .top-right { display:none; }
+  }
+  @media (max-width:640px){
+    body{ padding:16px; }
+    .time-box{ padding:12px 14px; }
+    .block{ padding:12px; border-radius:12px; }
+  }
 
-.idfit-logo {
-    max-width: 300px;
-    height: auto;
-    margin: 0 auto 20px;
-    display: block;
-    filter: drop-shadow(0 0 20px rgba(51, 102, 255, 0.5));
-}
+  /* accessibility focus */
+  a:focus, button:focus, .block:focus { outline: var(--focus); outline-offset:3px; }
 
-.hero-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin: 20px 0;
-    color: #fff;
-    text-transform: uppercase;
-}
-
-.hero-subtitle {
-    font-size: 1.3rem;
-    margin: 15px 0;
-    color: #e0e0e0;
-}
-
-.charity-info {
-    margin-top: 40px;
-    padding: 25px;
-    display: inline-block;
-}
-
-.charity-label {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #e0e0e0;
-    font-style: italic;
-    font-weight: 300;
-}
-
-.charity-logo-link {
-    display: inline-block;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 3px solid #3366ff;
-    box-shadow: 0 0 20px rgba(51, 102, 255, 0.3);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.charity-logo-link:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(51, 102, 255, 0.6);
-}
-
-.charity-logo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-main {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px 40px;
-}
-
-.workout-card {
-    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-    border-radius: 16px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    border: 2px solid #3366ff;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.workout-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(51, 102, 255, 0.3);
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #3366ff;
-}
-
-.card-icon {
-    font-size: 2rem;
-    color: #3366ff;
-}
-
-.card-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #3366ff;
-    letter-spacing: 1px;
-}
-
-.workout-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-}
-
-.workout-block {
-    background: rgba(51, 102, 255, 0.1);
-    border-radius: 12px;
-    padding: 20px;
-    border-left: 4px solid #3366ff;
-}
-
-.block-content {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #e0e0e0;
-}
-
-.block-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.block-content li {
-    padding: 5px 0;
-    position: relative;
-    padding-left: 20px;
-}
-
-.block-content li::before {
-    content: '▸';
-    position: absolute;
-    left: 0;
-    color: #3366ff;
-    font-weight: 700;
-}
-
-.block-note {
-    font-style: italic;
-    color: #aaa;
-    margin-top: 10px;
-    font-size: 0.9rem;
-}
-
-footer {
-    text-align: center;
-    padding: 30px 20px;
-    background: #0a0a0a;
-    color: #888;
-    margin-top: 40px;
-}
-
-.footer-links {
-    margin-top: 15px;
-    font-size: 1.2rem;
-}
-
-.footer-links a {
-    color: #3366ff;
-    margin: 0 10px;
-    text-decoration: none;
-    transition: color 0.18s;
-}
-
-.footer-links a:hover {
-    color: #5588ff;
-}
-
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 1.8rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.1rem;
-    }
-    
-    .idfit-logo {
-        max-width: 200px;
-    }
-    
-    .charity-logo-link {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .workout-grid {
-        grid-template-columns: 1fr;
-    }
-}
+  /* screen-reader only */
+  .sr-only{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
 </style>
 </head>
 <body>
-
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="hero-content">
-        <img src="images/idfit.jpg" alt="IDFit Logo" class="idfit-logo">
-        <h1 class="hero-title">24 Hour Workout Schedule</h1>
-        <p class="hero-subtitle">November 22-23rd 2025</p>
-        <p class="hero-subtitle">12-12pm</p>
-        
-        <div class="charity-info">
-            <div class="charity-label">in support of</div>
-            <a href="https://www.gofundme.com/f/in-memory-of-our-ender-touching-the-hearts-of-other-children?attribution_id=sl%3A51fe474c-c85b-47b7-aa25-2939bbdfdd39&lang=en_GB&ts=1762633561&utm_campaign=fp_sharesheet&utm_medium=customer&utm_source=copy_link&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnaZ12oXjQu3HZjRsetNoAayudNpsT-bELoEDj1B22ylzhJsN0rlzrf8q9wu0_aem__3DxeUvvenosvufVBnBCdg" 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               class="charity-logo-link"
-               aria-label="Donate to Ender's Touch on GoFundMe"
-               title="Click to support Ender's Touch on GoFundMe">
-                <img src="images/enders.png" alt="Ender's Touch charity logo" class="charity-logo">
-            </a>
-        </div>
+  <!-- Top bar: back link (left), centered area contains IDFit logo, title and centered charity logo -->
+  <header class="topbar" role="banner" aria-label="Page header">
+    <div class="top-left">
+      <a class="back-link" href="index.html" title="Back to Events">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        <span class="sr-only">Back to Events</span>
+      </a>
     </div>
-</section>
 
-<main>
-    <!-- 12pm - 1/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-clock card-icon"></i>
-            <h2 class="card-title">12pm - 1/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>No run 'rox:</strong>
-                    <p>3 rounds</p>
-                    <ul>
-                        <li>500m row</li>
-                        <li>500m ski</li>
-                        <li>100m farmer walk</li>
-                        <li>50m sled push</li>
-                        <li>50m sled pull</li>
-                        <li>50 wall balls</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
+    <div class="top-center">
+      <!-- IDFit logo added back in, centered -->
+      <img src="images/idfit.jpg" alt="IDFit logo" class="idfit-top" loading="lazy">
+      <div>
+        <h1 class="page-title">24 Hour Work Out — time blocks</h1>
+        <div class="page-sub">Current hour shown at top (Europe/London). When it passes it drops to the bottom.</div>
+      </div>
 
-    <!-- 1pm - 2/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-users card-icon"></i>
-            <h2 class="card-title">1pm - 2/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>In groups of 2/3s</strong>
-                    <p>150 calories on erg*</p>
-                    <ul>
-                        <li>30 Reverse Lunge</li>
-                        <li>20 DB Snatch</li>
-                        <li>10 push up</li>
-                    </ul>
-                    <div class="block-note">5 rounds - *-25 calories each round</div>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 2pm - 3/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-fire card-icon"></i>
-            <h2 class="card-title">2pm - 3/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>40-30-20-10-20-30-40</strong>
-                    <ul>
-                        <li>Calories</li>
-                        <li>Step up</li>
-                        <li>DB Bench Press</li>
-                        <li>SA Push Press</li>
-                    </ul>
-                    <div class="block-note">Time cap - 45 minutes</div>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 3pm - 4/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-dumbbell card-icon"></i>
-            <h2 class="card-title">3pm - 4/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>21-15-9</strong>
-                    <ul>
-                        <li>Deadlift</li>
-                        <li>Tyre flip</li>
-                        <li>Burpee over bar</li>
-                        <li>Jump Squat</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 4pm - 5/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-dumbbell card-icon"></i>
-            <h2 class="card-title">4pm - 5/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>Arm blast: 5 rounds</strong>
-                    <ul>
-                        <li>6 Chin ups</li>
-                        <li>8 Tricep dips</li>
-                        <li>10 EZ bar curl</li>
-                        <li>12 Hammer curl</li>
-                    </ul>
-                    <div class="block-note">Max push ups to finish</div>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 5pm - 6/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-fire card-icon"></i>
-            <h2 class="card-title">5pm - 6/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>28 minute AMRAP</strong>
-                    <ul>
-                        <li>200m row</li>
-                        <li>20 DB G20H</li>
-                        <li>200m ski</li>
-                        <li>10 Deadlift</li>
-                        <li>400m Air bike</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 6pm - 7/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-dumbbell card-icon"></i>
-            <h2 class="card-title">6pm - 7/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>Strength hour:</strong>
-                    <p>30 minutes to build a 3rm</p>
-                    <ul>
-                        <li>Bench Press</li>
-                        <li>Overhead Press</li>
-                        <li>Bent over Row</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 7pm - 8/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-users card-icon"></i>
-            <h2 class="card-title">7pm - 8/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>In a group:</strong>
-                    <p>10000m row</p>
-                    <div class="block-note">Timecap: 40 minutes</div>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 8pm - 9/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-users card-icon"></i>
-            <h2 class="card-title">8pm - 9/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>In teams of 2-4:</strong>
-                    <ul>
-                        <li>100 - Devil Press</li>
-                        <li>200 - Wall Balls</li>
-                        <li>300 - Lunge</li>
-                        <li>400 - Push Ups</li>
-                        <li>500 - Squats</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 9pm - 10/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-user-group card-icon"></i>
-            <h2 class="card-title">9pm - 10/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>Partner YGIG</strong>
-                    <p>Buy in: 100 calorie ski</p>
-                    <p><strong>5 rounds:</strong></p>
-                    <ul>
-                        <li>10 Plate Burpee</li>
-                        <li>15 Slams</li>
-                        <li>20 Gorilla row</li>
-                        <li>25 Hammer curl</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 10pm - 11/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-dumbbell card-icon"></i>
-            <h2 class="card-title">10pm - 11/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>2-4-6-8-10-12</strong>
-                    <ul>
-                        <li>Deadlift</li>
-                        <li>Hang clean</li>
-                        <li>Push press</li>
-                    </ul>
-                    <div class="block-note">Buy out: 100 calorie row</div>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 11pm - 12/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-user-group card-icon"></i>
-            <h2 class="card-title">11pm - 12/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>Max atlas stone hold</strong>
-                    <p>Each second held is 1 push up, squat or burpee to complete after for partner.</p>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 12am - 13/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-moon card-icon"></i>
-            <h2 class="card-title">12am - 13/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>Midnight Mile</strong>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 1am - 14/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-moon card-icon"></i>
-            <h2 class="card-title">1am - 14/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>15 minute AMRAP:</strong>
-                    <ul>
-                        <li>10 Bench press</li>
-                        <li>8 Military press</li>
-                        <li>6 Bicep curl</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 2am - 15/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-moon card-icon"></i>
-            <h2 class="card-title">2am - 15/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>"Core its getting late"</strong>
-                    <ul>
-                        <li>10 butterfly sit up</li>
-                        <li>10s plank</li>
-                    </ul>
-                    <div class="block-note">+10 second/reps each round</div>
-                    <div class="block-note">Go until failure</div>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 3am - 16/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-moon card-icon"></i>
-            <h2 class="card-title">3am - 16/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <ul>
-                        <li>Max push up in 3 minutes</li>
-                        <li>Max situps in 3 minutes</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 4am - 17/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-users card-icon"></i>
-            <h2 class="card-title">4am - 17/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>As a group</strong>
-                    <p>3000m ski</p>
-                    <p><strong>Changeover:</strong></p>
-                    <ul>
-                        <li>10 Goblet squat</li>
-                        <li>15 KB swing</li>
-                        <li>20 step up</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 5am - 18/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-mug-hot card-icon"></i>
-            <h2 class="card-title">5am - 18/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>Core & Coffee:</strong>
-                    <p>Stretch and relax</p>
-                    <p>25 minutes Stretch</p>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 6am - 19/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-sun card-icon"></i>
-            <h2 class="card-title">6am - 19/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>32 Minute E4MOM:</strong>
-                    <ul>
-                        <li>5 Pull/Chin up</li>
-                        <li>10 V-up</li>
-                        <li>15 Gorilla row</li>
-                        <li>20 KB high pull</li>
-                        <li>25 KB Dragthrough</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 7am - 20/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-person-running card-icon"></i>
-            <h2 class="card-title">7am - 20/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>3 rounds:</strong>
-                    <ul>
-                        <li>1km run</li>
-                        <li>25 thruster</li>
-                        <li>50 sit up</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 8am - 21/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-dumbbell card-icon"></i>
-            <h2 class="card-title">8am - 21/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>5 rounds:</strong>
-                    <ul>
-                        <li>25m Walking lunge</li>
-                        <li>25m Sled pull</li>
-                        <li>25m KB OH March</li>
-                        <li>50m Farmers carry</li>
-                        <li>50m Sled push</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 9am - 22/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-users card-icon"></i>
-            <h2 class="card-title">9am - 22/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>As a group</strong>
-                    <p>1000 cal combined</p>
-                    <p>ROW-SKI - BIKE</p>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 10am - 23/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-user-group card-icon"></i>
-            <h2 class="card-title">10am - 23/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <strong>In pairs: 5 rounds</strong>
-                    <p>2000m</p>
-                    <p>(-400m each round)</p>
-                    <p>50 slams & reverse lunge</p>
-                    <p>(-10 per round)</p>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 11am - 24/24 -->
-    <article class="workout-card">
-        <div class="card-header">
-            <i class="fa-solid fa-trophy card-icon"></i>
-            <h2 class="card-title">11am - 24/24</h2>
-        </div>
-        <div class="workout-grid">
-            <div class="workout-block">
-                <div class="block-content">
-                    <ul>
-                        <li>25 Squat</li>
-                        <li>25 Lunge</li>
-                        <li>5km run</li>
-                        <li>25 Squat</li>
-                        <li>25 Lunge</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </article>
-</main>
-
-<footer>
-    <div>
-        <a href="index.html" style="color:#3366ff;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#5588ff'" onmouseout="this.style.color='#3366ff'">
-            <i class="fa-solid fa-arrow-left"></i> Back to Events
-        </a>
+      <!-- charity logo centered under the title -->
+      <a class="charity-top"
+         href="https://www.gofundme.com/f/in-memory-of-our-ender-touching-the-hearts-of-other-children?attribution_id=sl%3A51fe474c-c85b-47b7-aa25-2939bbdfdd39&lang=en_GB&ts=1762633561&utm_source=customer&utm_medium=copy_link&utm_campaign=p_cf+share-flow-1"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Donate to Ender's Touch on GoFundMe" title="Donate to Ender's Touch">
+        <img src="images/enders.png" alt="Ender's Touch charity logo">
+      </a>
     </div>
-    <div style="margin-top: 15px;">
-        &copy; <span id="footerYear"></span> IDFit Events
-    </div>
-    <div class="footer-links">
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-    </div>
-</footer>
+
+    <!-- keep a right column for layout parity (hidden visually) -->
+    <div class="top-right" aria-hidden="true"></div>
+  </header>
+
+  <main id="main" role="main">
+    <section class="timeblocks" id="timeblocks" aria-live="polite">
+      <!-- Block elements: data-start is the London-local start time (YYYY-MM-DDTHH:mm:ss)
+           Titles inside the blue box are generated from those values and formatted for Europe/London.
+           The small duplicated .sub elements were removed to avoid duplication. -->
+
+      <article class="block" data-start="2025-11-22T12:00:00" aria-labelledby="b-12-13">
+        <div class="time-box"><div class="title" id="b-12-13"></div></div>
+        <div class="workout">
+          <strong>No run 'rox:</strong>
+          <p>3 rounds</p>
+          <ul>
+            <li>500m row</li>
+            <li>500m ski</li>
+            <li>100m farmer walk</li>
+            <li>50m sled push</li>
+            <li>50m sled pull</li>
+            <li>50 wall balls</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T13:00:00" aria-labelledby="b-13-14">
+        <div class="time-box"><div class="title" id="b-13-14"></div></div>
+        <div class="workout">
+          <strong>In groups of 2/3s</strong>
+          <p>150 calories on erg*</p>
+          <ul>
+            <li>30 Reverse Lunge</li>
+            <li>20 DB Snatch</li>
+            <li>10 push up</li>
+          </ul>
+          <div style="font-style:italic; color:#cfdff9; margin-top:6px;">5 rounds - *-25 calories each round</div>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T14:00:00" aria-labelledby="b-14-15">
+        <div class="time-box"><div class="title" id="b-14-15"></div></div>
+        <div class="workout">
+          <strong>40-30-20-10-20-30-40</strong>
+          <ul>
+            <li>Calories</li>
+            <li>Step up</li>
+            <li>DB Bench Press</li>
+            <li>SA Push Press</li>
+          </ul>
+          <div style="font-style:italic; color:#cfdff9; margin-top:6px;">Time cap - 45 minutes</div>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T15:00:00" aria-labelledby="b-15-16">
+        <div class="time-box"><div class="title" id="b-15-16"></div></div>
+        <div class="workout">
+          <strong>21-15-9</strong>
+          <ul>
+            <li>Deadlift</li>
+            <li>Tyre flip</li>
+            <li>Burpee over bar</li>
+            <li>Jump Squat</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T16:00:00" aria-labelledby="b-16-17">
+        <div class="time-box"><div class="title" id="b-16-17"></div></div>
+        <div class="workout">
+          <strong>Arm blast: 5 rounds</strong>
+          <ul>
+            <li>6 Chin ups</li>
+            <li>8 Tricep dips</li>
+            <li>10 EZ bar curl</li>
+            <li>12 Hammer curl</li>
+          </ul>
+          <div style="font-style:italic; color:#cfdff9; margin-top:6px;">Max push ups to finish</div>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T17:00:00" aria-labelledby="b-17-18">
+        <div class="time-box"><div class="title" id="b-17-18"></div></div>
+        <div class="workout">
+          <strong>28 minute AMRAP</strong>
+          <ul>
+            <li>200m row</li>
+            <li>20 DB G20H</li>
+            <li>200m ski</li>
+            <li>10 Deadlift</li>
+            <li>400m Air bike</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T18:00:00" aria-labelledby="b-18-19">
+        <div class="time-box"><div class="title" id="b-18-19"></div></div>
+        <div class="workout">
+          <strong>Strength hour:</strong>
+          <p>30 minutes to build a 3rm</p>
+          <ul>
+            <li>Bench Press</li>
+            <li>Overhead Press</li>
+            <li>Bent over Row</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T19:00:00" aria-labelledby="b-19-20">
+        <div class="time-box"><div class="title" id="b-19-20"></div></div>
+        <div class="workout">
+          <strong>In a group:</strong>
+          <p>10000m row</p>
+          <div style="font-style:italic; color:#cfdff9; margin-top:6px;">Timecap: 40 minutes</div>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T20:00:00" aria-labelledby="b-20-21">
+        <div class="time-box"><div class="title" id="b-20-21"></div></div>
+        <div class="workout">
+          <strong>In teams of 2-4:</strong>
+          <ul>
+            <li>100 - Devil Press</li>
+            <li>200 - Wall Balls</li>
+            <li>300 - Lunge</li>
+            <li>400 - Push Ups</li>
+            <li>500 - Squats</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T21:00:00" aria-labelledby="b-21-22">
+        <div class="time-box"><div class="title" id="b-21-22"></div></div>
+        <div class="workout">
+          <strong>Partner YGIG</strong>
+          <p>Buy in: 100 calorie ski</p>
+          <p><strong>5 rounds:</strong></p>
+          <ul>
+            <li>10 Plate Burpee</li>
+            <li>15 Slams</li>
+            <li>20 Gorilla row</li>
+            <li>25 Hammer curl</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T22:00:00" aria-labelledby="b-22-23">
+        <div class="time-box"><div class="title" id="b-22-23"></div></div>
+        <div class="workout">
+          <strong>2-4-6-8-10-12</strong>
+          <ul>
+            <li>Deadlift</li>
+            <li>Hang clean</li>
+            <li>Push press</li>
+          </ul>
+          <div style="font-style:italic; color:#cfdff9; margin-top:6px;">Buy out: 100 calorie row</div>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-22T23:00:00" aria-labelledby="b-23-00">
+        <div class="time-box"><div class="title" id="b-23-00"></div></div>
+        <div class="workout">
+          <strong>Max atlas stone hold</strong>
+          <p>Each second held is 1 push up, squat or burpee to complete after for partner.</p>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T00:00:00" aria-labelledby="b-00-01">
+        <div class="time-box"><div class="title" id="b-00-01"></div></div>
+        <div class="workout"><strong>Midnight Mile</strong></div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T01:00:00" aria-labelledby="b-01-02">
+        <div class="time-box"><div class="title" id="b-01-02"></div></div>
+        <div class="workout">
+          <strong>15 minute AMRAP:</strong>
+          <ul>
+            <li>10 Bench press</li>
+            <li>8 Military press</li>
+            <li>6 Bicep curl</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T02:00:00" aria-labelledby="b-02-03">
+        <div class="time-box"><div class="title" id="b-02-03"></div></div>
+        <div class="workout">
+          <strong>"Core its getting late"</strong>
+          <ul>
+            <li>10 butterfly sit up</li>
+            <li>10s plank</li>
+          </ul>
+          <div style="font-style:italic; color:#cfdff9; margin-top:6px;">+10 second/reps each round — Go until failure</div>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T03:00:00" aria-labelledby="b-03-04">
+        <div class="time-box"><div class="title" id="b-03-04"></div></div>
+        <div class="workout">
+          <ul>
+            <li>Max push up in 3 minutes</li>
+            <li>Max situps in 3 minutes</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T04:00:00" aria-labelledby="b-04-05">
+        <div class="time-box"><div class="title" id="b-04-05"></div></div>
+        <div class="workout">
+          <strong>As a group</strong>
+          <p>3000m ski</p>
+          <p><strong>Changeover:</strong></p>
+          <ul>
+            <li>10 Goblet squat</li>
+            <li>15 KB swing</li>
+            <li>20 step up</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T05:00:00" aria-labelledby="b-05-06">
+        <div class="time-box"><div class="title" id="b-05-06"></div></div>
+        <div class="workout">
+          <strong>Core & Coffee:</strong>
+          <p>Stretch and relax — 25 minutes Stretch</p>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T06:00:00" aria-labelledby="b-06-07">
+        <div class="time-box"><div class="title" id="b-06-07"></div></div>
+        <div class="workout">
+          <strong>32 Minute E4MOM:</strong>
+          <ul>
+            <li>5 Pull/Chin up</li>
+            <li>10 V-up</li>
+            <li>15 Gorilla row</li>
+            <li>20 KB high pull</li>
+            <li>25 KB Dragthrough</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T07:00:00" aria-labelledby="b-07-08">
+        <div class="time-box"><div class="title" id="b-07-08"></div></div>
+        <div class="workout">
+          <strong>3 rounds:</strong>
+          <ul>
+            <li>1km run</li>
+            <li>25 thruster</li>
+            <li>50 sit up</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T08:00:00" aria-labelledby="b-08-09">
+        <div class="time-box"><div class="title" id="b-08-09"></div></div>
+        <div class="workout">
+          <strong>5 rounds:</strong>
+          <ul>
+            <li>25m Walking lunge</li>
+            <li>25m Sled pull</li>
+            <li>25m KB OH March</li>
+            <li>50m Farmers carry</li>
+            <li>50m Sled push</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T09:00:00" aria-labelledby="b-09-10">
+        <div class="time-box"><div class="title" id="b-09-10"></div></div>
+        <div class="workout">
+          <strong>As a group</strong>
+          <p>1000 cal combined</p>
+          <p>ROW-SKI - BIKE</p>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T10:00:00" aria-labelledby="b-10-11">
+        <div class="time-box"><div class="title" id="b-10-11"></div></div>
+        <div class="workout">
+          <strong>In pairs: 5 rounds</strong>
+          <p>2000m</p>
+          <p>(-400m each round)</p>
+          <p>50 slams & reverse lunge</p>
+          <p>(-10 per round)</p>
+        </div>
+      </article>
+
+      <article class="block" data-start="2025-11-23T11:00:00" aria-labelledby="b-11-12">
+        <div class="time-box"><div class="title" id="b-11-12"></div></div>
+        <div class="workout">
+          <ul>
+            <li>25 Squat</li>
+            <li>25 Lunge</li>
+            <li>5km run</li>
+            <li>25 Squat</li>
+            <li>25 Lunge</li>
+          </ul>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer style="text-align:center; color:#cfe6ff; margin-top:24px;">
+    &copy; <span id="year"></span> IDFit Events
+  </footer>
 
 <script>
-document.getElementById("footerYear").textContent = new Date().getFullYear();
-</script>
+(function(){
+  const pad = (n) => String(n).padStart(2,'0');
 
+  // parse "YYYY-MM-DDTHH:mm:ss" into parts
+  function parseParts(s){
+    if(!s) return null;
+    const m = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::\d{2})?$/);
+    if(!m) return null;
+    return {
+      year: Number(m[1]),
+      month: Number(m[2]),
+      day: Number(m[3]),
+      hour: Number(m[4]),
+      minute: Number(m[5] || 0)
+    };
+  }
+
+  // format "HH:MM - HH:MM" using the parts (treated as Europe/London wallclock)
+  function formatRangeFromParts(p){
+    const startH = pad(p.hour);
+    const startM = pad(p.minute);
+    const endHour = (p.hour + 1) % 24;
+    const endH = pad(endHour);
+    return `${startH}:${startM} - ${endH}:${startM}`;
+  }
+
+  // get now in Europe/London as parts object
+  function nowInLondonParts(){
+    const now = new Date();
+    const f = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/London',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit',
+      hour12: false
+    });
+    const parts = f.formatToParts(now);
+    const map = {};
+    parts.forEach(p => { if(p.type !== 'literal') map[p.type] = p.value; });
+    return {
+      year: Number(map.year),
+      month: Number(map.month),
+      day: Number(map.day),
+      hour: Number(map.hour),
+      minute: Number(map.minute)
+    };
+  }
+
+  // helper to make sortable key from parts
+  function keyFromParts(p){
+    return `${p.year}${pad(p.month)}${pad(p.day)}${pad(p.hour)}`;
+  }
+
+  // check if now in London matches the block start hour
+  function isNowActiveForParts(startParts, nowParts){
+    return startParts &&
+           startParts.year === nowParts.year &&
+           startParts.month === nowParts.month &&
+           startParts.day === nowParts.day &&
+           startParts.hour === nowParts.hour;
+  }
+
+  // populate the blue title boxes from data-start
+  function populateTitles(){
+    document.querySelectorAll('.block').forEach(block=>{
+      const s = block.getAttribute('data-start');
+      const parts = parseParts(s);
+      const titleEl = block.querySelector('.time-box .title');
+      if(parts && titleEl){
+        titleEl.textContent = formatRangeFromParts(parts);
+        block.setAttribute('aria-label', `Time block ${titleEl.textContent}`);
+      }
+    });
+  }
+
+  // reorder blocks: active first, upcoming next (ascending), past last (ascending)
+  function reorderBlocks(){
+    const container = document.getElementById('timeblocks');
+    const blocks = Array.from(container.querySelectorAll('.block'));
+    const nowParts = nowInLondonParts();
+
+    const active = [];
+    const upcoming = [];
+    const past = [];
+
+    blocks.forEach(b=>{
+      const s = b.getAttribute('data-start');
+      const parts = parseParts(s);
+      b.classList.remove('active');
+
+      if(parts && isNowActiveForParts(parts, nowParts)){
+        active.push({b, key: keyFromParts(parts)});
+      } else if(parts){
+        const k = keyFromParts(parts);
+        const nowKey = `${nowParts.year}${pad(nowParts.month)}${pad(nowParts.day)}${pad(nowParts.hour)}`;
+        if(k > nowKey) upcoming.push({b, key: k});
+        else past.push({b, key: k});
+      } else {
+        upcoming.push({b, key:'9999999999'});
+      }
+    });
+
+    upcoming.sort((a,c)=> a.key.localeCompare(c.key));
+    past.sort((a,c)=> a.key.localeCompare(c.key));
+    active.sort((a,c)=> a.key.localeCompare(c.key));
+
+    const frag = document.createDocumentFragment();
+    active.forEach(item=>{
+      item.b.classList.add('active');
+      frag.appendChild(item.b);
+    });
+    upcoming.forEach(item => frag.appendChild(item.b));
+    past.forEach(item => frag.appendChild(item.b));
+
+    container.innerHTML = '';
+    container.appendChild(frag);
+  }
+
+  // initialize
+  populateTitles();
+  reorderBlocks();
+
+  // run periodically (15s)
+  setInterval(()=>{
+    populateTitles(); // safe no-op after first run but cheap
+    reorderBlocks();
+  }, 15000);
+
+  // set year
+  const yearEl = document.getElementById('year');
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
 </body>
 </html>
