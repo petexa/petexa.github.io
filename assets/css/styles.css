@@ -10,39 +10,67 @@ body {
 
 header {
     text-align: center;
-    padding: 40px 10px 15px 10px;
+    padding: 40px 10px 20px 10px;
     border-radius: 8px;
     background: #001284;
 }
 
-.logo {
-    width: 85px;
-    height: 85px;
+.charity-logo-link {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 50%;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+.charity-logo-link:hover,
+.charity-logo-link:focus {
+    transform: scale(1.08);
+}
+
+.charity-logo-link:focus-visible {
+    outline: 3px solid #29ffb4;
+    outline-offset: 4px;
+}
+
+.logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
     object-fit: cover;
+    object-position: center;
     background: #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border: 3px solid #fff;
+    display: block;
+    transition: box-shadow 0.3s ease;
+}
+
+.charity-logo-link:hover .logo,
+.charity-logo-link:focus .logo {
+    box-shadow: 0 6px 20px rgba(41, 255, 180, 0.4);
 }
 
 h1 {
-    font-size: 2.1rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: #fff;
-    letter-spacing: 1px;
-    border-bottom: 2.5px solid #fff;
+    letter-spacing: 1.2px;
+    border-bottom: 3px solid #29ffb4;
     display: inline-block;
-    padding-bottom: 6px;
-    margin: 0 auto 6px auto;
+    padding-bottom: 8px;
+    margin: 0 auto 8px auto;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .subtitle {
-    font-size: 1rem;
-    color: #e4ecfc;
+    font-size: 1.05rem;
+    color: #e8f0ff;
     margin-bottom: 0;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.5px;
     font-weight: 400;
     display: block;
+    line-height: 1.5;
 }
 
 .skip-link {
@@ -88,15 +116,20 @@ main {
 
 .event-card {
     background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    border-radius: 20px;
+    box-shadow: 0 3px 18px rgba(0,0,0,0.14);
     width: 355px;
     min-width: 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: border 0.2s, box-shadow 0.2s;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.2s;
     border: 2px solid transparent;
+}
+
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.18);
 }
 
 .event-card.past {
@@ -105,8 +138,12 @@ main {
 }
 
 .event-card.next {
-    border: 2.5px solid #23bb57;
-    box-shadow: 0 4px 24px rgba(35, 187, 87, 0.20);
+    border: 3px solid #23bb57;
+    box-shadow: 0 4px 24px rgba(35, 187, 87, 0.28);
+}
+
+.event-card.next:hover {
+    box-shadow: 0 6px 28px rgba(35, 187, 87, 0.35);
 }
 
 .event-img {
@@ -189,17 +226,22 @@ main {
     flex: 1 1 auto;
     display: inline-block;
     text-align: center;
-    padding: 11px 0;
+    padding: 12px 0;
     color: #fff;
     text-decoration: none;
-    border-radius: 11px;
+    border-radius: 12px;
     font-size: 1rem;
     font-weight: 700;
     background: #01007a;
     border: none;
-    transition: background 0.19s, color 0.19s, box-shadow 0.17s;
-    box-shadow: 0 1px 7px rgba(0,0,0,0.09);
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     outline: none;
+    cursor: pointer;
+}
+
+.button:active, .calendar-link:active {
+    transform: translateY(1px);
 }
 
 .button[aria-label] {
@@ -234,11 +276,15 @@ main {
 .button:hover, .button:focus {
     background: #233fc2;
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(35, 63, 194, 0.3);
 }
 
 .calendar-link:hover, .calendar-link:focus {
     background: #f98944;
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(251, 106, 18, 0.3);
 }
 
 /* Focus visible styles for accessibility */
