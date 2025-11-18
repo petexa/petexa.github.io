@@ -20,7 +20,7 @@
     - muted/content text: #e0e0e0
   */
   :root{
-    --page-bg-top: #1a1a1a;
+    --page-bg-top: #000000;
     --page-bg-bottom: #000000;
     --panel-from: #2a2a2a;
     --panel-to: #1a1a1a;
@@ -28,7 +28,8 @@
     --card-text: #e0e0e0;
     --card-bg: rgba(255,255,255,0.02); /* subtle light overlay */
     --focus: 3px solid rgba(51,102,255,0.14);
-    --active-glow: rgba(51,102,255,0.08);
+    --active-glow: rgba(0,255,0,0.4); /* green glow for active */
+    --inactive-glow: rgba(255,255,255,0.15); /* white glow for others */
   }
 
   *{box-sizing:border-box}
@@ -95,8 +96,8 @@
   /* Charity logo centered under title */
   .charity-top {
     display:inline-block;
-    width:64px;
-    height:64px;
+    width:120px;
+    height:120px;
     border-radius:8px;
     overflow:hidden;
     border:2px solid rgba(255,255,255,0.04);
@@ -112,12 +113,12 @@
   .charity-top:focus,
   .charity-top:hover { outline: none; box-shadow: 0 8px 20px rgba(51,102,255,0.06); transform:translateY(-2px); }
 
-  /* One-column time-block list */
+  /* Two-column time-block list */
   .timeblocks{
-    max-width:980px;
+    max-width:1400px;
     margin:18px auto 40px;
-    display:flex;
-    flex-direction:column;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
     gap:18px;
   }
 
@@ -162,10 +163,15 @@
   .workout ul{ margin:8px 0 0; padding-left:18px; }
   .workout li{ margin:6px 0; }
 
-  /* Active block styling uses the site accent */
+  /* Active block styling uses green glow */
   .block.active{
-    box-shadow: 0 0 0 6px var(--active-glow), 0 12px 36px rgba(0,0,0,0.6);
-    border-color: var(--accent);
+    box-shadow: 0 0 20px 8px var(--active-glow), 0 12px 36px rgba(0,0,0,0.6);
+    border-color: #00ff00;
+  }
+
+  /* Non-active blocks get white glow */
+  .block:not(.active){
+    box-shadow: 0 0 10px 4px var(--inactive-glow), 0 8px 24px rgba(0,0,0,0.6);
   }
 
   /* small screens */
@@ -173,13 +179,25 @@
     header.topbar { flex-direction:column; align-items:stretch; gap:8px; padding:0 8px; }
     .top-center { text-align:center; padding-left:0; }
     .idfit-top { width:180px; }
-    .charity-top { width:56px; height:56px; }
+    .charity-top { width:100px; height:100px; }
     .top-right { display:none; }
+    .timeblocks { grid-template-columns: 1fr; }
   }
   @media (max-width:640px){
     body{ padding:16px; }
     .time-box{ padding:12px 14px; }
     .block{ padding:12px; border-radius:12px; }
+    .charity-top { width:80px; height:80px; }
+  }
+
+  /* Style for "Proudly Supporting" text */
+  .proudly-supporting {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--card-text);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   /* accessibility focus */
@@ -208,6 +226,7 @@
       </div>
 
       <!-- charity logo centered under the title -->
+      <div class="proudly-supporting">Proudly Supporting</div>
       <a class="charity-top"
          href="https://www.gofundme.com/f/in-memory-of-our-ender-touching-the-hearts-of-other-children?attribution_id=sl%3A51fe474c-c85b-47b7-aa25-2939bbdfdd39&lang=en_GB&ts=1762633561&utm_source=cust[...]"
          target="_blank" rel="noopener noreferrer"
