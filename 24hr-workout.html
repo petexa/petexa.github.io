@@ -7,7 +7,8 @@
 <title>24 Hour Workout Schedule - IDFit</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
 <style>
@@ -34,7 +35,8 @@
   html,body{height:100%}
   body{
     margin:0;
-    font-family:'Roboto', Arial, sans-serif;
+    /* use Titillium Web from Google Fonts with sensible fallbacks */
+    font-family: 'Titillium Web', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     background: linear-gradient(180deg,var(--page-bg-top), var(--page-bg-bottom));
@@ -69,6 +71,7 @@
     margin:0;
     font-size:1.15rem;
     letter-spacing:0.4px;
+    font-weight:600;
   }
   .page-sub {
     margin:4px 0 0;
@@ -147,6 +150,7 @@
     text-align:center;
     box-shadow: inset 0 -6px 0 rgba(0,0,0,0.06);
   }
+  /* ensure titles use the heavier weight for contrast */
   .time-box .title{ font-weight:700; font-size:1.05rem; margin:0; text-transform:none; }
 
   .workout{
@@ -205,7 +209,7 @@
 
       <!-- charity logo centered under the title -->
       <a class="charity-top"
-         href="https://www.gofundme.com/f/in-memory-of-our-ender-touching-the-hearts-of-other-children?attribution_id=sl%3A51fe474c-c85b-47b7-aa25-2939bbdfdd39&lang=en_GB&ts=1762633561&utm_source=customer&utm_medium=copy_link&utm_campaign=p_cf+share-flow-1"
+         href="https://www.gofundme.com/f/in-memory-of-our-ender-touching-the-hearts-of-other-children?attribution_id=sl%3A51fe474c-c85b-47b7-aa25-2939bbdfdd39&lang=en_GB&ts=1762633561&utm_source=cust[...]"
          target="_blank" rel="noopener noreferrer"
          aria-label="Donate to Ender's Touch on GoFundMe" title="Donate to Ender's Touch">
         <img src="images/enders.png" alt="Ender's Touch charity logo">
