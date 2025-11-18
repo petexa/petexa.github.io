@@ -301,3 +301,270 @@ footer {
 
 .footer-links a:hover,
 .footer-links a:focus {color: #29ffb4;}
+
+/* Workout Timers Section */
+.timers-section {
+  background: #001284;
+  padding: 40px 20px;
+  margin: 40px auto 0 auto;
+  max-width: 700px;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.timers-title {
+  color: #fff;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 25px 0;
+  letter-spacing: 1px;
+  border-bottom: 2.5px solid #23bb57;
+  display: inline-block;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.timer-selector {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.timer-tab {
+  flex: 1 1 auto;
+  max-width: 200px;
+  padding: 12px 24px;
+  background: #092266;
+  color: #fff;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.timer-tab:hover {
+  background: #233fc2;
+  border-color: #29ffb4;
+}
+
+.timer-tab.active {
+  background: #23bb57;
+  border-color: #23bb57;
+  color: #000;
+}
+
+.timer-tab:focus-visible {
+  outline: 3px solid #29ffb4;
+  outline-offset: 2px;
+}
+
+.timer-container {
+  display: none;
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+}
+
+.timer-container.active {
+  display: block;
+}
+
+.timer-config {
+  margin-bottom: 25px;
+}
+
+.config-row {
+  margin-bottom: 15px;
+}
+
+.timer-config label {
+  display: block;
+  font-weight: 600;
+  color: #092266;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.timer-config input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e4ecfc;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #092266;
+  background: #f0f4ff;
+  transition: border-color 0.2s;
+}
+
+.timer-config input[type="number"]:focus {
+  outline: none;
+  border-color: #23bb57;
+}
+
+.timer-config input[type="number"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.timer-display {
+  background: #092266;
+  border-radius: 14px;
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 25px;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.timer-time {
+  display: block;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #29ffb4;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px rgba(41, 255, 180, 0.5);
+  transition: color 0.3s;
+}
+
+.timer-time.warning {
+  color: #ff4444;
+  animation: pulse 1s infinite;
+  text-shadow: 0 0 20px rgba(255, 68, 68, 0.7);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.emom-round {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #80affe;
+  margin-bottom: 15px;
+}
+
+.emom-status {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 15px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.emom-status.work {
+  background: #23bb57;
+  color: #000;
+}
+
+.emom-status.rest {
+  background: #fb6a12;
+  color: #fff;
+}
+
+.emom-status.complete {
+  background: #ffd700;
+  color: #000;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.timer-btn {
+  flex: 1 1 auto;
+  max-width: 150px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 11px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.19s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.timer-btn.start {
+  background: #23bb57;
+  color: #fff;
+}
+
+.timer-btn.start:hover:not(:disabled) {
+  background: #1da049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(35, 187, 87, 0.4);
+}
+
+.timer-btn.pause {
+  background: #fb6a12;
+  color: #fff;
+}
+
+.timer-btn.pause:hover:not(:disabled) {
+  background: #e05a0a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(251, 106, 18, 0.4);
+}
+
+.timer-btn.reset {
+  background: #385ffb;
+  color: #fff;
+}
+
+.timer-btn.reset:hover:not(:disabled) {
+  background: #2847d9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(56, 95, 251, 0.4);
+}
+
+.timer-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.timer-btn:focus-visible {
+  outline: 3px solid #29ffb4;
+  outline-offset: 2px;
+}
+
+@media (max-width: 850px) {
+  .timers-section {
+    margin: 30px 10px 0 10px;
+    padding: 30px 15px;
+  }
+  
+  .timer-time {
+    font-size: 3.5rem;
+  }
+  
+  .timer-controls {
+    flex-direction: column;
+  }
+  
+  .timer-btn {
+    max-width: none;
+  }
+  
+  .timer-selector {
+    flex-direction: column;
+  }
+  
+  .timer-tab {
+    max-width: none;
+  }
+}
