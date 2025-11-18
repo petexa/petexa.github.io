@@ -35,9 +35,6 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('images/24hr_Workout/1_main.jpg');
-    background-size: cover;
-    background-position: center;
     opacity: 0.15;
     z-index: 0;
 }
@@ -50,12 +47,11 @@ body {
 }
 
 .idfit-logo {
-    font-size: 4rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #3366ff;
-    margin-bottom: 20px;
-    text-shadow: 0 0 20px rgba(51, 102, 255, 0.5);
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(51, 102, 255, 0.5));
 }
 
 .hero-title {
@@ -149,14 +145,6 @@ main {
     border-left: 4px solid #3366ff;
 }
 
-.block-time {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #3366ff;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-}
-
 .block-content {
     font-size: 1rem;
     line-height: 1.8;
@@ -224,7 +212,7 @@ footer {
     }
     
     .idfit-logo {
-        font-size: 3rem;
+        max-width: 200px;
     }
     
     .workout-grid {
@@ -238,7 +226,7 @@ footer {
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-content">
-        <div class="idfit-logo">IDFIT</div>
+        <img src="images/idfit.jpg" alt="IDFit Logo" class="idfit-logo">
         <h1 class="hero-title">24 Hour Workout Schedule</h1>
         <p class="hero-subtitle">November 22-23rd 2025</p>
         <p class="hero-subtitle">12-12pm</p>
@@ -251,17 +239,17 @@ footer {
 </section>
 
 <main>
-    <!-- 12pm - 4pm Block -->
+    <!-- 12pm - 1/24 -->
     <article class="workout-card">
         <div class="card-header">
             <i class="fa-solid fa-clock card-icon"></i>
-            <h2 class="card-title">12pm - 4pm</h2>
+            <h2 class="card-title">12pm - 1/24</h2>
         </div>
         <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">12pm - 1/24</div>
                 <div class="block-content">
-                    <strong>No run 'rox: 3 rounds</strong>
+                    <strong>No run 'rox:</strong>
+                    <p>3 rounds</p>
                     <ul>
                         <li>500m row</li>
                         <li>500m ski</li>
@@ -272,9 +260,17 @@ footer {
                     </ul>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 1pm - 2/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-users card-icon"></i>
+            <h2 class="card-title">1pm - 2/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">1pm - 2/24</div>
                 <div class="block-content">
                     <strong>In groups of 2/3s</strong>
                     <p>150 calories on erg*</p>
@@ -283,12 +279,20 @@ footer {
                         <li>20 DB Snatch</li>
                         <li>10 push up</li>
                     </ul>
-                    <div class="block-note">5 rounds - *~25 calories each round</div>
+                    <div class="block-note">5 rounds - *-25 calories each round</div>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 2pm - 3/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-fire card-icon"></i>
+            <h2 class="card-title">2pm - 3/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">2pm - 3/24</div>
                 <div class="block-content">
                     <strong>40-30-20-10-20-30-40</strong>
                     <ul>
@@ -300,9 +304,17 @@ footer {
                     <div class="block-note">Time cap - 45 minutes</div>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 3pm - 4/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-dumbbell card-icon"></i>
+            <h2 class="card-title">3pm - 4/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">3pm - 4/24</div>
                 <div class="block-content">
                     <strong>21-15-9</strong>
                     <ul>
@@ -316,15 +328,14 @@ footer {
         </div>
     </article>
 
-    <!-- 4pm - 8pm Block -->
+    <!-- 4pm - 5/24 -->
     <article class="workout-card">
         <div class="card-header">
             <i class="fa-solid fa-dumbbell card-icon"></i>
-            <h2 class="card-title">4pm - 8pm</h2>
+            <h2 class="card-title">4pm - 5/24</h2>
         </div>
         <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">4pm - 5/24</div>
                 <div class="block-content">
                     <strong>Arm blast: 5 rounds</strong>
                     <ul>
@@ -336,23 +347,39 @@ footer {
                     <div class="block-note">Max push ups to finish</div>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 5pm - 6/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-fire card-icon"></i>
+            <h2 class="card-title">5pm - 6/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">5pm - 6/24</div>
                 <div class="block-content">
-                    <strong>28 minute AMRAP:</strong>
+                    <strong>28 minute AMRAP</strong>
                     <ul>
                         <li>200m row</li>
-                        <li>20 DB G2OH</li>
+                        <li>20 DB G20H</li>
                         <li>200m ski</li>
                         <li>10 Deadlift</li>
                         <li>400m Air bike</li>
                     </ul>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 6pm - 7/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-dumbbell card-icon"></i>
+            <h2 class="card-title">6pm - 7/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">6pm - 7/24</div>
                 <div class="block-content">
                     <strong>Strength hour:</strong>
                     <p>30 minutes to build a 3rm</p>
@@ -363,9 +390,17 @@ footer {
                     </ul>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 7pm - 8/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-users card-icon"></i>
+            <h2 class="card-title">7pm - 8/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">7pm - 8/24</div>
                 <div class="block-content">
                     <strong>In a group:</strong>
                     <p>10000m row</p>
@@ -375,15 +410,14 @@ footer {
         </div>
     </article>
 
-    <!-- 8pm - 12am Block -->
+    <!-- 8pm - 9/24 -->
     <article class="workout-card">
         <div class="card-header">
-            <i class="fa-solid fa-fire card-icon"></i>
-            <h2 class="card-title">8pm - 12am</h2>
+            <i class="fa-solid fa-users card-icon"></i>
+            <h2 class="card-title">8pm - 9/24</h2>
         </div>
         <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">8pm - 9/24</div>
                 <div class="block-content">
                     <strong>In teams of 2-4:</strong>
                     <ul>
@@ -395,25 +429,40 @@ footer {
                     </ul>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 9pm - 10/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-user-group card-icon"></i>
+            <h2 class="card-title">9pm - 10/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">9pm - 10/24</div>
                 <div class="block-content">
                     <strong>Partner YGIG</strong>
                     <p>Buy in: 100 calorie ski</p>
-                    <strong>5 rounds:</strong>
+                    <p><strong>5 rounds:</strong></p>
                     <ul>
                         <li>10 Plate Burpee</li>
                         <li>15 Slams</li>
                         <li>20 Gorilla row</li>
                         <li>25 Hammer curl</li>
                     </ul>
-                    <p>Buy out: 100 calorie row</p>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 10pm - 11/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-dumbbell card-icon"></i>
+            <h2 class="card-title">10pm - 11/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">10pm - 11/24</div>
                 <div class="block-content">
                     <strong>2-4-6-8-10-12</strong>
                     <ul>
@@ -421,11 +470,20 @@ footer {
                         <li>Hang clean</li>
                         <li>Push press</li>
                     </ul>
+                    <div class="block-note">Buy out: 100 calorie row</div>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 11pm - 12/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-user-group card-icon"></i>
+            <h2 class="card-title">11pm - 12/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">11pm - 12/24</div>
                 <div class="block-content">
                     <strong>Max atlas stone hold</strong>
                     <p>Each second held is 1 push up, squat or burpee to complete after for partner.</p>
@@ -434,22 +492,29 @@ footer {
         </div>
     </article>
 
-    <!-- 12am - 4am Block -->
+    <!-- 12am - 13/24 -->
     <article class="workout-card">
         <div class="card-header">
             <i class="fa-solid fa-moon card-icon"></i>
-            <h2 class="card-title">12am - 4am</h2>
+            <h2 class="card-title">12am - 13/24</h2>
         </div>
         <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">12am - 13/24</div>
                 <div class="block-content">
                     <strong>Midnight Mile</strong>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 1am - 14/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-moon card-icon"></i>
+            <h2 class="card-title">1am - 14/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">1am - 14/24</div>
                 <div class="block-content">
                     <strong>15 minute AMRAP:</strong>
                     <ul>
@@ -459,9 +524,17 @@ footer {
                     </ul>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 2am - 15/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-moon card-icon"></i>
+            <h2 class="card-title">2am - 15/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">2am - 15/24</div>
                 <div class="block-content">
                     <strong>"Core its getting late"</strong>
                     <ul>
@@ -472,9 +545,17 @@ footer {
                     <div class="block-note">Go until failure</div>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 3am - 16/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-moon card-icon"></i>
+            <h2 class="card-title">3am - 16/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">3am - 16/24</div>
                 <div class="block-content">
                     <ul>
                         <li>Max push up in 3 minutes</li>
@@ -485,124 +566,160 @@ footer {
         </div>
     </article>
 
-    <!-- 4am - 8am Block -->
+    <!-- 4am - 17/24 -->
     <article class="workout-card">
         <div class="card-header">
-            <i class="fa-solid fa-sun card-icon"></i>
-            <h2 class="card-title">4am - 8am</h2>
+            <i class="fa-solid fa-users card-icon"></i>
+            <h2 class="card-title">4am - 17/24</h2>
         </div>
         <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">4am - 17/24</div>
                 <div class="block-content">
-                    <strong>For time:</strong>
+                    <strong>As a group</strong>
+                    <p>3000m ski</p>
+                    <p><strong>Changeover:</strong></p>
                     <ul>
-                        <li>100 - Burpee box jump</li>
-                        <li>80 - Wall ball</li>
-                        <li>60 - T2B</li>
-                        <li>40 - Thruster</li>
-                        <li>20 - MU</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="workout-block">
-                <div class="block-time">5am - 18/24</div>
-                <div class="block-content">
-                    <strong>In groups of 3:</strong>
-                    <p>400 calories</p>
-                    <p>Switch every 25 calories</p>
-                </div>
-            </div>
-            
-            <div class="workout-block">
-                <div class="block-time">6am - 19/24</div>
-                <div class="block-content">
-                    <strong>Every 4 minutes for 48 minutes:</strong>
-                    <ul>
-                        <li>400m run</li>
-                        <li>21 - KBS</li>
-                        <li>12 - Pull up</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="workout-block">
-                <div class="block-time">7am - 20/24</div>
-                <div class="block-content">
-                    <strong>21 minute AMRAP:</strong>
-                    <ul>
-                        <li>7 - Devil press</li>
-                        <li>14 - Box jump</li>
-                        <li>21 - Wall ball</li>
+                        <li>10 Goblet squat</li>
+                        <li>15 KB swing</li>
+                        <li>20 step up</li>
                     </ul>
                 </div>
             </div>
         </div>
     </article>
 
-    <!-- 8am - 12pm Block -->
+    <!-- 5am - 18/24 -->
     <article class="workout-card">
         <div class="card-header">
-            <i class="fa-solid fa-trophy card-icon"></i>
-            <h2 class="card-title">8am - 12pm</h2>
+            <i class="fa-solid fa-mug-hot card-icon"></i>
+            <h2 class="card-title">5am - 18/24</h2>
         </div>
         <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">8am - 21/24</div>
                 <div class="block-content">
-                    <strong>For time:</strong>
+                    <strong>Core & Coffee:</strong>
+                    <p>Stretch and relax</p>
+                    <p>25 minutes Stretch</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- 6am - 19/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-sun card-icon"></i>
+            <h2 class="card-title">6am - 19/24</h2>
+        </div>
+        <div class="workout-grid">
+            <div class="workout-block">
+                <div class="block-content">
+                    <strong>32 Minute E4MOM:</strong>
                     <ul>
-                        <li>50 - Deadlift</li>
-                        <li>40 - Hang clean</li>
-                        <li>30 - Front squat</li>
-                        <li>20 - Push press</li>
-                        <li>10 - Thruster</li>
+                        <li>5 Pull/Chin up</li>
+                        <li>10 V-up</li>
+                        <li>15 Gorilla row</li>
+                        <li>20 KB high pull</li>
+                        <li>25 KB Dragthrough</li>
                     </ul>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 7am - 20/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-person-running card-icon"></i>
+            <h2 class="card-title">7am - 20/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">9am - 22/24</div>
                 <div class="block-content">
-                    <strong>Buy in: 100 calories</strong>
-                    <strong>5 rounds - For time:</strong>
+                    <strong>3 rounds:</strong>
                     <ul>
-                        <li>15 - DB Snatch</li>
-                        <li>30 - Sit up</li>
-                        <li>45 - Air squat</li>
-                    </ul>
-                    <strong>Buy out: 100 calories</strong>
-                </div>
-            </div>
-            
-            <div class="workout-block">
-                <div class="block-time">10am - 23/24</div>
-                <div class="block-content">
-                    <strong>Partner chipper:</strong>
-                    <ul>
-                        <li>100 - Cal row</li>
-                        <li>90 - Thruster</li>
-                        <li>80 - Box jump</li>
-                        <li>70 - KBS</li>
-                        <li>60 - Pull up</li>
-                        <li>50 - Burpee</li>
-                        <li>40 - T2B</li>
-                        <li>30 - Wall ball</li>
-                        <li>20 - DB snatch</li>
-                        <li>10 - MU</li>
+                        <li>1km run</li>
+                        <li>25 thruster</li>
+                        <li>50 sit up</li>
                     </ul>
                 </div>
             </div>
-            
+        </div>
+    </article>
+
+    <!-- 8am - 21/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-dumbbell card-icon"></i>
+            <h2 class="card-title">8am - 21/24</h2>
+        </div>
+        <div class="workout-grid">
             <div class="workout-block">
-                <div class="block-time">11am - 24/24</div>
                 <div class="block-content">
-                    <strong>24 rounds for time:</strong>
+                    <strong>5 rounds:</strong>
                     <ul>
-                        <li>24 - Cal row</li>
-                        <li>24 - Wall ball</li>
-                        <li>24 - Box jump</li>
+                        <li>25m Walking lunge</li>
+                        <li>25m Sled pull</li>
+                        <li>25m KB OH March</li>
+                        <li>50m Farmers carry</li>
+                        <li>50m Sled push</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- 9am - 22/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-users card-icon"></i>
+            <h2 class="card-title">9am - 22/24</h2>
+        </div>
+        <div class="workout-grid">
+            <div class="workout-block">
+                <div class="block-content">
+                    <strong>As a group</strong>
+                    <p>1000 cal combined</p>
+                    <p>ROW-SKI - BIKE</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- 10am - 23/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-user-group card-icon"></i>
+            <h2 class="card-title">10am - 23/24</h2>
+        </div>
+        <div class="workout-grid">
+            <div class="workout-block">
+                <div class="block-content">
+                    <strong>In pairs: 5 rounds</strong>
+                    <p>2000m</p>
+                    <p>(-400m each round)</p>
+                    <p>50 slams & reverse lunge</p>
+                    <p>(-10 per round)</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- 11am - 24/24 -->
+    <article class="workout-card">
+        <div class="card-header">
+            <i class="fa-solid fa-trophy card-icon"></i>
+            <h2 class="card-title">11am - 24/24</h2>
+        </div>
+        <div class="workout-grid">
+            <div class="workout-block">
+                <div class="block-content">
+                    <ul>
+                        <li>25 Squat</li>
+                        <li>25 Lunge</li>
+                        <li>5km run</li>
+                        <li>25 Squat</li>
+                        <li>25 Lunge</li>
                     </ul>
                 </div>
             </div>
