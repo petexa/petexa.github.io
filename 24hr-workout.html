@@ -70,24 +70,41 @@ body {
 }
 
 .charity-info {
-    margin-top: 30px;
-    padding: 20px;
+    margin-top: 40px;
+    padding: 25px;
     display: inline-block;
 }
 
 .charity-label {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
     color: #e0e0e0;
     font-style: italic;
+    font-weight: 300;
 }
 
-.charity-logo {
-    width: 120px;
-    height: 120px;
+.charity-logo-link {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     border: 3px solid #3366ff;
     box-shadow: 0 0 20px rgba(51, 102, 255, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.charity-logo-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(51, 102, 255, 0.6);
+}
+
+.charity-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 main {
@@ -215,6 +232,11 @@ footer {
         max-width: 200px;
     }
     
+    .charity-logo-link {
+        width: 120px;
+        height: 120px;
+    }
+    
     .workout-grid {
         grid-template-columns: 1fr;
     }
@@ -233,7 +255,14 @@ footer {
         
         <div class="charity-info">
             <div class="charity-label">in support of</div>
-            <img src="images/enders.png" alt="Ender's Touch charity logo" class="charity-logo">
+            <a href="https://www.gofundme.com/f/in-memory-of-our-ender-touching-the-hearts-of-other-children?attribution_id=sl%3A51fe474c-c85b-47b7-aa25-2939bbdfdd39&lang=en_GB&ts=1762633561&utm_campaign=fp_sharesheet&utm_medium=customer&utm_source=copy_link&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnaZ12oXjQu3HZjRsetNoAayudNpsT-bELoEDj1B22ylzhJsN0rlzrf8q9wu0_aem__3DxeUvvenosvufVBnBCdg" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="charity-logo-link"
+               aria-label="Donate to Ender's Touch on GoFundMe"
+               title="Click to support Ender's Touch on GoFundMe">
+                <img src="images/enders.png" alt="Ender's Touch charity logo" class="charity-logo">
+            </a>
         </div>
     </div>
 </section>
