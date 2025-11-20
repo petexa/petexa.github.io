@@ -11,6 +11,7 @@
     const difficultyFilter = document.getElementById('difficulty-filter');
     const equipmentFilter = document.getElementById('equipment-filter');
     const resetBtn = document.getElementById('reset-filters');
+    const randomBtn = document.getElementById('random-workout-btn');
     const wodsGrid = document.getElementById('wods-grid');
     const resultsCount = document.getElementById('results-count');
     const modal = document.getElementById('workout-modal');
@@ -31,6 +32,7 @@
         difficultyFilter.addEventListener('change', applyFilters);
         equipmentFilter.addEventListener('change', applyFilters);
         resetBtn.addEventListener('click', resetFilters);
+        randomBtn.addEventListener('click', selectRandomWorkout);
         modalClose.addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
@@ -351,6 +353,19 @@
         filteredWorkouts = [...allWorkouts];
         displayWorkouts();
         updateResultsCount();
+    }
+    
+    function selectRandomWorkout() {
+        if (allWorkouts.length === 0) {
+            return;
+        }
+        
+        // Get a random workout from the entire database
+        const randomIndex = Math.floor(Math.random() * allWorkouts.length);
+        const randomWorkout = allWorkouts[randomIndex];
+        
+        // Open the modal to show the workout
+        openModal(randomWorkout);
     }
     
     function updateResultsCount() {
