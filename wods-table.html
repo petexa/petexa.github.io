@@ -35,23 +35,6 @@
         align-items: center;
     }
     
-    .export-btn {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-        font-size: 14px;
-    }
-    
-    .export-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
-    
     .table-search {
         padding: 10px 15px;
         border: 2px solid rgba(0, 0, 0, 0.1);
@@ -222,9 +205,6 @@
         <div class="table-header">
             <div class="table-controls">
                 <input type="text" id="table-search" class="table-search" placeholder="Search workouts..." aria-label="Search workouts">
-                <button id="export-csv-btn" class="export-btn" aria-label="Export to CSV">
-                    <i class="fa-solid fa-download"></i> Export CSV
-                </button>
             </div>
             <div class="results-info" id="results-count">Loading workouts...</div>
         </div>
@@ -289,7 +269,6 @@
     
     // DOM Elements
     const tableSearch = document.getElementById('table-search');
-    const exportBtn = document.getElementById('export-csv-btn');
     const tableBody = document.getElementById('table-body');
     const wodsTable = document.getElementById('wods-table');
     const tableLoading = document.getElementById('table-loading');
@@ -309,7 +288,6 @@
     
     function setupEventListeners() {
         tableSearch.addEventListener('input', debounce(filterTable, 300));
-        exportBtn.addEventListener('click', exportToCSV);
         
         // Add sort listeners to all headers
         document.querySelectorAll('th[data-sort]').forEach(th => {
@@ -317,12 +295,76 @@
         });
     }
     
+    function parseCSV(csvText) {
+        const lines = csvText.split('\n');
+        if (lines.length === 0 || !lines[0].trim()) {
+            console.error('CSV file is empty');
+            return [];
+        }
+        
+        const headers = lines[0].split(',').map(h => h.trim());
+        const workouts = [];
+        const REQUIRED_FIELD_COUNT = 7; // Name, Category, Format & Duration, Instructions, Equipment Needed, Muscle Groups, Training Goals
+        
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+            
+            // Parse CSV line handling quoted fields
+            const fields = [];
+            let currentField = '';
+            let inQuotes = false;
+            
+            for (let j = 0; j < line.length; j++) {
+                const char = line[j];
+                
+                if (char === '"') {
+                    if (inQuotes && line[j + 1] === '"') {
+                        // Handle escaped quotes
+                        currentField += '"';
+                        j++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    fields.push(currentField.trim());
+                    currentField = '';
+                } else {
+                    currentField += char;
+                }
+            }
+            fields.push(currentField.trim());
+            
+            if (fields.length >= REQUIRED_FIELD_COUNT) {
+                const workout = {
+                    id: i,
+                    name: fields[0].replace(/^"+|"+$/g, ''),
+                    category: fields[1],
+                    difficulty: 'Intermediate', // Default difficulty since CSV doesn't have this
+                    equipment: fields[4].split(',').map(e => e.trim()),
+                    muscleGroups: fields[5].split(',').map(m => m.trim()),
+                    setsRepsOrDuration: {
+                        format: fields[2],
+                        duration: fields[2],
+                        reps: ''
+                    },
+                    instructions: fields[3],
+                    source: fields[6]
+                };
+                workouts.push(workout);
+            }
+        }
+        
+        return workouts;
+    }
+    
     async function loadWorkouts() {
         try {
-            const response = await fetch('wods/wods-database.json');
+            const response = await fetch('wods/wods-table.csv');
             if (!response.ok) throw new Error('Failed to load workouts');
             
-            allWorkouts = await response.json();
+            const csvText = await response.text();
+            allWorkouts = parseCSV(csvText);
             filteredWorkouts = [...allWorkouts];
             
             displayTable();
@@ -357,13 +399,17 @@
         const row = document.createElement('tr');
         
         const difficultyClass = workout.difficulty.toLowerCase();
-        const equipmentText = workout.equipment.length > 0 ? workout.equipment.join(', ') : 'None';
-        const musclesText = workout.muscleGroups.join(', ');
+        const equipmentText = Array.isArray(workout.equipment) && workout.equipment.length > 0 && workout.equipment[0] 
+            ? workout.equipment.join(', ') 
+            : 'None';
+        const musclesText = Array.isArray(workout.muscleGroups) 
+            ? workout.muscleGroups.join(', ') 
+            : workout.muscleGroups;
         const duration = workout.setsRepsOrDuration.duration || 'N/A';
         
         row.innerHTML = `
             <td><strong>${escapeHtml(workout.name)}</strong></td>
-            <td><span class="category-badge">${workout.category.toUpperCase()}</span></td>
+            <td><span class="category-badge">${escapeHtml(workout.category)}</span></td>
             <td><span class="badge-small badge-${difficultyClass}">${workout.difficulty}</span></td>
             <td class="equipment-cell" title="${escapeHtml(equipmentText)}">${escapeHtml(equipmentText)}</td>
             <td class="muscle-cell" title="${escapeHtml(musclesText)}">${escapeHtml(musclesText)}</td>
@@ -386,11 +432,18 @@
             filteredWorkouts = [...allWorkouts];
         } else {
             filteredWorkouts = allWorkouts.filter(workout => {
+                const equipmentMatch = Array.isArray(workout.equipment) 
+                    ? workout.equipment.some(eq => eq.toLowerCase().includes(searchTerm))
+                    : workout.equipment.toLowerCase().includes(searchTerm);
+                const muscleMatch = Array.isArray(workout.muscleGroups)
+                    ? workout.muscleGroups.some(m => m.toLowerCase().includes(searchTerm))
+                    : workout.muscleGroups.toLowerCase().includes(searchTerm);
+                
                 return workout.name.toLowerCase().includes(searchTerm) ||
                        workout.category.toLowerCase().includes(searchTerm) ||
                        workout.difficulty.toLowerCase().includes(searchTerm) ||
-                       workout.equipment.some(eq => eq.toLowerCase().includes(searchTerm)) ||
-                       workout.muscleGroups.some(m => m.toLowerCase().includes(searchTerm));
+                       equipmentMatch ||
+                       muscleMatch;
             });
         }
         
@@ -463,38 +516,6 @@
                 th.className = sortDirection === 'asc' ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down';
             }
         }
-    }
-    
-    function exportToCSV() {
-        const headers = ['Name', 'Category', 'Difficulty', 'Equipment', 'Muscle Groups', 'Format', 'Duration', 'Reps', 'Source'];
-        const csvRows = [headers.join(',')];
-        
-        allWorkouts.forEach(workout => {
-            const row = [
-                `"${workout.name.replace(/"/g, '""')}"`,
-                workout.category,
-                workout.difficulty,
-                `"${workout.equipment.join(', ').replace(/"/g, '""')}"`,
-                `"${workout.muscleGroups.join(', ').replace(/"/g, '""')}"`,
-                workout.setsRepsOrDuration.format,
-                workout.setsRepsOrDuration.duration || '',
-                workout.setsRepsOrDuration.reps || '',
-                `"${(workout.source || '').replace(/"/g, '""')}"`
-            ];
-            csvRows.push(row.join(','));
-        });
-        
-        const csvContent = csvRows.join('\n');
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'wods-database.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
     }
     
     function updateResultsCount() {
