@@ -1,18 +1,19 @@
 /* IDFit Events - Main Stylesheet */
 
 body {
-    font-family: 'Roboto', Arial, sans-serif;
-    background: #000080;
+    font-family: 'Montserrat', sans-serif;
+    background: #f8f9fa;
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    color: #333;
 }
 
 header {
     text-align: center;
-    padding: 40px 10px 15px 10px;
-    border-radius: 8px;
-    background: #001284;
+    padding: 2rem;
+    background: #222;
+    color: #fff;
 }
 
 .logo {
@@ -26,19 +27,17 @@ header {
 }
 
 h1 {
-    font-size: 2.1rem;
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 600;
     color: #fff;
     letter-spacing: 1px;
-    border-bottom: 2.5px solid #fff;
-    display: inline-block;
-    padding-bottom: 6px;
-    margin: 0 auto 6px auto;
+    margin: 0;
 }
 
 .subtitle {
-    font-size: 1rem;
-    color: #e4ecfc;
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-top: 0.5rem;
     margin-bottom: 0;
     letter-spacing: 0.4px;
     font-weight: 400;
@@ -47,56 +46,63 @@ h1 {
 
 .skip-link {
     position: absolute;
-    top: -40px;
-    left: 0;
-    background: #23bb57;
-    color: #fff;
-    padding: 8px 16px;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 0 0 4px 0;
-    z-index: 100;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
 
 .skip-link:focus {
-    top: 0;
+    left: 10px;
+    top: 10px;
+    width: auto;
+    height: auto;
+    padding: 8px 12px;
+    background: #222;
+    color: #fff;
+    z-index: 1000;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
 }
 
 .empty-events {
-    color: #fff;
-    background: #233fc2;
+    color: #333;
+    background: #fff;
     text-align: center;
     font-size: 1.2rem;
     font-weight: 600;
-    border-radius: 14px;
+    border-radius: 8px;
     margin: 42px auto;
     padding: 25px 18px;
     max-width: 430px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.14);
-    outline: 2.5px dashed #23bb57;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 main {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    justify-content: center;
-    padding: 30px 10px 35px 10px;
-    max-width: 1100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .event-card {
     background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.12);
-    width: 355px;
-    min-width: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: border 0.2s, box-shadow 0.2s;
-    border: 2px solid transparent;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
 }
 
 .event-card.past {
@@ -111,11 +117,12 @@ main {
 
 .event-img {
     width: 100%;
-    height: 120px;
+    height: 160px;
     object-fit: cover;
     background: #e4ecfc;
     background-size: cover;
     background-repeat: no-repeat;
+    display: block;
 }
 
 .event-img.placeholder {
@@ -129,76 +136,77 @@ main {
 }
 
 .event-content {
-    padding: 20px 18px 17px 18px;
+    padding: 1.25rem;
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 0.75rem;
 }
 
 .event-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 5px;
-    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #d32f2f;
+    margin-bottom: 0;
 }
 
 .event-date {
-    color: #fff;
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    color: #666;
+    font-size: 0.95rem;
+    font-weight: 400;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    display: block;
 }
 
 .event-desc {
-    font-size: 14px;
-    color: #092266;
-    margin-bottom: 12px;
+    font-size: 0.98rem;
+    color: #444;
+    margin-bottom: 0;
     min-height: 38px;
 }
 
 .countdown {
-    color: #023;
-    background: #f0f4ff;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 6px 0 4px 0;
+    color: #777;
+    background: transparent;
+    border-radius: 0;
+    font-size: 0.95rem;
+    font-weight: 400;
+    padding: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    min-height: 34px;
-    letter-spacing: 0.5px;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    min-height: auto;
+    letter-spacing: normal;
 }
 
 .countdown i {
-    color: #385ffb;
-    margin-right: 5px;
+    color: #777;
+    margin-right: 0;
 }
 
 .card-actions {
     display: flex;
     gap: 8px;
-    margin-top: 2px;
+    margin-top: 0.75rem;
 }
 
 .button, .calendar-link {
     flex: 1 1 auto;
     display: inline-block;
     text-align: center;
-    padding: 11px 0;
+    padding: 0.5rem 1rem;
     color: #fff;
     text-decoration: none;
-    border-radius: 11px;
+    border-radius: 4px;
     font-size: 1rem;
-    font-weight: 700;
-    background: #01007a;
+    font-weight: 600;
+    background: #d32f2f;
     border: none;
-    transition: background 0.19s, color 0.19s, box-shadow 0.17s;
-    box-shadow: 0 1px 7px rgba(0,0,0,0.09);
+    transition: background 0.18s;
+    box-shadow: none;
     outline: none;
 }
 
@@ -207,37 +215,37 @@ main {
 }
 
 .button.info {
-    background: #087ec0;
+    background: #d32f2f;
     color: #fff;
     border: none;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .button.info:hover,
 .button.info:focus {
-    background: #055f90;
+    background: #b71c1c;
     color: #fff;
 }
 
 .calendar-link {
-    background: #fb6a12;
+    background: #d32f2f;
     color: #fff;
-    font-size: 0.97rem;
+    font-size: 1rem;
     font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    border-radius: 11px;
+    border-radius: 4px;
 }
 
 .button:hover, .button:focus {
-    background: #233fc2;
+    background: #b71c1c;
     color: #fff;
 }
 
 .calendar-link:hover, .calendar-link:focus {
-    background: #f98944;
+    background: #b71c1c;
     color: #fff;
 }
 
@@ -245,7 +253,7 @@ main {
 .button:focus-visible,
 .calendar-link:focus-visible,
 a:focus-visible {
-    outline: 3px solid #23bb57;
+    outline: 3px solid #d32f2f;
     outline-offset: 2px;
 }
 
@@ -271,20 +279,19 @@ a:focus-visible {
 
 @media (max-width: 850px) {
   main {
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
   }
-  .event-card {width: 97vw; max-width: 370px;}
 }
 
 footer {
   text-align: center;
-  color: #bed;
-  font-size: 15px;
-  padding: 32px 6px 24px 6px;
-  background: #001040;
-  margin-top: 25px;
+  color: #ccc;
+  font-size: 0.9rem;
+  padding: 1rem;
+  background: #222;
+  margin-top: 0;
 }
 
 .footer-links {
