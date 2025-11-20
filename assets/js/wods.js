@@ -43,7 +43,7 @@
         
         const headers = lines[0].split(',').map(h => h.trim());
         const workouts = [];
-        const REQUIRED_FIELD_COUNT = 6; // Name, Format & Duration, Instructions, Equipment, Muscle Groups, Training Goals
+        const REQUIRED_FIELD_COUNT = 7; // Name, Category, Format & Duration, Instructions, Equipment Needed, Muscle Groups, Training Goals
         
         for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
@@ -77,28 +77,18 @@
             if (fields.length >= REQUIRED_FIELD_COUNT) {
                 const workout = {
                     name: fields[0].replace(/^"+|"+$/g, ''),
-                    formatDuration: fields[1],
-                    instructions: fields[2],
-                    equipment: fields[3],
-                    muscleGroups: fields[4],
-                    trainingGoals: fields[5],
-                    category: deriveCategory(fields[1])
+                    category: fields[1],
+                    formatDuration: fields[2],
+                    instructions: fields[3],
+                    equipment: fields[4],
+                    muscleGroups: fields[5],
+                    trainingGoals: fields[6]
                 };
                 workouts.push(workout);
             }
         }
         
         return workouts;
-    }
-    
-    function deriveCategory(formatDuration) {
-        const format = formatDuration.toLowerCase();
-        if (format.includes('amrap')) return 'AMRAP';
-        if (format.includes('emom')) return 'EMOM';
-        if (format.includes('for time') || format.includes('rft')) return 'For Time';
-        if (format.includes('tabata')) return 'Tabata';
-        if (format.includes('rounds')) return 'Rounds';
-        return 'Other';
     }
     
     async function loadWorkouts() {
@@ -182,15 +172,15 @@
             </div>
             <div class="wod-info">
                 <div class="wod-info-row">
-                    <i class="fa-solid fa-clock"></i>
+                    <span class="emoji-icon">⏱️</span>
                     <span><strong>Format:</strong> ${escapeHtml(workout.formatDuration)}</span>
                 </div>
                 <div class="wod-info-row">
-                    <i class="fa-solid fa-dumbbell"></i>
+                    <span class="emoji-icon">🏋️</span>
                     <span><strong>Equipment:</strong> ${escapeHtml(workout.equipment)}</span>
                 </div>
                 <div class="wod-info-row">
-                    <i class="fa-solid fa-heart-pulse"></i>
+                    <span class="emoji-icon">💪</span>
                     <span><strong>Muscles:</strong> ${escapeHtml(workout.muscleGroups)}</span>
                 </div>
             </div>
@@ -215,27 +205,27 @@
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-clock"></i> Format & Duration</h3>
+                <h3><span class="emoji-icon">⏱️</span> Format & Duration</h3>
                 <p>${escapeHtml(workout.formatDuration)}</p>
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-list-ol"></i> Instructions</h3>
+                <h3><span class="emoji-icon">📋</span> Instructions</h3>
                 <p>${escapeHtml(workout.instructions)}</p>
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-dumbbell"></i> Equipment Needed</h3>
+                <h3><span class="emoji-icon">🏋️</span> Equipment Needed</h3>
                 <p>${escapeHtml(workout.equipment)}</p>
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-heart-pulse"></i> Muscle Groups</h3>
+                <h3><span class="emoji-icon">💪</span> Muscle Groups</h3>
                 <p>${escapeHtml(workout.muscleGroups)}</p>
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-bullseye"></i> Training Goals</h3>
+                <h3><span class="emoji-icon">🎯</span> Training Goals</h3>
                 <p>${escapeHtml(workout.trainingGoals)}</p>
             </div>
         `;
