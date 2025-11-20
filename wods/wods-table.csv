@@ -1,26 +1,125 @@
-Name,Category,Difficulty,Equipment,Muscle Groups,Format,Duration,Reps,Source
-Fran,benchmark,advanced,"barbell, pull-up bar","quads, shoulders, core",For Time,,21-15-9,CrossFit
-Cindy,benchmark,intermediate,"pull-up bar, bodyweight","chest, shoulders, quads, core",AMRAP,20 minutes,5-10-15,CrossFit
-Annie,benchmark,intermediate,none,"core, shoulders",For Time,,50-40-30-20-10,CrossFit
-Karen,benchmark,intermediate,medicine-ball,"quads, shoulders, core",For Time,,150,CrossFit
-Grace,benchmark,advanced,barbell,"quads, shoulders",For Time,,30,CrossFit
-Isabel,benchmark,advanced,barbell,"shoulders, back",For Time,,30,CrossFit
-Diane,benchmark,advanced,"barbell, bodyweight","hamstrings, shoulders",For Time,,21-15-9,CrossFit
-Jackie,benchmark,intermediate,"cardio-machine, barbell, pull-up bar",full-body,For Time,,1000m-50-30,CrossFit
-Helen,benchmark,intermediate,"cardio-machine, kettlebell, pull-up bar",full-body,For Time,,400m-21-12,CrossFit
-Chelsea,benchmark,advanced,"pull-up bar, bodyweight","chest, shoulders, quads",EMOM,30 minutes,5-10-15,CrossFit
-Mary,benchmark,intermediate,"pull-up bar, bodyweight",full-body,AMRAP,20 minutes,5-10-15,CrossFit
-Nancy,benchmark,intermediate,"cardio-machine, barbell",full-body,For Time,,400m-15,CrossFit
-Elizabeth,benchmark,advanced,"barbell, bodyweight","quads, shoulders",For Time,,21-15-9,CrossFit
-Kelly,benchmark,intermediate,"cardio-machine, medicine-ball",full-body,For Time,,400m-30-30,CrossFit
-Eva,benchmark,advanced,"cardio-machine, kettlebell, pull-up bar",full-body,For Time,,800m-30-30,CrossFit
-Murph,hero,advanced,"pull-up bar, bodyweight",full-body,For Time,,1mi-100-200-300-1mi,CrossFit - Lt. Michael Murphy
-DT,hero,advanced,barbell,"back, shoulders, hamstrings",For Time,,12-9-6,CrossFit - SSgt Timothy Davis
-Griff,hero,advanced,"cardio-machine, barbell",full-body,For Time,,800-400-200-100m + thrusters,CrossFit - Lt. Travis Griff
-J.T.,hero,advanced,"pull-up bar, bodyweight","chest, shoulders, back",For Time,,21-15-9,CrossFit - Jeff Taylor
-Michael,hero,advanced,"cardio-machine, bodyweight",full-body,For Time,,800m-50-50,CrossFit - Michael McGreevy
-Badger,hero,advanced,"barbell, pull-up bar, bodyweight",full-body,For Time,,30-30-800m,CrossFit - Marc Badger
-Tommy V,hero,advanced,"barbell, bodyweight",full-body,For Time,,21-12-15-9-9-6,CrossFit - Tommy Vietor
-Josh,hero,advanced,"barbell, pull-up bar",full-body,For Time,,21-18-15-12-9-6-3,CrossFit - Josh Hager
-Arnie,hero,advanced,bodyweight,full-body,For Time,,21-50-21-50-21-50-21,CrossFit - Arnold Schwarzenegger tribute
-McGhee,hero,advanced,"cardio-machine, barbell, pull-up bar",full-body,For Time,,400m-30-15,CrossFit
+Name,Format & Duration,Instructions,Equipment Needed,Muscle Groups,Training Goals
+"""Abbate""",For Time (With 20/14 lb Vest optional),"Run 1 Mile, 21 Clean and Jerks (155/105 lbs), Run 800m, 21 Clean and Jerks (155/105 lbs), Run 400m, 21 Clean and Jerks (155/105 lbs).","Barbell, Weight Vest (Optional)","Full Body, Power, Cardio","Strength Endurance, Pacing"
+"""Bull""",2 Rounds For Time,"200 Double Unders, 50 Overhead Squats (135/95 lbs), 50 Pull-ups, 1 Mile Run.","Jump Rope, Barbell, Pull-up Bar","Full Body, Skill, Endurance","Aerobic Capacity, Skill Under Fatigue"
+"""Capoot""",For Time,"100 Box Jump Overs (24/20 in), 50 Dumbbell Push Press (45/30 lbs), 100 Jump Rope Double Unders (200 Singles).","Box, 2 Dumbbells, Jump Rope","Hips, Shoulders, Cardio","Pacing, High Volume"
+"""Chad""",For Time (With 45/35 lb Pack/Vest),1000 Box Step-ups (20 in).,"Box (20 in), Weight Vest (Optional)","Legs, Cardio, Hips","Stamina, Volume Tolerance"
+"""Danny""",For Time,"3 Rounds of: 30 Box Jumps (24/20 in), 20 Push Presses (115/75 lbs), 30 GHD Sit-ups, 20 Pull-ups.","Box, Barbell, GHD Machine, Pull-up Bar","Full Body, High Intensity","Stamina, Power Endurance"
+"""Dillon""",10 Rounds For Time,"4 Strict Pull-ups, 4 Strict Handstand Push-ups (or Pike), 8 Toes-to-Bar, 8 Kettlebell Swings (24/16 kg).","Pull-up Bar, Wall, Kettlebell","Upper Body, Core, Hips","Strict Strength, Gymnastic Quality"
+"""DT""",5 Rounds For Time,"12 Deadlifts (155/105 lbs), 9 Hang Power Cleans (155/105 lbs), 6 Push Jerks (155/105 lbs).",Barbell (155/105 lbs),"Full Body Strength, Power","Barbell Cycling, Strength Stamina"
+"""Hansen""",5 Rounds For Time,"30 Kettlebell Swings (2pood/1.5pood), 30 Burpees, 30 GHD Sit-ups.","Kettlebell, GHD Machine","Full Body, Hips, Core","Strength Endurance, High Volume Core"
+"""Holleyman""",30 Rounds For Time,"5 Wall Balls (20/14 lbs), 3 Handstand Push-ups, 1 Power Clean (225/155 lbs).","Wall Ball, Wall, Barbell","Full Body, Heavy, Gymnastics","Strength Endurance, Work Capacity"
+"""J.T.""",For Time,"21-15-9 Reps of: Handstand Push-ups, Ring Dips, Push-ups.","Wall, Rings","Upper Body Push, Gymnastics",Strength Stamina
+"""Jack""",AMRAP in 20 Minutes,"10 Push Presses (115/75 lbs), 10 Kettlebell Swings (24/16 kg), 10 Box Jumps (24/20 in).","Barbell, Kettlebell, Box","Full Body, Power",High-Intensity Work Capacity
+"""Luce""",For Time (10 Rounds),"1 Kettlebell Turkish Get-up (40/26 lbs, 5 per arm), 10 Squat Cleans (135/95 lbs), 15 Two-Pood Kettlebell Swings (2pood/1.5pood).","Kettlebell (Light & Heavy), Barbell","Full Body, Stability, Power","Strength Endurance, Technical Focus"
+"""McCoy""",3 Rounds For Time,"800m Run, 30 Push-ups, 30 Overhead Squats (95/65 lbs).","Barbell, Running Space","Cardio, Shoulders, Legs","Aerobic Stamina, Overhead Stability"
+"""Murph""",For Time (With 20/14 lb Vest optional),"1 Mile Run, 100 Pull-ups, 200 Push-ups, 300 Air Squats, 1 Mile Run. (Partitioned reps are allowed for the middle section).","Pull-up Bar, Weight Vest (Optional)","Full Body, Stamina, Cardio","Muscular Endurance, Mental Toughness"
+"""Randy""",For Time,75 Power Snatches (75/55 lbs).,Barbell (75/55 lbs),"Hips, Shoulders, Power","Barbell Cycling, Anaerobic Capacity"
+"""Raskin""",3 Rounds For Time,"50 Dumbbell Squat Snatch (40/25 lbs), 50 Sit-ups, 50 Box Jumps (24/20 in).","Single Dumbbell, Box","Full Body, Power, Core","Muscular Endurance, Speed"
+"""Severin""",For Time,"5 Rounds of: 50 Air Squats, 40 Sit-ups, 30 Double Unders, 20 Pull-ups, 10 Single-Arm Dumbbell Snatches (50/35 lbs, 5 per arm).","Dumbbell, Pull-up Bar, Jump Rope","Full Body, High Volume","Conditioning, Muscular Endurance"
+"""T.J.""",For Time,"10 Rounds of: 10 Deadlifts (185/135 lbs), 10 Box Jumps (24/20 in), 10 Barbell Lunges (185/135 lbs).","Barbell, Box","Legs, Posterior Chain, Cardio","Strength Endurance, Volume Tolerance"
+"""The Lyon""",For Time,"7 Rounds of: 10 Deadlifts (225/155 lbs), 10 Strict Handstand Push-ups (or regular), 10 Toes-to-Bar.","Barbell, Wall, Pull-up Bar","Posterior Chain, Shoulders, Core","Strength, Gymnastic Stamina"
+"""Wittman""",7 Rounds For Time,"15 Kettlebell Swings (24/16 kg), 15 Power Cleans (95/65 lbs), 15 Box Jumps (24/20 in).","Kettlebell, Barbell, Box","Full Body, High Reps","Conditioning, Lactic Acid Tolerance"
+"1. ""Grace""",For Time (Typically 3-6 minutes),Complete 30 Clean & Jerks (135/95 lbs).,Barbell (135/95 lbs),"Full Body (Hips, Shoulders, Triceps, Core)","Power, Weightlifting Efficiency"
+"10. ""Dumbbell Trio""",3 Rounds For Time,"20 Dumbbell Snatches (50/35 lbs), 20 Dumbbell Box Step-overs (20 in), 20 V-ups.","Dumbbell, Box","Full Body, Core","Conditioning, Unilateral Strength"
+"100. ""The Centurion""",For Time (10 Rounds),"10 Burpees, 10 Walking Lunges (per leg), 10 Air Squats, 10 Sit-ups.",None (Bodyweight),"Full Body, High Volume","Mental Toughness, Final Test of Will"
+"11. ""Benchmark B""",For Time (50-40-30-20-10 Reps),"Double Unders (2x reps: 100-80-60-40-20), Air Squats.",Jump Rope,"Legs, Cardio","Speed, Coordination"
+"12. ""Core Destroyer""",5 Rounds For Time,"15 GHD Sit-ups, 10 Toes-to-Bar, 15 Back Extensions.","GHD Machine, Pull-up Bar","Core, Posterior Chain","Midline Strength, Endurance"
+"13. ""Kettlebell Swing & Goblet""",AMRAP in 18 Minutes,"15 Kettlebell Swings (24/16 kg), 10 Goblet Squats (24/16 kg), 5 Strict Push-ups.",Kettlebell,"Legs, Hips, Chest",Muscular Endurance
+"14. ""Heavy Deadlifts""",5 Rounds For Time,"5 Deadlifts (275/185 lbs), 10 Hand Release Push-ups, 15 Box Jumps (24/20 in).","Barbell, Box","Posterior Chain, Chest, Hips","Strength, Anaerobic Power"
+"15. ""Running & Rowing""",For Time (1000-800-600-400-200 meters),"Complete the distance on the Rower, then run the same distance. Start at 1000m and finish at 200m.","Rower, Running Track/Space","Cardiovascular, Legs","Pacing, Aerobic Power"
+"16. ""Pressing Pyramid""",EMOM for 15 Minutes,Odd Minutes: Max effort Strict Press (95/65 lbs). Even Minutes: Max effort Pull-ups. Rest on the 15th minute.,"Barbell, Pull-up Bar","Shoulders, Back, Biceps","Strength, Muscular Stamina"
+"17. ""Partner Thruster""",For Time (Shared Work),"Accumulate 100 Thrusters (95/65 lbs). Partner A works, Partner B holds a Plank. Switch when Partner A breaks.",Barbell (95/65 lbs),"Full Body, Core","Teamwork, Strength Endurance"
+"18. ""Bike & Burpee""",4 Rounds For Time,"20/15 Calorie Bike, 10 Burpee Box Jump Overs.","Assault/Echo Bike, Box","Cardiovascular, Hips",High-Intensity Conditioning
+"19. ""The Chipper""",For Time (Unbroken Task),"50 Box Jumps, 40 Wall Balls, 30 Kettlebell Swings, 20 Toes-to-Bar, 10 Overhead Squats (95/65 lbs). Must complete all reps of one exercise before moving to the next.","Box, Wall Ball, Kettlebell, Barbell","Full Body, Grinding Pace","Stamina, Volume Tolerance"
+"2. ""Helen""",3 Rounds For Time,"400m Run, 21 Kettlebell Swings (24/16 kg), 12 Pull-ups.","Kettlebell, Pull-up Bar","Full Body (Hips, Back, Lungs)","Stamina, Cardiovascular Endurance"
+"20. ""Dumbbell Devils""",AMRAP in 10 Minutes,"5 Devil's Press (50/35 lbs), 10 Alternating Pistol Squats (or weighted Lunges).",2 Dumbbells,"Full Body, Unilateral Strength","Power, Coordination"
+"21. ""Triple EMOM""",EMOM for 24 Minutes,Minute 1: 12/9 Calorie Row. Minute 2: 10 Burpees over the Rower. Minute 3: 10 GHD Sit-ups. Minute 4: Rest. (Repeat 6 times),"Rower, GHD Machine","Full Body, Core, Cardio","Pacing, Aerobic Capacity"
+"22. ""Dumbbell AMRAP""",AMRAP in 20 Minutes,"10 Dumbbell Thrusters (40/25 lbs), 10 Dumbbell Facing Burpees, 10 Dumbbell Box Step-overs (20 in).","2 Dumbbells, Box","Full Body, Anaerobic","Muscular Endurance, Work Capacity"
+"23. ""Strict Gymnastics""",EMOM for 16 Minutes,Odd Minutes: Max Strict Pull-ups. Even Minutes: Max Strict Handstand Push-ups.,"Pull-up Bar, Wall","Upper Body Strength, Gymnastics","Relative Strength, Stamina"
+"24. ""Running EMOM Deluxe""",EMOM for 30 Minutes,Minute 1: 200m Run. Minute 2: 15 Kettlebell Swings (24/16 kg). Minute 3: 10 Push-ups. (Repeat 10 times),Kettlebell,"Full Body, Cardio","Aerobic Power, Consistency"
+"25. ""Barbell & Bike AMRAP""",AMRAP in 14 Minutes,"12 Deadlifts (185/135 lbs), 8 Hang Power Cleans (185/135 lbs), 10/8 Calorie Bike.","Barbell, Bike","Posterior Chain, Cardio","Power Endurance, Lactic Threshold"
+"26. ""Bodyweight 30""",AMRAP in 30 Minutes,"100 Single Unders, 20 Sit-ups, 10 Walking Lunges (per leg).",Jump Rope,"Full Body, Endurance","Stamina, High Volume"
+"27. ""The Push/Pull EMOM""",EMOM for 20 Minutes,Odd Minutes: Max Ring Dips. Even Minutes: Max Toes-to-Bar.,"Rings, Pull-up Bar","Upper Body, Core",Gymnastic Stamina
+"28. ""Overhead Carry AMRAP""",AMRAP in 16 Minutes,"50 ft Single-Arm Overhead Dumbbell Carry (right arm, 50/35 lbs), 10 Burpees, 50 ft Single-Arm Overhead Dumbbell Carry (left arm), 10 Sit-ups.",Dumbbell,"Core Stability, Shoulders, Cardio","Midline Strength, Unilateral Stability"
+"29. ""EMOM of Thrusters""",EMOM for 10 Minutes,Complete 6 Thrusters (95/65 lbs). Rest with any remaining time.,Barbell (95/65 lbs),"Full Body, Pacing","Anaerobic Power, Pacing"
+"3. ""Fight Gone Bad""","3 Rounds, 1 Minute per Station","Wall Balls (20/14 lbs), Sumo Deadlift High-Pulls (75/55 lbs), Box Jumps (20 in), Push Presses (75/55 lbs), Row (Calories). 1 min rest between rounds. Score is total reps/calories.","Wall Ball, Barbell, Box, Rower",Full Body (High volume),"Muscular Endurance, Lactic Acid Tolerance"
+"30. ""Rowing Pyramid AMRAP""",AMRAP in 17 Minutes,"5 Pull-ups, 10 Push-ups, 15 Squats. After each round, row 100m before starting the next round.","Pull-up Bar, Rower","Full Body, Conditioning","Muscular Endurance, Aerobic Transition"
+"31. ""Snatch Cycle AMRAP""",AMRAP in 12 Minutes,"6 Power Snatches (75/55 lbs), 12 Box Jumps (24/20 in), 18 Kettlebell Swings (24/16 kg).","Barbell, Box, Kettlebell","Hips, Shoulders, Legs","Explosive Speed, Consistency"
+"32. ""Partner AMRAP (Alt Rounds)""",AMRAP in 24 Minutes (Teams of 2),"Partner A completes a full round of: 15 Wall Balls, 10 Calorie Row. Partner B rests. Partners alternate rounds. Score is total rounds completed.","Wall Ball, Rower","Full Body, Pacing","Teamwork, Consistent Output"
+"33. ""Heavy Dumbbell EMOM""",EMOM for 15 Minutes,Minutes 1-5: 5 Dumbbell Cleans (70/50 lbs). Minutes 6-10: 5 Dumbbell Shoulder-to-Overhead. Minutes 11-15: 5 Dumbbell Squats (holding DBs).,2 Heavy Dumbbells,"Strength, Power",Strength Endurance
+"34. ""Gymnastics Chipper AMRAP""",AMRAP in 15 Minutes,"10 Chest-to-Bar Pull-ups, 15 Hand Release Push-ups, 20 AbMat Sit-ups.","Pull-up Bar, Mat","Upper Body, Core",Gymnastic Stamina
+"35. ""Double-Under EMOM""",EMOM for 18 Minutes,Minute 1: 50 Double-Unders. Minute 2: 10 V-Ups. Minute 3: 5 Clean & Jerks (135/95 lbs).,"Jump Rope, Barbell","Full Body, Coordination","Pacing, Technical Consistency"
+"36. ""3 Rounds of AMRAP""","3 Rounds: 4 Minutes AMRAP, 1 Minute Rest","10 Push Press (95/65 lbs), 10 Toes-to-Bar. Score is total reps across all 3 working rounds.","Barbell, Pull-up Bar","Shoulders, Core","Anaerobic Power, Recovery"
+"37. ""Bike & Box EMOM""",EMOM for 16 Minutes,Odd Minutes: 12/9 Calorie Bike. Even Minutes: 8 Box Jumps (30/24 in).,"Bike, High Box","Explosive Power, Cardiovascular",High Power Output
+"38. ""Kettlebell Swing AMRAP""",AMRAP in 10 Minutes,"10 Russian Kettlebell Swings (32/24 kg), 10 Burpees.",Heavy Kettlebell,"Hips, Cardio",Explosive Strength Endurance
+"39. ""Bodyweight Intervals""","AMRAP 3 Minutes, Rest 1 Minute (x5)","5 Burpees, 10 Push-ups, 15 Squats. Score is total rounds/reps completed.",None (Bodyweight),"Full Body, Cardio","Pacing, High-Intensity Intervals"
+"4. ""Bodyweight Blast""",AMRAP in 15 Minutes,"10 Burpees, 20 Sit-ups, 30 Air Squats.",None (Bodyweight),"Full Body (Core, Legs, Hips)","Aerobic Capacity, Movement Consistency"
+"40. ""Bar Muscle-Up EMOM""",EMOM for 12 Minutes,"Complete 1-3 Bar Muscle-Ups. If you fail a rep or cannot complete the required reps, switch to 5 Pull-ups for that minute.",Pull-up Bar,"Upper Body, Gymnastics","Skill Practice, Efficiency"
+"41. ""The Long Haul""",For Time (20-30 minutes),"1 Mile Run, 50 Push Press (95/65 lbs), 1 Mile Run.","Barbell, Running Space","Legs, Shoulders, Cardio","Stamina, Muscular Fatigue Management"
+"42. ""Bear Complex EMOM""",EMOM for 15 Minutes,"Complete 1 full ""Bear Complex"" (Power Clean, Front Squat, Push Press, Back Squat, Push Press) at 135/95 lbs.",Barbell (135/95 lbs),Full Body Strength,"Barbell Cycling, Consistent Power"
+"43. ""Heavy Squats & Cardio""",5 Rounds For Time,"10 Back Squats (185/135 lbs), 200m Row.","Squat Rack, Barbell, Rower","Legs, Posterior Chain, Cardio","Strength Endurance, Power Output"
+"44. ""The Triplet""",AMRAP in 18 Minutes,"10 Power Snatches (95/65 lbs), 15 GHD Sit-ups, 20 Box Jumps (24/20 in).","Barbell, GHD, Box","Hips, Core, Explosive","Coordination, High-Skill Conditioning"
+"45. ""Death By Clean""",EMOM (Increasing Reps),Minute 1: 1 Clean (135/95 lbs). Minute 2: 2 Cleans. Minute 3: 3 Cleans... Continue until unable to complete the required reps in the minute. Score is the last full minute completed.,Barbell (135/95 lbs),"Power, Anaerobic Capacity",Weightlifting Stamina
+"46. ""Strict Press Ladder""",5 Rounds For Time,"10 Strict Press (75/55 lbs), 20 Toes-to-Bar, 30 Double Unders.","Barbell, Pull-up Bar, Jump Rope","Shoulders, Core, Coordination","Upper Body Stamina, Skill Transition"
+"47. ""Dumbbell Overhead""",3 Rounds For Time,"50 ft Dual Dumbbell Overhead Lunge (50/35 lbs), 15 Burpees over Dumbbells, 10 Strict Pull-ups.","2 Dumbbells, Pull-up Bar","Shoulders, Core Stability, Legs","Unilateral Strength, Gymnastic Endurance"
+"48. ""Heavy Deadlift Chipper""",For Time (15-12-9 Reps),"Deadlifts (315/225 lbs), Ring Muscle-Ups.","Barbell, Rings","Posterior Chain, Upper Body Pulling","Maximal Strength Endurance, Skill"
+"49. ""Wall Ball & Carry EMOM""",EMOM for 21 Minutes,"Minute 1: 20 Wall Balls (20/14 lbs). Minute 2: 100 ft Single Arm Farmer's Carry (70/50 lbs, right arm). Minute 3: 100 ft Single Arm Farmer's Carry (70/50 lbs, left arm).","Wall Ball, Heavy Kettlebell/DB","Legs, Shoulders, Core, Grip","Midline Stability, Muscular Endurance"
+"5. ""Karen""",For Time (Typically 8-15 minutes),Complete 150 Wall Balls (20/14 lbs) for time.,Wall Ball (20/14 lbs),"Legs, Shoulders, Core","Muscular Endurance, Mental Toughness"
+"50. ""The Olympic Complex""",For Time (3 Rounds),"10 Overhead Squats (115/75 lbs), 15 Calorie Bike, 20 Ring Dips.","Barbell, Bike, Rings","Full Body, Gymnastics","Technical Stamina, Shoulder Stability"
+"51. ""Barbell & Run AMRAP""",AMRAP in 16 Minutes,"400m Run, 15 Power Cleans (115/75 lbs).","Barbell, Running Space","Legs, Hips, Cardio","Aerobic Capacity, Cycling Speed"
+"52. ""Interval Builder""","6 Rounds, 2 Minutes Work, 1 Minute Rest","Max reps of: 5 Pull-ups, 10 Push-ups, 15 Air Squats. Score is total reps accumulated.",Pull-up Bar,Full Body Muscular Endurance,High Power Output Intervals
+"53. ""Heavy Thruster 10""",EMOM for 10 Minutes,Complete 5 Thrusters (115/75 lbs). Scale weight down if you fail to complete 5 reps unbroken for the minute.,Barbell (115/75 lbs),"Legs, Shoulders, Cardio","Power, Lactate Tolerance"
+"54. ""Kettlebell Swing & Burpee""",For Time (25-20-15-10-5 Reps),"American Kettlebell Swings (24/16 kg), Burpee Pull-ups.","Kettlebell, Pull-up Bar","Full Body, Hips, Cardio",High-Intensity Stamina
+"55. ""The Benchmark D""",For Time,"50 Box Jumps (24/20 in), 50 Push Presses (75/55 lbs), 50 Knees-to-Elbows, 50 Hip Extensions.","Box, Barbell, Pull-up Bar, GHD","Full Body, Core","Grinding Endurance, Consistency"
+"56. ""Strict Pull EMOM""",EMOM for 14 Minutes,Odd Minutes: 5 Strict Toes-to-Bar. Even Minutes: 5 Strict Pull-ups.,Pull-up Bar,"Core, Back, Biceps","Strict Strength, Gymnastic Quality"
+"57. ""Heavy Clean & Jerk""",For Time (15-12-9 Reps),"Clean & Jerk (155/105 lbs), 200m Run.","Barbell, Running Space","Power, Strength",Weightlifting Pacing
+"58. ""Bodyweight Hero""",5 Rounds For Time,"25 Hand Release Push-ups, 50 Walking Lunges, 100 Double Unders.",Jump Rope,"Full Body, Stamina","Muscular Endurance, Coordination"
+"59. ""Rope Climb & Row""",AMRAP in 13 Minutes,"1 Legless Rope Climb (or 2 standard), 15/12 Calorie Row, 10 Handstand Push-ups.","Rope, Rower, Wall","Upper Body, Cardio, Shoulders","Skill, Power Output"
+"6. ""The Seven""",7 Rounds For Time,"7 Handstand Push-ups, 7 Thrusters (135/95 lbs), 7 Knees-to-Elbows, 7 Deadlifts (245/165 lbs), 7 Burpees, 7 Kettlebell Swings (2pood/1.5pood), 7 Pull-ups.","Barbell, Kettlebell, Rings/Bar",Full Body (Heavy and Gymnastics),"Strength Endurance, High Volume Stamina"
+"60. ""Barbell Conditioning""",AMRAP in 15 Minutes,"5 Front Squats (135/95 lbs), 10 Bar Facing Burpees, 15 Wall Balls (20/14 lbs).","Barbell, Wall Ball","Legs, Cardio, Hips","Density, Conditioning"
+"61. ""Long Steady Distance""",For Time (3 Rounds),"1000m Row, 50 Air Squats, 25 Strict Press (75/55 lbs).","Rower, Barbell","Full Body, Stamina","Aerobic Capacity, Pacing"
+"62. ""Bike & Burpee Ladder""",For Time (Ladder 10-20-30-40),"10 Calorie Bike, 10 Burpees; 20 Calorie Bike, 20 Burpees; 30 Calorie Bike, 30 Burpees; 40 Calorie Bike, 40 Burpees.",Bike,"Cardio, Legs, Hips","High Volume, Mental Toughness"
+"63. ""Odd Object Carry EMOM""",EMOM for 20 Minutes,Odd Minutes: 100 ft Sandbag/Atlas Stone Carry (Heavy). Even Minutes: 15 Kettlebell Swings (24/16 kg).,"Heavy Bag/Stone, Kettlebell","Core, Grip, Posterior Chain","Strength Stamina, Midline Stability"
+"64. ""Ski-Erg Intervals""","10 Rounds, 1 Minute Work, 1 Minute Rest",Max Calorie Ski. Score is total calories accumulated over 10 working minutes.,Ski Erg,"Upper Body, Core, Cardio","Anaerobic Power, Sustainable Pace"
+"65. ""High-Volume Wall Balls""",For Time (100-80-60-40-20 Reps),"Wall Balls (20/14 lbs) in the first round. Every round, perform 10 Pull-ups and 10 Push-ups.","Wall Ball, Pull-up Bar","Legs, Shoulders, Gymnastics","Muscular Endurance, Volume Tolerance"
+"66. ""Heavy Double Dumbbell""",5 Rounds For Time,"10 Dual Dumbbell Snatches (50/35 lbs), 15 Alternating V-ups.",2 Dumbbells,"Hips, Shoulders, Core","Power, Midline Strength"
+"67. ""2K Test Prep""",For Time,"2000m Row, then 50 Burpee Pull-ups.","Rower, Pull-up Bar","Full Body, Cardio",Aerobic/Anaerobic Transition
+"68. ""Grip Destroyer AMRAP""",AMRAP in 15 Minutes,"10 Kettlebell Cleans (24/16 kg, 5 per arm), 10 Toes-to-Bar, 100 ft Handstand Walk (or 5 Wall Walks).","Kettlebell, Pull-up Bar, Wall","Grip, Core, Shoulders","Skill, Grip Endurance"
+"69. ""Barbell and Rope""",EMOM for 16 Minutes,Odd Minutes: 12 Deadlifts (155/105 lbs). Even Minutes: 50 Double-Unders.,"Barbell, Jump Rope","Posterior Chain, Cardio","Pacing, Technical Consistency"
+"7. ""Running EMOM""",EMOM for 20 Minutes,Odd Minutes: 15 Burpees. Even Minutes: 200m Run.,None (Bodyweight),"Legs, Cardio, Hips","Pacing Strategy, Anaerobic Threshold"
+"70. ""The Long Cardio Chipper""",For Time (50-40-30-20-10 Reps),"Box Jumps, Calorie Row (20-16-12-8-4 Cal), Kettlebell Swings (24/16 kg).","Box, Rower, Kettlebell","Legs, Hips, Cardio","Pacing, Endurance"
+"71. ""Overhead Stamina""",AMRAP in 12 Minutes,"8 Overhead Squats (95/65 lbs), 8 Bar Facing Burpees.",Barbell (95/65 lbs),"Shoulders, Core Stability, Hips","Mobility, Speed"
+"72. ""Interval Mix""",EMOM for 27 Minutes,Minute 1: 15/12 Calorie Bike. Minute 2: 10 Clean & Jerks (95/65 lbs). Minute 3: 10 Strict Push-ups. (Repeat 9 times),"Bike, Barbell","Full Body, Anaerobic","Pacing, High Volume"
+"73. ""Running & Air Squat""",For Time (5 Rounds),"800m Run, 50 Air Squats.",Running Space,"Legs, Cardio","Aerobic Endurance, High Volume Legs"
+"74. ""Gymnastic Skill AMRAP""",AMRAP in 14 Minutes,"3 Ring Muscle-Ups, 6 Squat Snatches (95/65 lbs), 9 Chest-to-Bar Pull-ups.","Rings, Barbell, Pull-up Bar","Skill, Coordination, Pulling",Gymnastic Pacing
+"75. ""Assault Bike EMOM""",EMOM for 15 Minutes,"Complete 15/12 Calorie Bike. If the task is completed early, rest for the remainder of the minute.",Bike,Cardiovascular System,High Power Output
+"76. ""Rope Climb & Kettlebell""",3 Rounds For Time,"3 Rope Climbs (15 ft), 21 Kettlebell Snatches (24/16 kg, alternating).","Rope, Kettlebell","Upper Body Pulling, Hips","Strength Skill, Power Endurance"
+"77. ""The Half Chipper""",For Time (50 Reps Each),"50 Thrusters (75/55 lbs), 50 Toes-to-Bar, 50 GHD Sit-ups, 50 Double Unders.","Barbell, Pull-up Bar, GHD, Jump Rope","Full Body, Grinding Pace","Stamina, Midline Endurance"
+"78. ""Tempo Squat EMOM""",EMOM for 12 Minutes,5 Back Squats (135/95 lbs) with a 3-second descent (Tempo 30X0).,"Barbell, Squat Rack","Strength, Time Under Tension","Muscular Hypertrophy, Technique"
+"79. ""Dumbbell & Run""",AMRAP in 17 Minutes,"400m Run, 10 Dumbbell Overhead Lunges (50/35 lbs, alternating legs), 10 Dumbbell Hang Power Cleans.","Dumbbell, Running Space","Legs, Shoulders, Cardio","Consistency, Locomotor Skill"
+"8. ""Weighted Isabel""",For Time (Typically 4-8 minutes),Complete 30 Snatches (135/95 lbs).,Barbell (135/95 lbs),"Hips, Shoulders, Core","Explosive Power, Barbell Cycling"
+"80. ""Heavy Clean & Front Squat""",5 Rounds For Time,"5 Squat Cleans (185/135 lbs), 10 Front Squats (185/135 lbs).",Barbell (185/135 lbs),"Legs, Hips, Core","Strength Endurance, Lactate Tolerance"
+"81. ""Hotel Hell""",For Time (10 Rounds),"10 Push-ups, 10 Sit-ups, 10 Air Squats.",None (Bodyweight),Full Body,"Muscular Endurance, Consistency"
+"82. ""Airport AMRAP""",AMRAP in 25 Minutes,"5 Burpees, 10 V-Ups, 15 Box Jumps (or Step-ups onto bench/sturdy chair).",None (Bodyweight),"Full Body, Cardio","Stamina, High Volume"
+"83. ""Jump Rope Grinder""",For Time (3 Rounds),"300 Single Unders (or 100 Double Unders), 50 Walking Lunges, 25 Hand Release Push-ups.",Jump Rope,"Legs, Cardio, Chest","Aerobic Capacity, Coordination"
+"84. ""One Dumbbell Travel""",EMOM for 15 Minutes,Odd Minutes: 10 Single-Arm Dumbbell Snatches (5 per arm). Even Minutes: 10 Dumbbell Goblet Squats.,Single Dumbbell (Medium),"Full Body, Power","Unilateral Strength, Pacing"
+"85. ""Staircase Sprint""",10 Rounds For Time,"Sprint up two flights of stairs, 15 Push-ups.",Staircase,"Legs, Cardio, Chest","Anaerobic Power, Speed"
+"86. ""Cindy's Cousin""",AMRAP in 20 Minutes,"5 Pike Push-ups, 10 Alternating Pistol Squats (or Assisted), 15 Box Dips (on sturdy surface).",None (Bodyweight),"Shoulders, Legs, Triceps","Strength Endurance, Skill"
+"87. ""Travel Chipper""",For Time (75-50-25 Reps),"Burpees, Air Squats.",None (Bodyweight),"Full Body, Cardio","Mental Toughness, High Rep Volume"
+"88. ""Kettlebell Kitchen""",3 Rounds For Time,"20 Kettlebell Swings (medium weight), 15 Kettlebell Thrusters, 10 Kettlebell Sumo Deadlift High Pulls.",Single Kettlebell,"Hips, Shoulders, Core",Power Endurance
+"89. ""EMOM of Abs""",EMOM for 18 Minutes,Minute 1: 20 AbMat Sit-ups. Minute 2: 15 Second Plank Hold. Minute 3: 10 Toes-to-Bar (or Straight Leg Raises).,"Mat, Pull-up Bar (optional)",Core Strength,"Midline Stability, Consistency"
+"9. ""Thruster Ladder""",AMRAP in 12 Minutes,"3 Thrusters (95/65 lbs), 3 Pull-ups. Add 3 reps to each movement every round (6, 6; 9, 9; etc.)","Barbell, Pull-up Bar","Full Body, High-Intensity","Strength Endurance, Work Capacity"
+"90. ""The Endurance Test""",For Time,"5K Run. Every 5 minutes, stop and perform 15 Burpees.",Running Space,"Cardiovascular, Stamina","Aerobic Capacity, Discipline"
+"91. ""The Skill Builder""",AMRAP in 10 Minutes,"5 Wall Walks, 10 Strict Press (75/55 lbs), 15 V-Ups.","Wall, Barbell","Shoulders, Core, Gymnastics",Technical Stamina
+"92. ""Double Under Challenge""",For Time (5 Rounds),"10 Squat Cleans (95/65 lbs), 100 Double Unders.","Barbell, Jump Rope","Hips, Cardio, Coordination","Cycling Speed, Skill Under Fatigue"
+"93. ""Partner Run""",For Time (Shared Distance),"Accumulate 5K Run. Partner A runs, Partner B holds a Plank. Switch when Partner A returns.",Running Space,"Cardio, Core","Teamwork, Endurance"
+"94. ""Heavy Finisher""","5 Rounds, Not For Time (Focus on Quality)","5 Deadlifts (80% 1RM), 10 Handstand Push-ups (or Pike Push-ups).","Heavy Barbell, Wall","Maximal Strength, Gymnastics",Strength Development
+"95. ""Rower/Bike Ladder""",For Time (10-20-30-40-50 Reps),"Kettlebell Swings (24/16 kg), with 10/8 Calorie Row or Bike after each set.","Kettlebell, Rower/Bike","Hips, Cardio","Density, Pacing Strategy"
+"96. ""The Ghost""","6 Rounds, 1 Minute per Station","Row (Calories), Burpees, Double Unders. 1 minute rest between rounds. Score is total reps/calories.","Rower, Jump Rope","Full Body, High Output","Muscular Endurance, Lactic Acid Tolerance"
+"97. ""Gymnastic Endurance""",For Time (21-15-9 Reps),"Ring Dips, Toes-to-Bar, GHD Sit-ups.","Rings, Pull-up Bar, GHD","Upper Body, Core","Gymnastic Stamina, Midline Strength"
+"98. ""Unilateral Thruster""",AMRAP in 16 Minutes,"10 Single-Arm Dumbbell Thrusters (5 per arm, 50/35 lbs), 10 Box Step-overs, 10 Push-ups.","Single Dumbbell, Box","Full Body, Stability","Unilateral Strength, Cardio"
+"99. ""Barbell 100""",For Time (100 Reps Total),"10 Hang Power Cleans, 10 Front Squats (Repeat 5 times at 135/95 lbs).",Barbell (135/95 lbs),"Hips, Legs, Core","Strength Endurance, Barbell Cycling"
+"""Annie""",For Time (Typically 5-10 minutes),"Complete 50-40-30-20-10 reps of Double Unders and Sit-ups. The athlete must complete 50 Double Unders, then 50 Sit-ups, then 40 of each, down to 10 of each.","Jump Rope (for Double Unders), Mat","Core, Cardiovascular System, Hips","Coordination, Speed, Stamina"
+"""Diane""",21-15-9 Reps For Time (Typically 4-8 minutes),Deadlifts (225/155 lbs) and Handstand Push-ups.,"Barbell (225/155 lbs), Wall","Posterior Chain, Shoulders, Triceps","Strength Endurance, Gymnastic Stamina"
+"""Elizabeth""",21-15-9 Reps For Time (Typically 5-10 minutes),Cleans (135/95 lbs) and Ring Dips.,"Barbell (135/95 lbs), Rings","Full Body, Gymnastics","Power, Explosive Strength, Upper Body Endurance"
+"""Filthy 50""",For Time (50 Reps Each),"50 Box Jumps (24/20 in), 50 Jumping Pull-ups, 50 Kettlebell Swings (35/26 lbs), 50 Walking Lunges (per leg), 50 Knees-to-Elbows, 50 Push Presses (45/35 lbs), 50 Back Extensions, 50 Wall Balls (20/14 lbs), 50 Burpees, 50 Double Unders.","Various (Box, Pull-up Bar, KB, Wall Ball)","Full Body, High Volume","Stamina, Volume Tolerance, Pacing"
