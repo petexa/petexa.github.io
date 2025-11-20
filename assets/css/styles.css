@@ -7,13 +7,36 @@ body {
     padding: 0;
     min-height: 100vh;
     color: #333;
+    padding-top: 90px; /* Space for fixed header */
 }
 
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     text-align: center;
-    padding: 2rem;
-    background: #222;
+    padding: 1rem 2rem;
+    background: #202023;
     color: #fff;
+}
+
+.header-tear {
+    position: fixed;
+    top: 58px; /* Position below the header */
+    left: 0;
+    right: 0;
+    z-index: 999;
+    height: 35px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.header-tear img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .logo {
@@ -27,7 +50,7 @@ header {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 600;
     color: #fff;
     letter-spacing: 1px;
@@ -297,7 +320,7 @@ footer {
   color: #ccc;
   font-size: 0.9rem;
   padding: 1rem;
-  background: #222;
+  background: #202023;
   margin-top: 0;
 }
 
@@ -318,7 +341,7 @@ footer {
 
 /* Workout Timers Section */
 .timers-section {
-  background: #001284;
+  background: #202023;
   padding: 40px 20px;
   margin: 40px auto 0 auto;
   max-width: 700px;
@@ -333,7 +356,7 @@ footer {
   font-weight: 700;
   margin: 0 0 25px 0;
   letter-spacing: 1px;
-  border-bottom: 2.5px solid #23bb57;
+  border-bottom: 2.5px solid #29ffb4;
   display: inline-block;
   padding-bottom: 8px;
   width: 100%;
@@ -350,7 +373,7 @@ footer {
   flex: 1 1 auto;
   max-width: 200px;
   padding: 12px 24px;
-  background: #092266;
+  background: #333;
   color: #fff;
   border: 2px solid transparent;
   border-radius: 12px;
@@ -361,14 +384,14 @@ footer {
 }
 
 .timer-tab:hover {
-  background: #233fc2;
+  background: #444;
   border-color: #29ffb4;
 }
 
 .timer-tab.active {
   background: #23bb57;
   border-color: #23bb57;
-  color: #000;
+  color: #fff;
 }
 
 .timer-tab:focus-visible {
@@ -399,7 +422,7 @@ footer {
 .timer-config label {
   display: block;
   font-weight: 600;
-  color: #092266;
+  color: #202023;
   margin-bottom: 8px;
   font-size: 1rem;
 }
@@ -407,12 +430,12 @@ footer {
 .timer-config input[type="number"] {
   width: 100%;
   padding: 12px;
-  border: 2px solid #e4ecfc;
+  border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #092266;
-  background: #f0f4ff;
+  color: #202023;
+  background: #f8f9fa;
   transition: border-color 0.2s;
 }
 
@@ -427,12 +450,12 @@ footer {
 }
 
 .timer-display {
-  background: #092266;
+  background: #333;
   border-radius: 14px;
   padding: 40px 20px;
   text-align: center;
   margin-bottom: 25px;
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .timer-time {
@@ -460,7 +483,7 @@ footer {
 .emom-round {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #80affe;
+  color: #29ffb4;
   margin-bottom: 15px;
 }
 
@@ -476,7 +499,7 @@ footer {
 
 .emom-status.work {
   background: #23bb57;
-  color: #000;
+  color: #fff;
 }
 
 .emom-status.rest {
@@ -485,8 +508,8 @@ footer {
 }
 
 .emom-status.complete {
-  background: #ffd700;
-  color: #000;
+  background: #29ffb4;
+  color: #202023;
 }
 
 .timer-controls {

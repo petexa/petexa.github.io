@@ -2,8 +2,11 @@
 
 A dynamic events calendar website for fitness and race events. This site displays upcoming events with countdown timers, allows users to book events, and provides calendar reminders.
 
+**Tagline**: *Miles, Mud, Muscle & A Pint*
+
 ## 🌟 Features
 
+- **Fixed Header Design**: Static header with torn page effect stays at the top while content scrolls
 - **Dynamic Event Loading**: Events are loaded from individual JSON files for easy management with robust error handling
 - **Event Countdown**: Real-time countdown timers for upcoming events (updates every minute)
 - **Calendar Integration**: Download .ics files with sanitized filenames to add events to your calendar
@@ -107,15 +110,24 @@ For more detailed instructions, see the [events/README.md](events/README.md) fil
 
 ## 🎨 Customization
 
+### Header Design
+
+The site features a fixed header with a black background and torn page effect:
+
+- **Header Background**: `#000` (Black)
+- **Fixed Positioning**: Header stays at the top while content scrolls beneath it
+- **Torn Page Effect**: Uses `images/scratch-black-top-04.svg` below the header for a paper tear visual
+- **Tagline**: "Miles, Mud, Muscle & A Pint"
+
 ### Styling
 
 All styles are now in `assets/css/styles.css` for easy maintenance. Key style variables:
 
 - **Primary Background**: `#000080` (Navy Blue)
-- **Header Background**: `#001284` (Dark Blue)
+- **Header Background**: `#000` (Black)
 - **Highlight Color**: `#23bb57` (Green) - for next event
 - **Button Colors**: Various blues and oranges
-- **Font**: Roboto (loaded from Google Fonts)
+- **Font**: Montserrat (loaded from Google Fonts)
 
 ### Event Display Options
 
