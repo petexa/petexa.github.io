@@ -7,13 +7,36 @@ body {
     padding: 0;
     min-height: 100vh;
     color: #333;
+    padding-top: 120px; /* Space for fixed header */
 }
 
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     text-align: center;
     padding: 2rem;
-    background: #222;
+    background: #000;
     color: #fff;
+}
+
+.header-tear {
+    position: fixed;
+    top: 85px; /* Position below the header */
+    left: 0;
+    right: 0;
+    z-index: 999;
+    height: 35px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.header-tear img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .logo {
