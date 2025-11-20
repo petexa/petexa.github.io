@@ -1,8 +1,8 @@
-# IDFit Events Website
+# Bootcamp Events Website
 
 A dynamic events calendar website for fitness and race events. This site displays upcoming events with countdown timers, allows users to book events, and provides calendar reminders.
 
-**Tagline**: *Miles, Mud, Muscle & A Pint*
+**Tagline**: *Sets and reps. Cheers and beers. That's the program*
 
 ## 🌟 Features
 
@@ -117,7 +117,7 @@ The site features a fixed header with a black background and torn page effect:
 - **Header Background**: `#000` (Black)
 - **Fixed Positioning**: Header stays at the top while content scrolls beneath it
 - **Torn Page Effect**: Uses `images/scratch-black-top-04.svg` below the header for a paper tear visual
-- **Tagline**: "Miles, Mud, Muscle & A Pint"
+- **Tagline**: "Sets and reps. Cheers and beers. That's the program"
 
 ### Styling
 
@@ -221,7 +221,7 @@ To contribute to this project:
 
 ## 📄 License
 
-This project is maintained by the IDFit Events team.
+This project is maintained by the Bootcamp Events team.
 
 ## 📞 Contact
 
