@@ -223,22 +223,13 @@
     margin-bottom: 0.5rem;
 }
 
-.wod-info-row i {
+.wod-info-row i,
+.wod-info-row .emoji-icon {
     width: 20px;
     margin-right: 8px;
-}
-
-/* Colored icons for card info rows */
-.wod-info-row i.fa-clock {
-    color: #3b82f6; /* Blue for time/format */
-}
-
-.wod-info-row i.fa-dumbbell {
-    color: #f59e0b; /* Amber for equipment */
-}
-
-.wod-info-row i.fa-heart-pulse {
-    color: #ef4444; /* Red for muscles */
+    font-style: normal;
+    display: inline-block;
+    text-align: center;
 }
 
 .wod-format {
@@ -363,29 +354,11 @@
     gap: 0.5rem;
 }
 
-.modal-section h3 i {
-    font-size: 1rem;
-}
-
-/* Colored icons for each section */
-.modal-section h3 i.fa-clock {
-    color: #3b82f6; /* Blue for time/duration */
-}
-
-.modal-section h3 i.fa-list-ol {
-    color: #8b5cf6; /* Purple for instructions */
-}
-
-.modal-section h3 i.fa-dumbbell {
-    color: #f59e0b; /* Amber for equipment */
-}
-
-.modal-section h3 i.fa-heart-pulse {
-    color: #ef4444; /* Red for muscle groups */
-}
-
-.modal-section h3 i.fa-bullseye {
-    color: #10b981; /* Green for training goals */
+.modal-section h3 i,
+.modal-section h3 .emoji-icon {
+    font-size: 1.1rem;
+    font-style: normal;
+    margin-right: 0.3rem;
 }
 
 .modal-section ul {

@@ -172,15 +172,15 @@
             </div>
             <div class="wod-info">
                 <div class="wod-info-row">
-                    <i class="fa-solid fa-clock"></i>
+                    <span class="emoji-icon">⏱️</span>
                     <span><strong>Format:</strong> ${escapeHtml(workout.formatDuration)}</span>
                 </div>
                 <div class="wod-info-row">
-                    <i class="fa-solid fa-dumbbell"></i>
+                    <span class="emoji-icon">🏋️</span>
                     <span><strong>Equipment:</strong> ${escapeHtml(workout.equipment)}</span>
                 </div>
                 <div class="wod-info-row">
-                    <i class="fa-solid fa-heart-pulse"></i>
+                    <span class="emoji-icon">💪</span>
                     <span><strong>Muscles:</strong> ${escapeHtml(workout.muscleGroups)}</span>
                 </div>
             </div>
@@ -205,27 +205,27 @@
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-clock"></i> Format & Duration</h3>
+                <h3><span class="emoji-icon">⏱️</span> Format & Duration</h3>
                 <p>${escapeHtml(workout.formatDuration)}</p>
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-list-ol"></i> Instructions</h3>
+                <h3><span class="emoji-icon">📋</span> Instructions</h3>
                 <p>${escapeHtml(workout.instructions)}</p>
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-dumbbell"></i> Equipment Needed</h3>
+                <h3><span class="emoji-icon">🏋️</span> Equipment Needed</h3>
                 <p>${escapeHtml(workout.equipment)}</p>
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-heart-pulse"></i> Muscle Groups</h3>
+                <h3><span class="emoji-icon">💪</span> Muscle Groups</h3>
                 <p>${escapeHtml(workout.muscleGroups)}</p>
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-bullseye"></i> Training Goals</h3>
+                <h3><span class="emoji-icon">🎯</span> Training Goals</h3>
                 <p>${escapeHtml(workout.trainingGoals)}</p>
             </div>
         `;
