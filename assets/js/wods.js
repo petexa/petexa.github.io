@@ -43,7 +43,7 @@
         
         const headers = lines[0].split(',').map(h => h.trim());
         const workouts = [];
-        const REQUIRED_FIELD_COUNT = 6; // Name, Format & Duration, Instructions, Equipment, Muscle Groups, Training Goals
+        const REQUIRED_FIELD_COUNT = 7; // Name, Category, Format & Duration, Instructions, Equipment, Muscle Groups, Training Goals
         
         for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
@@ -77,28 +77,18 @@
             if (fields.length >= REQUIRED_FIELD_COUNT) {
                 const workout = {
                     name: fields[0].replace(/^"+|"+$/g, ''),
-                    formatDuration: fields[1],
-                    instructions: fields[2],
-                    equipment: fields[3],
-                    muscleGroups: fields[4],
-                    trainingGoals: fields[5],
-                    category: deriveCategory(fields[1])
+                    category: fields[1],
+                    formatDuration: fields[2],
+                    instructions: fields[3],
+                    equipment: fields[4],
+                    muscleGroups: fields[5],
+                    trainingGoals: fields[6]
                 };
                 workouts.push(workout);
             }
         }
         
         return workouts;
-    }
-    
-    function deriveCategory(formatDuration) {
-        const format = formatDuration.toLowerCase();
-        if (format.includes('amrap')) return 'AMRAP';
-        if (format.includes('emom')) return 'EMOM';
-        if (format.includes('for time') || format.includes('rft')) return 'For Time';
-        if (format.includes('tabata')) return 'Tabata';
-        if (format.includes('rounds')) return 'Rounds';
-        return 'Other';
     }
     
     async function loadWorkouts() {
