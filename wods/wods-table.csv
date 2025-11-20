@@ -1,0 +1,26 @@
+Name,Category,Difficulty,Equipment,Muscle Groups,Format,Duration,Reps,Source
+Fran,benchmark,advanced,"barbell, pull-up bar","quads, shoulders, core",For Time,,21-15-9,CrossFit
+Cindy,benchmark,intermediate,"pull-up bar, bodyweight","chest, shoulders, quads, core",AMRAP,20 minutes,5-10-15,CrossFit
+Annie,benchmark,intermediate,none,"core, shoulders",For Time,,50-40-30-20-10,CrossFit
+Karen,benchmark,intermediate,medicine-ball,"quads, shoulders, core",For Time,,150,CrossFit
+Grace,benchmark,advanced,barbell,"quads, shoulders",For Time,,30,CrossFit
+Isabel,benchmark,advanced,barbell,"shoulders, back",For Time,,30,CrossFit
+Diane,benchmark,advanced,"barbell, bodyweight","hamstrings, shoulders",For Time,,21-15-9,CrossFit
+Jackie,benchmark,intermediate,"cardio-machine, barbell, pull-up bar",full-body,For Time,,1000m-50-30,CrossFit
+Helen,benchmark,intermediate,"cardio-machine, kettlebell, pull-up bar",full-body,For Time,,400m-21-12,CrossFit
+Chelsea,benchmark,advanced,"pull-up bar, bodyweight","chest, shoulders, quads",EMOM,30 minutes,5-10-15,CrossFit
+Mary,benchmark,intermediate,"pull-up bar, bodyweight",full-body,AMRAP,20 minutes,5-10-15,CrossFit
+Nancy,benchmark,intermediate,"cardio-machine, barbell",full-body,For Time,,400m-15,CrossFit
+Elizabeth,benchmark,advanced,"barbell, bodyweight","quads, shoulders",For Time,,21-15-9,CrossFit
+Kelly,benchmark,intermediate,"cardio-machine, medicine-ball",full-body,For Time,,400m-30-30,CrossFit
+Eva,benchmark,advanced,"cardio-machine, kettlebell, pull-up bar",full-body,For Time,,800m-30-30,CrossFit
+Murph,hero,advanced,"pull-up bar, bodyweight",full-body,For Time,,1mi-100-200-300-1mi,CrossFit - Lt. Michael Murphy
+DT,hero,advanced,barbell,"back, shoulders, hamstrings",For Time,,12-9-6,CrossFit - SSgt Timothy Davis
+Griff,hero,advanced,"cardio-machine, barbell",full-body,For Time,,800-400-200-100m + thrusters,CrossFit - Lt. Travis Griff
+J.T.,hero,advanced,"pull-up bar, bodyweight","chest, shoulders, back",For Time,,21-15-9,CrossFit - Jeff Taylor
+Michael,hero,advanced,"cardio-machine, bodyweight",full-body,For Time,,800m-50-50,CrossFit - Michael McGreevy
+Badger,hero,advanced,"barbell, pull-up bar, bodyweight",full-body,For Time,,30-30-800m,CrossFit - Marc Badger
+Tommy V,hero,advanced,"barbell, bodyweight",full-body,For Time,,21-12-15-9-9-6,CrossFit - Tommy Vietor
+Josh,hero,advanced,"barbell, pull-up bar",full-body,For Time,,21-18-15-12-9-6-3,CrossFit - Josh Hager
+Arnie,hero,advanced,bodyweight,full-body,For Time,,21-50-21-50-21-50-21,CrossFit - Arnold Schwarzenegger tribute
+McGhee,hero,advanced,"cardio-machine, barbell, pull-up bar",full-body,For Time,,400m-30-15,CrossFit

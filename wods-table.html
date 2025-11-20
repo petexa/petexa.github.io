@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Complete table view of all WOD workouts - sortable and filterable database">
+<meta property="og:title" content="WODs Table View - IDFit Events">
+<meta property="og:description" content="Browse all workouts in a sortable table format">
+<meta property="og:type" content="website">
+<title>WODs Table View - IDFit Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+    .table-container {
+        max-width: 1400px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+    
+    .table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .table-controls {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    
+    .export-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        font-size: 14px;
+    }
+    
+    .export-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .table-search {
+        padding: 10px 15px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        font-size: 14px;
+        min-width: 250px;
+    }
+    
+    .table-search::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .wods-table-wrapper {
+        overflow-x: auto;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .wods-table {
+        width: 100%;
+        border-collapse: collapse;
+        color: white;
+    }
+    
+    .wods-table th {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 15px 10px;
+        text-align: left;
+        font-weight: 600;
+        cursor: pointer;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        white-space: nowrap;
+        user-select: none;
+    }
+    
+    .wods-table th:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+    
+    .wods-table th i {
+        margin-left: 5px;
+        font-size: 12px;
+        opacity: 0.6;
+    }
+    
+    .wods-table td {
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .wods-table tr:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .badge-small {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin: 2px;
+    }
+    
+    .badge-beginner {
+        background: #10b981;
+        color: white;
+    }
+    
+    .badge-intermediate {
+        background: #f59e0b;
+        color: white;
+    }
+    
+    .badge-advanced {
+        background: #ef4444;
+        color: white;
+    }
+    
+    .category-badge {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .equipment-cell {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .muscle-cell {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .view-details-btn {
+        background: rgba(255, 255, 255, 0.1);
+        color: #80affe;
+        border: 1px solid #80affe;
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .view-details-btn:hover {
+        background: #80affe;
+        color: #1a1a2e;
+    }
+    
+    .results-info {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        margin-top: 15px;
+    }
+    
+    .loading {
+        text-align: center;
+        padding: 40px;
+        color: white;
+    }
+    
+    .loading i {
+        font-size: 40px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 15px;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#table-content">Skip to content</a>
+<header>
+    <h1>WODs Table View</h1>
+    <div class="subtitle">Complete Workout Database in Table Format</div>
+    <div class="back-link" style="margin-top: 15px;">
+        <a href="index.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;margin-right:20px;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+          <i class="fa-solid fa-arrow-left"></i> Back to Events
+        </a>
+        <a href="wods.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;margin-right:20px;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+          <i class="fa-solid fa-th-large"></i> Card View
+        </a>
+        <a href="timers.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+          <i class="fa-solid fa-stopwatch"></i> Workout Timers
+        </a>
+    </div>
+</header>
+
+<main id="table-content">
+    <div class="table-container">
+        <div class="table-header">
+            <div class="table-controls">
+                <input type="text" id="table-search" class="table-search" placeholder="Search workouts..." aria-label="Search workouts">
+                <button id="export-csv-btn" class="export-btn" aria-label="Export to CSV">
+                    <i class="fa-solid fa-download"></i> Export CSV
+                </button>
+            </div>
+            <div class="results-info" id="results-count">Loading workouts...</div>
+        </div>
+        
+        <div class="wods-table-wrapper">
+            <div id="table-loading" class="loading">
+                <i class="fa-solid fa-spinner"></i>
+                <p>Loading workout database...</p>
+            </div>
+            <table id="wods-table" class="wods-table" style="display: none;">
+                <thead>
+                    <tr>
+                        <th data-sort="name">Name <i class="fa-solid fa-sort"></i></th>
+                        <th data-sort="category">Category <i class="fa-solid fa-sort"></i></th>
+                        <th data-sort="difficulty">Difficulty <i class="fa-solid fa-sort"></i></th>
+                        <th data-sort="equipment">Equipment <i class="fa-solid fa-sort"></i></th>
+                        <th data-sort="muscles">Muscles <i class="fa-solid fa-sort"></i></th>
+                        <th data-sort="format">Format <i class="fa-solid fa-sort"></i></th>
+                        <th data-sort="duration">Duration <i class="fa-solid fa-sort"></i></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Table rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<footer>
+  <div>
+    <a href="index.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;margin-right:20px;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+      <i class="fa-solid fa-calendar"></i> View Events
+    </a>
+    <a href="past-events.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;margin-right:20px;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+      <i class="fa-solid fa-calendar-check"></i> Past Events
+    </a>
+    <a href="timers.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+      <i class="fa-solid fa-stopwatch"></i> Workout Timers
+    </a>
+  </div>
+  <div style="margin-top: 15px;">
+    &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
+  </div>
+  <div class="footer-links">
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
+    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
+  </div>
+</footer>
+
+<script src="assets/js/utils.js" defer></script>
+<script>
+(function() {
+    'use strict';
+    
+    let allWorkouts = [];
+    let filteredWorkouts = [];
+    let sortColumn = null;
+    let sortDirection = 'asc';
+    
+    // DOM Elements
+    const tableSearch = document.getElementById('table-search');
+    const exportBtn = document.getElementById('export-csv-btn');
+    const tableBody = document.getElementById('table-body');
+    const wodsTable = document.getElementById('wods-table');
+    const tableLoading = document.getElementById('table-loading');
+    const resultsCount = document.getElementById('results-count');
+    const footerYear = document.getElementById('footerYear');
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', init);
+    
+    function init() {
+        if (footerYear) {
+            footerYear.textContent = new Date().getFullYear();
+        }
+        loadWorkouts();
+        setupEventListeners();
+    }
+    
+    function setupEventListeners() {
+        tableSearch.addEventListener('input', debounce(filterTable, 300));
+        exportBtn.addEventListener('click', exportToCSV);
+        
+        // Add sort listeners to all headers
+        document.querySelectorAll('th[data-sort]').forEach(th => {
+            th.addEventListener('click', () => sortTable(th.dataset.sort));
+        });
+    }
+    
+    async function loadWorkouts() {
+        try {
+            const response = await fetch('wods/wods-database.json');
+            if (!response.ok) throw new Error('Failed to load workouts');
+            
+            allWorkouts = await response.json();
+            filteredWorkouts = [...allWorkouts];
+            
+            displayTable();
+            updateResultsCount();
+            
+            tableLoading.style.display = 'none';
+            wodsTable.style.display = 'table';
+        } catch (error) {
+            console.error('Error loading workouts:', error);
+            tableLoading.innerHTML = `
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p>Error loading workouts database. Please try refreshing the page.</p>
+            `;
+        }
+    }
+    
+    function displayTable() {
+        if (filteredWorkouts.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;">No workouts found matching your search.</td></tr>';
+            return;
+        }
+        
+        tableBody.innerHTML = '';
+        
+        filteredWorkouts.forEach(workout => {
+            const row = createTableRow(workout);
+            tableBody.appendChild(row);
+        });
+    }
+    
+    function createTableRow(workout) {
+        const row = document.createElement('tr');
+        
+        const difficultyClass = workout.difficulty.toLowerCase();
+        const equipmentText = workout.equipment.length > 0 ? workout.equipment.join(', ') : 'None';
+        const musclesText = workout.muscleGroups.join(', ');
+        const duration = workout.setsRepsOrDuration.duration || 'N/A';
+        
+        row.innerHTML = `
+            <td><strong>${escapeHtml(workout.name)}</strong></td>
+            <td><span class="category-badge">${workout.category.toUpperCase()}</span></td>
+            <td><span class="badge-small badge-${difficultyClass}">${workout.difficulty}</span></td>
+            <td class="equipment-cell" title="${escapeHtml(equipmentText)}">${escapeHtml(equipmentText)}</td>
+            <td class="muscle-cell" title="${escapeHtml(musclesText)}">${escapeHtml(musclesText)}</td>
+            <td>${escapeHtml(workout.setsRepsOrDuration.format)}</td>
+            <td>${escapeHtml(duration)}</td>
+            <td>
+                <button class="view-details-btn" onclick="window.location.href='wods.html#${workout.id}'" title="View details">
+                    <i class="fa-solid fa-eye"></i> View
+                </button>
+            </td>
+        `;
+        
+        return row;
+    }
+    
+    function filterTable() {
+        const searchTerm = tableSearch.value.toLowerCase().trim();
+        
+        if (!searchTerm) {
+            filteredWorkouts = [...allWorkouts];
+        } else {
+            filteredWorkouts = allWorkouts.filter(workout => {
+                return workout.name.toLowerCase().includes(searchTerm) ||
+                       workout.category.toLowerCase().includes(searchTerm) ||
+                       workout.difficulty.toLowerCase().includes(searchTerm) ||
+                       workout.equipment.some(eq => eq.toLowerCase().includes(searchTerm)) ||
+                       workout.muscleGroups.some(m => m.toLowerCase().includes(searchTerm));
+            });
+        }
+        
+        displayTable();
+        updateResultsCount();
+    }
+    
+    function sortTable(column) {
+        if (sortColumn === column) {
+            sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            sortColumn = column;
+            sortDirection = 'asc';
+        }
+        
+        filteredWorkouts.sort((a, b) => {
+            let aVal, bVal;
+            
+            switch(column) {
+                case 'name':
+                    aVal = a.name.toLowerCase();
+                    bVal = b.name.toLowerCase();
+                    break;
+                case 'category':
+                    aVal = a.category.toLowerCase();
+                    bVal = b.category.toLowerCase();
+                    break;
+                case 'difficulty':
+                    const diffOrder = { beginner: 1, intermediate: 2, advanced: 3 };
+                    aVal = diffOrder[a.difficulty.toLowerCase()] || 0;
+                    bVal = diffOrder[b.difficulty.toLowerCase()] || 0;
+                    break;
+                case 'equipment':
+                    aVal = a.equipment.join(', ').toLowerCase();
+                    bVal = b.equipment.join(', ').toLowerCase();
+                    break;
+                case 'muscles':
+                    aVal = a.muscleGroups.join(', ').toLowerCase();
+                    bVal = b.muscleGroups.join(', ').toLowerCase();
+                    break;
+                case 'format':
+                    aVal = a.setsRepsOrDuration.format.toLowerCase();
+                    bVal = b.setsRepsOrDuration.format.toLowerCase();
+                    break;
+                case 'duration':
+                    aVal = a.setsRepsOrDuration.duration || '';
+                    bVal = b.setsRepsOrDuration.duration || '';
+                    break;
+                default:
+                    return 0;
+            }
+            
+            if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
+            if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+            return 0;
+        });
+        
+        displayTable();
+        updateSortIcons();
+    }
+    
+    function updateSortIcons() {
+        document.querySelectorAll('th[data-sort] i').forEach(icon => {
+            icon.className = 'fa-solid fa-sort';
+        });
+        
+        if (sortColumn) {
+            const th = document.querySelector(`th[data-sort="${sortColumn}"] i`);
+            if (th) {
+                th.className = sortDirection === 'asc' ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down';
+            }
+        }
+    }
+    
+    function exportToCSV() {
+        const headers = ['Name', 'Category', 'Difficulty', 'Equipment', 'Muscle Groups', 'Format', 'Duration', 'Reps', 'Source'];
+        const csvRows = [headers.join(',')];
+        
+        allWorkouts.forEach(workout => {
+            const row = [
+                `"${workout.name.replace(/"/g, '""')}"`,
+                workout.category,
+                workout.difficulty,
+                `"${workout.equipment.join(', ').replace(/"/g, '""')}"`,
+                `"${workout.muscleGroups.join(', ').replace(/"/g, '""')}"`,
+                workout.setsRepsOrDuration.format,
+                workout.setsRepsOrDuration.duration || '',
+                workout.setsRepsOrDuration.reps || '',
+                `"${(workout.source || '').replace(/"/g, '""')}"`
+            ];
+            csvRows.push(row.join(','));
+        });
+        
+        const csvContent = csvRows.join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'wods-database.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+    
+    function updateResultsCount() {
+        const count = filteredWorkouts.length;
+        const total = allWorkouts.length;
+        
+        if (count === total) {
+            resultsCount.textContent = `Showing all ${total} workouts`;
+        } else {
+            resultsCount.textContent = `Showing ${count} of ${total} workouts`;
+        }
+    }
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+})();
+</script>
+</body>
+</html>
