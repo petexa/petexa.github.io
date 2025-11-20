@@ -24,17 +24,7 @@
     opacity: 0.85;
 }
 
-/* Event title styling for past events */
-.event-title {
- font-size: 18px;
- font-weight: 700;
- color: #fff;
- margin-bottom: 5px;
- text-align: center;
- background: none;
- padding: 0;
- border-radius: 0;
- }
+/* Event title styling for past events - removed to use default from styles.css */
 
 /* Event status badge */
 .event-status {

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Searchable database of 200+ WOD-style workouts including AMRAP, EMOM, RFT, Tabata, Hero WODs, and Benchmarks.">
+<meta property="og:title" content="WODs Database - IDFit Events">
+<meta property="og:description" content="Browse 200+ structured workouts for all fitness levels">
+<meta property="og:type" content="website">
+<title>WODs Database - IDFit Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/wods.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "IDFit Events - WODs Database",
+  "description": "Searchable database of 200+ WOD-style workouts"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#wods-content">Skip to content</a>
+<header>
+    <h1>WODs Database</h1>
+    <div class="subtitle">200+ Structured Workouts for All Levels</div>
+    <div class="back-link" style="margin-top: 15px;">
+        <a href="index.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;margin-right:20px;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+          <i class="fa-solid fa-arrow-left"></i> Back to Events
+        </a>
+        <a href="timers.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+          <i class="fa-solid fa-stopwatch"></i> Workout Timers
+        </a>
+    </div>
+</header>
+
+<main id="wods-content">
+    <!-- Search and Filter Section -->
+    <section class="search-filter-section">
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="search-input" placeholder="Search workouts by name..." aria-label="Search workouts">
+            <button id="random-workout-btn" class="random-btn" aria-label="Get random workout">
+                <i class="fa-solid fa-shuffle"></i> Random Workout
+            </button>
+        </div>
+        
+        <div class="filters-container">
+            <div class="filter-group">
+                <label for="category-filter">Category:</label>
+                <select id="category-filter" aria-label="Filter by category">
+                    <option value="">All Categories</option>
+                    <option value="amrap">AMRAP</option>
+                    <option value="emom">EMOM</option>
+                    <option value="rft">RFT</option>
+                    <option value="tabata">Tabata</option>
+                    <option value="benchmark">Benchmark</option>
+                    <option value="hero">Hero</option>
+                    <option value="partner">Partner</option>
+                    <option value="travel">Travel</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="difficulty-filter">Difficulty:</label>
+                <select id="difficulty-filter" aria-label="Filter by difficulty">
+                    <option value="">All Levels</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="equipment-filter">Equipment:</label>
+                <select id="equipment-filter" aria-label="Filter by equipment">
+                    <option value="">All Equipment</option>
+                    <option value="none">No Equipment</option>
+                    <option value="bodyweight">Bodyweight</option>
+                    <option value="barbell">Barbell</option>
+                    <option value="dumbbell">Dumbbell</option>
+                    <option value="kettlebell">Kettlebell</option>
+                    <option value="pull-up bar">Pull-up Bar</option>
+                    <option value="resistance-band">Resistance Band</option>
+                    <option value="medicine-ball">Medicine Ball</option>
+                    <option value="cardio-machine">Cardio Machine</option>
+                </select>
+            </div>
+            
+            <button id="reset-filters" class="reset-btn" aria-label="Reset all filters">
+                <i class="fa-solid fa-rotate-left"></i> Reset Filters
+            </button>
+        </div>
+        
+        <div class="results-info">
+            <span id="results-count">Loading workouts...</span>
+        </div>
+    </section>
+
+    <!-- WODs Grid -->
+    <section id="wods-grid" class="wods-grid" aria-live="polite">
+        <!-- Workout cards will be inserted here by JavaScript -->
+    </section>
+</main>
+
+<!-- Workout Detail Modal -->
+<div id="workout-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none;">
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div id="modal-body">
+            <!-- Workout details will be inserted here -->
+        </div>
+    </div>
+</div>
+
+<footer>
+  <div>
+    <a href="index.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;margin-right:20px;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+      <i class="fa-solid fa-calendar"></i> View Events
+    </a>
+    <a href="past-events.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;margin-right:20px;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+      <i class="fa-solid fa-calendar-check"></i> Past Events
+    </a>
+    <a href="timers.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+      <i class="fa-solid fa-stopwatch"></i> Workout Timers
+    </a>
+  </div>
+  <div style="margin-top: 15px;">
+    &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
+  </div>
+  <div class="footer-links">
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
+    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
+  </div>
+</footer>
+
+<div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<script src="assets/js/utils.js" defer></script>
+<script src="assets/js/wods.js" defer></script>
+<script>
+// Update footer year dynamically
+document.addEventListener('DOMContentLoaded', () => {
+    const footerYear = document.getElementById('footerYear');
+    if (footerYear) {
+        footerYear.textContent = new Date().getFullYear();
+    }
+});
+</script>
+</body>
+</html>
