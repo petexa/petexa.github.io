@@ -22,6 +22,12 @@ body > header {
     color: #fff;
 }
 
+@media (max-width: 768px) {
+  body > header {
+    padding: 0.8rem 1rem;
+  }
+}
+
 .header-tear {
     position: fixed;
     top: 58px; /* Position below the header */
@@ -31,6 +37,12 @@ body > header {
     height: 35px;
     overflow: hidden;
     pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .header-tear {
+    top: 50px;
+  }
 }
 
 .header-tear img {
@@ -57,6 +69,13 @@ body > header h1 {
     margin: 0;
 }
 
+@media (max-width: 768px) {
+  body > header h1 {
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+  }
+}
+
 .subtitle {
     font-size: 1.1rem;
     color: #ccc;
@@ -65,6 +84,12 @@ body > header h1 {
     letter-spacing: 0.4px;
     font-weight: 400;
     display: block;
+}
+
+@media (max-width: 768px) {
+  .subtitle {
+    font-size: 0.9rem;
+  }
 }
 
 .skip-link {
@@ -101,6 +126,12 @@ body > header h1 {
     padding: 25px 18px;
     max-width: 430px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 768px) {
+  .empty-events {
+    font-size: 1rem;
+  }
 }
 
 main {
@@ -178,6 +209,12 @@ main {
     font-weight: 600;
     color: #d32f2f;
     margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .event-title {
+    font-size: 1.1rem;
+  }
 }
 
 .event-date {
@@ -362,6 +399,12 @@ footer {
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  .timers-title {
+    font-size: 1.5rem;
+  }
+}
+
 .timer-selector {
   display: flex;
   gap: 12px;
@@ -381,6 +424,13 @@ footer {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+}
+
+@media (max-width: 768px) {
+  .timer-tab {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
 }
 
 .timer-tab:hover {
@@ -469,6 +519,13 @@ footer {
   transition: color 0.3s;
 }
 
+@media (max-width: 768px) {
+  .timer-time {
+    font-size: 3rem;
+    letter-spacing: 2px;
+  }
+}
+
 .timer-time.warning {
   color: #ff4444;
   animation: pulse 1s infinite;
@@ -487,6 +544,12 @@ footer {
   margin-bottom: 15px;
 }
 
+@media (max-width: 768px) {
+  .emom-round {
+    font-size: 1.1rem;
+  }
+}
+
 .emom-status {
   font-size: 1.5rem;
   font-weight: 700;
@@ -495,6 +558,12 @@ footer {
   padding: 8px 16px;
   border-radius: 8px;
   display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .emom-status {
+    font-size: 1.2rem;
+  }
 }
 
 .emom-status.work {
@@ -533,6 +602,13 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .timer-btn {
+    font-size: 0.95rem;
+    padding: 12px 18px;
+  }
 }
 
 .timer-btn.start {
@@ -583,10 +659,6 @@ footer {
   .timers-section {
     margin: 30px 10px 0 10px;
     padding: 30px 15px;
-  }
-  
-  .timer-time {
-    font-size: 3.5rem;
   }
   
   .timer-controls {
