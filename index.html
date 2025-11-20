@@ -51,84 +51,17 @@
     </section>
 </template>
 
-<!-- Workout Timers Section -->
-<section id="workout-timers" class="timers-section">
-    <h2 class="timers-title">Workout Timers</h2>
-    
-    <div class="timer-selector">
-        <button id="amrap-tab" class="timer-tab active" aria-pressed="true">AMRAP Timer</button>
-        <button id="emom-tab" class="timer-tab" aria-pressed="false">EMOM Timer</button>
-    </div>
-    
-    <!-- AMRAP Timer -->
-    <div id="amrap-timer" class="timer-container active">
-        <div class="timer-config">
-            <label for="amrap-duration">Duration (minutes):</label>
-            <input type="number" id="amrap-duration" min="1" max="120" value="10" aria-label="AMRAP duration in minutes">
-        </div>
-        
-        <div class="timer-display" id="amrap-display" aria-live="polite" aria-atomic="true">
-            <span class="timer-time">10:00</span>
-        </div>
-        
-        <div class="timer-controls">
-            <button id="amrap-start" class="timer-btn start" aria-label="Start AMRAP timer">
-                <i class="fa-solid fa-play"></i> Start
-            </button>
-            <button id="amrap-pause" class="timer-btn pause" disabled aria-label="Pause AMRAP timer">
-                <i class="fa-solid fa-pause"></i> Pause
-            </button>
-            <button id="amrap-reset" class="timer-btn reset" aria-label="Reset AMRAP timer">
-                <i class="fa-solid fa-rotate-left"></i> Reset
-            </button>
-        </div>
-    </div>
-    
-    <!-- EMOM Timer -->
-    <div id="emom-timer" class="timer-container">
-        <div class="timer-config">
-            <div class="config-row">
-                <label for="emom-rounds">Rounds:</label>
-                <input type="number" id="emom-rounds" min="1" max="50" value="10" aria-label="EMOM number of rounds">
-            </div>
-            <div class="config-row">
-                <label for="emom-interval">Interval (seconds):</label>
-                <input type="number" id="emom-interval" min="10" max="300" value="60" aria-label="EMOM interval duration in seconds">
-            </div>
-            <div class="config-row">
-                <label for="emom-rest">Rest between rounds (seconds):</label>
-                <input type="number" id="emom-rest" min="0" max="120" value="0" aria-label="Rest time between EMOM rounds">
-            </div>
-        </div>
-        
-        <div class="timer-display" id="emom-display" aria-live="polite" aria-atomic="true">
-            <div class="emom-round">Round <span id="emom-current-round">1</span> / <span id="emom-total-rounds">10</span></div>
-            <span class="timer-time">1:00</span>
-            <div class="emom-status" id="emom-status">Ready</div>
-        </div>
-        
-        <div class="timer-controls">
-            <button id="emom-start" class="timer-btn start" aria-label="Start EMOM timer">
-                <i class="fa-solid fa-play"></i> Start
-            </button>
-            <button id="emom-pause" class="timer-btn pause" disabled aria-label="Pause EMOM timer">
-                <i class="fa-solid fa-pause"></i> Pause
-            </button>
-            <button id="emom-reset" class="timer-btn reset" aria-label="Reset EMOM timer">
-                <i class="fa-solid fa-rotate-left"></i> Reset
-            </button>
-        </div>
-    </div>
-</section>
-
 <footer>
   <div>
-    <a href="past-events.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+    <a href="past-events.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;margin-right:20px;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
       <i class="fa-solid fa-calendar-check"></i> View Past Events
+    </a>
+    <a href="timers.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
+      <i class="fa-solid fa-stopwatch"></i> Workout Timers
     </a>
   </div>
   <div style="margin-top: 15px;">
-    &copy; <span id="footerYear"></span> Have an event? <a href="images/callme.gif" style="color:#fff;text-decoration:underline;" target="_blank" rel="noopener noreferrer">Contact us</a>
+    &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
   </div>
   <div class="footer-links">
     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
@@ -141,6 +74,5 @@
 
 <script src="assets/js/utils.js" defer></script>
 <script src="assets/js/main.js" defer></script>
-<script src="assets/js/timers.js" defer></script>
 </body>
 </html>

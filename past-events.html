@@ -35,7 +35,7 @@
 </main>
 <footer>
   <div>
-    &copy; <span id="footerYear"></span> Have an event? <a href="images/callme.gif" style="color:#fff;text-decoration:underline;" target="_blank" rel="noopener noreferrer">Contact us</a>
+    &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
   </div>
   <div class="footer-links">
     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
@@ -78,9 +78,9 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="eventImage">Image URL *</label>
-                    <input type="url" id="eventImage" name="eventImage" required placeholder="https://example.com/image.jpg">
-                    <small>URL to the event image</small>
+                    <label for="eventImage">Image URL</label>
+                    <input type="text" id="eventImage" name="eventImage" placeholder="https://example.com/image.jpg or /images/event.jpg">
+                    <small>URL or path to the event image (optional)</small>
                 </div>
                 
                 <div class="form-group">
@@ -304,7 +304,7 @@ function generateEvent() {
         name: eventName,
         date: formattedDate,
         link: eventLink,
-        image: eventImage,
+        image: eventImage || "https://via.placeholder.com/400x300?text=Event+Image",
         description: eventDescription,
         calendarDetails: {
             location: eventLocation || "",

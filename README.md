@@ -213,7 +213,7 @@ This project is maintained by the IDFit Events team.
 
 ## 📞 Contact
 
-Have an event to add? [Contact us](images/callme.gif)
+Have an event to add? [Contact us](mailto:gym@petefox.co.uk)
 
 Follow us on social media:
 - Facebook
