@@ -1,0 +1,286 @@
+/* =====================================================
+   24 HOUR WORKOUT - MODERN STYLES
+   ===================================================== */
+
+/* Override body for dark theme on this page */
+body {
+  background: linear-gradient(180deg, #0A0A0A 0%, #1A1A1A 100%);
+  color: #E5E5E5;
+}
+
+/* Top Bar Header */
+header.topbar {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  padding: var(--spacing-6) var(--spacing-4);
+  margin: calc(var(--spacing-4) * -1);
+  margin-bottom: var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-6);
+  box-shadow: var(--shadow-xl);
+}
+
+.top-left {
+  align-self: flex-start;
+}
+
+.top-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+  text-align: center;
+  max-width: 600px;
+}
+
+/* IDFit Logo */
+.idfit-top {
+  width: 200px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  background: #000;
+  padding: var(--spacing-3);
+}
+
+/* Page Title */
+.page-title {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.page-sub {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Charity Section */
+.proudly-supporting {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
+}
+
+.charity-top {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: white;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+.charity-top:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-secondary);
+}
+
+.charity-top img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Time Blocks Grid */
+.timeblocks {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-6);
+  padding: var(--spacing-4);
+}
+
+/* Block Card */
+.block {
+  background: linear-gradient(135deg, #2A2A2A 0%, #1A1A1A 100%);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  color: #E5E5E5;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  transition: all var(--transition-base);
+}
+
+.block:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Active Block (Current Hour) */
+.block.active {
+  border-color: var(--color-success);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.3), var(--shadow-xl);
+  background: linear-gradient(135deg, #2A4A2A 0%, #1A3A1A 100%);
+}
+
+/* Time Box Header */
+.time-box {
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-5);
+  text-align: center;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.time-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.time-box .title {
+  position: relative;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xl);
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* Workout Content */
+.workout {
+  color: #E5E5E5;
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+}
+
+.workout strong {
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  display: block;
+  margin-bottom: var(--spacing-3);
+}
+
+.workout p {
+  margin-bottom: var(--spacing-3);
+  color: #C5C5C5;
+}
+
+.workout ul {
+  margin: var(--spacing-3) 0;
+  padding-left: var(--spacing-6);
+  list-style: none;
+}
+
+.workout li {
+  margin: var(--spacing-2) 0;
+  position: relative;
+  padding-left: var(--spacing-4);
+  color: #C5C5C5;
+}
+
+.workout li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--color-secondary);
+  font-weight: bold;
+}
+
+/* Footer Override */
+footer {
+  background: #0A0A0A;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #C5C5C5;
+  margin-top: var(--spacing-12);
+}
+
+footer a {
+  color: var(--color-secondary);
+}
+
+footer a:hover {
+  color: white;
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+   ===================================================== */
+
+@media (max-width: 900px) {
+  .timeblocks {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-5);
+  }
+  
+  .idfit-top {
+    width: 160px;
+  }
+  
+  .charity-top {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 640px) {
+  header.topbar {
+    padding: var(--spacing-5) var(--spacing-3);
+    gap: var(--spacing-4);
+  }
+  
+  .page-title {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .page-sub {
+    font-size: var(--font-size-sm);
+  }
+  
+  .idfit-top {
+    width: 140px;
+  }
+  
+  .charity-top {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .timeblocks {
+    padding: var(--spacing-3);
+    gap: var(--spacing-4);
+  }
+  
+  .block {
+    padding: var(--spacing-5);
+    border-radius: var(--radius-xl);
+  }
+  
+  .time-box {
+    padding: var(--spacing-4);
+  }
+  
+  .time-box .title {
+    font-size: var(--font-size-lg);
+  }
+}

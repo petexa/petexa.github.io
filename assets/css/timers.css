@@ -1,0 +1,326 @@
+/* =====================================================
+   WORKOUT TIMERS - MODERN STYLES
+   ===================================================== */
+
+/* Timers Section Container */
+.timers-section {
+  background: var(--color-background);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.timers-title {
+  text-align: center;
+  color: var(--color-text);
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-8);
+  padding-bottom: var(--spacing-4);
+  border-bottom: 3px solid var(--color-primary);
+}
+
+/* Timer Selector Tabs */
+.timer-selector {
+  display: flex;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-8);
+  background: var(--color-surface);
+  padding: var(--spacing-2);
+  border-radius: var(--radius-xl);
+}
+
+.timer-tab {
+  flex: 1;
+  padding: var(--spacing-4) var(--spacing-6);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.timer-tab:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+.timer-tab.active {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+/* Timer Container */
+.timer-container {
+  display: none;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-8);
+  box-shadow: var(--shadow-lg);
+}
+
+.timer-container.active {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Timer Configuration */
+.timer-config {
+  margin-bottom: var(--spacing-8);
+}
+
+.config-row {
+  margin-bottom: var(--spacing-5);
+}
+
+.timer-config label {
+  display: block;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-2);
+  font-size: var(--font-size-base);
+}
+
+.timer-config input[type="number"] {
+  width: 100%;
+  padding: var(--spacing-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  background: var(--color-surface);
+  transition: all var(--transition-fast);
+}
+
+.timer-config input[type="number"]:hover {
+  border-color: var(--color-primary-light);
+}
+
+.timer-config input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--color-background);
+  box-shadow: 0 0 0 4px rgba(0, 71, 171, 0.1);
+}
+
+.timer-config input[type="number"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--color-surface-alt);
+}
+
+/* Timer Display */
+.timer-display {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-10);
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.timer-time {
+  position: relative;
+  display: block;
+  font-size: 4rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-secondary);
+  font-family: 'Courier New', 'Courier', monospace;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 20px rgba(0, 212, 170, 0.5);
+  transition: all var(--transition-base);
+}
+
+.timer-time.warning {
+  color: var(--color-error);
+  animation: pulse 1s infinite;
+  text-shadow: 0 0 20px rgba(239, 68, 68, 0.7);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* EMOM Specific Styles */
+.emom-round {
+  position: relative;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: var(--spacing-4);
+}
+
+.emom-status {
+  position: relative;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: white;
+  margin-top: var(--spacing-4);
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--radius-lg);
+  display: inline-block;
+}
+
+.emom-status.work {
+  background: var(--color-success);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+.emom-status.rest {
+  background: var(--color-warning);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+.emom-status.complete {
+  background: var(--color-info);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Timer Controls */
+.timer-controls {
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: center;
+}
+
+.timer-btn {
+  flex: 1;
+  max-width: 150px;
+  padding: var(--spacing-4) var(--spacing-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.timer-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.timer-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.timer-btn.start {
+  background: var(--color-success);
+  color: white;
+}
+
+.timer-btn.start:hover:not(:disabled) {
+  background: #059669;
+}
+
+.timer-btn.pause {
+  background: var(--color-warning);
+  color: white;
+}
+
+.timer-btn.pause:hover:not(:disabled) {
+  background: #D97706;
+}
+
+.timer-btn.reset {
+  background: var(--color-info);
+  color: white;
+}
+
+.timer-btn.reset:hover:not(:disabled) {
+  background: #2563EB;
+}
+
+.timer-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .timers-section {
+    padding: var(--spacing-6);
+  }
+  
+  .timer-time {
+    font-size: 3rem;
+  }
+  
+  .timer-controls {
+    flex-wrap: wrap;
+  }
+  
+  .timer-btn {
+    flex: 1 1 calc(50% - var(--spacing-2));
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .timer-selector {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .timer-time {
+    font-size: 2.5rem;
+  }
+  
+  .timer-container {
+    padding: var(--spacing-6);
+  }
+  
+  .timer-controls {
+    flex-direction: column;
+  }
+  
+  .timer-btn {
+    flex: 1;
+    max-width: none;
+  }
+}

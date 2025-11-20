@@ -8,204 +8,10 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-
-<style>
-  /*
-    Colors adjusted to match the original site:
-    - page background: #1a1a1a (dark)
-    - panels: gradient #2a2a2a -> #1a1a1a
-    - accent / blue: #3366ff
-    - muted/content text: #e0e0e0
-  */
-  :root{
-    --page-bg-top: #000000;
-    --page-bg-bottom: #000000;
-    --panel-from: #2a2a2a;
-    --panel-to: #1a1a1a;
-    --accent: #3366ff;
-    --card-text: #e0e0e0;
-    --card-bg: rgba(255,255,255,0.02); /* subtle light overlay */
-    --focus: 3px solid rgba(51,102,255,0.14);
-    --active-glow: rgba(0,255,0,0.4); /* green glow for active */
-    --inactive-glow: rgba(255,255,255,0.15); /* white glow for others */
-  }
-
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    /* use Titillium Web from Google Fonts with sensible fallbacks */
-    font-family: 'Titillium Web', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    background: linear-gradient(180deg,var(--page-bg-top), var(--page-bg-bottom));
-    color:var(--card-text);
-    padding:28px;
-  }
-
-  /* Top header with back link, page title and centered logos */
-  header.topbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    max-width:980px;
-    margin:0 auto 18px;
-  }
-  .top-left { flex:0 0 auto; }
-  .top-center { flex:1 1 auto; text-align:center; color:var(--card-text); display:flex; flex-direction:column; align-items:center; gap:6px; }
-  .top-right { flex:0 0 auto; opacity:0; /* keep layout but hide right area */ }
-
-  .back-link {
-    color: var(--card-text);
-    text-decoration:none;
-    font-weight:600;
-    display:inline-flex;
-    gap:8px;
-    align-items:center;
-  }
-  .back-link i { color: var(--accent); }
-
-  .page-title {
-    margin:0;
-    font-size:1.15rem;
-    letter-spacing:0.4px;
-    font-weight:600;
-  }
-  .page-sub {
-    margin:4px 0 0;
-    font-size:0.88rem;
-    opacity:0.9;
-    color:var(--card-text);
-  }
-
-  /* IDFit logo (now shown in header center) */
-  .idfit-top {
-    width:220px;
-    height:auto;
-    display:block;
-    object-fit:contain;
-    border-radius:6px;
-    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
-    background: #000;
-    padding:6px;
-  }
-
-  /* Charity logo centered under title */
-  .charity-top {
-    display:inline-block;
-    width:120px;
-    height:120px;
-    border-radius:8px;
-    overflow:hidden;
-    border:2px solid rgba(255,255,255,0.04);
-    background:transparent;
-    margin-top:6px;
-  }
-  .charity-top img {
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-  }
-  .charity-top:focus,
-  .charity-top:hover { outline: none; box-shadow: 0 8px 20px rgba(51,102,255,0.06); transform:translateY(-2px); }
-
-  /* Two-column time-block list */
-  .timeblocks{
-    max-width:1400px;
-    margin:18px auto 40px;
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap:18px;
-  }
-
-  /* Card look matches original 'workout-card' look:
-     gradient background, rounded corners, blue border accent */
-  .block{
-    background: linear-gradient(135deg,var(--panel-from) 0%, var(--panel-to) 100%);
-    border-radius:16px;
-    padding:18px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-    border: 2px solid rgba(51,102,255,0.04);
-    color: var(--card-text);
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    transition: transform .15s ease, box-shadow .15s ease, box-shadow .15s;
-  }
-  .block:focus-within,
-  .block:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,0.6); }
-
-  .time-box{
-    background: var(--accent);
-    color: #fff;
-    border-radius:8px;
-    padding:16px 18px;
-    width:100%;
-    max-width:520px;
-    margin:0 auto;
-    text-align:center;
-    box-shadow: inset 0 -6px 0 rgba(0,0,0,0.06);
-  }
-  /* ensure titles use the heavier weight for contrast */
-  .time-box .title{ font-weight:700; font-size:1.05rem; margin:0; text-transform:none; }
-
-  .workout{
-    max-width:760px;
-    margin:0 auto;
-    color:var(--card-text);
-    line-height:1.6;
-  }
-  .workout ul{ margin:8px 0 0; padding-left:18px; }
-  .workout li{ margin:6px 0; }
-
-  /* Active block styling uses green glow */
-  .block.active{
-    box-shadow: 0 0 20px 8px var(--active-glow), 0 12px 36px rgba(0,0,0,0.6);
-    border-color: #00ff00;
-  }
-
-  /* Non-active blocks get white glow */
-  .block:not(.active){
-    box-shadow: 0 0 10px 4px var(--inactive-glow), 0 8px 24px rgba(0,0,0,0.6);
-  }
-
-  /* small screens */
-  @media (max-width:840px){
-    header.topbar { flex-direction:column; align-items:stretch; gap:8px; padding:0 8px; }
-    .top-center { text-align:center; padding-left:0; }
-    .idfit-top { width:180px; }
-    .charity-top { width:100px; height:100px; }
-    .top-right { display:none; }
-    .timeblocks { grid-template-columns: 1fr; }
-  }
-  @media (max-width:640px){
-    body{ padding:16px; }
-    .time-box{ padding:12px 14px; }
-    .block{ padding:12px; border-radius:12px; }
-    .charity-top { width:80px; height:80px; }
-  }
-
-  /* Style for "Proudly Supporting" text */
-  .proudly-supporting {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--card-text);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  /* accessibility focus */
-  a:focus, button:focus, .block:focus { outline: var(--focus); outline-offset:3px; }
-
-  /* screen-reader only */
-  .sr-only{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
-</style>
+<link rel="stylesheet" href="assets/css/design-system.css" />
+<link rel="stylesheet" href="assets/css/24hr-workout.css" />
 </head>
 <body>
   <!-- Top bar: back link (left), centered area contains IDFit logo, title and centered charity logo -->
@@ -213,7 +19,7 @@
     <div class="top-left">
       <a class="back-link" href="index.html" title="Back to Events">
         <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-        <span class="sr-only">Back to Events</span>
+        <span>Back to Events</span>
       </a>
     </div>
 
@@ -234,9 +40,6 @@
         <img src="images/enders.png" alt="Ender's Touch charity logo">
       </a>
     </div>
-
-    <!-- keep a right column for layout parity (hidden visually) -->
-    <div class="top-right" aria-hidden="true"></div>
   </header>
 
   <main id="main" role="main">
@@ -539,8 +342,8 @@
     </section>
   </main>
 
-  <footer style="text-align:center; color:#cfe6ff; margin-top:24px;">
-    &copy; <span id="year"></span> IDFit Events | Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
+  <footer>
+    &copy; <span id="year"></span> IDFit Events | Have an event? <a href="mailto:gym@petefox.co.uk">Contact us</a>
   </footer>
 
 <script>
