@@ -36,8 +36,14 @@
     
     function parseCSV(csvText) {
         const lines = csvText.split('\n');
+        if (lines.length === 0 || !lines[0].trim()) {
+            console.error('CSV file is empty');
+            return [];
+        }
+        
         const headers = lines[0].split(',').map(h => h.trim());
         const workouts = [];
+        const REQUIRED_FIELD_COUNT = 6; // Name, Format & Duration, Instructions, Equipment, Muscle Groups, Training Goals
         
         for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
@@ -68,9 +74,9 @@
             }
             fields.push(currentField.trim());
             
-            if (fields.length >= 6) {
+            if (fields.length >= REQUIRED_FIELD_COUNT) {
                 const workout = {
-                    name: fields[0].replace(/^["]+|["]+$/g, ''),
+                    name: fields[0].replace(/^"+|"+$/g, ''),
                     formatDuration: fields[1],
                     instructions: fields[2],
                     equipment: fields[3],
@@ -121,9 +127,17 @@
     }
     
     function displayRandomWorkouts() {
-        // Select 6 random workouts
-        const shuffled = [...allWorkouts].sort(() => 0.5 - Math.random());
-        displayedWorkouts = shuffled.slice(0, 6);
+        // Select 6 random workouts using Fisher-Yates shuffle
+        const shuffled = [...allWorkouts];
+        const RANDOM_WORKOUT_COUNT = 6;
+        
+        // Fisher-Yates shuffle for proper randomization
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        
+        displayedWorkouts = shuffled.slice(0, RANDOM_WORKOUT_COUNT);
         displayWorkouts();
     }
     
