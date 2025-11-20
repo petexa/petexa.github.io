@@ -43,7 +43,7 @@
         
         const headers = lines[0].split(',').map(h => h.trim());
         const workouts = [];
-        const REQUIRED_FIELD_COUNT = 7; // Name, Category, Format & Duration, Instructions, Equipment, Muscle Groups, Training Goals
+        const REQUIRED_FIELD_COUNT = 7; // Name, Category, Format & Duration, Instructions, Equipment Needed, Muscle Groups, Training Goals
         
         for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
