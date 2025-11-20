@@ -121,6 +121,12 @@
     font-weight: 700;
 }
 
+@media (max-width: 768px) {
+  .modal-header h2 {
+    font-size: 1.3rem;
+  }
+}
+
 .close-btn {
     background: none;
     border: none;
@@ -262,10 +268,6 @@
     
     .modal-header {
         padding: 16px 20px;
-    }
-    
-    .modal-header h2 {
-        font-size: 1.3rem;
     }
     
     .modal-body {
