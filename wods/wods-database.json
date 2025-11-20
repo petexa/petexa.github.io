@@ -1357,14 +1357,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Bodyweight movements for max rounds",
+      "Complete as many rounds as possible in 10 minutes:",
+      "  6 dips",
+      "  9 glute bridges",
+      "  12 jumping jacks",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "6-9-12",
       "duration": "10 minutes",
       "rest": "none"
     },
@@ -1409,14 +1412,17 @@
     "difficulty": "intermediate",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Dumbbell complex for time",
+      "Complete as many rounds as possible in 11 minutes:",
+      "  15 dumbbell snatches",
+      "  20 devil press",
+      "  25 farmer carries",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "15-20-25",
       "duration": "11 minutes",
       "rest": "none"
     },
@@ -1458,14 +1464,17 @@
     "difficulty": "advanced",
     "instructions": [
       "Warm up 5-10 minutes",
-      "KB swings and movements",
+      "Complete as many rounds as possible in 12 minutes:",
+      "  20 single-arm swings",
+      "  25 kettlebell thrusters",
+      "  30 windmills",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "20-25-30",
       "duration": "12 minutes",
       "rest": "none"
     },
@@ -1508,14 +1517,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Barbell strength work",
+      "Complete as many rounds as possible in 13 minutes:",
+      "  6 bench press",
+      "  9 overhead press",
+      "  12 barbell curls",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "6-9-12",
       "duration": "13 minutes",
       "rest": "none"
     },
@@ -1813,14 +1825,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Bodyweight movements for max rounds",
+      "Complete as many rounds as possible in 19 minutes:",
+      "  10 push-ups",
+      "  15 air squats",
+      "  20 jump rope",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "10-15-20",
       "duration": "19 minutes",
       "rest": "none"
     },
@@ -1864,14 +1879,17 @@
     "difficulty": "intermediate",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Dumbbell complex for time",
+      "Complete as many rounds as possible in 20 minutes:",
+      "  10 dumbbell snatches",
+      "  15 dumbbell clean and press",
+      "  20 farmer carries",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "10-15-20",
       "duration": "20 minutes",
       "rest": "none"
     },
@@ -1915,14 +1933,17 @@
     "difficulty": "advanced",
     "instructions": [
       "Warm up 5-10 minutes",
-      "KB swings and movements",
+      "Complete as many rounds as possible in 21 minutes:",
+      "  20 single-arm swings",
+      "  25 kettlebell clean and press",
+      "  30 Turkish get-ups",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "20-25-30",
       "duration": "21 minutes",
       "rest": "none"
     },
@@ -1965,14 +1986,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Barbell strength work",
+      "Complete as many rounds as possible in 22 minutes:",
+      "  10 front squats",
+      "  15 bench press",
+      "  20 barbell curls",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "10-15-20",
       "duration": "22 minutes",
       "rest": "none"
     },
@@ -2269,14 +2293,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Bodyweight movements for max rounds",
+      "Complete as many rounds as possible in 13 minutes:",
+      "  8 burpees",
+      "  12 jump squats",
+      "  16 burpees",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "8-12-16",
       "duration": "13 minutes",
       "rest": "none"
     },
@@ -2320,14 +2347,17 @@
     "difficulty": "intermediate",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Dumbbell complex for time",
+      "Complete as many rounds as possible in 14 minutes:",
+      "  15 dumbbell clean and press",
+      "  20 dumbbell snatches",
+      "  25 dumbbell Russian twists",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "15-20-25",
       "duration": "14 minutes",
       "rest": "none"
     },
@@ -2369,14 +2399,17 @@
     "difficulty": "advanced",
     "instructions": [
       "Warm up 5-10 minutes",
-      "KB swings and movements",
+      "Complete as many rounds as possible in 15 minutes:",
+      "  20 single-arm swings",
+      "  25 kettlebell snatches",
+      "  30 windmills",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "20-25-30",
       "duration": "15 minutes",
       "rest": "none"
     },
@@ -2421,14 +2454,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Barbell strength work",
+      "Complete as many rounds as possible in 16 minutes:",
+      "  10 front squats",
+      "  15 overhead press",
+      "  20 barbell curls",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "10-15-20",
       "duration": "16 minutes",
       "rest": "none"
     },
@@ -2725,14 +2761,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Bodyweight movements for max rounds",
+      "Complete as many rounds as possible in 22 minutes:",
+      "  8 pull-ups",
+      "  12 calf raises",
+      "  16 mountain climbers",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "8-12-16",
       "duration": "22 minutes",
       "rest": "none"
     },
@@ -2776,14 +2815,17 @@
     "difficulty": "intermediate",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Dumbbell complex for time",
+      "Complete as many rounds as possible in 23 minutes:",
+      "  15 man makers",
+      "  20 dumbbell thrusters",
+      "  25 dumbbell Russian twists",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "15-20-25",
       "duration": "23 minutes",
       "rest": "none"
     },
@@ -2825,14 +2867,17 @@
     "difficulty": "advanced",
     "instructions": [
       "Warm up 5-10 minutes",
-      "KB swings and movements",
+      "Complete as many rounds as possible in 24 minutes:",
+      "  12 American swings",
+      "  16 kettlebell clean and press",
+      "  20 kettlebell sit-ups",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "12-16-20",
       "duration": "24 minutes",
       "rest": "none"
     },
@@ -2875,14 +2920,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Barbell strength work",
+      "Complete as many rounds as possible in 10 minutes:",
+      "  8 deadlifts",
+      "  12 back squats",
+      "  16 bent-over rows",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "8-12-16",
       "duration": "10 minutes",
       "rest": "none"
     },
@@ -3181,14 +3229,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Bodyweight movements for max rounds",
+      "Complete as many rounds as possible in 16 minutes:",
+      "  6 push-ups",
+      "  9 lunges",
+      "  12 jumping jacks",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "6-9-12",
       "duration": "16 minutes",
       "rest": "none"
     },
@@ -3232,14 +3283,17 @@
     "difficulty": "intermediate",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Dumbbell complex for time",
+      "Complete as many rounds as possible in 17 minutes:",
+      "  15 man makers",
+      "  20 dumbbell thrusters",
+      "  25 dumbbell Russian twists",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "15-20-25",
       "duration": "17 minutes",
       "rest": "none"
     },
@@ -3281,14 +3335,17 @@
     "difficulty": "advanced",
     "instructions": [
       "Warm up 5-10 minutes",
-      "KB swings and movements",
+      "Complete as many rounds as possible in 18 minutes:",
+      "  10 kettlebell swings",
+      "  15 kettlebell snatches",
+      "  20 Turkish get-ups",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "10-15-20",
       "duration": "18 minutes",
       "rest": "none"
     },
@@ -3331,14 +3388,17 @@
     "difficulty": "beginner",
     "instructions": [
       "Warm up 5-10 minutes",
-      "Barbell strength work",
+      "Complete as many rounds as possible in 19 minutes:",
+      "  10 deadlifts",
+      "  15 front squats",
+      "  20 barbell curls",
       "Cool down and stretch",
-      "Record total rounds"
+      "Record total rounds and reps"
     ],
     "setsRepsOrDuration": {
       "format": "AMRAP",
       "sets": null,
-      "reps": "varies",
+      "reps": "10-15-20",
       "duration": "19 minutes",
       "rest": "none"
     },
@@ -3634,15 +3694,18 @@
     ],
     "difficulty": "beginner",
     "instructions": [
-      "Set EMOM timer",
-      "Heavy lifting every minute",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 8 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 10 overhead press",
+      "  Minutes 2, 5, 8, etc.: 10 bench press",
+      "  Minutes 3, 6, 9, etc.: 10 barbell curls",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 8,
-      "reps": "varies",
+      "reps": "10",
       "duration": "8 minutes",
       "rest": "remainder of minute"
     },
@@ -3682,15 +3745,18 @@
     ],
     "difficulty": "intermediate",
     "instructions": [
-      "Set EMOM timer",
-      "Fast movements EMOM",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 12 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 10 push-ups",
+      "  Minutes 2, 5, 8, etc.: 10 step-ups",
+      "  Minutes 3, 6, 9, etc.: 10 jumping jacks",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 12,
-      "reps": "varies",
+      "reps": "10",
       "duration": "12 minutes",
       "rest": "remainder of minute"
     },
@@ -3731,15 +3797,18 @@
     ],
     "difficulty": "advanced",
     "instructions": [
-      "Set EMOM timer",
-      "Alternate strength and cardio",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 16 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 12 devil press",
+      "  Minutes 2, 5, 8, etc.: 12 dumbbell clean and press",
+      "  Minutes 3, 6, 9, etc.: 12 dumbbell Russian twists",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 16,
-      "reps": "varies",
+      "reps": "12",
       "duration": "16 minutes",
       "rest": "remainder of minute"
     },
@@ -4026,15 +4095,18 @@
     ],
     "difficulty": "advanced",
     "instructions": [
-      "Set EMOM timer",
-      "Heavy lifting every minute",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 8 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 20 clean and jerks",
+      "  Minutes 2, 5, 8, etc.: 20 bench press",
+      "  Minutes 3, 6, 9, etc.: 20 overhead squats",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 8,
-      "reps": "varies",
+      "reps": "20",
       "duration": "8 minutes",
       "rest": "remainder of minute"
     },
@@ -4074,15 +4146,18 @@
     ],
     "difficulty": "beginner",
     "instructions": [
-      "Set EMOM timer",
-      "Fast movements EMOM",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 12 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 5 plank hold",
+      "  Minutes 2, 5, 8, etc.: 5 glute bridges",
+      "  Minutes 3, 6, 9, etc.: 5 jumping jacks",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 12,
-      "reps": "varies",
+      "reps": "5",
       "duration": "12 minutes",
       "rest": "remainder of minute"
     },
@@ -4123,15 +4198,18 @@
     ],
     "difficulty": "intermediate",
     "instructions": [
-      "Set EMOM timer",
-      "Alternate strength and cardio",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 16 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 10 dumbbell clean and press",
+      "  Minutes 2, 5, 8, etc.: 10 man makers",
+      "  Minutes 3, 6, 9, etc.: 10 dumbbell Russian twists",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 16,
-      "reps": "varies",
+      "reps": "10",
       "duration": "16 minutes",
       "rest": "remainder of minute"
     },
@@ -4418,15 +4496,18 @@
     ],
     "difficulty": "intermediate",
     "instructions": [
-      "Set EMOM timer",
-      "Heavy lifting every minute",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 8 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 12 thrusters",
+      "  Minutes 2, 5, 8, etc.: 12 back squats",
+      "  Minutes 3, 6, 9, etc.: 12 bent-over rows",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 8,
-      "reps": "varies",
+      "reps": "12",
       "duration": "8 minutes",
       "rest": "remainder of minute"
     },
@@ -4466,15 +4547,18 @@
     ],
     "difficulty": "advanced",
     "instructions": [
-      "Set EMOM timer",
-      "Fast movements EMOM",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 12 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 20 plank hold",
+      "  Minutes 2, 5, 8, etc.: 20 jump squats",
+      "  Minutes 3, 6, 9, etc.: 20 high knees",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 12,
-      "reps": "varies",
+      "reps": "20",
       "duration": "12 minutes",
       "rest": "remainder of minute"
     },
@@ -4515,15 +4599,18 @@
     ],
     "difficulty": "beginner",
     "instructions": [
-      "Set EMOM timer",
-      "Alternate strength and cardio",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 16 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 8 dumbbell clean and press",
+      "  Minutes 2, 5, 8, etc.: 8 dumbbell snatches",
+      "  Minutes 3, 6, 9, etc.: 8 farmer carries",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 16,
-      "reps": "varies",
+      "reps": "8",
       "duration": "16 minutes",
       "rest": "remainder of minute"
     },
@@ -4810,15 +4897,18 @@
     ],
     "difficulty": "beginner",
     "instructions": [
-      "Set EMOM timer",
-      "Heavy lifting every minute",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 8 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 10 front squats",
+      "  Minutes 2, 5, 8, etc.: 10 back squats",
+      "  Minutes 3, 6, 9, etc.: 10 good mornings",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 8,
-      "reps": "varies",
+      "reps": "10",
       "duration": "8 minutes",
       "rest": "remainder of minute"
     },
@@ -4858,15 +4948,18 @@
     ],
     "difficulty": "intermediate",
     "instructions": [
-      "Set EMOM timer",
-      "Fast movements EMOM",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 12 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 10 plank hold",
+      "  Minutes 2, 5, 8, etc.: 10 glute bridges",
+      "  Minutes 3, 6, 9, etc.: 10 jump rope",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 12,
-      "reps": "varies",
+      "reps": "10",
       "duration": "12 minutes",
       "rest": "remainder of minute"
     },
@@ -4907,15 +5000,18 @@
     ],
     "difficulty": "advanced",
     "instructions": [
-      "Set EMOM timer",
-      "Alternate strength and cardio",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 16 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 12 dumbbell clean and press",
+      "  Minutes 2, 5, 8, etc.: 12 dumbbell snatches",
+      "  Minutes 3, 6, 9, etc.: 12 side bends",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 16,
-      "reps": "varies",
+      "reps": "12",
       "duration": "16 minutes",
       "rest": "remainder of minute"
     },
@@ -5202,15 +5298,18 @@
     ],
     "difficulty": "advanced",
     "instructions": [
-      "Set EMOM timer",
-      "Heavy lifting every minute",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 8 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 12 snatches",
+      "  Minutes 2, 5, 8, etc.: 12 deadlifts",
+      "  Minutes 3, 6, 9, etc.: 12 thrusters",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 8,
-      "reps": "varies",
+      "reps": "12",
       "duration": "8 minutes",
       "rest": "remainder of minute"
     },
@@ -5250,15 +5349,18 @@
     ],
     "difficulty": "beginner",
     "instructions": [
-      "Set EMOM timer",
-      "Fast movements EMOM",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 12 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 5 pull-ups",
+      "  Minutes 2, 5, 8, etc.: 5 calf raises",
+      "  Minutes 3, 6, 9, etc.: 5 high knees",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 12,
-      "reps": "varies",
+      "reps": "5",
       "duration": "12 minutes",
       "rest": "remainder of minute"
     },
@@ -5299,15 +5401,18 @@
     ],
     "difficulty": "intermediate",
     "instructions": [
-      "Set EMOM timer",
-      "Alternate strength and cardio",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 16 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 12 devil press",
+      "  Minutes 2, 5, 8, etc.: 12 dumbbell snatches",
+      "  Minutes 3, 6, 9, etc.: 12 farmer carries",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 16,
-      "reps": "varies",
+      "reps": "12",
       "duration": "16 minutes",
       "rest": "remainder of minute"
     },
@@ -5594,15 +5699,18 @@
     ],
     "difficulty": "intermediate",
     "instructions": [
-      "Set EMOM timer",
-      "Heavy lifting every minute",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 8 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 8 overhead squats",
+      "  Minutes 2, 5, 8, etc.: 8 back squats",
+      "  Minutes 3, 6, 9, etc.: 8 Romanian deadlifts",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 8,
-      "reps": "varies",
+      "reps": "8",
       "duration": "8 minutes",
       "rest": "remainder of minute"
     },
@@ -5642,15 +5750,18 @@
     ],
     "difficulty": "advanced",
     "instructions": [
-      "Set EMOM timer",
-      "Fast movements EMOM",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 12 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 18 mountain climbers",
+      "  Minutes 2, 5, 8, etc.: 18 air squats",
+      "  Minutes 3, 6, 9, etc.: 18 butt kicks",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 12,
-      "reps": "varies",
+      "reps": "18",
       "duration": "12 minutes",
       "rest": "remainder of minute"
     },
@@ -5691,15 +5802,18 @@
     ],
     "difficulty": "beginner",
     "instructions": [
-      "Set EMOM timer",
-      "Alternate strength and cardio",
-      "Rest remaining time each minute",
-      "Track all sets"
+      "Warm up 5-10 minutes",
+      "Every minute on the minute for 16 minutes, alternate:",
+      "  Minutes 1, 4, 7, etc.: 6 man makers",
+      "  Minutes 2, 5, 8, etc.: 6 dumbbell snatches",
+      "  Minutes 3, 6, 9, etc.: 6 weighted sit-ups",
+      "Rest remainder of each minute",
+      "Cool down and stretch"
     ],
     "setsRepsOrDuration": {
       "format": "EMOM",
       "sets": 16,
-      "reps": "varies",
+      "reps": "6",
       "duration": "16 minutes",
       "rest": "remainder of minute"
     },
