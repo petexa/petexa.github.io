@@ -7,7 +7,7 @@ body {
     padding: 0;
     min-height: 100vh;
     color: #333;
-    padding-top: 120px; /* Space for fixed header */
+    padding-top: 90px; /* Space for fixed header */
 }
 
 header {
@@ -17,14 +17,14 @@ header {
     right: 0;
     z-index: 1000;
     text-align: center;
-    padding: 2rem;
-    background: #000;
+    padding: 1rem 2rem;
+    background: #202023;
     color: #fff;
 }
 
 .header-tear {
     position: fixed;
-    top: 85px; /* Position below the header */
+    top: 58px; /* Position below the header */
     left: 0;
     right: 0;
     z-index: 999;
@@ -50,7 +50,7 @@ header {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 600;
     color: #fff;
     letter-spacing: 1px;
@@ -320,7 +320,7 @@ footer {
   color: #ccc;
   font-size: 0.9rem;
   padding: 1rem;
-  background: #222;
+  background: #202023;
   margin-top: 0;
 }
 
