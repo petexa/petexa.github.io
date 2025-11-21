@@ -277,7 +277,7 @@
                 if (typeof window.openModal === 'function') {
                     window.openModal();
                 } else {
-                    console.warn('openModal function not found on past-events.html page');
+                    console.warn('openModal function not found');
                 }
             });
         }
