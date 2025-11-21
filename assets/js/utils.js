@@ -116,8 +116,24 @@ function positionHeaderTear() {
     headerTear.style.top = `${headerHeight}px`;
 }
 
-// Initialize header tear positioning on DOM load and window resize
-if (typeof window !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', positionHeaderTear);
-    window.addEventListener('resize', positionHeaderTear);
+/**
+ * Debounce function to limit resize event frequency
+ * @param {Function} func - Function to debounce
+ * @param {number} wait - Milliseconds to wait
+ * @returns {Function} Debounced function
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
+
+// Initialize header tear positioning on DOM load and debounced window resize
+document.addEventListener('DOMContentLoaded', positionHeaderTear);
+window.addEventListener('resize', debounce(positionHeaderTear, 250));
