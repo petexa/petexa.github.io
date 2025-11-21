@@ -1,77 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Your calendar for fitness and race events. Browse upcoming events, book your spot, and add reminders to your calendar.">
-<meta property="og:title" content="Bootcamp Events">
-<meta property="og:description" content="Your calendar for fitness and race events. Browse upcoming events, book your spot, and add reminders to your calendar.">
-<meta property="og:type" content="website">
-<title>Bootcamp Events</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="assets/css/styles.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Bootcamp Events",
-  "description": "Fitness and race events calendar"
-}
-</script>
-</head>
-<body>
-<a class="skip-link" href="#events-list">Skip to content</a>
-<header>
-    <h1>Sets and reps. Cheers and beers. That's the program</h1>
-</header>
-<div class="header-tear">
-    <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true">
-</div>
-<main id="events-list" aria-live="polite">
-</main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Your calendar for fitness and race events. Browse upcoming events, book your spot, and add reminders to your calendar."
+    />
+    <meta property="og:title" content="Bootcamp Events" />
+    <meta
+      property="og:description"
+      content="Your calendar for fitness and race events. Browse upcoming events, book your spot, and add reminders to your calendar."
+    />
+    <meta property="og:type" content="website" />
+    <title>Bootcamp Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Bootcamp Events",
+        "description": "Fitness and race events calendar"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#events-list">Skip to content</a>
+    <header>
+      <h1>Sets and reps. Cheers and beers. That's the program</h1>
+    </header>
+    <div class="header-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+    <main id="events-list" aria-live="polite"></main>
 
-<!-- Event card template -->
-<template id="event-card-template">
-    <section class="event-card">
-        <img src="" class="event-img" alt="" loading="lazy">
+    <!-- Event card template -->
+    <template id="event-card-template">
+      <section class="event-card">
+        <img src="" class="event-img" alt="" loading="lazy" />
         <div class="event-content">
-            <header>
-                <div class="event-title"></div>
-                <time class="event-date" datetime=""></time>
-            </header>
-            <div class="event-desc"></div>
-            <div class="countdown">
-                <i class="fa-regular fa-clock"></i>
-                <span></span>
-            </div>
-            <div class="card-actions">
-                <!-- Buttons will be added dynamically -->
-            </div>
+          <header>
+            <div class="event-title"></div>
+            <time class="event-date" datetime=""></time>
+          </header>
+          <div class="event-desc"></div>
+          <div class="countdown">
+            <i class="fa-regular fa-clock"></i>
+            <span></span>
+          </div>
+          <div class="card-actions">
+            <!-- Buttons will be added dynamically -->
+          </div>
         </div>
-    </section>
-</template>
+      </section>
+    </template>
 
-<div class="footer-tear">
-    <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true">
-</div>
+    <div class="footer-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
 
-<footer>
-  <div style="margin-top: 15px;">
-    &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
-  </div>
-  <div class="footer-links">
-    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
-    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
-    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
-  </div>
-</footer>
+    <footer>
+      <div style="margin-top: 15px">
+        &copy; <span id="footerYear"></span> Have an event?
+        <a href="mailto:gym@petefox.co.uk" style="color: #fff; text-decoration: underline">Contact us</a>
+      </div>
+      <div class="footer-links">
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Facebook"
+          aria-label="Facebook (opens in new tab)"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram"
+          aria-label="Instagram (opens in new tab)"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="X (Twitter)"
+          aria-label="Twitter/X (opens in new tab)"
+          ><i class="fab fa-x-twitter"></i
+        ></a>
+      </div>
+    </footer>
 
-<div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div
+      id="toast"
+      class="toast-message"
+      style="display: none"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
 
-<script src="assets/js/navigation.js" defer></script>
-<script src="assets/js/utils.js" defer></script>
-<script src="assets/js/main.js" defer></script>
-</body>
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/utils.js" defer></script>
+    <script src="assets/js/footer.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+  </body>
 </html>

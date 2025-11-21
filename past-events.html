@@ -1,197 +1,230 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Browse past fitness and race events from Bootcamp Events calendar.">
-<meta property="og:title" content="Past Events - Bootcamp Events">
-<meta property="og:description" content="Browse past fitness and race events from Bootcamp Events calendar.">
-<meta property="og:type" content="website">
-<title>Past Events - Bootcamp Events</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="assets/css/styles.css">
-<link rel="stylesheet" href="assets/css/past-events.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Bootcamp Events - Past Events",
-  "description": "Past fitness and race events calendar"
-}
-</script>
-</head>
-<body>
-<a class="skip-link" href="#events-list">Skip to content</a>
-<header>
-    <h1>Sets and reps. Cheers and beers. That's the program</h1>
-</header>
-<div class="header-tear">
-    <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true">
-</div>
-<main id="events-list" aria-live="polite">
-</main>
-<div class="footer-tear">
-    <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true">
-</div>
-<footer>
-  <div style="margin-top: 15px;">
-    &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
-  </div>
-  <div class="footer-links">
-    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
-    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
-    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
-  </div>
-</footer>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Browse past fitness and race events from Bootcamp Events calendar." />
+    <meta property="og:title" content="Past Events - Bootcamp Events" />
+    <meta property="og:description" content="Browse past fitness and race events from Bootcamp Events calendar." />
+    <meta property="og:type" content="website" />
+    <title>Past Events - Bootcamp Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/past-events.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Bootcamp Events - Past Events",
+        "description": "Past fitness and race events calendar"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#events-list">Skip to content</a>
+    <header>
+      <h1>Sets and reps. Cheers and beers. That's the program</h1>
+    </header>
+    <div class="header-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+    <main id="events-list" aria-live="polite"></main>
+    <div class="footer-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+    <footer>
+      <div style="margin-top: 15px">
+        &copy; <span id="footerYear"></span> Have an event?
+        <a href="mailto:gym@petefox.co.uk" style="color: #fff; text-decoration: underline">Contact us</a>
+      </div>
+      <div class="footer-links">
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Facebook"
+          aria-label="Facebook (opens in new tab)"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram"
+          aria-label="Instagram (opens in new tab)"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="X (Twitter)"
+          aria-label="Twitter/X (opens in new tab)"
+          ><i class="fab fa-x-twitter"></i
+        ></a>
+      </div>
+    </footer>
 
-<!-- Modal Dialog -->
-<div id="eventModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-content">
+    <!-- Modal Dialog -->
+    <div id="eventModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-content">
         <div class="modal-header">
-            <h2 id="modalTitle">Create New Event</h2>
-            <button class="close-btn" onclick="closeModal()" aria-label="Close dialog">
-                <i class="fa-solid fa-times"></i>
-            </button>
+          <h2 id="modalTitle">Create New Event</h2>
+          <button class="close-btn" onclick="closeModal()" aria-label="Close dialog">
+            <i class="fa-solid fa-times"></i>
+          </button>
         </div>
         <div class="modal-body">
-            <form id="eventForm">
-                <div class="form-group">
-                    <label for="eventName">Event Name *</label>
-                    <input type="text" id="eventName" name="eventName" required placeholder="e.g., Nuclear Fit Spring 2026">
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventDate">Event Date & Time *</label>
-                    <input type="datetime-local" id="eventDate" name="eventDate" required>
-                    <small>Select the date and time of the event</small>
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventLink">Event Link (URL) *</label>
-                    <input type="url" id="eventLink" name="eventLink" required placeholder="https://example.com/event">
-                    <small>Link to event registration or information page</small>
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventImage">Image URL</label>
-                    <input type="text" id="eventImage" name="eventImage" placeholder="https://example.com/image.jpg or /images/event.jpg">
-                    <small>URL or path to the event image (optional)</small>
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventDescription">Description *</label>
-                    <textarea id="eventDescription" name="eventDescription" required placeholder="Brief description of the event"></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventLocation">Location</label>
-                    <input type="text" id="eventLocation" name="eventLocation" placeholder="e.g., Kelvedon Hatch, UK">
-                </div>
-                
-                <div class="form-group">
-                    <label for="eventDuration">Duration (hours)</label>
-                    <input type="number" id="eventDuration" name="eventDuration" min="1" max="24" value="4" placeholder="4">
-                </div>
-                
-                <div class="form-group">
-                    <label for="calendarDescription">Calendar Description</label>
-                    <textarea id="calendarDescription" name="calendarDescription" placeholder="Detailed description for calendar"></textarea>
-                    <small>Optional - appears when users add event to their calendar</small>
-                </div>
-                
-                <div class="form-group">
-                    <label style="margin-bottom: 12px;">Display Options</label>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="showMoreInfo" name="showMoreInfo" checked>
-                        <label for="showMoreInfo">Show "More Info" button</label>
-                    </div>
-                    <div class="checkbox-group" style="margin-top: 8px;">
-                        <input type="checkbox" id="showBookNow" name="showBookNow">
-                        <label for="showBookNow">Show "Book Now" button</label>
-                    </div>
-                    <div class="checkbox-group" style="margin-top: 8px;">
-                        <input type="checkbox" id="showRemindMe" name="showRemindMe" checked>
-                        <label for="showRemindMe">Show "Remind Me" button</label>
-                    </div>
-                </div>
-            </form>
+          <form id="eventForm">
+            <div class="form-group">
+              <label for="eventName">Event Name *</label>
+              <input type="text" id="eventName" name="eventName" required placeholder="e.g., Nuclear Fit Spring 2026" />
+            </div>
+
+            <div class="form-group">
+              <label for="eventDate">Event Date & Time *</label>
+              <input type="datetime-local" id="eventDate" name="eventDate" required />
+              <small>Select the date and time of the event</small>
+            </div>
+
+            <div class="form-group">
+              <label for="eventLink">Event Link (URL) *</label>
+              <input type="url" id="eventLink" name="eventLink" required placeholder="https://example.com/event" />
+              <small>Link to event registration or information page</small>
+            </div>
+
+            <div class="form-group">
+              <label for="eventImage">Image URL</label>
+              <input
+                type="text"
+                id="eventImage"
+                name="eventImage"
+                placeholder="https://example.com/image.jpg or /images/event.jpg"
+              />
+              <small>URL or path to the event image (optional)</small>
+            </div>
+
+            <div class="form-group">
+              <label for="eventDescription">Description *</label>
+              <textarea
+                id="eventDescription"
+                name="eventDescription"
+                required
+                placeholder="Brief description of the event"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="eventLocation">Location</label>
+              <input type="text" id="eventLocation" name="eventLocation" placeholder="e.g., Kelvedon Hatch, UK" />
+            </div>
+
+            <div class="form-group">
+              <label for="eventDuration">Duration (hours)</label>
+              <input type="number" id="eventDuration" name="eventDuration" min="1" max="24" value="4" placeholder="4" />
+            </div>
+
+            <div class="form-group">
+              <label for="calendarDescription">Calendar Description</label>
+              <textarea
+                id="calendarDescription"
+                name="calendarDescription"
+                placeholder="Detailed description for calendar"
+              ></textarea>
+              <small>Optional - appears when users add event to their calendar</small>
+            </div>
+
+            <div class="form-group">
+              <label style="margin-bottom: 12px">Display Options</label>
+              <div class="checkbox-group">
+                <input type="checkbox" id="showMoreInfo" name="showMoreInfo" checked />
+                <label for="showMoreInfo">Show "More Info" button</label>
+              </div>
+              <div class="checkbox-group" style="margin-top: 8px">
+                <input type="checkbox" id="showBookNow" name="showBookNow" />
+                <label for="showBookNow">Show "Book Now" button</label>
+              </div>
+              <div class="checkbox-group" style="margin-top: 8px">
+                <input type="checkbox" id="showRemindMe" name="showRemindMe" checked />
+                <label for="showRemindMe">Show "Remind Me" button</label>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-            <button type="button" class="btn btn-primary" onclick="generateEvent()">Generate Event JSON</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="generateEvent()">Generate Event JSON</button>
         </div>
+      </div>
     </div>
-</div>
 
-<script>
-// Event data will be loaded from separate JSON files
-let events = [];
-let pastEvents = [];
+    <script>
+      // Event data will be loaded from separate JSON files
+      let events = [];
+      let pastEvents = [];
 
-// Load events from JSON files
-async function loadEvents() {
-    try {
-        // First, load the list of event files
-        const response = await fetch('events/events-list.json');
-        const eventFiles = await response.json();
-        
-        // Load all event files
-        const eventPromises = eventFiles.map(file => 
-            fetch(file).then(res => res.json())
-        );
-        
-        events = await Promise.all(eventPromises);
-        
-        // Filter for past events and sort by date (most recent first)
-        const now = new Date();
-        pastEvents = events
-            .filter(ev => new Date(ev.date) < now)
-            .sort((a,b) => new Date(b.date) - new Date(a.date));
-        
-        // Render the events
-        renderEvents();
-    } catch (error) {
-        console.error('Error loading events:', error);
-        document.getElementById("events-list").innerHTML = `<div class="empty-events" role="alert">Unable to load events. Please try again later.</div>`;
-    }
-}
+      // Load events from JSON files
+      async function loadEvents() {
+        try {
+          // First, load the list of event files
+          const response = await fetch('events/events-list.json');
+          const eventFiles = await response.json();
 
-// Utility: Ordinal suffix
-function getOrdinal(n) {
-    let s = ["th","st","nd","rd"],
-        v = n%100;
-    return n + (s[(v-20)%10] || s[v] || s[0]);
-}
-// Utility: Format date e.g. 22nd Nov 2025, 12:00
-function formatEventDate(dateString) {
-    const d = new Date(dateString);
-    const day = getOrdinal(d.getDate());
-    const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const month = monthNames[d.getMonth()];
-    const year = d.getFullYear();
-    let pieces = [`${day} ${month} ${year}`];
-    if (d.getHours() + d.getMinutes() > 0) {
-        let mins = String(d.getMinutes()).padStart(2, "0");
-        pieces.push(`${d.getHours()}:${mins}`);
-    }
-    return pieces.join(", ");
-}
+          // Load all event files
+          const eventPromises = eventFiles.map(file => fetch(file).then(res => res.json()));
 
-// Render past event cards
-function renderEvents() {
-    let eventListHtml = "";
-    
-    if (pastEvents.length === 0) {
-        eventListHtml = `<div class="empty-events" role="alert">No past events found. Check back after some events have taken place!</div>`;
-    } else {
-        eventListHtml = pastEvents.map((ev, i) => {
-            // Event image with error fallback
-            const imgId = `event-img-${i}`;
-            let imgHtml = `<img src="${ev.image}" class="event-img" id="${imgId}" alt="Preview for ${ev.name}" loading="lazy" onerror="onImgError('${imgId}')">`;
+          events = await Promise.all(eventPromises);
 
-            return `<section class="event-card">
+          // Filter for past events and sort by date (most recent first)
+          const now = new Date();
+          pastEvents = events.filter(ev => new Date(ev.date) < now).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+          // Render the events
+          renderEvents();
+        } catch (error) {
+          console.error('Error loading events:', error);
+          document.getElementById('events-list').innerHTML =
+            `<div class="empty-events" role="alert">Unable to load events. Please try again later.</div>`;
+        }
+      }
+
+      // Utility: Ordinal suffix
+      function getOrdinal(n) {
+        let s = ['th', 'st', 'nd', 'rd'],
+          v = n % 100;
+        return n + (s[(v - 20) % 10] || s[v] || s[0]);
+      }
+      // Utility: Format date e.g. 22nd Nov 2025, 12:00
+      function formatEventDate(dateString) {
+        const d = new Date(dateString);
+        const day = getOrdinal(d.getDate());
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const month = monthNames[d.getMonth()];
+        const year = d.getFullYear();
+        let pieces = [`${day} ${month} ${year}`];
+        if (d.getHours() + d.getMinutes() > 0) {
+          let mins = String(d.getMinutes()).padStart(2, '0');
+          pieces.push(`${d.getHours()}:${mins}`);
+        }
+        return pieces.join(', ');
+      }
+
+      // Render past event cards
+      function renderEvents() {
+        let eventListHtml = '';
+
+        if (pastEvents.length === 0) {
+          eventListHtml = `<div class="empty-events" role="alert">No past events found. Check back after some events have taken place!</div>`;
+        } else {
+          eventListHtml = pastEvents
+            .map((ev, i) => {
+              // Event image with error fallback
+              const imgId = `event-img-${i}`;
+              let imgHtml = `<img src="${ev.image}" class="event-img" id="${imgId}" alt="Preview for ${ev.name}" loading="lazy" onerror="onImgError('${imgId}')">`;
+
+              return `<section class="event-card">
                 ${imgHtml}
                 <div class="event-content">
                   <header>
@@ -203,141 +236,151 @@ function renderEvents() {
                       <i class="fa-solid fa-check-circle"></i>
                       <span>Event Completed</span>
                   </div>
-                  <a class="button" href="${ev.link}" target="_blank" rel="noopener noreferrer" aria-label="More information about ${ev.name} (opens in new tab)">More Info</a>
+                  <a class="button" href="${
+                    ev.link
+                  }" target="_blank" rel="noopener noreferrer" aria-label="More information about ${
+                    ev.name
+                  } (opens in new tab)">More Info</a>
                 </div>
               </section>`;
-        }).join("");
-    }
-
-    document.getElementById("events-list").innerHTML = eventListHtml;
-}
-
-// Event image fallback
-window.onImgError = function(id) {
-    var img = document.getElementById(id);
-    if (img) {
-        img.onerror = null;
-        img.classList.add("placeholder");
-        img.src = "";
-        img.alt = "Image unavailable";
-        img.style.background = "#b8b8f0";
-        img.style.display = "flex";
-        img.style.justifyContent = "center";
-        img.style.alignItems = "center";
-        img.outerHTML = `<div class="event-img placeholder" title="Preview image unavailable">Image unavailable</div>`;
-    }
-};
-
-// Update footer year dynamically
-document.getElementById("footerYear").textContent = new Date().getFullYear();
-
-// Load events from JSON files on page load
-loadEvents();
-
-// Modal functions
-function openModal() {
-    const modal = document.getElementById('eventModal');
-    modal.style.display = 'block';
-    modal.setAttribute('aria-hidden', 'false');
-    // Set default date to today
-    const now = new Date();
-    const offset = now.getTimezoneOffset() * 60000;
-    const localISOTime = new Date(now - offset).toISOString().slice(0, 16);
-    document.getElementById('eventDate').value = localISOTime;
-}
-
-function closeModal() {
-    const modal = document.getElementById('eventModal');
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-    document.getElementById('eventForm').reset();
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
-    const modal = document.getElementById('eventModal');
-    if (event.target === modal) {
-        closeModal();
-    }
-}
-
-// Close modal on ESC key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        const modal = document.getElementById('eventModal');
-        if (modal.style.display === 'block') {
-            closeModal();
+            })
+            .join('');
         }
-    }
-});
 
-function generateEvent() {
-    const form = document.getElementById('eventForm');
-    
-    // Validate form
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-    }
-    
-    // Get form values
-    const eventName = document.getElementById('eventName').value.trim();
-    const eventDate = document.getElementById('eventDate').value;
-    const eventLink = document.getElementById('eventLink').value.trim();
-    const eventImage = document.getElementById('eventImage').value.trim();
-    const eventDescription = document.getElementById('eventDescription').value.trim();
-    const eventLocation = document.getElementById('eventLocation').value.trim();
-    const eventDuration = parseInt(document.getElementById('eventDuration').value) || 4;
-    const calendarDescription = document.getElementById('calendarDescription').value.trim();
-    const showMoreInfo = document.getElementById('showMoreInfo').checked;
-    const showBookNow = document.getElementById('showBookNow').checked;
-    const showRemindMe = document.getElementById('showRemindMe').checked;
-    
-    // Format date to ISO 8601
-    const formattedDate = new Date(eventDate).toISOString().slice(0, 19);
-    
-    // Create event object
-    const eventData = {
-        name: eventName,
-        date: formattedDate,
-        link: eventLink,
-        image: eventImage || "https://via.placeholder.com/400x300?text=Event+Image",
-        description: eventDescription,
-        calendarDetails: {
-            location: eventLocation || "",
+        document.getElementById('events-list').innerHTML = eventListHtml;
+      }
+
+      // Event image fallback
+      window.onImgError = function (id) {
+        var img = document.getElementById(id);
+        if (img) {
+          img.onerror = null;
+          img.classList.add('placeholder');
+          img.src = '';
+          img.alt = 'Image unavailable';
+          img.style.background = '#b8b8f0';
+          img.style.display = 'flex';
+          img.style.justifyContent = 'center';
+          img.style.alignItems = 'center';
+          img.outerHTML = `<div class="event-img placeholder" title="Preview image unavailable">Image unavailable</div>`;
+        }
+      };
+
+      // Update footer year dynamically
+      document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+      // Load events from JSON files on page load
+      loadEvents();
+
+      // Modal functions
+      function openModal() {
+        const modal = document.getElementById('eventModal');
+        modal.style.display = 'block';
+        modal.setAttribute('aria-hidden', 'false');
+        // Set default date to today
+        const now = new Date();
+        const offset = now.getTimezoneOffset() * 60000;
+        const localISOTime = new Date(now - offset).toISOString().slice(0, 16);
+        document.getElementById('eventDate').value = localISOTime;
+      }
+
+      function closeModal() {
+        const modal = document.getElementById('eventModal');
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        document.getElementById('eventForm').reset();
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById('eventModal');
+        if (event.target === modal) {
+          closeModal();
+        }
+      };
+
+      // Close modal on ESC key
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          const modal = document.getElementById('eventModal');
+          if (modal.style.display === 'block') {
+            closeModal();
+          }
+        }
+      });
+
+      function generateEvent() {
+        const form = document.getElementById('eventForm');
+
+        // Validate form
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        // Get form values
+        const eventName = document.getElementById('eventName').value.trim();
+        const eventDate = document.getElementById('eventDate').value;
+        const eventLink = document.getElementById('eventLink').value.trim();
+        const eventImage = document.getElementById('eventImage').value.trim();
+        const eventDescription = document.getElementById('eventDescription').value.trim();
+        const eventLocation = document.getElementById('eventLocation').value.trim();
+        const eventDuration = parseInt(document.getElementById('eventDuration').value) || 4;
+        const calendarDescription = document.getElementById('calendarDescription').value.trim();
+        const showMoreInfo = document.getElementById('showMoreInfo').checked;
+        const showBookNow = document.getElementById('showBookNow').checked;
+        const showRemindMe = document.getElementById('showRemindMe').checked;
+
+        // Format date to ISO 8601
+        const formattedDate = new Date(eventDate).toISOString().slice(0, 19);
+
+        // Create event object
+        const eventData = {
+          name: eventName,
+          date: formattedDate,
+          link: eventLink,
+          image: eventImage || 'https://via.placeholder.com/400x300?text=Event+Image',
+          description: eventDescription,
+          calendarDetails: {
+            location: eventLocation || '',
             description: calendarDescription || eventDescription,
-            durationHours: eventDuration
-        },
-        showMoreInfo: showMoreInfo,
-        showBookNow: showBookNow,
-        showRemindMe: showRemindMe
-    };
-    
-    // Convert to JSON with pretty formatting
-    const jsonString = JSON.stringify(eventData, null, 2);
-    
-    // Create filename from event name and date
-    const dateStr = eventDate.split('T')[0].replace(/-/g, '');
-    const nameSlug = eventName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    const filename = `${nameSlug}-${dateStr}.json`;
-    
-    // Create blob and download
-    const blob = new Blob([jsonString], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    // Show success message
-    alert(`Event JSON file "${filename}" has been downloaded!\n\nNext steps:\n1. Upload the file to the events/ directory\n2. Add the file path to events/events-list.json\n3. Upload any event images to the images/ directory`);
-    
-    // Close modal
-    closeModal();
-}
+            durationHours: eventDuration,
+          },
+          showMoreInfo: showMoreInfo,
+          showBookNow: showBookNow,
+          showRemindMe: showRemindMe,
+        };
 
-</script>
-<script src="assets/js/navigation.js" defer></script>
-</body>
+        // Convert to JSON with pretty formatting
+        const jsonString = JSON.stringify(eventData, null, 2);
+
+        // Create filename from event name and date
+        const dateStr = eventDate.split('T')[0].replace(/-/g, '');
+        const nameSlug = eventName
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
+        const filename = `${nameSlug}-${dateStr}.json`;
+
+        // Create blob and download
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        // Show success message
+        alert(
+          `Event JSON file "${filename}" has been downloaded!\n\nNext steps:\n1. Upload the file to the events/ directory\n2. Add the file path to events/events-list.json\n3. Upload any event images to the images/ directory`
+        );
+
+        // Close modal
+        closeModal();
+      }
+    </script>
+    <script src="assets/js/footer.js" defer></script>
+    <script src="assets/js/navigation.js" defer></script>
+  </body>
 </html>

@@ -1,41 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Complete table view of all WOD workouts - sortable and filterable database">
-<meta property="og:title" content="WODs Table View - Bootcamp Events">
-<meta property="og:description" content="Browse all workouts in a sortable table format">
-<meta property="og:type" content="website">
-<title>WODs Table View - Bootcamp Events</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="assets/css/styles.css">
-<style>
-    .table-container {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Complete table view of all WOD workouts - sortable and filterable database" />
+    <meta property="og:title" content="WODs Table View - Bootcamp Events" />
+    <meta property="og:description" content="Browse all workouts in a sortable table format" />
+    <meta property="og:type" content="website" />
+    <title>WODs Table View - Bootcamp Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .table-container {
         max-width: 1400px;
         margin: 40px auto;
         padding: 0 20px;
-    }
-    
-    .table-header {
+      }
+
+      .table-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
         flex-wrap: wrap;
         gap: 15px;
-    }
-    
-    .table-controls {
+      }
+
+      .table-controls {
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
         align-items: center;
-    }
-    
-    .table-search {
+      }
+
+      .table-search {
         padding: 10px 15px;
         border: 2px solid rgba(0, 0, 0, 0.1);
         border-radius: 8px;
@@ -43,27 +43,27 @@
         color: #333;
         font-size: 14px;
         min-width: 250px;
-    }
-    
-    .table-search::placeholder {
+      }
+
+      .table-search::placeholder {
         color: rgba(0, 0, 0, 0.4);
-    }
-    
-    .wods-table-wrapper {
+      }
+
+      .wods-table-wrapper {
         overflow-x: auto;
         background: white;
         border-radius: 12px;
         padding: 20px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    
-    .wods-table {
+      }
+
+      .wods-table {
         width: 100%;
         border-collapse: collapse;
         color: #333;
-    }
-    
-    .wods-table th {
+      }
+
+      .wods-table th {
         background: #2c3e50;
         color: #ecf0f1;
         padding: 15px 10px;
@@ -76,28 +76,28 @@
         white-space: nowrap;
         user-select: none;
         border-bottom: 3px solid #3498db;
-    }
-    
-    .wods-table th:hover {
+      }
+
+      .wods-table th:hover {
         background: #34495e;
-    }
-    
-    .wods-table th i {
+      }
+
+      .wods-table th i {
         margin-left: 5px;
         font-size: 12px;
         opacity: 0.6;
-    }
-    
-    .wods-table td {
+      }
+
+      .wods-table td {
         padding: 12px 10px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    }
-    
-    .wods-table tr:hover {
+      }
+
+      .wods-table tr:hover {
         background: rgba(52, 152, 219, 0.08);
-    }
-    
-    .badge-small {
+      }
+
+      .badge-small {
         display: inline-block;
         padding: 3px 8px;
         border-radius: 4px;
@@ -105,24 +105,24 @@
         font-weight: 600;
         text-transform: uppercase;
         margin: 2px;
-    }
-    
-    .badge-beginner {
+      }
+
+      .badge-beginner {
         background: #10b981;
         color: white;
-    }
-    
-    .badge-intermediate {
+      }
+
+      .badge-intermediate {
         background: #f59e0b;
         color: white;
-    }
-    
-    .badge-advanced {
+      }
+
+      .badge-advanced {
         background: #ef4444;
         color: white;
-    }
-    
-    .category-badge {
+      }
+
+      .category-badge {
         background: #3498db;
         color: white;
         padding: 3px 8px;
@@ -130,21 +130,21 @@
         font-size: 11px;
         font-weight: 600;
         text-transform: uppercase;
-    }
-    
-    .equipment-cell {
+      }
+
+      .equipment-cell {
         max-width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-    
-    .muscle-cell {
+      }
+
+      .muscle-cell {
         max-width: 150px;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-    
-    .view-details-btn {
+      }
+
+      .view-details-btn {
         background: #3498db;
         color: white;
         border: none;
@@ -154,39 +154,43 @@
         cursor: pointer;
         transition: all 0.2s;
         font-weight: 500;
-    }
-    
-    .view-details-btn:hover {
+      }
+
+      .view-details-btn:hover {
         background: #2980b9;
         transform: translateY(-1px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-    
-    .results-info {
+      }
+
+      .results-info {
         color: #666;
         font-size: 14px;
         margin-top: 15px;
-    }
-    
-    .loading {
+      }
+
+      .loading {
         text-align: center;
         padding: 40px;
         color: #333;
-    }
-    
-    .loading i {
+      }
+
+      .loading i {
         font-size: 40px;
         animation: spin 1s linear infinite;
         margin-bottom: 15px;
-    }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    /* Modal Styles */
-    .modal {
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Modal Styles */
+      .modal {
         display: none;
         position: fixed;
         z-index: 1000;
@@ -198,9 +202,9 @@
         background-color: rgba(0, 0, 0, 0.7);
         align-items: center;
         justify-content: center;
-    }
-    
-    .modal-content {
+      }
+
+      .modal-content {
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         color: white;
         margin: 20px;
@@ -212,9 +216,9 @@
         overflow-y: auto;
         position: relative;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    }
-    
-    .modal-close {
+      }
+
+      .modal-close {
         position: absolute;
         top: 15px;
         right: 15px;
@@ -231,421 +235,461 @@
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-    
-    .modal-close:hover {
+      }
+
+      .modal-close:hover {
         background: rgba(255, 255, 255, 0.2);
         transform: scale(1.1);
-    }
-    
-    .modal-body h2 {
+      }
+
+      .modal-body h2 {
         margin-top: 0;
         margin-bottom: 20px;
         font-size: 28px;
         color: #80affe;
-    }
-    
-    .modal-section {
+      }
+
+      .modal-section {
         margin-bottom: 20px;
-    }
-    
-    .modal-section h3 {
+      }
+
+      .modal-section h3 {
         font-size: 18px;
         margin-bottom: 10px;
         color: #80affe;
         display: flex;
         align-items: center;
         gap: 8px;
-    }
-    
-    .modal-section p {
+      }
+
+      .modal-section p {
         line-height: 1.6;
         color: rgba(255, 255, 255, 0.9);
-    }
-    
-    .goals-cell {
+      }
+
+      .goals-cell {
         max-width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-    
-    /* Mobile Responsive Styles */
-    @media (max-width: 768px) {
+      }
+
+      /* Mobile Responsive Styles */
+      @media (max-width: 768px) {
         .wods-table-wrapper {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
         }
-        
+
         .wods-table {
-            min-width: 800px;
+          min-width: 800px;
         }
-        
+
         .table-search {
-            min-width: 100%;
+          min-width: 100%;
         }
-        
+
         .modal-content {
-            margin: 10px;
-            padding: 20px;
-            max-height: 95vh;
+          margin: 10px;
+          padding: 20px;
+          max-height: 95vh;
         }
-        
+
         .modal-body h2 {
-            font-size: 24px;
-            padding-right: 30px;
+          font-size: 24px;
+          padding-right: 30px;
         }
-    }
-</style>
-</head>
-<body>
-<a class="skip-link" href="#table-content">Skip to content</a>
-<header>
-    <h1>WODs Table View</h1>
-    <div class="subtitle">Complete Workout Database in Table Format</div>
-</header>
-<div class="header-tear">
-    <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true">
-</div>
-
-<main id="table-content">
-    <div class="table-container">
-        <div class="table-header">
-            <div class="table-controls">
-                <input type="text" id="table-search" class="table-search" placeholder="Search workouts..." aria-label="Search workouts">
-            </div>
-            <div class="results-info" id="results-count">Loading workouts...</div>
-        </div>
-        
-        <div class="wods-table-wrapper">
-            <div id="table-loading" class="loading">
-                <i class="fa-solid fa-spinner"></i>
-                <p>Loading workout database...</p>
-            </div>
-            <table id="wods-table" class="wods-table" style="display: none;">
-                <thead>
-                    <tr>
-                        <th data-sort="name">Name <i class="fa-solid fa-sort"></i></th>
-                        <th data-sort="category">Category <i class="fa-solid fa-sort"></i></th>
-                        <th data-sort="format">Format & Duration <i class="fa-solid fa-sort"></i></th>
-                        <th data-sort="equipment">Equipment <i class="fa-solid fa-sort"></i></th>
-                        <th data-sort="muscles">Muscle Groups <i class="fa-solid fa-sort"></i></th>
-                        <th data-sort="goals">Training Goals <i class="fa-solid fa-sort"></i></th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                    <!-- Table rows will be inserted here -->
-                </tbody>
-            </table>
-        </div>
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#table-content">Skip to content</a>
+    <header>
+      <h1>WODs Table View</h1>
+      <div class="subtitle">Complete Workout Database in Table Format</div>
+    </header>
+    <div class="header-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
     </div>
-</main>
 
-<!-- Workout Detail Modal -->
-<div id="workout-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none;">
-    <div class="modal-content">
+    <main id="table-content">
+      <div class="table-container">
+        <div class="table-header">
+          <div class="table-controls">
+            <input
+              type="text"
+              id="table-search"
+              class="table-search"
+              placeholder="Search workouts..."
+              aria-label="Search workouts"
+            />
+          </div>
+          <div class="results-info" id="results-count">Loading workouts...</div>
+        </div>
+
+        <div class="wods-table-wrapper">
+          <div id="table-loading" class="loading">
+            <i class="fa-solid fa-spinner"></i>
+            <p>Loading workout database...</p>
+          </div>
+          <table id="wods-table" class="wods-table" style="display: none">
+            <thead>
+              <tr>
+                <th data-sort="name">Name <i class="fa-solid fa-sort"></i></th>
+                <th data-sort="category">Category <i class="fa-solid fa-sort"></i></th>
+                <th data-sort="format">Format & Duration <i class="fa-solid fa-sort"></i></th>
+                <th data-sort="equipment">Equipment <i class="fa-solid fa-sort"></i></th>
+                <th data-sort="muscles">Muscle Groups <i class="fa-solid fa-sort"></i></th>
+                <th data-sort="goals">Training Goals <i class="fa-solid fa-sort"></i></th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- Table rows will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Workout Detail Modal -->
+    <div
+      id="workout-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      style="display: none"
+    >
+      <div class="modal-content">
         <button class="modal-close" aria-label="Close modal">
-            <i class="fa-solid fa-xmark"></i>
+          <i class="fa-solid fa-xmark"></i>
         </button>
         <div id="modal-body">
-            <!-- Workout details will be inserted here -->
+          <!-- Workout details will be inserted here -->
         </div>
+      </div>
     </div>
-</div>
 
-<div class="footer-tear">
-    <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true">
-</div>
+    <div class="footer-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
 
-<footer>
-  <div style="margin-top: 15px;">
-    &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
-  </div>
-  <div class="footer-links">
-    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
-    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
-    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
-  </div>
-</footer>
+    <footer>
+      <div style="margin-top: 15px">
+        &copy; <span id="footerYear"></span> Have an event?
+        <a href="mailto:gym@petefox.co.uk" style="color: #fff; text-decoration: underline">Contact us</a>
+      </div>
+      <div class="footer-links">
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Facebook"
+          aria-label="Facebook (opens in new tab)"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram"
+          aria-label="Instagram (opens in new tab)"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="X (Twitter)"
+          aria-label="Twitter/X (opens in new tab)"
+          ><i class="fab fa-x-twitter"></i
+        ></a>
+      </div>
+    </footer>
 
-<script src="assets/js/navigation.js" defer></script>
-<script src="assets/js/utils.js" defer></script>
-<script>
-(function() {
-    'use strict';
-    
-    let allWorkouts = [];
-    let filteredWorkouts = [];
-    let sortColumn = null;
-    let sortDirection = 'asc';
-    
-    // DOM Elements
-    const tableSearch = document.getElementById('table-search');
-    const tableBody = document.getElementById('table-body');
-    const wodsTable = document.getElementById('wods-table');
-    const tableLoading = document.getElementById('table-loading');
-    const resultsCount = document.getElementById('results-count');
-    const footerYear = document.getElementById('footerYear');
-    
-    // Initialize
-    document.addEventListener('DOMContentLoaded', init);
-    
-    function init() {
-        if (footerYear) {
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/utils.js" defer></script>
+    <script>
+      (function () {
+        'use strict';
+
+        let allWorkouts = [];
+        let filteredWorkouts = [];
+        let sortColumn = null;
+        let sortDirection = 'asc';
+
+        // DOM Elements
+        const tableSearch = document.getElementById('table-search');
+        const tableBody = document.getElementById('table-body');
+        const wodsTable = document.getElementById('wods-table');
+        const tableLoading = document.getElementById('table-loading');
+        const resultsCount = document.getElementById('results-count');
+        const footerYear = document.getElementById('footerYear');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', init);
+
+        function init() {
+          if (footerYear) {
             footerYear.textContent = new Date().getFullYear();
+          }
+          loadWorkouts();
+          setupEventListeners();
         }
-        loadWorkouts();
-        setupEventListeners();
-    }
-    
-    function setupEventListeners() {
-        tableSearch.addEventListener('input', debounce(filterTable, 300));
-        
-        // Add sort listeners to all headers
-        document.querySelectorAll('th[data-sort]').forEach(th => {
+
+        function setupEventListeners() {
+          tableSearch.addEventListener('input', debounce(filterTable, 300));
+
+          // Add sort listeners to all headers
+          document.querySelectorAll('th[data-sort]').forEach(th => {
             th.addEventListener('click', () => sortTable(th.dataset.sort));
-        });
-        
-        // Setup modal listeners
-        setupModalListeners();
-    }
-    
-    function parseCSV(csvText) {
-        const lines = csvText.split('\n');
-        if (lines.length === 0 || !lines[0].trim()) {
+          });
+
+          // Setup modal listeners
+          setupModalListeners();
+        }
+
+        function parseCSV(csvText) {
+          const lines = csvText.split('\n');
+          if (lines.length === 0 || !lines[0].trim()) {
             console.error('CSV file is empty');
             return [];
-        }
-        
-        const headers = lines[0].split(',').map(h => h.trim());
-        const workouts = [];
-        const REQUIRED_FIELD_COUNT = 7; // Name, Category, Format & Duration, Instructions, Equipment Needed, Muscle Groups, Training Goals
-        
-        for (let i = 1; i < lines.length; i++) {
+          }
+
+          const headers = lines[0].split(',').map(h => h.trim());
+          const workouts = [];
+          const REQUIRED_FIELD_COUNT = 7; // Name, Category, Format & Duration, Instructions, Equipment Needed, Muscle Groups, Training Goals
+
+          for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
             if (!line) continue;
-            
+
             // Parse CSV line handling quoted fields
             const fields = [];
             let currentField = '';
             let inQuotes = false;
-            
+
             for (let j = 0; j < line.length; j++) {
-                const char = line[j];
-                
-                if (char === '"') {
-                    if (inQuotes && line[j + 1] === '"') {
-                        // Handle escaped quotes
-                        currentField += '"';
-                        j++;
-                    } else {
-                        inQuotes = !inQuotes;
-                    }
-                } else if (char === ',' && !inQuotes) {
-                    fields.push(currentField.trim());
-                    currentField = '';
+              const char = line[j];
+
+              if (char === '"') {
+                if (inQuotes && line[j + 1] === '"') {
+                  // Handle escaped quotes
+                  currentField += '"';
+                  j++;
                 } else {
-                    currentField += char;
+                  inQuotes = !inQuotes;
                 }
+              } else if (char === ',' && !inQuotes) {
+                fields.push(currentField.trim());
+                currentField = '';
+              } else {
+                currentField += char;
+              }
             }
             fields.push(currentField.trim());
-            
+
             if (fields.length >= REQUIRED_FIELD_COUNT) {
-                const workout = {
-                    id: i,
-                    name: fields[0].replace(/^"+|"+$/g, ''),
-                    category: fields[1],
-                    formatDuration: fields[2],
-                    instructions: fields[3],
-                    equipment: fields[4],
-                    muscleGroups: fields[5],
-                    trainingGoals: fields[6]
-                };
-                workouts.push(workout);
+              const workout = {
+                id: i,
+                name: fields[0].replace(/^"+|"+$/g, ''),
+                category: fields[1],
+                formatDuration: fields[2],
+                instructions: fields[3],
+                equipment: fields[4],
+                muscleGroups: fields[5],
+                trainingGoals: fields[6],
+              };
+              workouts.push(workout);
             }
+          }
+
+          return workouts;
         }
-        
-        return workouts;
-    }
-    
-    async function loadWorkouts() {
-        try {
+
+        async function loadWorkouts() {
+          try {
             const response = await fetch('WOD/data/workouts_table.csv');
             if (!response.ok) throw new Error('Failed to load workouts');
-            
+
             const csvText = await response.text();
             allWorkouts = parseCSV(csvText);
             filteredWorkouts = [...allWorkouts];
-            
+
             displayTable();
             updateResultsCount();
-            
+
             tableLoading.style.display = 'none';
             wodsTable.style.display = 'table';
-        } catch (error) {
+          } catch (error) {
             console.error('Error loading workouts:', error);
             tableLoading.innerHTML = `
                 <i class="fa-solid fa-triangle-exclamation"></i>
                 <p>Error loading workouts database. Please try refreshing the page.</p>
             `;
+          }
         }
-    }
-    
-    function displayTable() {
-        if (filteredWorkouts.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;">No workouts found matching your search.</td></tr>';
+
+        function displayTable() {
+          if (filteredWorkouts.length === 0) {
+            tableBody.innerHTML =
+              '<tr><td colspan="7" style="text-align:center;padding:40px;">No workouts found matching your search.</td></tr>';
             return;
-        }
-        
-        tableBody.innerHTML = '';
-        
-        filteredWorkouts.forEach(workout => {
+          }
+
+          tableBody.innerHTML = '';
+
+          filteredWorkouts.forEach(workout => {
             const row = createTableRow(workout);
             tableBody.appendChild(row);
-        });
-    }
-    
-    function createTableRow(workout) {
-        const row = document.createElement('tr');
-        
-        row.innerHTML = `
+          });
+        }
+
+        function createTableRow(workout) {
+          const row = document.createElement('tr');
+
+          row.innerHTML = `
             <td><strong>${escapeHtml(workout.name)}</strong></td>
             <td><span class="category-badge">${escapeHtml(workout.category)}</span></td>
             <td>${escapeHtml(workout.formatDuration)}</td>
             <td class="equipment-cell" title="${escapeHtml(workout.equipment)}">${escapeHtml(workout.equipment)}</td>
             <td class="muscle-cell" title="${escapeHtml(workout.muscleGroups)}">${escapeHtml(workout.muscleGroups)}</td>
-            <td class="goals-cell" title="${escapeHtml(workout.trainingGoals)}">${escapeHtml(workout.trainingGoals)}</td>
+            <td class="goals-cell" title="${escapeHtml(workout.trainingGoals)}">${escapeHtml(
+              workout.trainingGoals
+            )}</td>
             <td>
                 <button class="view-details-btn" data-workout-id="${workout.id}" title="View details">
                     <i class="fa-solid fa-eye"></i> View
                 </button>
             </td>
         `;
-        
-        // Add click event to the button
-        const btn = row.querySelector('.view-details-btn');
-        btn.addEventListener('click', () => openModal(workout));
-        
-        return row;
-    }
-    
-    function filterTable() {
-        const searchTerm = tableSearch.value.toLowerCase().trim();
-        
-        if (!searchTerm) {
-            filteredWorkouts = [...allWorkouts];
-        } else {
-            filteredWorkouts = allWorkouts.filter(workout => {
-                return workout.name.toLowerCase().includes(searchTerm) ||
-                       workout.category.toLowerCase().includes(searchTerm) ||
-                       workout.formatDuration.toLowerCase().includes(searchTerm) ||
-                       workout.equipment.toLowerCase().includes(searchTerm) ||
-                       workout.muscleGroups.toLowerCase().includes(searchTerm) ||
-                       workout.trainingGoals.toLowerCase().includes(searchTerm) ||
-                       workout.instructions.toLowerCase().includes(searchTerm);
-            });
+
+          // Add click event to the button
+          const btn = row.querySelector('.view-details-btn');
+          btn.addEventListener('click', () => openModal(workout));
+
+          return row;
         }
-        
-        displayTable();
-        updateResultsCount();
-    }
-    
-    function sortTable(column) {
-        if (sortColumn === column) {
+
+        function filterTable() {
+          const searchTerm = tableSearch.value.toLowerCase().trim();
+
+          if (!searchTerm) {
+            filteredWorkouts = [...allWorkouts];
+          } else {
+            filteredWorkouts = allWorkouts.filter(workout => {
+              return (
+                workout.name.toLowerCase().includes(searchTerm) ||
+                workout.category.toLowerCase().includes(searchTerm) ||
+                workout.formatDuration.toLowerCase().includes(searchTerm) ||
+                workout.equipment.toLowerCase().includes(searchTerm) ||
+                workout.muscleGroups.toLowerCase().includes(searchTerm) ||
+                workout.trainingGoals.toLowerCase().includes(searchTerm) ||
+                workout.instructions.toLowerCase().includes(searchTerm)
+              );
+            });
+          }
+
+          displayTable();
+          updateResultsCount();
+        }
+
+        function sortTable(column) {
+          if (sortColumn === column) {
             sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
+          } else {
             sortColumn = column;
             sortDirection = 'asc';
-        }
-        
-        filteredWorkouts.sort((a, b) => {
+          }
+
+          filteredWorkouts.sort((a, b) => {
             let aVal, bVal;
-            
-            switch(column) {
-                case 'name':
-                    aVal = a.name.toLowerCase();
-                    bVal = b.name.toLowerCase();
-                    break;
-                case 'category':
-                    aVal = a.category.toLowerCase();
-                    bVal = b.category.toLowerCase();
-                    break;
-                case 'format':
-                    aVal = a.formatDuration.toLowerCase();
-                    bVal = b.formatDuration.toLowerCase();
-                    break;
-                case 'equipment':
-                    aVal = a.equipment.toLowerCase();
-                    bVal = b.equipment.toLowerCase();
-                    break;
-                case 'muscles':
-                    aVal = a.muscleGroups.toLowerCase();
-                    bVal = b.muscleGroups.toLowerCase();
-                    break;
-                case 'goals':
-                    aVal = a.trainingGoals.toLowerCase();
-                    bVal = b.trainingGoals.toLowerCase();
-                    break;
-                default:
-                    return 0;
+
+            switch (column) {
+              case 'name':
+                aVal = a.name.toLowerCase();
+                bVal = b.name.toLowerCase();
+                break;
+              case 'category':
+                aVal = a.category.toLowerCase();
+                bVal = b.category.toLowerCase();
+                break;
+              case 'format':
+                aVal = a.formatDuration.toLowerCase();
+                bVal = b.formatDuration.toLowerCase();
+                break;
+              case 'equipment':
+                aVal = a.equipment.toLowerCase();
+                bVal = b.equipment.toLowerCase();
+                break;
+              case 'muscles':
+                aVal = a.muscleGroups.toLowerCase();
+                bVal = b.muscleGroups.toLowerCase();
+                break;
+              case 'goals':
+                aVal = a.trainingGoals.toLowerCase();
+                bVal = b.trainingGoals.toLowerCase();
+                break;
+              default:
+                return 0;
             }
-            
+
             if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
             if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
             return 0;
-        });
-        
-        displayTable();
-        updateSortIcons();
-    }
-    
-    function updateSortIcons() {
-        document.querySelectorAll('th[data-sort] i').forEach(icon => {
+          });
+
+          displayTable();
+          updateSortIcons();
+        }
+
+        function updateSortIcons() {
+          document.querySelectorAll('th[data-sort] i').forEach(icon => {
             icon.className = 'fa-solid fa-sort';
-        });
-        
-        if (sortColumn) {
+          });
+
+          if (sortColumn) {
             const th = document.querySelector(`th[data-sort="${sortColumn}"] i`);
             if (th) {
-                th.className = sortDirection === 'asc' ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down';
+              th.className = sortDirection === 'asc' ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down';
             }
+          }
         }
-    }
-    
-    function updateResultsCount() {
-        const count = filteredWorkouts.length;
-        const total = allWorkouts.length;
-        
-        if (count === total) {
+
+        function updateResultsCount() {
+          const count = filteredWorkouts.length;
+          const total = allWorkouts.length;
+
+          if (count === total) {
             resultsCount.textContent = `Showing all ${total} workouts`;
-        } else {
+          } else {
             resultsCount.textContent = `Showing ${count} of ${total} workouts`;
+          }
         }
-    }
-    
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-    
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
+
+        function escapeHtml(text) {
+          const div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
+        }
+
+        function debounce(func, wait) {
+          let timeout;
+          return function executedFunction(...args) {
             const later = () => {
-                clearTimeout(timeout);
-                func(...args);
+              clearTimeout(timeout);
+              func(...args);
             };
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
-        };
-    }
-    
-    function openModal(workout) {
-        const modal = document.getElementById('workout-modal');
-        const modalBody = document.getElementById('modal-body');
-        
-        modalBody.innerHTML = `
+          };
+        }
+
+        function openModal(workout) {
+          const modal = document.getElementById('workout-modal');
+          const modalBody = document.getElementById('modal-body');
+
+          modalBody.innerHTML = `
             <h2 id="modal-title">${escapeHtml(workout.name)}</h2>
             <div class="modal-badges">
                 <span class="category-badge">${escapeHtml(workout.category)}</span>
@@ -676,43 +720,44 @@
                 <p>${escapeHtml(workout.trainingGoals)}</p>
             </div>
         `;
-        
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        
-        // Focus on close button for accessibility
-        const closeBtn = modal.querySelector('.modal-close');
-        if (closeBtn) closeBtn.focus();
-    }
-    
-    function closeModal() {
-        const modal = document.getElementById('workout-modal');
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-    }
-    
-    function setupModalListeners() {
-        const modal = document.getElementById('workout-modal');
-        const modalClose = document.querySelector('.modal-close');
-        
-        if (modalClose) {
+
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+
+          // Focus on close button for accessibility
+          const closeBtn = modal.querySelector('.modal-close');
+          if (closeBtn) closeBtn.focus();
+        }
+
+        function closeModal() {
+          const modal = document.getElementById('workout-modal');
+          modal.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+
+        function setupModalListeners() {
+          const modal = document.getElementById('workout-modal');
+          const modalClose = document.querySelector('.modal-close');
+
+          if (modalClose) {
             modalClose.addEventListener('click', closeModal);
-        }
-        
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal();
+          }
+
+          if (modal) {
+            modal.addEventListener('click', e => {
+              if (e.target === modal) closeModal();
             });
+          }
         }
-    }
-    
-    // Global escape key handler (only added once)
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+
+        // Global escape key handler (only added once)
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
             closeModal();
-        }
-    });
-})();
-</script>
-</body>
+          }
+        });
+      })();
+    </script>
+    <script src="assets/js/footer.js" defer></script>
+  </body>
 </html>
