@@ -110,10 +110,10 @@ function showToast(msg) {
   if (!toast) return;
 
   toast.textContent = msg;
-  toast.style.display = 'block';
+  toast.classList.remove('hidden');
 
   // Remove after animation completes (2.8s)
-  setTimeout(() => (toast.style.display = 'none'), 2800);
+  setTimeout(() => toast.classList.add('hidden'), 2800);
 }
 
 /**

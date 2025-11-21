@@ -201,7 +201,7 @@
 
       /* Modal Styles */
       .modal {
-        display: none;
+        display: flex;
         position: fixed;
         z-index: 1000;
         left: 0;
@@ -341,7 +341,7 @@
             <i class="fa-solid fa-spinner"></i>
             <p>Loading workout database...</p>
           </div>
-          <table id="wods-table" class="wods-table" style="display: none">
+          <table id="wods-table" class="wods-table hidden">
             <thead>
               <tr>
                 <th data-sort="name">Name <i class="fa-solid fa-sort"></i></th>
@@ -364,11 +364,10 @@
     <!-- Workout Detail Modal -->
     <div
       id="workout-modal"
-      class="modal"
+      class="modal hidden"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
-      style="display: none"
     >
       <div class="modal-content">
         <button class="modal-close" aria-label="Close modal">
@@ -541,8 +540,8 @@
             displayTable();
             updateResultsCount();
 
-            tableLoading.style.display = 'none';
-            wodsTable.style.display = 'table';
+            tableLoading.classList.add('hidden');
+            wodsTable.classList.remove('hidden');
           } catch (error) {
             console.error('Error loading workouts:', error);
             tableLoading.innerHTML = `
@@ -746,7 +745,7 @@
             </div>
         `;
 
-          modal.style.display = 'flex';
+          modal.classList.remove('hidden');
           modal.setAttribute('aria-hidden', 'false');
           document.body.style.overflow = 'hidden';
 
@@ -757,7 +756,7 @@
 
         function closeModal() {
           const modal = document.getElementById('workout-modal');
-          modal.style.display = 'none';
+          modal.classList.add('hidden');
           modal.setAttribute('aria-hidden', 'true');
           document.body.style.overflow = '';
           
@@ -786,7 +785,7 @@
 
         // Global escape key handler (only added once)
         document.addEventListener('keydown', e => {
-          if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+          if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
             closeModal();
           }
         });

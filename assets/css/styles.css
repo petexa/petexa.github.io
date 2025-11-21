@@ -777,3 +777,25 @@ footer {
     max-width: none;
   }
 }
+
+/* Utility Classes for Inline Style Replacement */
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mb-12 {
+  margin-bottom: 12px;
+}
+
+.footer-link {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none !important;
+}
