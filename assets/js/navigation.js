@@ -189,14 +189,15 @@
                 .nav-kettlebell-btn {
                     width: 50px;
                     height: 50px;
-                    top: 15px;
-                    right: 15px;
+                    top: 10px;
+                    right: 10px;
                     padding: 6px;
+                    z-index: 1001; /* Above header */
                 }
 
                 .nav-dropdown {
-                    top: 75px;
-                    right: 15px;
+                    top: 70px;
+                    right: 10px;
                     min-width: 200px;
                 }
 
