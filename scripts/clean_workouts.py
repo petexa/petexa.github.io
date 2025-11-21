@@ -31,6 +31,7 @@ class WorkoutDataCleaner:
             'total_rows_initial': 0,
             'duplicate_headers_removed': 0,
             'columns_removed': 0,
+            'column_alignments_fixed': 0,
             'values_found_from_dataset': 0,
             'values_found_from_web': 0,
             'defaults_applied': 0,
@@ -133,6 +134,73 @@ class WorkoutDataCleaner:
         # Note: The actual data rows after the duplicate header would have had their values
         # in the same column positions, so no remapping needed after header removal
         print("  ✓ Column mapping handled via header removal")
+    
+    def validate_and_fix_column_alignment(self):
+        """
+        Validate that data is in the correct columns and fix misalignments.
+        
+        Detects when workout instructions are mistakenly in the Equipment Needed field
+        and equipment lists are in the Muscle Groups field (column shift issue).
+        """
+        print("\nValidating column alignment...")
+        
+        misaligned_rows = []
+        fixed_count = 0
+        
+        for idx, row in self.df.iterrows():
+            # Detection heuristics for column misalignment:
+            # 1. Instructions field is very short (< 30 chars) while Equipment field is long (> 100 chars)
+            # 2. Equipment field contains workout instructions keywords
+            # 3. Muscle Groups field looks like equipment (contains 'KB', 'DB', 'Plate', 'Barbell')
+            
+            instructions = str(row['Instructions'])
+            equipment = str(row['Equipment Needed'])
+            muscle_groups = str(row['Muscle Groups'])
+            
+            # Check for misalignment indicators
+            is_short_instructions = len(instructions) < 30
+            is_long_equipment = len(equipment) > 100
+            equipment_has_instructions = any(keyword in equipment.lower() for keyword in 
+                                            ['complete', 'rounds', 'follow', 'labour', 'for time', 'amrap'])
+            muscle_has_equipment = any(equip in muscle_groups for equip in 
+                                      ['KB', 'DB', 'Plate', 'Barbell', 'Rower', 'Running Space'])
+            
+            if is_short_instructions and is_long_equipment and equipment_has_instructions and muscle_has_equipment:
+                misaligned_rows.append(idx)
+                
+                # Fix the misalignment by moving data to correct columns
+                # The pattern is: Instructions -> Format, Equipment -> Instructions, Muscle Groups -> Equipment
+                # Need to preserve original Format & Duration
+                
+                # Store the misplaced full instructions
+                full_instructions = equipment
+                
+                # Store the equipment list
+                actual_equipment = muscle_groups
+                
+                # Now we need to extract the actual muscle groups from another field
+                # In these cases, Training Goals field often contains the muscle group info
+                training_goals = str(row['Training Goals'])
+                
+                # Update the row
+                self.df.at[idx, 'Instructions'] = full_instructions
+                self.df.at[idx, 'Equipment Needed'] = actual_equipment
+                
+                # Try to infer muscle groups from Training Goals or use default
+                if any(muscle in training_goals for muscle in ['Body', 'Cardio', 'Legs', 'Core', 'Shoulders']):
+                    self.df.at[idx, 'Muscle Groups'] = training_goals
+                else:
+                    self.df.at[idx, 'Muscle Groups'] = "Full Body"
+                
+                fixed_count += 1
+        
+        if fixed_count > 0:
+            self.stats['column_alignments_fixed'] = fixed_count
+            print(f"  ⚠ Fixed {fixed_count} row(s) with column misalignment")
+            print(f"  Affected rows: {misaligned_rows}")
+        else:
+            self.stats['column_alignments_fixed'] = 0
+            print("  ✓ No column alignment issues detected")
     
     def search_for_missing_data(self):
         """
@@ -318,6 +386,7 @@ class WorkoutDataCleaner:
         print(f"Duplicate headers removed:        {self.stats['duplicate_headers_removed']}")
         print(f"Final rows:                       {len(self.df)}")
         print(f"Columns removed:                  {self.stats['columns_removed']}")
+        print(f"Column alignments fixed:          {self.stats['column_alignments_fixed']}")
         print(f"Values found from dataset:        {self.stats['values_found_from_dataset']}")
         print(f"Values found from web:            {self.stats['values_found_from_web']}")
         print(f"Default values applied:           {self.stats['defaults_applied']}")
@@ -347,6 +416,7 @@ class WorkoutDataCleaner:
         self.remove_duplicate_headers()
         self.remove_artifact_columns()
         self.map_inconsistent_columns()
+        self.validate_and_fix_column_alignment()
         self.search_for_missing_data()
         self.fill_missing_values_with_defaults()
         self.reset_index()
