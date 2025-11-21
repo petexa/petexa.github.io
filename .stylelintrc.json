@@ -1,0 +1,26 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "indentation": 2,
+    "string-quotes": "single",
+    "color-hex-case": "lower",
+    "color-hex-length": "short",
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": ["composes"]
+      }
+    ],
+    "declaration-block-trailing-semicolon": "always",
+    "declaration-block-no-duplicate-properties": true,
+    "block-no-empty": true,
+    "unit-allowed-list": ["px", "rem", "em", "%", "vh", "vw", "s", "ms", "deg", "fr"],
+    "comment-whitespace-inside": "always"
+  }
+}

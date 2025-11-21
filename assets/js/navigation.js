@@ -3,43 +3,43 @@
  * Provides a dumbbell icon that opens a dropdown menu
  */
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    // Get current page filename
-    function getCurrentPage() {
-        const path = window.location.pathname;
-        const page = path.split('/').pop() || 'index.html';
-        return page;
-    }
+  // Get current page filename
+  function getCurrentPage() {
+    const path = window.location.pathname;
+    const page = path.split('/').pop() || 'index.html';
+    return page;
+  }
 
-    // Create navigation HTML structure
-    function createNavigationHTML() {
-        const currentPage = getCurrentPage();
-        
-        // Define all navigation items
-        const navItems = [
-            { href: 'index.html', icon: 'fa-calendar', label: 'Upcoming Events' },
-            { href: 'past-events.html', icon: 'fa-calendar-check', label: 'Past Events' },
-            { href: 'wods.html', icon: 'fa-dumbbell', label: 'WODs Database' },
-            { href: 'wods-table.html', icon: 'fa-table', label: 'WODs Table' },
-            { href: 'timers.html', icon: 'fa-stopwatch', label: 'Workout Timers' }
-        ];
-        
-        // Build menu items HTML, excluding current page
-        let menuItemsHTML = '';
-        navItems.forEach(item => {
-            if (item.href !== currentPage) {
-                menuItemsHTML += `
+  // Create navigation HTML structure
+  function createNavigationHTML() {
+    const currentPage = getCurrentPage();
+
+    // Define all navigation items
+    const navItems = [
+      { href: 'index.html', icon: 'fa-calendar', label: 'Upcoming Events' },
+      { href: 'past-events.html', icon: 'fa-calendar-check', label: 'Past Events' },
+      { href: 'wods.html', icon: 'fa-dumbbell', label: 'WODs Database' },
+      { href: 'wods-table.html', icon: 'fa-table', label: 'WODs Table' },
+      { href: 'timers.html', icon: 'fa-stopwatch', label: 'Workout Timers' },
+    ];
+
+    // Build menu items HTML, excluding current page
+    let menuItemsHTML = '';
+    navItems.forEach(item => {
+      if (item.href !== currentPage) {
+        menuItemsHTML += `
                     <a href="${item.href}" class="nav-dropdown-item">
                         <i class="fa-solid ${item.icon}"></i>
                         <span>${item.label}</span>
                     </a>
                 `;
-            }
-        });
-        
-        return `
+      }
+    });
+
+    return `
             <!-- Navigation Button -->
             <button id="nav-dumbbell-btn" class="nav-dumbbell-btn" aria-label="Open navigation menu" aria-expanded="false">
                 <i class="fa-solid fa-dumbbell" aria-hidden="true"></i>
@@ -50,12 +50,12 @@
                 ${menuItemsHTML}
             </nav>
         `;
-    }
+  }
 
-    // Create CSS styles for navigation
-    function createNavigationStyles() {
-        const style = document.createElement('style');
-        style.textContent = `
+  // Create CSS styles for navigation
+  function createNavigationStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
             /* Navigation button */
             .nav-dumbbell-btn {
                 position: fixed;
@@ -194,68 +194,68 @@
                 }
             }
         `;
-        document.head.appendChild(style);
+    document.head.appendChild(style);
+  }
+
+  // Initialize navigation
+  function initNavigation() {
+    // Add styles
+    createNavigationStyles();
+
+    // Add navigation HTML to body
+    const navContainer = document.createElement('div');
+    navContainer.innerHTML = createNavigationHTML();
+    document.body.appendChild(navContainer);
+
+    // Get elements
+    const dumbbellBtn = document.getElementById('nav-dumbbell-btn');
+    const dropdown = document.getElementById('nav-dropdown');
+
+    // Toggle dropdown
+    function toggleDropdown() {
+      const isOpen = dropdown.style.display === 'block';
+      if (isOpen) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
     }
 
-    // Initialize navigation
-    function initNavigation() {
-        // Add styles
-        createNavigationStyles();
-
-        // Add navigation HTML to body
-        const navContainer = document.createElement('div');
-        navContainer.innerHTML = createNavigationHTML();
-        document.body.appendChild(navContainer);
-
-        // Get elements
-        const dumbbellBtn = document.getElementById('nav-dumbbell-btn');
-        const dropdown = document.getElementById('nav-dropdown');
-
-        // Toggle dropdown
-        function toggleDropdown() {
-            const isOpen = dropdown.style.display === 'block';
-            if (isOpen) {
-                closeDropdown();
-            } else {
-                openDropdown();
-            }
-        }
-
-        // Open dropdown
-        function openDropdown() {
-            dropdown.style.display = 'block';
-            dumbbellBtn.setAttribute('aria-expanded', 'true');
-        }
-
-        // Close dropdown
-        function closeDropdown() {
-            dropdown.style.display = 'none';
-            dumbbellBtn.setAttribute('aria-expanded', 'false');
-        }
-
-        // Event listeners
-        dumbbellBtn.addEventListener('click', toggleDropdown);
-
-        // Close when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!dumbbellBtn.contains(e.target) && !dropdown.contains(e.target)) {
-                closeDropdown();
-            }
-        });
-
-        // Close on ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && dropdown.style.display === 'block') {
-                closeDropdown();
-                dumbbellBtn.focus();
-            }
-        });
+    // Open dropdown
+    function openDropdown() {
+      dropdown.style.display = 'block';
+      dumbbellBtn.setAttribute('aria-expanded', 'true');
     }
 
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initNavigation);
-    } else {
-        initNavigation();
+    // Close dropdown
+    function closeDropdown() {
+      dropdown.style.display = 'none';
+      dumbbellBtn.setAttribute('aria-expanded', 'false');
     }
+
+    // Event listeners
+    dumbbellBtn.addEventListener('click', toggleDropdown);
+
+    // Close when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!dumbbellBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        closeDropdown();
+      }
+    });
+
+    // Close on ESC key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && dropdown.style.display === 'block') {
+        closeDropdown();
+        dumbbellBtn.focus();
+      }
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavigation);
+  } else {
+    initNavigation();
+  }
 })();

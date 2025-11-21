@@ -1,96 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Discover 6 random WOD-style workouts each time you visit. Searchable database of 100+ workouts including AMRAP, EMOM, For Time, and more.">
-<meta property="og:title" content="WODs Database - Bootcamp Events">
-<meta property="og:description" content="Browse 100+ structured workouts for all fitness levels">
-<meta property="og:type" content="website">
-<title>WODs Database - Bootcamp Events</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="assets/css/styles.css">
-<link rel="stylesheet" href="assets/css/wods.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Bootcamp Events - WODs Database",
-  "description": "Discover 6 random WOD-style workouts each time you visit"
-}
-</script>
-</head>
-<body>
-<a class="skip-link" href="#wods-content">Skip to content</a>
-<header>
-    <h1>WODs Database</h1>
-    <div class="subtitle">6 Random Workouts - Refresh for More!</div>
-</header>
-<div class="header-tear">
-    <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true">
-</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Discover 6 random WOD-style workouts each time you visit. Searchable database of 100+ workouts including AMRAP, EMOM, For Time, and more."
+    />
+    <meta property="og:title" content="WODs Database - Bootcamp Events" />
+    <meta property="og:description" content="Browse 100+ structured workouts for all fitness levels" />
+    <meta property="og:type" content="website" />
+    <title>WODs Database - Bootcamp Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/wods.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Bootcamp Events - WODs Database",
+        "description": "Discover 6 random WOD-style workouts each time you visit"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#wods-content">Skip to content</a>
+    <header>
+      <h1>WODs Database</h1>
+      <div class="subtitle">6 Random Workouts - Refresh for More!</div>
+    </header>
+    <div class="header-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
 
-<main id="wods-content">
-    <!-- Search and Filter Section -->
-    <section class="search-filter-section">
+    <main id="wods-content">
+      <!-- Search and Filter Section -->
+      <section class="search-filter-section">
         <div class="search-container">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="search-input" placeholder="Search workouts by name, instructions, equipment..." aria-label="Search workouts">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search workouts by name, instructions, equipment..."
+            aria-label="Search workouts"
+          />
         </div>
-        
+
         <div class="results-info">
-            <span id="results-count">Loading workouts...</span>
+          <span id="results-count">Loading workouts...</span>
         </div>
-    </section>
+      </section>
 
-    <!-- WODs Grid -->
-    <section id="wods-grid" class="wods-grid" aria-live="polite">
+      <!-- WODs Grid -->
+      <section id="wods-grid" class="wods-grid" aria-live="polite">
         <!-- Workout cards will be inserted here by JavaScript -->
-    </section>
-</main>
+      </section>
+    </main>
 
-<!-- Workout Detail Modal -->
-<div id="workout-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none;">
-    <div class="modal-content">
+    <!-- Workout Detail Modal -->
+    <div
+      id="workout-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      style="display: none"
+    >
+      <div class="modal-content">
         <button class="modal-close" aria-label="Close modal">
-            <i class="fa-solid fa-xmark"></i>
+          <i class="fa-solid fa-xmark"></i>
         </button>
         <div id="modal-body">
-            <!-- Workout details will be inserted here -->
+          <!-- Workout details will be inserted here -->
         </div>
+      </div>
     </div>
-</div>
 
-<div class="footer-tear">
-    <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true">
-</div>
+    <div class="footer-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
 
-<footer>
-  <div style="margin-top: 15px;">
-    &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
-  </div>
-  <div class="footer-links">
-    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
-    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
-    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
-  </div>
-</footer>
+    <footer>
+      <div style="margin-top: 15px">
+        &copy; <span id="footerYear"></span> Have an event?
+        <a href="mailto:gym@petefox.co.uk" style="color: #fff; text-decoration: underline">Contact us</a>
+      </div>
+      <div class="footer-links">
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Facebook"
+          aria-label="Facebook (opens in new tab)"
+          ><i class="fab fa-facebook"></i
+        ></a>
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram"
+          aria-label="Instagram (opens in new tab)"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="X (Twitter)"
+          aria-label="Twitter/X (opens in new tab)"
+          ><i class="fab fa-x-twitter"></i
+        ></a>
+      </div>
+    </footer>
 
-<div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div
+      id="toast"
+      class="toast-message"
+      style="display: none"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
 
-<script src="assets/js/navigation.js" defer></script>
-<script src="assets/js/utils.js" defer></script>
-<script src="assets/js/wods.js" defer></script>
-<script>
-// Update footer year dynamically
-document.addEventListener('DOMContentLoaded', () => {
-    const footerYear = document.getElementById('footerYear');
-    if (footerYear) {
-        footerYear.textContent = new Date().getFullYear();
-    }
-});
-</script>
-</body>
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/utils.js" defer></script>
+    <script src="assets/js/wods.js" defer></script>
+    <script>
+      // Update footer year dynamically
+      document.addEventListener('DOMContentLoaded', () => {
+        const footerYear = document.getElementById('footerYear');
+        if (footerYear) {
+          footerYear.textContent = new Date().getFullYear();
+        }
+      });
+    </script>
+  </body>
 </html>
