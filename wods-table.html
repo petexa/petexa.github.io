@@ -189,6 +189,16 @@
         }
       }
 
+      /* Reduced Motion Support */
+      @media (prefers-reduced-motion: reduce) {
+        .loading i {
+          animation: none;
+        }
+        .view-details-btn:hover {
+          transform: none;
+        }
+      }
+
       /* Modal Styles */
       .modal {
         display: none;

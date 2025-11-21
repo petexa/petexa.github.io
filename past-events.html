@@ -224,13 +224,11 @@
               const imgId = `event-img-${i}`;
               let imgHtml = `<img src="${ev.image}" class="event-img" id="${imgId}" alt="Preview for ${ev.name}" loading="lazy" onerror="onImgError('${imgId}')">`;
 
-              return `<section class="event-card">
+              return `<article class="event-card">
                 ${imgHtml}
                 <div class="event-content">
-                  <header>
-                    <div class="event-title">${ev.name}</div>
-                    <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
-                  </header>
+                  <h2 class="event-title">${ev.name}</h2>
+                  <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
                   <div class="event-desc">${ev.description}</div>
                   <div class="event-status">
                       <i class="fa-solid fa-check-circle"></i>
@@ -242,7 +240,7 @@
                     ev.name
                   } (opens in new tab)">More Info</a>
                 </div>
-              </section>`;
+              </article>`;
             })
             .join('');
         }

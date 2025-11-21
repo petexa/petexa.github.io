@@ -115,6 +115,16 @@
                 }
             }
 
+            /* Reduced Motion Support */
+            @media (prefers-reduced-motion: reduce) {
+                .nav-dropdown {
+                    animation: none;
+                }
+                .nav-dumbbell-btn:hover {
+                    transform: none;
+                }
+            }
+
             /* Dropdown items */
             .nav-dropdown-item {
                 display: flex;
