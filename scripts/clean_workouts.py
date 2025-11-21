@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
 """
-Clean and validate the workouts_table.csv dataset.
+Clean default placeholder data from workouts_table.csv.
 
-This script:
-1. Removes duplicate header rows
-2. Removes artifact columns (Unnamed: 7, Unnamed: 8)
-3. Maps inconsistent column names
-4. Searches for missing data (from dataset patterns or web) before applying defaults
-5. Fills remaining missing values with appropriate defaults
-6. Generates a summary report
-7. Saves the cleaned data back to the original file
+This script identifies and removes generic default values, replacing them
+with either web-searched data or blanks. Works with the simplified 13-column structure.
+
+Focuses on:
+1. Identifying default/placeholder text in fields
+2. Searching web for real workout information
+3. Replacing defaults with actual data or leaving blank
+4. Generating summary report of cleaned fields
 """
 
 import pandas as pd
-import uuid
 import warnings
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Set
 import sys
 import json
 import os

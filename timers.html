@@ -15,7 +15,7 @@
     <meta property="og:type" content="website" />
     <title>Workout Timers - Bootcamp Events</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script type="application/ld+json">
@@ -39,93 +39,267 @@
     <main>
       <!-- Workout Timers Section -->
       <section id="workout-timers" class="timers-section">
-        <h2 class="timers-title">Workout Timers</h2>
+        <div class="timer-header">
+          <h2 class="timers-title">Workout Timers</h2>
+          <div class="timer-header-controls">
+            <button id="sound-toggle" class="icon-btn" aria-label="Toggle sound" title="Toggle sound">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+            <button id="fullscreen-toggle" class="icon-btn" aria-label="Toggle fullscreen" title="Toggle fullscreen">
+              <i class="fa-solid fa-expand"></i>
+            </button>
+          </div>
+        </div>
 
         <div class="timer-selector">
-          <button id="amrap-tab" class="timer-tab active" aria-pressed="true">AMRAP Timer</button>
-          <button id="emom-tab" class="timer-tab" aria-pressed="false">EMOM Timer</button>
+          <button id="amrap-tab" class="timer-tab active" aria-pressed="true">AMRAP</button>
+          <button id="emom-tab" class="timer-tab" aria-pressed="false">EMOM</button>
+          <button id="tabata-tab" class="timer-tab" aria-pressed="false">TABATA</button>
         </div>
 
         <!-- AMRAP Timer -->
         <div id="amrap-timer" class="timer-container active">
-          <div class="timer-config">
-            <label for="amrap-duration">Duration (minutes):</label>
-            <input
-              type="number"
-              id="amrap-duration"
-              min="1"
-              max="120"
-              value="10"
-              aria-label="AMRAP duration in minutes"
-            />
+          <div class="timer-display" id="amrap-display" aria-live="polite" aria-atomic="true">
+            <div class="timer-label">AMRAP</div>
+            <div class="timer-time">10:00</div>
+            <div class="timer-status" id="amrap-status">Ready to start</div>
           </div>
 
-          <div class="timer-display" id="amrap-display" aria-live="polite" aria-atomic="true">
-            <span class="timer-time">10:00</span>
+          <div class="timer-config">
+            <div class="config-group">
+              <label for="amrap-duration">Duration</label>
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="amrap-duration"
+                  min="1"
+                  max="120"
+                  value="10"
+                  aria-label="AMRAP duration in minutes"
+                />
+                <span class="unit">min</span>
+              </div>
+            </div>
           </div>
 
           <div class="timer-controls">
-            <button id="amrap-start" class="timer-btn start" aria-label="Start AMRAP timer">
-              <i class="fa-solid fa-play"></i> Start
+            <button id="amrap-reset" class="timer-btn secondary" aria-label="Reset AMRAP timer">
+              <i class="fa-solid fa-rotate-left"></i>
             </button>
-            <button id="amrap-pause" class="timer-btn pause" disabled aria-label="Pause AMRAP timer">
-              <i class="fa-solid fa-pause"></i> Pause
+            <button id="amrap-start" class="timer-btn primary large" aria-label="Start AMRAP timer">
+              <i class="fa-solid fa-play"></i>
             </button>
-            <button id="amrap-reset" class="timer-btn reset" aria-label="Reset AMRAP timer">
-              <i class="fa-solid fa-rotate-left"></i> Reset
+            <button id="amrap-pause" class="timer-btn secondary" disabled aria-label="Pause AMRAP timer">
+              <i class="fa-solid fa-pause"></i>
             </button>
           </div>
         </div>
 
         <!-- EMOM Timer -->
         <div id="emom-timer" class="timer-container">
-          <div class="timer-config">
-            <div class="config-row">
-              <label for="emom-rounds">Rounds:</label>
-              <input type="number" id="emom-rounds" min="1" max="50" value="10" aria-label="EMOM number of rounds" />
-            </div>
-            <div class="config-row">
-              <label for="emom-interval">Interval (seconds):</label>
-              <input
-                type="number"
-                id="emom-interval"
-                min="10"
-                max="300"
-                value="60"
-                aria-label="EMOM interval duration in seconds"
-              />
-            </div>
-            <div class="config-row">
-              <label for="emom-rest">Rest between rounds (seconds):</label>
-              <input
-                type="number"
-                id="emom-rest"
-                min="0"
-                max="120"
-                value="0"
-                aria-label="Rest time between EMOM rounds"
-              />
-            </div>
-          </div>
-
           <div class="timer-display" id="emom-display" aria-live="polite" aria-atomic="true">
+            <div class="timer-label">EMOM</div>
             <div class="emom-round">
               Round <span id="emom-current-round">1</span> / <span id="emom-total-rounds">10</span>
             </div>
-            <span class="timer-time">1:00</span>
-            <div class="emom-status" id="emom-status">Ready</div>
+            <div class="timer-time">1:00</div>
+            <div class="emom-status" id="emom-status">Ready to start</div>
+          </div>
+
+          <div class="timer-config">
+            <div class="config-group">
+              <label for="emom-rounds">Rounds</label>
+              <div class="input-with-unit">
+                <input type="number" id="emom-rounds" min="1" max="50" value="10" aria-label="EMOM number of rounds" />
+              </div>
+            </div>
+            <div class="config-group">
+              <label for="emom-interval">Work</label>
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="emom-interval"
+                  min="10"
+                  max="300"
+                  value="60"
+                  aria-label="EMOM interval duration in seconds"
+                />
+                <span class="unit">sec</span>
+              </div>
+            </div>
+            <div class="config-group">
+              <label for="emom-rest">Rest</label>
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="emom-rest"
+                  min="0"
+                  max="120"
+                  value="0"
+                  aria-label="Rest time between EMOM rounds"
+                />
+                <span class="unit">sec</span>
+              </div>
+            </div>
           </div>
 
           <div class="timer-controls">
-            <button id="emom-start" class="timer-btn start" aria-label="Start EMOM timer">
-              <i class="fa-solid fa-play"></i> Start
+            <button id="emom-reset" class="timer-btn secondary" aria-label="Reset EMOM timer">
+              <i class="fa-solid fa-rotate-left"></i>
             </button>
-            <button id="emom-pause" class="timer-btn pause" disabled aria-label="Pause EMOM timer">
-              <i class="fa-solid fa-pause"></i> Pause
+            <button id="emom-start" class="timer-btn primary large" aria-label="Start EMOM timer">
+              <i class="fa-solid fa-play"></i>
             </button>
-            <button id="emom-reset" class="timer-btn reset" aria-label="Reset EMOM timer">
-              <i class="fa-solid fa-rotate-left"></i> Reset
+            <button id="emom-pause" class="timer-btn secondary" disabled aria-label="Pause EMOM timer">
+              <i class="fa-solid fa-pause"></i>
             </button>
+          </div>
+        </div>
+
+        <!-- Tabata Timer -->
+        <div id="tabata-timer" class="timer-container">
+          <div class="timer-display" id="tabata-display" aria-live="polite" aria-atomic="true">
+            <div class="timer-label">TABATA</div>
+            <div class="tabata-round">
+              Round <span id="tabata-current-round">1</span> / <span id="tabata-total-rounds">8</span>
+            </div>
+            <div class="timer-time">0:20</div>
+            <div class="tabata-status" id="tabata-status">Ready to start</div>
+          </div>
+
+          <div class="timer-config">
+            <div class="config-group">
+              <label for="tabata-rounds">Rounds</label>
+              <div class="input-with-unit">
+                <input type="number" id="tabata-rounds" min="1" max="20" value="8" aria-label="Tabata number of rounds" />
+              </div>
+            </div>
+            <div class="config-group">
+              <label for="tabata-work">Work</label>
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="tabata-work"
+                  min="5"
+                  max="60"
+                  value="20"
+                  aria-label="Tabata work duration"
+                />
+                <span class="unit">sec</span>
+              </div>
+            </div>
+            <div class="config-group">
+              <label for="tabata-rest">Rest</label>
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="tabata-rest"
+                  min="5"
+                  max="60"
+                  value="10"
+                  aria-label="Tabata rest duration"
+                />
+                <span class="unit">sec</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timer-controls">
+            <button id="tabata-reset" class="timer-btn secondary" aria-label="Reset Tabata timer">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <button id="tabata-start" class="timer-btn primary large" aria-label="Start Tabata timer">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button id="tabata-pause" class="timer-btn secondary" disabled aria-label="Pause Tabata timer">
+              <i class="fa-solid fa-pause"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- One Rep Max Calculator Section -->
+      <section id="one-rep-max" class="timers-section">
+        <h2 class="timers-title">One Rep Max Calculator</h2>
+        
+        <div class="timer-container active">
+          <div class="timer-config">
+            <div class="config-group">
+              <label for="orm-weight">Weight Lifted</label>
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="orm-weight"
+                  min="1"
+                  max="1000"
+                  value="100"
+                  step="5"
+                  aria-label="Weight lifted"
+                />
+                <span class="unit">lbs</span>
+              </div>
+            </div>
+            <div class="config-group">
+              <label for="orm-reps">Reps Completed</label>
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="orm-reps"
+                  min="1"
+                  max="20"
+                  value="5"
+                  aria-label="Reps completed"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="timer-display">
+            <div class="timer-label">Estimated 1RM</div>
+            <div class="timer-time" id="orm-result">117</div>
+            <div class="timer-status">lbs</div>
+          </div>
+
+          <div class="orm-percentages">
+            <h3 class="orm-subtitle">Training Percentages</h3>
+            <div class="orm-grid">
+              <div class="orm-item">
+                <div class="orm-percent">95%</div>
+                <div class="orm-value" id="orm-95">111 lbs</div>
+              </div>
+              <div class="orm-item">
+                <div class="orm-percent">90%</div>
+                <div class="orm-value" id="orm-90">105 lbs</div>
+              </div>
+              <div class="orm-item">
+                <div class="orm-percent">85%</div>
+                <div class="orm-value" id="orm-85">99 lbs</div>
+              </div>
+              <div class="orm-item">
+                <div class="orm-percent">80%</div>
+                <div class="orm-value" id="orm-80">94 lbs</div>
+              </div>
+              <div class="orm-item">
+                <div class="orm-percent">75%</div>
+                <div class="orm-value" id="orm-75">88 lbs</div>
+              </div>
+              <div class="orm-item">
+                <div class="orm-percent">70%</div>
+                <div class="orm-value" id="orm-70">82 lbs</div>
+              </div>
+              <div class="orm-item">
+                <div class="orm-percent">65%</div>
+                <div class="orm-value" id="orm-65">76 lbs</div>
+              </div>
+              <div class="orm-item">
+                <div class="orm-percent">60%</div>
+                <div class="orm-value" id="orm-60">70 lbs</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="orm-formula">
+            <small>Using Epley Formula: Weight × (1 + Reps/30)</small>
           </div>
         </div>
       </section>

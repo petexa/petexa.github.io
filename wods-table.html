@@ -9,7 +9,7 @@
     <meta property="og:type" content="website" />
     <title>WODs Table View - Bootcamp Events</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <style>
@@ -616,7 +616,7 @@
 
           const headers = lines[0].split(',').map(h => h.trim());
           const workouts = [];
-          const REQUIRED_FIELD_COUNT = 7; // Name, Category, Format & Duration, Instructions, Equipment Needed, Muscle Groups, Training Goals
+          const REQUIRED_FIELD_COUNT = 13; // All 13 columns in simplified CSV
 
           for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
@@ -648,65 +648,25 @@
             fields.push(currentField.trim());
 
             if (fields.length >= REQUIRED_FIELD_COUNT) {
+              // CSV column order: WorkoutID, Name, Category, Format & Duration, Instructions,
+              // Equipment Needed, Muscle Groups, Training Goals, Level, Scaling Options,
+              // Score Type, Coach Notes, Flavor-Text
               const workout = {
-                id: i,
-                name: fields[0].replace(/^"+|"+$/g, ''),
-                category: fields[1],
-                formatDuration: fields[2],
-                instructions: fields[3],
-                equipment: fields[4],
-                muscleGroups: fields[5],
-                trainingGoals: fields[6],
+                id: fields[0].replace(/^"+|"+$/g, ''),
+                workoutId: fields[0].replace(/^"+|"+$/g, ''),
+                name: fields[1].replace(/^"+|"+$/g, ''),
+                category: fields[2].replace(/^"+|"+$/g, ''),
+                formatDuration: fields[3].replace(/^"+|"+$/g, ''),
+                instructions: fields[4].replace(/^"+|"+$/g, ''),
+                equipment: fields[5].replace(/^"+|"+$/g, ''),
+                muscleGroups: fields[6].replace(/^"+|"+$/g, ''),
+                trainingGoals: fields[7].replace(/^"+|"+$/g, ''),
+                level: fields[8].replace(/^"+|"+$/g, ''),
+                scalingOptions: fields[9].replace(/^"+|"+$/g, ''),
+                scoreType: fields[10].replace(/^"+|"+$/g, ''),
+                coachNotes: fields[11].replace(/^"+|"+$/g, ''),
+                flavorText: fields[12].replace(/^"+|"+$/g, '')
               };
-              
-              // Map additional fields by header names
-              headers.forEach((header, index) => {
-                if (index < fields.length) {
-                  const fieldName = header.toLowerCase().replace(/[^a-z0-9]/g, '');
-                  if (!workout[fieldName] && index >= REQUIRED_FIELD_COUNT) {
-                    workout[fieldName] = fields[index].replace(/^"+|"+$/g, '');
-                  }
-                }
-              });
-              
-              // Store commonly used additional fields with friendly names
-              const warmupIndex = headers.findIndex(h => h === 'Warmup');
-              const coachingCuesIndex = headers.findIndex(h => h === 'Coaching-Cues');
-              const estimatedTimesHumanIndex = headers.findIndex(h => h === 'Estimated-Times-Human');
-              const environmentIndex = headers.findIndex(h => h === 'Environment');
-              const flavorTextIndex = headers.findIndex(h => h === 'Flavor-Text');
-              const movementTypesIndex = headers.findIndex(h => h === 'Movement Types');
-              const targetStimulusIndex = headers.findIndex(h => h === 'Target Stimulus');
-              const scalingOptionsIndex = headers.findIndex(h => h === 'Scaling Options');
-              const scoreTypeIndex = headers.findIndex(h => h === 'Score Type');
-              
-              if (warmupIndex >= 0 && warmupIndex < fields.length) {
-                workout.warmup = fields[warmupIndex].replace(/^"+|"+$/g, '');
-              }
-              if (coachingCuesIndex >= 0 && coachingCuesIndex < fields.length) {
-                workout.coachingCues = fields[coachingCuesIndex].replace(/^"+|"+$/g, '');
-              }
-              if (estimatedTimesHumanIndex >= 0 && estimatedTimesHumanIndex < fields.length) {
-                workout.estimatedTimes = fields[estimatedTimesHumanIndex].replace(/^"+|"+$/g, '');
-              }
-              if (environmentIndex >= 0 && environmentIndex < fields.length) {
-                workout.environment = fields[environmentIndex].replace(/^"+|"+$/g, '');
-              }
-              if (flavorTextIndex >= 0 && flavorTextIndex < fields.length) {
-                workout.flavorText = fields[flavorTextIndex].replace(/^"+|"+$/g, '');
-              }
-              if (movementTypesIndex >= 0 && movementTypesIndex < fields.length) {
-                workout.movementTypes = fields[movementTypesIndex].replace(/^"+|"+$/g, '');
-              }
-              if (targetStimulusIndex >= 0 && targetStimulusIndex < fields.length) {
-                workout.targetStimulus = fields[targetStimulusIndex].replace(/^"+|"+$/g, '');
-              }
-              if (scalingOptionsIndex >= 0 && scalingOptionsIndex < fields.length) {
-                workout.scalingOptions = fields[scalingOptionsIndex].replace(/^"+|"+$/g, '');
-              }
-              if (scoreTypeIndex >= 0 && scoreTypeIndex < fields.length) {
-                workout.scoreType = fields[scoreTypeIndex].replace(/^"+|"+$/g, '');
-              }
               
               workouts.push(workout);
             }
@@ -917,19 +877,15 @@
           // Store the currently focused element to return focus later
           modal.dataset.previousFocus = document.activeElement;
 
-          // Get additional fields from the workout data
-          const warmup = workout.warmup || '';
-          const coachingCues = workout.coachingCues || '';
-          const estimatedTimes = workout.estimatedTimes || '';
-          const environment = workout.environment || '';
+          // Get fields from the workout data
+          const coachNotes = workout.coachNotes || '';
           const flavorText = workout.flavorText || '';
-          const movementTypes = workout.movementTypes || '';
-          const targetStimulus = workout.targetStimulus || '';
           const scalingOptions = workout.scalingOptions || '';
           const scoreType = workout.scoreType || '';
+          const level = workout.level || '';
           
           // Check if there's any additional info to show
-          const hasAdditionalInfo = warmup || coachingCues || estimatedTimes || environment || flavorText;
+          const hasAdditionalInfo = coachNotes || flavorText;
 
           modalBody.innerHTML = `
             <h2 id="modal-title">${escapeHtml(workout.name)}</h2>
@@ -954,17 +910,10 @@
             </div>
             ` : ''}
             
-            ${movementTypes ? `
+            ${level ? `
             <div class="modal-section">
-                <h4><span class="emoji-icon">🧠</span> Movement Types</h4>
-                <p>${escapeHtml(movementTypes)}</p>
-            </div>
-            ` : ''}
-            
-            ${targetStimulus ? `
-            <div class="modal-section">
-                <h4><span class="emoji-icon">⚡</span> Target Stimulus</h4>
-                <p>${escapeHtml(targetStimulus)}</p>
+                <h4><span class="emoji-icon">📊</span> Difficulty Level</h4>
+                <p>${escapeHtml(level)}</p>
             </div>
             ` : ''}
             
@@ -991,31 +940,10 @@
                 </button>
                 
                 <div class="additional-info-content" id="additional-info-content" style="display: none;">
-                    ${warmup ? `
+                    ${coachNotes ? `
                     <div class="modal-section">
-                        <h4><span class="emoji-icon">🔥</span> Warmup</h4>
-                        ${formatAsBulletList(warmup)}
-                    </div>
-                    ` : ''}
-                    
-                    ${coachingCues ? `
-                    <div class="modal-section">
-                        <h4><span class="emoji-icon">🎓</span> Coaching Cues</h4>
-                        <p>${escapeHtml(coachingCues)}</p>
-                    </div>
-                    ` : ''}
-                    
-                    ${estimatedTimes ? `
-                    <div class="modal-section">
-                        <h4><span class="emoji-icon">⏳</span> Estimated Times</h4>
-                        <p>${escapeHtml(estimatedTimes)}</p>
-                    </div>
-                    ` : ''}
-                    
-                    ${environment ? `
-                    <div class="modal-section">
-                        <h4><span class="emoji-icon">🏟️</span> Environment</h4>
-                        <p>${escapeHtml(environment)}</p>
+                        <h4><span class="emoji-icon">🎓</span> Coach Notes</h4>
+                        <p>${escapeHtml(coachNotes)}</p>
                     </div>
                     ` : ''}
                     
