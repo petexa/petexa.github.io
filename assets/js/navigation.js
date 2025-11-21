@@ -1,6 +1,6 @@
 /**
  * Global Navigation Dropdown Component
- * Provides a dumbbell icon that opens a dropdown menu
+ * Provides a beer mug icon that opens a dropdown menu
  */
 
 (function () {
@@ -21,7 +21,7 @@
     const navItems = [
       { href: 'index.html', icon: 'fa-calendar', label: 'Upcoming Events' },
       { href: 'past-events.html', icon: 'fa-calendar-check', label: 'Past Events' },
-      { href: 'wods.html', icon: 'fa-dumbbell', label: 'WODs Database' },
+      { href: 'wods.html', icon: 'fa-beer-mug-empty', label: 'WODs Database' },
       { href: 'wods-table.html', icon: 'fa-table', label: 'WODs Table' },
       { href: 'timers.html', icon: 'fa-stopwatch', label: 'Workout Timers' },
     ];
@@ -41,8 +41,8 @@
 
     return `
             <!-- Navigation Button -->
-            <button id="nav-dumbbell-btn" class="nav-dumbbell-btn" aria-label="Open navigation menu" aria-expanded="false">
-                <i class="fa-solid fa-dumbbell" aria-hidden="true"></i>
+            <button id="nav-beer-btn" class="nav-beer-btn" aria-label="Open navigation menu" aria-expanded="false">
+                <i class="fa-solid fa-beer-mug-empty" aria-hidden="true"></i>
             </button>
 
             <!-- Navigation Dropdown Menu -->
@@ -57,7 +57,7 @@
     const style = document.createElement('style');
     style.textContent = `
             /* Navigation button */
-            .nav-dumbbell-btn {
+            .nav-beer-btn {
                 position: fixed;
                 top: 95px; /* Position below the black banner and tear */
                 right: 20px;
@@ -74,18 +74,18 @@
                 justify-content: center;
             }
 
-            .nav-dumbbell-btn:hover {
+            .nav-beer-btn:hover {
                 transform: scale(1.1);
             }
 
-            .nav-dumbbell-btn:focus {
+            .nav-beer-btn:focus {
                 outline: 3px solid #80affe;
                 outline-offset: 2px;
             }
 
-            .nav-dumbbell-btn i {
+            .nav-beer-btn i {
                 font-size: 40px;
-                color: #dc3545; /* Red dumbbell icon */
+                color: #dc3545; /* Red beer mug icon */
                 filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
             }
 
@@ -120,7 +120,7 @@
                 .nav-dropdown {
                     animation: none;
                 }
-                .nav-dumbbell-btn:hover {
+                .nav-beer-btn:hover {
                     transform: none;
                 }
             }
@@ -141,7 +141,7 @@
                 background: transparent;
                 width: 100%;
                 text-align: left;
-                font-family: 'Montserrat', sans-serif;
+                font-family: 'Bai Jamjuree', sans-serif;
                 border-bottom: 1px solid rgba(128, 175, 254, 0.1);
             }
 
@@ -177,14 +177,14 @@
 
             /* Mobile adjustments */
             @media (max-width: 768px) {
-                .nav-dumbbell-btn {
+                .nav-beer-btn {
                     top: 90px; /* Position below header on mobile */
                     right: 15px;
                     width: 45px;
                     height: 45px;
                 }
                 
-                .nav-dumbbell-btn i {
+                .nav-beer-btn i {
                     font-size: 36px;
                 }
 
@@ -218,7 +218,7 @@
     document.body.appendChild(navContainer);
 
     // Get elements
-    const dumbbellBtn = document.getElementById('nav-dumbbell-btn');
+    const beerBtn = document.getElementById('nav-beer-btn');
     const dropdown = document.getElementById('nav-dropdown');
 
     // Toggle dropdown
@@ -234,21 +234,21 @@
     // Open dropdown
     function openDropdown() {
       dropdown.style.display = 'block';
-      dumbbellBtn.setAttribute('aria-expanded', 'true');
+      beerBtn.setAttribute('aria-expanded', 'true');
     }
 
     // Close dropdown
     function closeDropdown() {
       dropdown.style.display = 'none';
-      dumbbellBtn.setAttribute('aria-expanded', 'false');
+      beerBtn.setAttribute('aria-expanded', 'false');
     }
 
     // Event listeners
-    dumbbellBtn.addEventListener('click', toggleDropdown);
+    beerBtn.addEventListener('click', toggleDropdown);
 
     // Close when clicking outside
     document.addEventListener('click', function (e) {
-      if (!dumbbellBtn.contains(e.target) && !dropdown.contains(e.target)) {
+      if (!beerBtn.contains(e.target) && !dropdown.contains(e.target)) {
         closeDropdown();
       }
     });
@@ -257,7 +257,7 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && dropdown.style.display === 'block') {
         closeDropdown();
-        dumbbellBtn.focus();
+        beerBtn.focus();
       }
     });
   }

@@ -15,7 +15,7 @@
     <meta property="og:type" content="website" />
     <title>Workout Timers - Bootcamp Events</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script type="application/ld+json">
@@ -114,15 +114,29 @@
               </div>
             </div>
             <div class="config-group">
-              <label for="emom-interval">Work</label>
+              <label for="emom-work-min">Work</label>
               <div class="input-with-unit">
                 <input
                   type="number"
-                  id="emom-interval"
-                  min="10"
-                  max="300"
-                  value="60"
-                  aria-label="EMOM interval duration in seconds"
+                  id="emom-work-min"
+                  min="0"
+                  max="10"
+                  value="1"
+                  aria-label="EMOM work minutes"
+                />
+                <span class="unit">min</span>
+              </div>
+            </div>
+            <div class="config-group">
+              <label for="emom-work-sec">Work Sec</label>
+              <div class="input-with-unit">
+                <input
+                  type="number"
+                  id="emom-work-sec"
+                  min="0"
+                  max="59"
+                  value="0"
+                  aria-label="EMOM work seconds"
                 />
                 <span class="unit">sec</span>
               </div>
@@ -223,6 +237,14 @@
         <h2 class="timers-title">One Rep Max Calculator</h2>
         
         <div class="timer-container active">
+          <div class="orm-unit-toggle">
+            <button class="unit-toggle-btn active" data-unit="kg">
+              <i class="fa-solid fa-weight-hanging"></i> Kg
+            </button>
+            <button class="unit-toggle-btn" data-unit="lbs">
+              <i class="fa-solid fa-weight-hanging"></i> Lbs
+            </button>
+          </div>
           <div class="timer-config">
             <div class="config-group">
               <label for="orm-weight">Weight Lifted</label>
@@ -236,7 +258,7 @@
                   step="5"
                   aria-label="Weight lifted"
                 />
-                <span class="unit">lbs</span>
+                <span class="unit" id="orm-weight-unit">kg</span>
               </div>
             </div>
             <div class="config-group">
@@ -257,7 +279,7 @@
           <div class="timer-display">
             <div class="timer-label">Estimated 1RM</div>
             <div class="timer-time" id="orm-result">117</div>
-            <div class="timer-status">lbs</div>
+            <div class="timer-status" id="orm-result-unit">kg</div>
           </div>
 
           <div class="orm-percentages">

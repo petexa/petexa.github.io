@@ -389,15 +389,18 @@ function startEMOMTimer() {
   if (emomRunning) return;
 
   const roundsInput = document.getElementById('emom-rounds');
-  const intervalInput = document.getElementById('emom-interval');
+  const workMinInput = document.getElementById('emom-work-min');
+  const workSecInput = document.getElementById('emom-work-sec');
   const restInput = document.getElementById('emom-rest');
   const startBtn = document.getElementById('emom-start');
   const pauseBtn = document.getElementById('emom-pause');
 
   // Initialize if starting fresh
   if (emomTimeRemaining === 0) {
-    const interval = parseInt(intervalInput.value) || 60;
-    emomTimeRemaining = interval;
+    const workMin = parseInt(workMinInput.value) || 0;
+    const workSec = parseInt(workSecInput.value) || 0;
+    const interval = (workMin * 60) + workSec;
+    emomTimeRemaining = interval > 0 ? interval : 60; // Default to 60 if invalid
     emomCurrentRound = 1;
     emomInRest = false;
   }
@@ -406,7 +409,8 @@ function startEMOMTimer() {
   startBtn.disabled = true;
   pauseBtn.disabled = false;
   roundsInput.disabled = true;
-  intervalInput.disabled = true;
+  workMinInput.disabled = true;
+  workSecInput.disabled = true;
   restInput.disabled = true;
 
   updateEMOMStatus('Work!');
@@ -429,7 +433,8 @@ function startEMOMTimer() {
  */
 function handleEMOMRoundComplete() {
   const roundsInput = document.getElementById('emom-rounds');
-  const intervalInput = document.getElementById('emom-interval');
+  const workMinInput = document.getElementById('emom-work-min');
+  const workSecInput = document.getElementById('emom-work-sec');
   const restInput = document.getElementById('emom-rest');
   const totalRounds = parseInt(roundsInput.value) || 10;
   const restTime = parseInt(restInput.value) || 0;
@@ -444,8 +449,10 @@ function handleEMOMRoundComplete() {
       completeEMOMTimer();
     } else {
       // Start next work interval
-      const interval = parseInt(intervalInput.value) || 60;
-      emomTimeRemaining = interval;
+      const workMin = parseInt(workMinInput.value) || 0;
+      const workSec = parseInt(workSecInput.value) || 0;
+      const interval = (workMin * 60) + workSec;
+      emomTimeRemaining = interval > 0 ? interval : 60;
       updateEMOMStatus('Work!');
       playBeep();
     }
@@ -460,8 +467,10 @@ function handleEMOMRoundComplete() {
     } else if (emomCurrentRound < totalRounds) {
       // No rest, move to next round immediately
       emomCurrentRound++;
-      const interval = parseInt(intervalInput.value) || 60;
-      emomTimeRemaining = interval;
+      const workMin = parseInt(workMinInput.value) || 0;
+      const workSec = parseInt(workSecInput.value) || 0;
+      const interval = (workMin * 60) + workSec;
+      emomTimeRemaining = interval > 0 ? interval : 60;
       updateEMOMStatus('Work!');
       playBeep();
     } else {
@@ -503,13 +512,15 @@ function resetEMOMTimer() {
   const startBtn = document.getElementById('emom-start');
   const pauseBtn = document.getElementById('emom-pause');
   const roundsInput = document.getElementById('emom-rounds');
-  const intervalInput = document.getElementById('emom-interval');
+  const workMinInput = document.getElementById('emom-work-min');
+  const workSecInput = document.getElementById('emom-work-sec');
   const restInput = document.getElementById('emom-rest');
 
   startBtn.disabled = false;
   pauseBtn.disabled = true;
   roundsInput.disabled = false;
-  intervalInput.disabled = false;
+  workMinInput.disabled = false;
+  workSecInput.disabled = false;
   restInput.disabled = false;
 
   updateEMOMDisplay();
@@ -527,13 +538,16 @@ function completeEMOMTimer() {
   const startBtn = document.getElementById('emom-start');
   const pauseBtn = document.getElementById('emom-pause');
   const roundsInput = document.getElementById('emom-rounds');
-  const intervalInput = document.getElementById('emom-interval');
+  const workMinInput = document.getElementById('emom-work-min');
+  const workSecInput = document.getElementById('emom-work-sec');
   const restInput = document.getElementById('emom-rest');
 
   startBtn.disabled = false;
   pauseBtn.disabled = true;
   roundsInput.disabled = false;
-  intervalInput.disabled = false;
+  workMinInput.disabled = false;
+  workSecInput.disabled = false;
+  restInput.disabled = false;
   restInput.disabled = false;
 
   updateEMOMDisplay();
@@ -550,14 +564,17 @@ function updateEMOMDisplay() {
   const currentRoundEl = document.getElementById('emom-current-round');
   const totalRoundsEl = document.getElementById('emom-total-rounds');
   const roundsInput = document.getElementById('emom-rounds');
-  const intervalInput = document.getElementById('emom-interval');
+  const workMinInput = document.getElementById('emom-work-min');
+  const workSecInput = document.getElementById('emom-work-sec');
 
   currentRoundEl.textContent = emomCurrentRound;
   totalRoundsEl.textContent = roundsInput.value;
 
   if (emomTimeRemaining === 0 && !emomRunning) {
-    const interval = parseInt(intervalInput.value) || 60;
-    display.textContent = formatTime(interval);
+    const workMin = parseInt(workMinInput.value) || 0;
+    const workSec = parseInt(workSecInput.value) || 0;
+    const interval = (workMin * 60) + workSec;
+    display.textContent = formatTime(interval > 0 ? interval : 60);
   } else {
     display.textContent = formatTime(emomTimeRemaining);
   }
@@ -894,11 +911,47 @@ function playCompletionSound() {
 /**
  * Initialize One Rep Max Calculator
  */
+let currentOrmUnit = 'kg'; // Track current unit
+
 function initializeOneRepMaxCalculator() {
   const weightInput = document.getElementById('orm-weight');
   const repsInput = document.getElementById('orm-reps');
+  const unitButtons = document.querySelectorAll('.unit-toggle-btn');
 
   if (!weightInput || !repsInput) return;
+
+  // Handle unit toggle
+  unitButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const newUnit = btn.dataset.unit;
+      if (newUnit === currentOrmUnit) return;
+
+      // Update active state
+      unitButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Convert existing weight value
+      const currentWeight = parseFloat(weightInput.value);
+      if (currentWeight > 0) {
+        if (newUnit === 'lbs' && currentOrmUnit === 'kg') {
+          // Kg to Lbs: multiply by 2.20462
+          weightInput.value = Math.round(currentWeight * 2.20462);
+        } else if (newUnit === 'kg' && currentOrmUnit === 'lbs') {
+          // Lbs to Kg: divide by 2.20462
+          weightInput.value = Math.round(currentWeight / 2.20462);
+        }
+      }
+
+      currentOrmUnit = newUnit;
+
+      // Update unit labels
+      document.getElementById('orm-weight-unit').textContent = newUnit;
+      document.getElementById('orm-result-unit').textContent = newUnit;
+
+      // Recalculate with new unit
+      calculateOneRepMax();
+    });
+  });
 
   // Calculate on input change
   weightInput.addEventListener('input', calculateOneRepMax);
@@ -942,7 +995,7 @@ function calculateOneRepMax() {
     const el = document.getElementById(`orm-${percent}`);
     if (el) {
       const value = Math.round(oneRepMax * (percent / 100));
-      el.textContent = `${value} lbs`;
+      el.textContent = `${value} ${currentOrmUnit}`;
     }
   });
 }
