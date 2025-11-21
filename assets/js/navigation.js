@@ -1,56 +1,64 @@
 /**
- * Global Navigation Menu Component
- * Provides a kettlebell icon that opens a navigation menu
+ * Global Navigation Dropdown Component
+ * Provides a kettlebell icon that opens a dropdown menu
  */
 
 (function() {
     'use strict';
 
+    // Get current page filename
+    function getCurrentPage() {
+        const path = window.location.pathname;
+        const page = path.split('/').pop() || 'index.html';
+        return page;
+    }
+
     // Create navigation HTML structure
     function createNavigationHTML() {
+        const currentPage = getCurrentPage();
+        
+        // Define all navigation items
+        const navItems = [
+            { href: 'index.html', icon: 'fa-calendar', label: 'Upcoming Events' },
+            { href: 'past-events.html', icon: 'fa-calendar-check', label: 'Past Events' },
+            { href: 'wods.html', icon: 'fa-dumbbell', label: 'WODs Database' },
+            { href: 'wods-table.html', icon: 'fa-table', label: 'WODs Table' },
+            { href: 'timers.html', icon: 'fa-stopwatch', label: 'Workout Timers' }
+        ];
+        
+        // Build menu items HTML, excluding current page
+        let menuItemsHTML = '';
+        navItems.forEach(item => {
+            if (item.href !== currentPage) {
+                menuItemsHTML += `
+                    <a href="${item.href}" class="nav-dropdown-item">
+                        <i class="fa-solid ${item.icon}"></i>
+                        <span>${item.label}</span>
+                    </a>
+                `;
+            }
+        });
+        
+        // Add Create Event button only for past-events.html
+        if (currentPage === 'past-events.html') {
+            menuItemsHTML += `
+                <button id="nav-create-event-btn" class="nav-dropdown-item nav-dropdown-button">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Create Event</span>
+                </button>
+            `;
+        }
+        
         return `
             <!-- Kettlebell Navigation Button -->
             <button id="nav-kettlebell-btn" class="nav-kettlebell-btn" aria-label="Open navigation menu" aria-expanded="false">
                 <img src="images/kettlebell-white.svg" alt="" aria-hidden="true">
             </button>
 
-            <!-- Navigation Menu Overlay -->
-            <div id="nav-menu-overlay" class="nav-menu-overlay" style="display: none;">
-                <div class="nav-menu-content">
-                    <div class="nav-menu-header">
-                        <h2>Navigation</h2>
-                        <button id="nav-close-btn" class="nav-close-btn" aria-label="Close navigation menu">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                    <nav class="nav-menu-list" role="navigation" aria-label="Main navigation">
-                        <a href="index.html" class="nav-menu-item">
-                            <i class="fa-solid fa-calendar"></i>
-                            <span>Upcoming Events</span>
-                        </a>
-                        <a href="past-events.html" class="nav-menu-item">
-                            <i class="fa-solid fa-calendar-check"></i>
-                            <span>Past Events</span>
-                        </a>
-                        <a href="wods.html" class="nav-menu-item">
-                            <i class="fa-solid fa-dumbbell"></i>
-                            <span>WODs Database</span>
-                        </a>
-                        <a href="wods-table.html" class="nav-menu-item">
-                            <i class="fa-solid fa-table"></i>
-                            <span>WODs Table</span>
-                        </a>
-                        <a href="timers.html" class="nav-menu-item">
-                            <i class="fa-solid fa-stopwatch"></i>
-                            <span>Workout Timers</span>
-                        </a>
-                        <button id="nav-create-event-btn" class="nav-menu-item nav-menu-button">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>Create Event</span>
-                        </button>
-                    </nav>
-                </div>
-            </div>
+            <!-- Navigation Dropdown Menu -->
+            <nav id="nav-dropdown" class="nav-dropdown" role="navigation" aria-label="Main navigation" style="display: none;">
+                ${menuItemsHTML}
+            </nav>
         `;
     }
 
@@ -66,8 +74,8 @@
                 z-index: 1100;
                 width: 50px;
                 height: 50px;
-                background: rgba(0, 0, 0, 0.7);
-                border: 2px solid rgba(255, 255, 255, 0.3);
+                background: #202023;
+                border: 2px solid rgba(128, 175, 254, 0.3);
                 border-radius: 50%;
                 cursor: pointer;
                 padding: 10px;
@@ -79,15 +87,20 @@
             }
 
             .nav-kettlebell-btn:hover {
-                background: rgba(0, 0, 0, 0.9);
-                border-color: rgba(255, 255, 255, 0.6);
-                transform: scale(1.1);
+                background: #2a2a2d;
+                border-color: #80affe;
+                transform: scale(1.05);
                 box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
             }
 
             .nav-kettlebell-btn:focus {
                 outline: 3px solid #80affe;
                 outline-offset: 2px;
+            }
+
+            .nav-kettlebell-btn[aria-expanded="true"] {
+                background: #2a2a2d;
+                border-color: #80affe;
             }
 
             .nav-kettlebell-btn img {
@@ -97,44 +110,25 @@
                 filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
             }
 
-            /* Navigation overlay */
-            .nav-menu-overlay {
+            /* Dropdown menu */
+            .nav-dropdown {
                 position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.85);
-                z-index: 1200;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                animation: fadeIn 0.3s ease;
-            }
-
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-
-            /* Navigation content */
-            .nav-menu-content {
-                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-                border-radius: 20px;
-                padding: 30px;
-                max-width: 500px;
-                width: 90%;
-                max-height: 90vh;
-                overflow-y: auto;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+                top: 80px;
+                right: 20px;
+                z-index: 1099;
+                background: #202023;
                 border: 2px solid rgba(128, 175, 254, 0.3);
-                animation: slideIn 0.3s ease;
+                border-radius: 12px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+                min-width: 220px;
+                overflow: hidden;
+                animation: slideDown 0.3s ease;
             }
 
-            @keyframes slideIn {
+            @keyframes slideDown {
                 from {
                     opacity: 0;
-                    transform: translateY(-30px);
+                    transform: translateY(-10px);
                 }
                 to {
                     opacity: 1;
@@ -142,96 +136,53 @@
                 }
             }
 
-            /* Navigation header */
-            .nav-menu-header {
+            /* Dropdown items */
+            .nav-dropdown-item {
                 display: flex;
-                justify-content: space-between;
                 align-items: center;
-                margin-bottom: 25px;
-                padding-bottom: 15px;
-                border-bottom: 2px solid rgba(128, 175, 254, 0.3);
-            }
-
-            .nav-menu-header h2 {
-                color: #fff;
-                margin: 0;
-                font-size: 1.8rem;
-                font-weight: 600;
-            }
-
-            .nav-close-btn {
-                background: transparent;
-                border: none;
-                color: #fff;
-                font-size: 1.8rem;
-                cursor: pointer;
-                padding: 5px 10px;
-                transition: all 0.2s ease;
-                line-height: 1;
-            }
-
-            .nav-close-btn:hover {
-                color: #29ffb4;
-                transform: scale(1.1);
-            }
-
-            .nav-close-btn:focus {
-                outline: 3px solid #80affe;
-                outline-offset: 2px;
-                border-radius: 4px;
-            }
-
-            /* Navigation list */
-            .nav-menu-list {
-                display: flex;
-                flex-direction: column;
                 gap: 12px;
-            }
-
-            .nav-menu-item {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                padding: 15px 20px;
-                background: rgba(255, 255, 255, 0.05);
-                border: 2px solid rgba(128, 175, 254, 0.2);
-                border-radius: 12px;
+                padding: 12px 18px;
                 color: #fff;
                 text-decoration: none;
-                font-size: 1.1rem;
+                font-size: 1rem;
                 font-weight: 600;
-                transition: all 0.3s ease;
+                transition: all 0.2s ease;
                 cursor: pointer;
-            }
-
-            .nav-menu-button {
+                border: none;
+                background: transparent;
                 width: 100%;
                 text-align: left;
+                font-family: 'Montserrat', sans-serif;
+                border-bottom: 1px solid rgba(128, 175, 254, 0.1);
             }
 
-            .nav-menu-item:hover {
-                background: rgba(128, 175, 254, 0.2);
-                border-color: #80affe;
-                transform: translateX(5px);
+            .nav-dropdown-item:last-child {
+                border-bottom: none;
             }
 
-            .nav-menu-item:focus {
-                outline: 3px solid #80affe;
-                outline-offset: 2px;
+            .nav-dropdown-item:hover {
+                background: rgba(128, 175, 254, 0.15);
+                color: #29ffb4;
             }
 
-            .nav-menu-item i {
-                font-size: 1.3rem;
+            .nav-dropdown-item:focus {
+                outline: 2px solid #80affe;
+                outline-offset: -2px;
+                background: rgba(128, 175, 254, 0.1);
+            }
+
+            .nav-dropdown-item i {
+                font-size: 1.1rem;
                 color: #80affe;
-                min-width: 24px;
+                min-width: 20px;
                 text-align: center;
             }
 
-            .nav-menu-item:hover i {
+            .nav-dropdown-item:hover i {
                 color: #29ffb4;
             }
 
-            .nav-menu-item.nav-menu-button i {
+            .nav-dropdown-button i {
                 color: #29ffb4;
             }
 
@@ -244,22 +195,19 @@
                     right: 15px;
                 }
 
-                .nav-menu-content {
-                    padding: 20px;
-                    width: 95%;
+                .nav-dropdown {
+                    top: 70px;
+                    right: 15px;
+                    min-width: 200px;
                 }
 
-                .nav-menu-header h2 {
-                    font-size: 1.5rem;
+                .nav-dropdown-item {
+                    padding: 10px 15px;
+                    font-size: 0.95rem;
                 }
 
-                .nav-menu-item {
-                    padding: 12px 15px;
+                .nav-dropdown-item i {
                     font-size: 1rem;
-                }
-
-                .nav-menu-item i {
-                    font-size: 1.1rem;
                 }
             }
         `;
@@ -278,46 +226,53 @@
 
         // Get elements
         const kettlebellBtn = document.getElementById('nav-kettlebell-btn');
-        const overlay = document.getElementById('nav-menu-overlay');
-        const closeBtn = document.getElementById('nav-close-btn');
+        const dropdown = document.getElementById('nav-dropdown');
         const createEventBtn = document.getElementById('nav-create-event-btn');
 
-        // Open navigation
-        function openNav() {
-            overlay.style.display = 'flex';
-            kettlebellBtn.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden';
+        // Toggle dropdown
+        function toggleDropdown() {
+            const isOpen = dropdown.style.display === 'block';
+            if (isOpen) {
+                closeDropdown();
+            } else {
+                openDropdown();
+            }
         }
 
-        // Close navigation
-        function closeNav() {
-            overlay.style.display = 'none';
+        // Open dropdown
+        function openDropdown() {
+            dropdown.style.display = 'block';
+            kettlebellBtn.setAttribute('aria-expanded', 'true');
+        }
+
+        // Close dropdown
+        function closeDropdown() {
+            dropdown.style.display = 'none';
             kettlebellBtn.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
         }
 
         // Event listeners
-        kettlebellBtn.addEventListener('click', openNav);
-        closeBtn.addEventListener('click', closeNav);
+        kettlebellBtn.addEventListener('click', toggleDropdown);
 
-        // Close when clicking overlay background
-        overlay.addEventListener('click', function(e) {
-            if (e.target === overlay) {
-                closeNav();
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!kettlebellBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                closeDropdown();
             }
         });
 
         // Close on ESC key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && overlay.style.display === 'flex') {
-                closeNav();
+            if (e.key === 'Escape' && dropdown.style.display === 'block') {
+                closeDropdown();
+                kettlebellBtn.focus();
             }
         });
 
-        // Handle Create Event button - only show on past-events.html
-        if (window.location.pathname.endsWith('past-events.html')) {
+        // Handle Create Event button if present
+        if (createEventBtn) {
             createEventBtn.addEventListener('click', function() {
-                closeNav();
+                closeDropdown();
                 // Trigger the existing openModal function if it exists
                 if (typeof window.openModal === 'function') {
                     window.openModal();
@@ -325,9 +280,6 @@
                     console.warn('openModal function not found on past-events.html page');
                 }
             });
-        } else {
-            // Hide Create Event button on other pages
-            createEventBtn.style.display = 'none';
         }
     }
 
