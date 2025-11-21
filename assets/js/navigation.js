@@ -315,12 +315,14 @@
         });
 
         // Handle Create Event button - only show on past-events.html
-        if (window.location.pathname.includes('past-events.html')) {
+        if (window.location.pathname.endsWith('past-events.html')) {
             createEventBtn.addEventListener('click', function() {
                 closeNav();
                 // Trigger the existing openModal function if it exists
                 if (typeof window.openModal === 'function') {
                     window.openModal();
+                } else {
+                    console.warn('openModal function not found on past-events.html page');
                 }
             });
         } else {
