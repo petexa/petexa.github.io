@@ -98,3 +98,42 @@ function showToast(msg) {
     // Remove after animation completes (2.8s)
     setTimeout(() => toast.style.display = "none", 2800);
 }
+
+/**
+ * Position the header tear effect below the header dynamically
+ * This ensures the tear is visible regardless of header height
+ */
+function positionHeaderTear() {
+    const header = document.querySelector('body > header');
+    const headerTear = document.querySelector('.header-tear');
+    
+    if (!header || !headerTear) return;
+    
+    // Get the actual height of the header
+    const headerHeight = header.offsetHeight;
+    
+    // Position the tear directly below the header
+    headerTear.style.top = `${headerHeight}px`;
+}
+
+/**
+ * Debounce function to limit resize event frequency
+ * @param {Function} func - Function to debounce
+ * @param {number} wait - Milliseconds to wait
+ * @returns {Function} Debounced function
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Initialize header tear positioning on DOM load and debounced window resize
+document.addEventListener('DOMContentLoaded', positionHeaderTear);
+window.addEventListener('resize', debounce(positionHeaderTear, 250));
