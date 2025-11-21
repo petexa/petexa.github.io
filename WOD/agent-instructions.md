@@ -29,7 +29,7 @@ Primary workout catalog containing 500+ workouts.
 **Required Columns:**
 - `WorkoutID` (INTEGER, Primary Key) - Unique identifier
 - `Name` (TEXT) - Human-readable workout name
-- `Instructions` (TEXT) - Detailed workout instructions
+- `Instructions` (TEXT) - Detailed workout instructions describing movements, rep schemes, and format
 - `DifficultyTier` (TEXT) - Must be one of: `Beginner`, `Intermediate`, `Advanced`, `Elite`, `Moderate`, `Hard`
 - `Category` (TEXT) - Workout classification (e.g., "AMRAP", "For Time")
 
@@ -151,7 +151,7 @@ Many-to-many relationship linking movements to equipment.
 ### Artifact Removal (Auto-Fix Safe)
 
 1. **Movement Library Artifacts**
-   - Remove entries matching regex patterns for weight specifications (e.g., `^\d+\s*(Kgs?|lbs?)\)?\.?$`)
+   - Remove entries matching regex patterns for weight specifications (e.g., `^\d+\s*(Kgs?|lbs?)\)\)?\.?$`)
    - Remove entries that are just numbers with weight units
    - Remove incomplete entries like "15 Squats." without proper movement name
    - Log all removals in `dist/cleaning_changes.log`
@@ -213,7 +213,7 @@ Many-to-many relationship linking movements to equipment.
 
 ```csv
 # workouts_table.csv
-501,New Workout Name,Complete 5 rounds for time: 10 Push-Ups 20 Air Squats 30 Sit-Ups,For Time,Beginner,...
+501,New Workout Name,For Time,Complete 5 rounds for time: 10 Push-Ups 20 Air Squats 30 Sit-Ups,Beginner,...
 
 # workout_movement_map.csv
 501,45,10  # Push-Up
@@ -339,8 +339,9 @@ Many-to-many relationship linking movements to equipment.
 
 4. **Commit Safe Fixes**
    - Auto-commit changes to `data/` directory
-   - Use commit message: "🤖 Auto-clean WOD dataset [skip ci]"
+   - Use commit message: "🤖 Auto-clean WOD dataset [skip ci]" (prevents infinite loop)
    - Only commit on main branch (not pull requests)
+   - Note: [skip ci] prevents re-triggering the validation workflow on automated commits
 
 ---
 
