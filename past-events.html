@@ -30,20 +30,9 @@
 <div class="header-tear">
     <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true">
 </div>
-<div class="back-link" style="text-align: center; padding: 20px 0 10px 0;">
-    <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to Upcoming Events</a>
-</div>
 <main id="events-list" aria-live="polite">
 </main>
 <footer>
-  <div>
-    <a href="index.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;margin-right:20px;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
-
-    </a>
-    <a href="timers.html" style="color:#80affe;text-decoration:none;font-weight:600;transition:color 0.18s;" onmouseover="this.style.color='#29ffb4'" onmouseout="this.style.color='#80affe'">
-      <i class="fa-solid fa-stopwatch"></i> Workout Timers
-    </a>
-  </div>
   <div style="margin-top: 15px;">
     &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
   </div>
@@ -53,11 +42,6 @@
     <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
   </div>
 </footer>
-
-<!-- Floating Action Button -->
-<button class="fab" onclick="openModal()" aria-label="Create new event">
-    <i class="fa-solid fa-plus"></i>
-</button>
 
 <!-- Modal Dialog -->
 <div id="eventModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
@@ -351,5 +335,6 @@ function generateEvent() {
 }
 
 </script>
+<script src="assets/js/navigation.js" defer></script>
 </body>
 </html>
