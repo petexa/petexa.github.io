@@ -77,8 +77,9 @@ body > header {
   right: 0;
   z-index: 999;
   height: 25px;
-  overflow: hidden;
+  overflow: visible;
   pointer-events: none;
+  background: transparent;
 }
 
 @media (max-width: 768px) {
