@@ -98,3 +98,26 @@ function showToast(msg) {
     // Remove after animation completes (2.8s)
     setTimeout(() => toast.style.display = "none", 2800);
 }
+
+/**
+ * Position the header tear effect below the header dynamically
+ * This ensures the tear is visible regardless of header height
+ */
+function positionHeaderTear() {
+    const header = document.querySelector('body > header');
+    const headerTear = document.querySelector('.header-tear');
+    
+    if (!header || !headerTear) return;
+    
+    // Get the actual height of the header
+    const headerHeight = header.offsetHeight;
+    
+    // Position the tear directly below the header
+    headerTear.style.top = `${headerHeight}px`;
+}
+
+// Initialize header tear positioning on DOM load and window resize
+if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', positionHeaderTear);
+    window.addEventListener('resize', positionHeaderTear);
+}
