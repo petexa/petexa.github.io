@@ -219,11 +219,13 @@
     // Parse scaling tiers if it's a JSON string
     let scalingOptions = workout['Scaling Options'] || workout['Scaling-Tiers'] || '';
     try {
-      if (scalingOptions.startsWith('{')) {
+      if (scalingOptions && scalingOptions.startsWith('{')) {
         const parsed = JSON.parse(scalingOptions);
         scalingOptions = Object.entries(parsed)
-          .map(([level, desc]) => `<div class="scaling-item"><strong>${level}:</strong> ${desc}</div>`)
+          .map(([level, desc]) => `<div class="scaling-item"><strong>${escapeHtml(level)}:</strong> ${escapeHtml(desc)}</div>`)
           .join('');
+      } else {
+        scalingOptions = escapeHtml(scalingOptions);
       }
     } catch (e) {
       // Keep as plain text if not JSON
@@ -241,7 +243,7 @@
             .map(([level, seconds]) => {
               const mins = Math.floor(seconds / 60);
               const secs = seconds % 60;
-              return `${level}: ${mins}m ${secs}s`;
+              return `${escapeHtml(level)}: ${mins}m ${secs}s`;
             })
             .join(', ');
         }
