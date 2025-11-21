@@ -1,5 +1,7 @@
 /* WODs Database Styles */
 
+/* Note: CSS custom properties are inherited from styles.css */
+
 /* Override main grid layout for WODs page */
 main {
   display: flex;
@@ -30,7 +32,7 @@ main {
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #666;
+  color: var(--text-secondary);
   font-size: 1.1rem;
 }
 
@@ -39,7 +41,7 @@ main {
   padding: 12px 15px 12px 45px;
   font-size: 1rem;
   border: 2px solid #ddd;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   font-family: 'Montserrat', sans-serif;
   transition: border-color 0.3s;
 }
@@ -644,5 +646,21 @@ main {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Reduced Motion Support - WCAG 2.3.3 Level AAA */
+@media (prefers-reduced-motion: reduce) {
+  .loading i {
+    animation: none;
+  }
+  
+  .workout-card:hover {
+    transform: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

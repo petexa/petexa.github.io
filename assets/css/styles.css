@@ -460,7 +460,7 @@ footer {
 }
 
 .footer-links a {
-  color: #80affe;
+  color: var(--color-accent);
   margin: 0 10px;
   text-decoration: none;
   transition: color 0.18s;
@@ -468,16 +468,16 @@ footer {
 
 .footer-links a:hover,
 .footer-links a:focus {
-  color: #29ffb4;
+  color: var(--color-accent-light);
 }
 
 /* Workout Timers Section */
 .timers-section {
-  background: #202023;
+  background: var(--bg-dark);
   padding: 40px 20px;
   margin: 40px auto 0 auto;
   max-width: 700px;
-  border-radius: 18px;
+  border-radius: var(--radius-xl);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
@@ -488,7 +488,7 @@ footer {
   font-weight: 700;
   margin: 0 0 25px 0;
   letter-spacing: 1px;
-  border-bottom: 2.5px solid #29ffb4;
+  border-bottom: 2.5px solid var(--color-accent-light);
   display: inline-block;
   padding-bottom: 8px;
   width: 100%;
@@ -530,24 +530,24 @@ footer {
 
 .timer-tab:hover {
   background: #444;
-  border-color: #29ffb4;
+  border-color: var(--color-accent-light);
 }
 
 .timer-tab.active {
-  background: #23bb57;
-  border-color: #23bb57;
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
   color: #fff;
 }
 
 .timer-tab:focus-visible {
-  outline: 3px solid #29ffb4;
+  outline: 3px solid var(--color-accent-light);
   outline-offset: 2px;
 }
 
 .timer-container {
   display: none;
-  background: #fff;
-  border-radius: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
   padding: 30px;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
 }
