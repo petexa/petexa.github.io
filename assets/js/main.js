@@ -55,8 +55,19 @@ async function loadEvents() {
     setInterval(updateCountdowns, 60000);
   } catch (error) {
     console.error('Error loading events:', error);
-    document.getElementById('events-list').innerHTML =
-      `<div class="empty-events" role="alert">Unable to load events. Please try again later.</div>`;
+    const eventsList = document.getElementById('events-list');
+    
+    // Hide loading skeleton
+    const skeleton = document.getElementById('loading-skeleton');
+    if (skeleton) {
+      skeleton.classList.add('hidden');
+    }
+    
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'empty-events';
+    errorDiv.setAttribute('role', 'alert');
+    errorDiv.textContent = 'Unable to load events. Please try again later.';
+    eventsList.appendChild(errorDiv);
   }
 }
 
@@ -69,16 +80,31 @@ function renderEvents() {
   const eventsList = document.getElementById('events-list');
   const template = document.getElementById('event-card-template');
 
-  // Clear existing content
-  eventsList.innerHTML = '';
+  // Hide loading skeleton
+  const skeleton = document.getElementById('loading-skeleton');
+  if (skeleton) {
+    skeleton.classList.add('hidden');
+  }
+
+  // Clear existing content (except skeleton which is hidden)
+  const existingCards = eventsList.querySelectorAll('.event-card');
+  existingCards.forEach(card => card.remove());
 
   if (sortedEvents.length === 0) {
-    eventsList.innerHTML = `<div class="empty-events" role="alert">No events are currently scheduled. Please check back soon!</div>`;
+    const emptyDiv = document.createElement('div');
+    emptyDiv.className = 'empty-events';
+    emptyDiv.setAttribute('role', 'alert');
+    emptyDiv.textContent = 'No events are currently scheduled. Please check back soon!';
+    eventsList.appendChild(emptyDiv);
     return;
   }
 
   if (upcomingEvents.length === 0) {
-    eventsList.innerHTML = `<div class="empty-events" role="alert">There are no upcoming events.<br>Check back soon, or follow us on social for the latest updates!</div>`;
+    const emptyDiv = document.createElement('div');
+    emptyDiv.className = 'empty-events';
+    emptyDiv.setAttribute('role', 'alert');
+    emptyDiv.innerHTML = 'There are no upcoming events.<br>Check back soon, or follow us on social for the latest updates!';
+    eventsList.appendChild(emptyDiv);
     return;
   }
 

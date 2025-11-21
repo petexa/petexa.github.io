@@ -35,7 +35,53 @@
     <div class="header-tear">
       <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
     </div>
-    <main id="events-list" aria-live="polite"></main>
+    <main id="events-list" aria-live="polite">
+      <!-- Loading skeleton (shown while events are loading) -->
+      <div id="loading-skeleton" class="loading-skeleton" aria-label="Loading events...">
+        <div class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-date"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-countdown"></div>
+            <div class="skeleton-actions">
+              <div class="skeleton-button"></div>
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-date"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-countdown"></div>
+            <div class="skeleton-actions">
+              <div class="skeleton-button"></div>
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-date"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-countdown"></div>
+            <div class="skeleton-actions">
+              <div class="skeleton-button"></div>
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <!-- Event card template -->
     <template id="event-card-template">
