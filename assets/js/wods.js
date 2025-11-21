@@ -43,7 +43,6 @@
 
     const headers = lines[0].split(',').map(h => h.trim());
     const workouts = [];
-    const REQUIRED_FIELD_COUNT = 7; // Name, Category, Format & Duration, Instructions, Equipment Needed, Muscle Groups, Training Goals
 
     for (let i = 1; i < lines.length; i++) {
       const line = lines[i].trim();
@@ -74,16 +73,16 @@
       }
       fields.push(currentField.trim());
 
-      if (fields.length >= REQUIRED_FIELD_COUNT) {
-        const workout = {
-          name: fields[0].replace(/^"+|"+$/g, ''),
-          category: fields[1],
-          formatDuration: fields[2],
-          instructions: fields[3],
-          equipment: fields[4],
-          muscleGroups: fields[5],
-          trainingGoals: fields[6],
-        };
+      // Map fields to headers
+      const workout = {};
+      headers.forEach((header, index) => {
+        if (index < fields.length) {
+          workout[header] = fields[index].replace(/^"+|"+$/g, '');
+        }
+      });
+
+      // Only add if we have the essential fields
+      if (workout.Name && workout.Instructions) {
         workouts.push(workout);
       }
     }
@@ -157,34 +156,44 @@
     card.className = 'wod-card';
     card.setAttribute('tabindex', '0');
     card.setAttribute('role', 'button');
-    card.setAttribute('aria-label', `View details for ${workout.name}`);
+    card.setAttribute('aria-label', `View details for ${workout.Name}`);
 
-    // Truncate instructions for preview
-    const instructionsPreview =
-      workout.instructions.length > 100
-        ? workout.instructions.substring(0, 100) + '...'
-        : workout.instructions;
+    // Get difficulty label with proper fallback
+    const difficultyLabel = workout['Difficulty-Label'] || workout.DifficultyTier || 'Moderate';
+    const difficultyClass = difficultyLabel.toLowerCase().replace(/\s+/g, '-');
+
+    // Get description with fallback
+    const description = workout.Description || workout['Flavor-Text'] || '';
+    const descriptionPreview = description.length > 120 ? description.substring(0, 120) + '...' : description;
+
+    // Get training goals
+    const trainingGoals = workout['Training Goals'] || workout.trainingGoals || '';
 
     card.innerHTML = `
             <div class="wod-header">
-                <h3 class="wod-title">${escapeHtml(workout.name)}</h3>
+                <h3 class="wod-title">${escapeHtml(workout.Name)}</h3>
                 <div class="wod-badges">
-                    <span class="badge badge-category">${workout.category}</span>
+                    <span class="badge badge-category">🏷️ ${escapeHtml(workout.Category)}</span>
+                    <span class="badge badge-difficulty ${difficultyClass}">🔥 ${escapeHtml(difficultyLabel)}</span>
                 </div>
             </div>
             <div class="wod-info">
                 <div class="wod-info-row">
                     <span class="emoji-icon">⏱️</span>
-                    <span><strong>Format:</strong> ${escapeHtml(workout.formatDuration)}</span>
+                    <span><strong>Format:</strong> ${escapeHtml(workout['Format & Duration'])}</span>
                 </div>
+                ${trainingGoals ? `
                 <div class="wod-info-row">
-                    <span class="emoji-icon">🏋️</span>
-                    <span><strong>Equipment:</strong> ${escapeHtml(workout.equipment)}</span>
+                    <span class="emoji-icon">🎯</span>
+                    <span><strong>Goals:</strong> ${escapeHtml(trainingGoals)}</span>
                 </div>
-                <div class="wod-info-row">
+                ` : ''}
+                ${description ? `
+                <div class="wod-description">
                     <span class="emoji-icon">💪</span>
-                    <span><strong>Muscles:</strong> ${escapeHtml(workout.muscleGroups)}</span>
+                    <span>${escapeHtml(descriptionPreview)}</span>
                 </div>
+                ` : ''}
             </div>
         `;
 
@@ -199,41 +208,186 @@
     return card;
   }
 
+  // Helper function to format text as bullet list
+  function formatAsBulletList(text) {
+    if (!text) return '';
+    
+    // Split by common delimiters: semicolon or comma
+    const items = text.split(/[;,]/)
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+    
+    // If only one item or no clear separators, return as single item
+    if (items.length <= 1) {
+      return `<ul><li>${escapeHtml(text)}</li></ul>`;
+    }
+    
+    return '<ul>' + items.map(item => `<li>${escapeHtml(item)}</li>`).join('') + '</ul>';
+  }
+
   function openModal(workout) {
     // Store the currently focused element to return focus later
     modal.dataset.previousFocus = document.activeElement?.id || '';
 
+    // Get difficulty label with proper fallback
+    const difficultyLabel = workout['Difficulty-Label'] || workout.DifficultyTier || 'Moderate';
+    const difficultyClass = difficultyLabel.toLowerCase().replace(/\s+/g, '-');
+
+    // Parse scaling tiers if it's a JSON string
+    let scalingOptions = workout['Scaling Options'] || workout['Scaling-Tiers'] || '';
+    try {
+      if (scalingOptions && scalingOptions.startsWith('{')) {
+        const parsed = JSON.parse(scalingOptions);
+        scalingOptions = Object.entries(parsed)
+          .map(([level, desc]) => `<div class="scaling-item"><strong>${escapeHtml(level)}:</strong> ${escapeHtml(desc)}</div>`)
+          .join('');
+      } else {
+        scalingOptions = escapeHtml(scalingOptions);
+      }
+    } catch (e) {
+      // Keep as plain text if not JSON
+      scalingOptions = escapeHtml(scalingOptions);
+    }
+
+    // Parse estimated times if it's a JSON string
+    let estimatedTimes = workout['Estimated-Times-Human'] || '';
+    if (!estimatedTimes) {
+      try {
+        const timesJson = workout['Estimated-Times'];
+        if (timesJson && timesJson.startsWith('{')) {
+          const parsed = JSON.parse(timesJson);
+          estimatedTimes = Object.entries(parsed)
+            .map(([level, seconds]) => {
+              const mins = Math.floor(seconds / 60);
+              const secs = seconds % 60;
+              return `${escapeHtml(level)}: ${mins}m ${secs}s`;
+            })
+            .join(', ');
+        }
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
+
     modalBody.innerHTML = `
-            <h2>${escapeHtml(workout.name)}</h2>
+            <h2>${escapeHtml(workout.Name)}</h2>
             <div class="modal-badges">
-                <span class="badge badge-category">${workout.category}</span>
+                <span class="badge badge-category">${escapeHtml(workout.Category)}</span>
+                <span class="badge badge-difficulty ${difficultyClass}">${escapeHtml(difficultyLabel)}</span>
+            </div>
+            
+            <!-- Workout Essentials Section -->
+            <div class="modal-section-header">
+                <h3>💪 Workout Essentials</h3>
             </div>
             
             <div class="modal-section">
-                <h3><span class="emoji-icon">⏱️</span> Format & Duration</h3>
-                <p>${escapeHtml(workout.formatDuration)}</p>
+                <h4><span class="emoji-icon">📋</span> Instructions</h4>
+                ${formatAsBulletList(workout.Instructions || workout.Instructions_Clean || '')}
             </div>
             
+            ${workout['Equipment Needed'] ? `
             <div class="modal-section">
-                <h3><span class="emoji-icon">📋</span> Instructions</h3>
-                <p>${escapeHtml(workout.instructions)}</p>
+                <h4><span class="emoji-icon">🧰</span> Equipment Needed</h4>
+                ${formatAsBulletList(workout['Equipment Needed'])}
             </div>
+            ` : ''}
             
+            ${workout['Movement Types'] ? `
             <div class="modal-section">
-                <h3><span class="emoji-icon">🏋️</span> Equipment Needed</h3>
-                <p>${escapeHtml(workout.equipment)}</p>
+                <h4><span class="emoji-icon">🧠</span> Movement Types</h4>
+                <p>${escapeHtml(workout['Movement Types'])}</p>
             </div>
+            ` : ''}
             
+            ${workout['Target Stimulus'] || workout.Stimulus ? `
             <div class="modal-section">
-                <h3><span class="emoji-icon">💪</span> Muscle Groups</h3>
-                <p>${escapeHtml(workout.muscleGroups)}</p>
+                <h4><span class="emoji-icon">⚡</span> Target Stimulus</h4>
+                <p>${escapeHtml(workout['Target Stimulus'] || workout.Stimulus)}</p>
             </div>
+            ` : ''}
             
+            ${scalingOptions ? `
             <div class="modal-section">
-                <h3><span class="emoji-icon">🎯</span> Training Goals</h3>
-                <p>${escapeHtml(workout.trainingGoals)}</p>
+                <h4><span class="emoji-icon">🔧</span> Scaling Options</h4>
+                <div class="scaling-content">${scalingOptions}</div>
+            </div>
+            ` : ''}
+            
+            ${workout['Score Type'] ? `
+            <div class="modal-section">
+                <h4><span class="emoji-icon">🧮</span> Score Type</h4>
+                <p>${escapeHtml(workout['Score Type'])}</p>
+            </div>
+            ` : ''}
+            
+            <!-- Additional Info Section (Expandable) -->
+            <div class="additional-info-section">
+                <button class="expand-button" id="expand-additional-info" aria-expanded="false">
+                    <span class="expand-icon">▶</span>
+                    <span class="expand-text">Show Additional Info</span>
+                </button>
+                
+                <div class="additional-info-content" id="additional-info-content" style="display: none;">
+                    ${workout.Warmup ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">🔥</span> Warmup</h4>
+                        ${formatAsBulletList(workout.Warmup)}
+                    </div>
+                    ` : ''}
+                    
+                    ${workout['Coaching-Cues'] || workout['Coach Notes'] ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">🎓</span> Coaching Cues</h4>
+                        <p>${escapeHtml(workout['Coaching-Cues'] || workout['Coach Notes'])}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${estimatedTimes ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">⏳</span> Estimated Times</h4>
+                        <p>${escapeHtml(estimatedTimes)}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${workout.Environment ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">🏟️</span> Environment</h4>
+                        <p>${escapeHtml(workout.Environment)}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${workout['Flavor-Text'] ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">🧠</span> About This Workout</h4>
+                        <p>${escapeHtml(workout['Flavor-Text'])}</p>
+                    </div>
+                    ` : ''}
+                </div>
             </div>
         `;
+
+    // Setup expand/collapse functionality
+    const expandButton = document.getElementById('expand-additional-info');
+    const additionalContent = document.getElementById('additional-info-content');
+    
+    if (expandButton && additionalContent) {
+      expandButton.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
+        additionalContent.style.display = isExpanded ? 'none' : 'block';
+        
+        const icon = this.querySelector('.expand-icon');
+        const text = this.querySelector('.expand-text');
+        if (isExpanded) {
+          icon.textContent = '▶';
+          text.textContent = 'Show Additional Info';
+        } else {
+          icon.textContent = '▼';
+          text.textContent = 'Hide Additional Info';
+        }
+      });
+    }
 
     modal.style.display = 'flex';
     modal.setAttribute('aria-hidden', 'false');
@@ -264,12 +418,13 @@
       // Filter workouts based on search term
       displayedWorkouts = allWorkouts.filter(workout => {
         return (
-          workout.name.toLowerCase().includes(searchTerm) ||
-          workout.instructions.toLowerCase().includes(searchTerm) ||
-          workout.equipment.toLowerCase().includes(searchTerm) ||
-          workout.muscleGroups.toLowerCase().includes(searchTerm) ||
-          workout.trainingGoals.toLowerCase().includes(searchTerm) ||
-          workout.formatDuration.toLowerCase().includes(searchTerm)
+          workout.Name?.toLowerCase().includes(searchTerm) ||
+          workout.Instructions?.toLowerCase().includes(searchTerm) ||
+          workout['Equipment Needed']?.toLowerCase().includes(searchTerm) ||
+          workout['Muscle Groups']?.toLowerCase().includes(searchTerm) ||
+          workout['Training Goals']?.toLowerCase().includes(searchTerm) ||
+          workout['Format & Duration']?.toLowerCase().includes(searchTerm) ||
+          workout.Category?.toLowerCase().includes(searchTerm)
         );
       });
       displayWorkouts();
