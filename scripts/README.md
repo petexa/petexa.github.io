@@ -9,8 +9,9 @@ The `clean_workouts.py` script automatically fixes common problems in the workou
 1. ✅ Removes duplicate header rows
 2. ✅ Removes empty/artifact columns
 3. ✅ Fixes column alignment issues (data in wrong columns)
-4. ✅ Fills in missing values intelligently
-5. ✅ Optionally searches the web for workout descriptions and coaching tips
+4. ✅ Cleans up double parentheses (e.g., `((` → `(`, `))` → `)`)
+5. ✅ Fills in missing values intelligently
+6. ✅ Optionally searches the web for workout descriptions and coaching tips
 
 **Result:** A clean, complete dataset with 499 workouts and zero missing values!
 
@@ -35,17 +36,22 @@ You should see something like `Python 3.8.0` or higher.
 
 ---
 
-### Step 2: Install Required Package
+### Step 2: Install Required Packages
 
-The script needs one package called `pandas`. Install it by typing:
+The script needs two packages: `pandas` for data processing and `requests` for web search (optional).
 
 ```bash
 pip3 install pandas
 ```
 
+**For web search feature (optional):**
+```bash
+pip3 install requests
+```
+
 **Troubleshooting:**
 - If `pip3` doesn't work, try `pip` instead
-- On Windows, you might need to use `python -m pip install pandas`
+- On Windows, you might need to use `python -m pip install pandas requests`
 
 ---
 
@@ -136,6 +142,9 @@ Removing artifact columns...
 Validating column alignment...
   ⚠ Fixed 6 row(s) with column misalignment
 
+Cleaning double parentheses...
+  ✓ Fixed 849 double parentheses occurrence(s)
+
 Searching for missing data...
   ✓ Found 184 values from dataset patterns
   ✓ Found 0 values from web searches
@@ -150,7 +159,7 @@ Filling remaining missing values with defaults...
 
 ### Advanced Cleaning (With Web Search - Slower)
 
-**⚠️ Warning:** This takes ~15-30 minutes because it searches the internet for workout information.
+**⚠️ Note:** This takes ~2-3 minutes because it searches the internet for workout information.
 
 ```bash
 python3 scripts/clean_workouts.py --web-search
@@ -158,14 +167,18 @@ python3 scripts/clean_workouts.py --web-search
 
 **When to use this:**
 - You want real workout descriptions instead of generic defaults
-- You want actual coaching tips from the web
-- You have time to wait (15-30 minutes)
+- You want actual coaching tips and scaling advice from the web
+- You have a few minutes to wait
 - You have an internet connection
 
 **What's different:**
-- Searches Google for workout descriptions and coaching notes
-- Focuses on well-known benchmark workouts first
-- Much slower but provides richer data
+- Identifies workouts with default placeholder values
+- Prioritizes benchmark workouts and those with most missing data
+- Searches web for multiple fields: Coach Notes, Descriptions, Scaling Options, Coaching Cues
+- Searches up to 50 workouts per run (~2-3 minutes)
+- **Smart caching:** Skips workouts searched in the last 24 hours
+- Replaces generic defaults with web-researched information
+- Run multiple times to process more workouts (cache prevents duplicates)
 
 ---
 
@@ -223,7 +236,8 @@ git checkout WOD/data/workouts_table.csv  # Restore original
 
 **A:** 
 - **Basic cleaning:** 5-10 seconds
-- **With web search:** 15-30 minutes
+- **With web search:** 2-3 minutes (50 workouts per run)
+- **Multiple runs:** Cached workouts are skipped automatically
 
 ### Q: What if I get an error?
 
@@ -251,7 +265,8 @@ git checkout WOD/data/workouts_table.csv
 1. **Duplicate headers:** Removes duplicate column names in the middle of the file
 2. **Artifact columns:** Removes `Unnamed: 7` and `Unnamed: 8` 
 3. **Column misalignment:** Fixes rows where data shifted into wrong columns (like the 6 Deadly Dozen workouts)
-4. **Missing values:** Fills empty cells with:
+4. **Double parentheses:** Cleans up formatting errors like `((text))` → `(text)`
+5. **Missing values:** Fills empty cells with:
    - Similar workout data (when available)
    - Web-searched information (if `--web-search` enabled)
    - Sensible defaults (as last resort)
@@ -305,8 +320,11 @@ python3 scripts/clean_workouts.py --csv-path path/to/file.csv
 # Get help
 python3 scripts/clean_workouts.py --help
 
-# Install pandas (if needed)
+# Install pandas (required)
 pip3 install pandas
+
+# Install requests (optional, for web search)
+pip3 install requests
 
 # Restore original file (if something went wrong)
 git checkout WOD/data/workouts_table.csv

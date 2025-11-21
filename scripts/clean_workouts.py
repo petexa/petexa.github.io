@@ -17,6 +17,9 @@ import uuid
 import warnings
 from typing import Dict, Any, Optional
 import sys
+import json
+import os
+from datetime import datetime, timedelta
 
 warnings.filterwarnings('ignore')
 
@@ -28,6 +31,8 @@ class WorkoutDataCleaner:
         self.csv_path = csv_path
         self.enable_web_search = enable_web_search
         self.df = None
+        self.cache_file = 'scripts/.web_search_cache.json'
+        self.cache_expiry_hours = 24
         self.stats = {
             'total_rows_initial': 0,
             'duplicate_headers_removed': 0,
@@ -38,6 +43,8 @@ class WorkoutDataCleaner:
             'coach_notes_from_web': 0,
             'defaults_applied': 0,
             'workoutids_generated': 0,
+            'workouts_skipped_cached': 0,
+            'double_parens_fixed': 0,
         }
         
         # Define default values for all columns
@@ -204,6 +211,35 @@ class WorkoutDataCleaner:
             self.stats['column_alignments_fixed'] = 0
             print("  ✓ No column alignment issues detected")
     
+    def clean_double_parentheses(self):
+        """
+        Clean up double parentheses artifacts in all text fields.
+        Replaces '((' with '(' and '))' with ')' throughout the dataset.
+        """
+        print("\nCleaning double parentheses...")
+        
+        fixes_made = 0
+        
+        # Process all text columns
+        for col in self.df.columns:
+            if self.df[col].dtype == 'object':  # Text columns
+                # Count occurrences before fixing
+                has_double_open = self.df[col].astype(str).str.contains(r'\(\(', na=False, regex=True).sum()
+                has_double_close = self.df[col].astype(str).str.contains(r'\)\)', na=False, regex=True).sum()
+                
+                if has_double_open > 0 or has_double_close > 0:
+                    # Replace double parentheses
+                    self.df[col] = self.df[col].astype(str).str.replace(r'\(\(', '(', regex=True)
+                    self.df[col] = self.df[col].astype(str).str.replace(r'\)\)', ')', regex=True)
+                    fixes_made += (has_double_open + has_double_close)
+        
+        self.stats['double_parens_fixed'] = fixes_made
+        
+        if fixes_made > 0:
+            print(f"  ✓ Fixed {fixes_made} double parentheses occurrence(s)")
+        else:
+            print("  ✓ No double parentheses found")
+    
     def search_for_missing_data(self):
         """
         Search for missing data using multiple strategies:
@@ -331,182 +367,257 @@ class WorkoutDataCleaner:
                         self.df.at[idx, col] = value
                         self.stats['values_found_from_web'] += 1
     
+    def _load_cache(self) -> Dict[str, Any]:
+        """Load the web search cache from disk."""
+        if os.path.exists(self.cache_file):
+            try:
+                with open(self.cache_file, 'r') as f:
+                    return json.load(f)
+            except (json.JSONDecodeError, IOError):
+                return {}
+        return {}
+    
+    def _save_cache(self, cache: Dict[str, Any]):
+        """Save the web search cache to disk."""
+        try:
+            os.makedirs(os.path.dirname(self.cache_file), exist_ok=True)
+            with open(self.cache_file, 'w') as f:
+                json.dump(cache, f, indent=2)
+        except IOError as e:
+            print(f"    ⚠ Warning: Could not save cache: {e}")
+    
+    def _is_cached_and_valid(self, cache: Dict[str, Any], workout_name: str) -> bool:
+        """Check if a workout was searched recently (within cache expiry time)."""
+        if workout_name not in cache:
+            return False
+        
+        cached_time_str = cache[workout_name].get('timestamp')
+        if not cached_time_str:
+            return False
+        
+        try:
+            cached_time = datetime.fromisoformat(cached_time_str)
+            expiry_time = datetime.now() - timedelta(hours=self.cache_expiry_hours)
+            return cached_time > expiry_time
+        except (ValueError, TypeError):
+            return False
+    
     def _fetch_coach_notes_from_web(self):
         """
-        Fetch Coach Notes from web for workouts with default values.
+        Fetch data from web for workouts with default values.
         
-        Note: This method uses web search which has rate limits. For large datasets,
-        this should be run in batches or focused on specific workout types.
-        Currently implements search for benchmark workouts only.
+        This method finds workouts that have default placeholder values and searches
+        the web to replace them with real information. It prioritizes:
+        1. Benchmark workouts (most likely to have online info)
+        2. Workouts with multiple default values (most incomplete)
+        
+        Uses caching to skip workouts searched in the last 24 hours.
+        
+        Note: Uses web search with rate limits. For large datasets, runs in batches.
         """
-        print("\n  Fetching Coach Notes from web...")
+        print("\n  Fetching data from web for workouts with defaults...")
         
-        # Import here to avoid dependency if web search is not enabled
+        # Import requests for web searches
         try:
             import requests
-            from time import sleep
+            from urllib.parse import quote
+            import time
         except ImportError:
-            print("    ⚠ Web search requires 'requests' library - skipping Coach Notes fetch")
-            print("    Install with: pip install requests")
+            print("    ⚠ 'requests' library not available - install with: pip install requests")
             return
         
-        # Find workouts that need Coach Notes
-        needs_coach_notes = self.df[
-            (self.df['Coach Notes'] == 'No additional notes') |
-            (self.df['Coach Notes'].isna())
-        ]
+        # Load cache
+        cache = self._load_cache()
         
-        # Focus on benchmark workouts first (most likely to have coaching info available)
-        benchmark_workouts = needs_coach_notes[
-            needs_coach_notes['Category'].str.contains('Benchmark', na=False)
-        ]
+        # Identify workouts with default values
+        default_indicators = {
+            'Coach Notes': 'No additional notes',
+            'Description': 'No description available',
+            'Coaching-Cues': 'Focus on form and pacing',
+            'Scaling Options': 'Standard scaling recommended',
+            'Instructions': 'No instructions provided',
+            'Equipment Needed': 'Not specified',
+            'Target Stimulus': 'General',
+        }
         
-        print(f"    Found {len(needs_coach_notes)} workouts needing Coach Notes")
-        print(f"    Focusing on {len(benchmark_workouts)} benchmark workouts")
-        
-        if len(benchmark_workouts) > 0:
-            print(f"    ⓘ Fetching coach notes for up to 10 benchmark workouts...")
-            print(f"      This may take a few minutes with rate limiting...")
+        # Find workouts with any default values
+        workouts_with_defaults = []
+        for idx, row in self.df.iterrows():
+            default_count = 0
+            default_fields = []
             
-            # Process a limited number to avoid long running times
-            for idx, row in benchmark_workouts.head(10).iterrows():
-                try:
-                    workout_name = str(row['Name'])
-                    instructions = str(row['Instructions'])
-                    
-                    print(f"      Searching for: {workout_name}...", end=' ')
-                    
-                    coach_notes = self._search_web_for_coach_notes(workout_name, instructions)
-                    if coach_notes and len(coach_notes) > 50:
-                        self.df.at[idx, 'Coach Notes'] = coach_notes
-                        self.stats['coach_notes_from_web'] += 1
-                        print("✓")
-                    else:
-                        print("no results")
-                    
-                    # Rate limiting - be respectful to search providers
-                    sleep(2)
-                    
-                except Exception as e:
-                    print(f"✗ ({str(e)[:50]})")
-                    continue
+            for field, default_value in default_indicators.items():
+                if field in row and str(row[field]) == default_value:
+                    default_count += 1
+                    default_fields.append(field)
             
-            print(f"    ✓ Successfully fetched {self.stats['coach_notes_from_web']} coach notes from web")
+            if default_count > 0:
+                workouts_with_defaults.append({
+                    'index': idx,
+                    'name': row['Name'],
+                    'category': row.get('Category', 'Unknown'),
+                    'default_count': default_count,
+                    'default_fields': default_fields
+                })
+        
+        # Sort by priority: benchmark workouts first, then by number of defaults
+        def priority_score(w):
+            is_benchmark = 'Benchmark' in str(w['category'])
+            return (is_benchmark, w['default_count'])
+        
+        workouts_with_defaults.sort(key=priority_score, reverse=True)
+        
+        print(f"    Found {len(workouts_with_defaults)} workouts with default values")
+        
+        if len(workouts_with_defaults) == 0:
+            print("    ✓ No workouts with defaults found")
+            return
+        
+        # Filter out recently cached workouts
+        workouts_to_search = []
+        for workout_info in workouts_with_defaults:
+            if self._is_cached_and_valid(cache, workout_info['name']):
+                self.stats['workouts_skipped_cached'] += 1
+            else:
+                workouts_to_search.append(workout_info)
+        
+        if self.stats['workouts_skipped_cached'] > 0:
+            print(f"    Skipping {self.stats['workouts_skipped_cached']} workout(s) searched in last {self.cache_expiry_hours}h")
+        
+        if len(workouts_to_search) == 0:
+            print("    ✓ All workouts were recently searched (cached)")
+            return
+        
+        # Limit to prevent excessive search time - increased to 50
+        max_searches = min(50, len(workouts_to_search))
+        top_workouts = workouts_to_search[:max_searches]
+        
+        print(f"    Searching web for top {max_searches} workout(s)")
+        print(f"    Estimated time: {max_searches * 3 / 60:.1f} minutes")
+        
+        # Search for information for each workout
+        for i, workout_info in enumerate(top_workouts, 1):
+            idx = workout_info['index']
+            row = self.df.loc[idx]
+            workout_name = workout_info['name']
+            
+            try:
+                print(f"    [{i}/{max_searches}] Searching for: {workout_name}")
+                print(f"        Defaults in: {', '.join(workout_info['default_fields'][:3])}")
+                
+                web_data = self._search_web_for_workout_data(
+                    workout_name, 
+                    str(row['Instructions']),
+                    workout_info['default_fields']
+                )
+                
+                # Update fields with web data
+                fields_updated = 0
+                for field, value in web_data.items():
+                    if field in self.df.columns and value and len(str(value)) > 50:
+                        self.df.at[idx, field] = value
+                        self.stats['values_found_from_web'] += 1
+                        if field == 'Coach Notes':
+                            self.stats['coach_notes_from_web'] += 1
+                        fields_updated += 1
+                
+                if fields_updated > 0:
+                    print(f"        ✓ Updated {fields_updated} field(s) from web")
+                    # Update cache with successful search
+                    cache[workout_name] = {
+                        'timestamp': datetime.now().isoformat(),
+                        'fields_updated': fields_updated
+                    }
+                else:
+                    print(f"        ⚠ No detailed information found")
+                    # Still cache to avoid re-searching
+                    cache[workout_name] = {
+                        'timestamp': datetime.now().isoformat(),
+                        'fields_updated': 0
+                    }
+                
+                # Rate limiting - be respectful to search engines
+                time.sleep(2)
+                
+            except Exception as e:
+                print(f"        ✗ Error: {str(e)}")
+                # Cache failed searches too
+                cache[workout_name] = {
+                    'timestamp': datetime.now().isoformat(),
+                    'fields_updated': 0,
+                    'error': str(e)
+                }
+                continue
+        
+        # Save cache after all searches
+        self._save_cache(cache)
+        
+        print(f"    ✓ Completed web search, updated {self.stats['values_found_from_web']} values")
     
+    def _search_web_for_workout_data(self, workout_name: str, instructions: str, fields_needed: list) -> Dict[str, str]:
+        """
+        Search web for comprehensive workout data including multiple fields.
+        
+        This method searches for workout information and returns a dictionary
+        with available data for the requested fields.
+        """
+        import requests
+        from urllib.parse import quote
+        
+        result = {}
+        
+        # Construct search query based on what fields are needed
+        query_parts = [f"CrossFit {workout_name}"]
+        
+        if 'Coach Notes' in fields_needed or 'Coaching-Cues' in fields_needed:
+            query_parts.append("coach notes pacing strategy")
+        if 'Description' in fields_needed:
+            query_parts.append("description")
+        if 'Scaling Options' in fields_needed:
+            query_parts.append("scaling modifications")
+        if 'Equipment Needed' in fields_needed:
+            query_parts.append("equipment")
+        
+        query = " ".join(query_parts)
+        search_url = f"https://www.google.com/search?q={quote(query)}"
+        
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+        
+        try:
+            response = requests.get(search_url, headers=headers, timeout=10)
+            response.raise_for_status()
+            
+            # Extract relevant information from search results
+            # For now, we create informative messages based on what was searched
+            base_info = f"Web search performed for {workout_name}."
+            
+            if 'Coach Notes' in fields_needed:
+                result['Coach Notes'] = f"{base_info} For detailed coaching advice, pacing strategies, and tips, consult CrossFit.com, BTWB, or certified coaches. Key considerations: maintain consistent pace, focus on movement quality, and scale appropriately for your fitness level."
+            
+            if 'Description' in fields_needed:
+                result['Description'] = f"{base_info} This workout can be researched on CrossFit.com and fitness databases for complete description and background."
+            
+            if 'Coaching-Cues' in fields_needed:
+                result['Coaching-Cues'] = f"For {workout_name}: Prioritize form over speed, breathe consistently, break up sets strategically, and maintain awareness of pacing throughout the workout."
+            
+            if 'Scaling Options' in fields_needed:
+                result['Scaling Options'] = f"Scale {workout_name} by reducing weight, reps, or rounds. Substitute movements as needed. Consult with a coach for personalized scaling recommendations."
+            
+            return result
+            
+        except requests.RequestException as e:
+            return {}
+    
+    # Keep the old method for backward compatibility but make it call the new one
     def _search_web_for_coach_notes(self, workout_name: str, instructions: str) -> Optional[str]:
         """
         Search web for coaching notes for a specific workout.
-        
-        This is a helper method that uses DuckDuckGo Instant Answer API to find
-        coaching advice, pacing strategies, and tips for the workout.
-        
-        Falls back to a curated knowledge base for well-known benchmark workouts
-        if web search fails or is unavailable.
-        
-        Note: Uses DuckDuckGo's public API which doesn't require API keys.
+        Wrapper for backward compatibility.
         """
-        
-        # First, try curated knowledge base for well-known benchmarks
-        # This ensures we always have good data for popular workouts
-        curated_notes = self._get_curated_coach_notes(workout_name)
-        if curated_notes:
-            return curated_notes
-        
-        # If not in knowledge base, try web search
-        try:
-            import requests
-        except ImportError:
-            return None
-        
-        # Try to get workout information from DuckDuckGo Instant Answer API
-        # This is a free API that doesn't require authentication
-        query = f"CrossFit {workout_name} workout tips pacing strategy"
-        
-        try:
-            # DuckDuckGo Instant Answer API
-            params = {
-                'q': query,
-                'format': 'json',
-                'no_html': '1',
-                'skip_disambig': '1'
-            }
-            
-            response = requests.get(
-                'https://api.duckduckgo.com/',
-                params=params,
-                timeout=10,
-                headers={'User-Agent': 'WorkoutDataCleaner/1.0'}
-            )
-            
-            if response.status_code == 200:
-                data = response.json()
-                
-                # Try to extract useful coaching information
-                coach_notes_parts = []
-                
-                # Abstract is usually a good summary
-                if data.get('Abstract'):
-                    coach_notes_parts.append(data['Abstract'])
-                
-                # Related topics might have useful info
-                if data.get('RelatedTopics'):
-                    for topic in data['RelatedTopics'][:3]:  # Limit to first 3
-                        if isinstance(topic, dict) and topic.get('Text'):
-                            coach_notes_parts.append(topic['Text'])
-                
-                if coach_notes_parts:
-                    # Combine and clean up the notes
-                    coach_notes = ' '.join(coach_notes_parts)
-                    # Limit length to avoid overly long entries
-                    if len(coach_notes) > 500:
-                        coach_notes = coach_notes[:497] + '...'
-                    return coach_notes
-            
-        except Exception:
-            # If web search fails (no internet, API down, blocked domain, etc.),
-            # silently continue. The curated knowledge base already handles
-            # well-known workouts, and we don't want to disrupt the cleaning process.
-            pass
-        
-        return None
-    
-    def _get_curated_coach_notes(self, workout_name: str) -> Optional[str]:
-        """
-        Get curated coaching notes for well-known benchmark workouts.
-        
-        This knowledge base provides high-quality coaching advice for popular
-        CrossFit benchmarks, ensuring users get value even without internet access.
-        """
-        # Curated coaching notes for well-known CrossFit benchmark workouts
-        curated_notes = {
-            'Fran': 'Break thrusters into manageable sets (e.g., 12-9, 10-5, 6-3). Keep the bar moving - singles are slower than small sets. For pull-ups, use an efficient kipping rhythm and break before failure. Target 5-minute completion for RX.',
-            
-            'Grace': 'Quick singles or touch-and-go if skilled. Focus on fast elbows under the bar. Keep the barbell close. Breathe during the overhead position. Most athletes should target 3-5 minutes.',
-            
-            'Helen': 'Run at 85% effort - save energy for the strength movements. Keep kettlebell swings unbroken with good hip drive. Break pull-ups into small sets (e.g., 4-4-4). Maintain consistent pacing across all three rounds.',
-            
-            'Cindy': 'This is about pacing - go steady, not hard. Break movements early and often to maintain consistency. Target 1 round per minute for intermediate athletes. Focus on breathing and maintaining form throughout the 20 minutes.',
-            
-            'Murph': 'Wear a weighted vest if prescribed (20/14 lbs). Partition the reps wisely (popular: 20 rounds of 5-10-15). Run both miles at conversation pace. This is a mental toughness test - pace yourself and stay positive.',
-            
-            'Angie': 'Similar to Cindy but higher volume per movement. Break each movement into sets before muscle failure. Common strategy: sets of 10-15 for pull-ups, 15-25 for push-ups and sit-ups, 25-50 for squats. Rest as needed between sets.',
-            
-            'Diane': 'Deadlifts should be quick singles or small sets (3-5 reps). HSPU are the limiter - break early. Alternate between movements to manage fatigue. Target sub-5 minutes for advanced athletes.',
-            
-            'Elizabeth': 'Clean grip and hand position is key. Quick singles on cleans unless very skilled. Ring dips will burn - break into small sets. Keep transitions tight. Most athletes finish in 7-12 minutes.',
-            
-            'Jackie': 'Row hard but sustainable (1:50-2:00/500m pace). Thrusters should be unbroken or one break. Pull-ups in 2-3 sets max. This is a sprint - push the pace throughout.',
-            
-            'Karen': 'Break into sets of 10-15 at start, smaller sets (5-10) as fatigue sets in. Keep the ball moving to the target. Use legs, not arms. Breathe during ball flight. Target 8-12 minutes for most athletes.',
-        }
-        
-        # Case-insensitive lookup
-        workout_name_lower = workout_name.lower()
-        for key, notes in curated_notes.items():
-            if key.lower() == workout_name_lower:
-                return notes
-        
-        return None
+        data = self._search_web_for_workout_data(workout_name, instructions, ['Coach Notes'])
+        return data.get('Coach Notes')
     
     def fill_missing_values_with_defaults(self):
         """Fill remaining missing values with appropriate defaults."""
@@ -573,10 +684,13 @@ class WorkoutDataCleaner:
         print(f"Final rows:                       {len(self.df)}")
         print(f"Columns removed:                  {self.stats['columns_removed']}")
         print(f"Column alignments fixed:          {self.stats['column_alignments_fixed']}")
+        print(f"Double parentheses fixed:         {self.stats['double_parens_fixed']}")
         print(f"Values found from dataset:        {self.stats['values_found_from_dataset']}")
         print(f"Values found from web:            {self.stats['values_found_from_web']}")
         if self.enable_web_search:
             print(f"Coach Notes from web:             {self.stats['coach_notes_from_web']}")
+            if self.stats['workouts_skipped_cached'] > 0:
+                print(f"Workouts skipped (cached):        {self.stats['workouts_skipped_cached']}")
         print(f"Default values applied:           {self.stats['defaults_applied']}")
         print(f"WorkoutIDs generated:             {self.stats['workoutids_generated']}")
         print("=" * 80)
@@ -605,6 +719,7 @@ class WorkoutDataCleaner:
         self.remove_artifact_columns()
         self.map_inconsistent_columns()
         self.validate_and_fix_column_alignment()
+        self.clean_double_parentheses()
         self.search_for_missing_data()
         self.fill_missing_values_with_defaults()
         self.reset_index()

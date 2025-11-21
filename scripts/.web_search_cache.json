@@ -1,0 +1,802 @@
+{
+  "Deadly Dozen - Solo Run": {
+    "timestamp": "2025-11-21T20:28:08.337102",
+    "fields_updated": 0
+  },
+  "Deadly Dozen - Pairs Race": {
+    "timestamp": "2025-11-21T20:28:11.202353",
+    "fields_updated": 0
+  },
+  "Deadly Dozen - Deadly Row": {
+    "timestamp": "2025-11-21T20:28:14.102299",
+    "fields_updated": 0
+  },
+  "Deadly Dozen - Deadly Strong": {
+    "timestamp": "2025-11-21T20:28:16.945395",
+    "fields_updated": 0
+  },
+  "Deadly Dozen - DFT Run": {
+    "timestamp": "2025-11-21T20:28:19.915485",
+    "fields_updated": 0
+  },
+  "Deadly Dozen - DFT Team": {
+    "timestamp": "2025-11-21T20:28:23.007187",
+    "fields_updated": 0
+  },
+  "Havoc-52": {
+    "timestamp": "2025-11-21T20:28:26.047029",
+    "fields_updated": 3
+  },
+  "Viper-53": {
+    "timestamp": "2025-11-21T20:28:29.158089",
+    "fields_updated": 3
+  },
+  "Stormbreaker-54": {
+    "timestamp": "2025-11-21T20:28:32.241501",
+    "fields_updated": 3
+  },
+  "Hammerfall-55": {
+    "timestamp": "2025-11-21T20:28:35.287984",
+    "fields_updated": 3
+  },
+  "Havoc-56": {
+    "timestamp": "2025-11-21T20:28:38.341033",
+    "fields_updated": 3
+  },
+  "Stormbreaker-57": {
+    "timestamp": "2025-11-21T20:28:41.504767",
+    "fields_updated": 3
+  },
+  "Hammerfall-58": {
+    "timestamp": "2025-11-21T20:28:44.580782",
+    "fields_updated": 3
+  },
+  "Jaguar-59": {
+    "timestamp": "2025-11-21T20:28:47.711963",
+    "fields_updated": 3
+  },
+  "Ironwolf-60": {
+    "timestamp": "2025-11-21T20:28:51.072834",
+    "fields_updated": 3
+  },
+  "Reactor-61": {
+    "timestamp": "2025-11-21T20:28:54.072153",
+    "fields_updated": 3
+  },
+  "Jaguar-62": {
+    "timestamp": "2025-11-21T20:28:57.181004",
+    "fields_updated": 3
+  },
+  "Raptor-63": {
+    "timestamp": "2025-11-21T20:29:00.232621",
+    "fields_updated": 3
+  },
+  "Havoc-64": {
+    "timestamp": "2025-11-21T20:29:03.311293",
+    "fields_updated": 3
+  },
+  "Thunderbolt-65": {
+    "timestamp": "2025-11-21T20:29:06.358071",
+    "fields_updated": 3
+  },
+  "Rampage-66": {
+    "timestamp": "2025-11-21T20:29:09.393864",
+    "fields_updated": 3
+  },
+  "Rampage-67": {
+    "timestamp": "2025-11-21T20:29:12.386587",
+    "fields_updated": 3
+  },
+  "Viper-68": {
+    "timestamp": "2025-11-21T20:29:15.432107",
+    "fields_updated": 3
+  },
+  "Grinder-69": {
+    "timestamp": "2025-11-21T20:29:18.446072",
+    "fields_updated": 3
+  },
+  "Ironwolf-70": {
+    "timestamp": "2025-11-21T20:29:21.496030",
+    "fields_updated": 3
+  },
+  "Grinder-71": {
+    "timestamp": "2025-11-21T20:29:24.535584",
+    "fields_updated": 3
+  },
+  "Reactor-72": {
+    "timestamp": "2025-11-21T20:29:27.661884",
+    "fields_updated": 3
+  },
+  "Blaze-73": {
+    "timestamp": "2025-11-21T20:29:30.796969",
+    "fields_updated": 3
+  },
+  "Voltage-74": {
+    "timestamp": "2025-11-21T20:29:33.892446",
+    "fields_updated": 3
+  },
+  "Reactor-75": {
+    "timestamp": "2025-11-21T20:29:36.938886",
+    "fields_updated": 3
+  },
+  "Voltage-76": {
+    "timestamp": "2025-11-21T20:29:39.947218",
+    "fields_updated": 3
+  },
+  "Hammerfall-77": {
+    "timestamp": "2025-11-21T20:29:43.062381",
+    "fields_updated": 3
+  },
+  "Voltage-78": {
+    "timestamp": "2025-11-21T20:29:46.077267",
+    "fields_updated": 3
+  },
+  "Inferno-79": {
+    "timestamp": "2025-11-21T20:29:49.101688",
+    "fields_updated": 3
+  },
+  "Eclipse-80": {
+    "timestamp": "2025-11-21T20:29:52.143171",
+    "fields_updated": 3
+  },
+  "Thunderbolt-81": {
+    "timestamp": "2025-11-21T20:29:55.112200",
+    "fields_updated": 3
+  },
+  "Inferno-82": {
+    "timestamp": "2025-11-21T20:29:58.241044",
+    "fields_updated": 3
+  },
+  "Stormbreaker-83": {
+    "timestamp": "2025-11-21T20:30:01.422057",
+    "fields_updated": 3
+  },
+  "Hammerfall-84": {
+    "timestamp": "2025-11-21T20:30:04.457051",
+    "fields_updated": 3
+  },
+  "Phoenix-85": {
+    "timestamp": "2025-11-21T20:30:07.685293",
+    "fields_updated": 3
+  },
+  "Ironwolf-86": {
+    "timestamp": "2025-11-21T20:30:10.778506",
+    "fields_updated": 3
+  },
+  "Inferno-87": {
+    "timestamp": "2025-11-21T20:30:13.841942",
+    "fields_updated": 3
+  },
+  "Reactor-88": {
+    "timestamp": "2025-11-21T20:30:16.949170",
+    "fields_updated": 3
+  },
+  "Voltage-89": {
+    "timestamp": "2025-11-21T20:30:20.010247",
+    "fields_updated": 3
+  },
+  "Phoenix-90": {
+    "timestamp": "2025-11-21T20:30:23.166330",
+    "fields_updated": 3
+  },
+  "Havoc-91": {
+    "timestamp": "2025-11-21T20:30:26.282085",
+    "fields_updated": 3
+  },
+  "Stormbreaker-92": {
+    "timestamp": "2025-11-21T20:30:29.276787",
+    "fields_updated": 3
+  },
+  "Eclipse-93": {
+    "timestamp": "2025-11-21T20:30:32.184620",
+    "fields_updated": 3
+  },
+  "Stormbreaker-94": {
+    "timestamp": "2025-11-21T20:30:35.052666",
+    "fields_updated": 3
+  },
+  "Titan-95": {
+    "timestamp": "2025-11-21T20:30:37.922442",
+    "fields_updated": 3
+  },
+  "Voltage-96": {
+    "timestamp": "2025-11-21T20:30:55.984897",
+    "fields_updated": 3
+  },
+  "Havoc-97": {
+    "timestamp": "2025-11-21T20:30:58.866867",
+    "fields_updated": 3
+  },
+  "Reactor-98": {
+    "timestamp": "2025-11-21T20:31:01.741448",
+    "fields_updated": 3
+  },
+  "Thunderbolt-99": {
+    "timestamp": "2025-11-21T20:31:04.593972",
+    "fields_updated": 3
+  },
+  "Jaguar-100": {
+    "timestamp": "2025-11-21T20:31:07.465540",
+    "fields_updated": 3
+  },
+  "Ironwolf-101": {
+    "timestamp": "2025-11-21T20:31:10.349156",
+    "fields_updated": 3
+  },
+  "Nitro-102": {
+    "timestamp": "2025-11-21T20:31:13.213016",
+    "fields_updated": 3
+  },
+  "Eclipse-103": {
+    "timestamp": "2025-11-21T20:31:16.086477",
+    "fields_updated": 3
+  },
+  "Nitro-104": {
+    "timestamp": "2025-11-21T20:31:18.993443",
+    "fields_updated": 3
+  },
+  "Rampage-105": {
+    "timestamp": "2025-11-21T20:31:21.853097",
+    "fields_updated": 3
+  },
+  "Falcon-106": {
+    "timestamp": "2025-11-21T20:31:24.727261",
+    "fields_updated": 3
+  },
+  "Thunderbolt-107": {
+    "timestamp": "2025-11-21T20:31:27.643260",
+    "fields_updated": 3
+  },
+  "Cyclone-108": {
+    "timestamp": "2025-11-21T20:31:30.546559",
+    "fields_updated": 3
+  },
+  "Inferno-109": {
+    "timestamp": "2025-11-21T20:31:33.404423",
+    "fields_updated": 3
+  },
+  "Grinder-110": {
+    "timestamp": "2025-11-21T20:31:36.295907",
+    "fields_updated": 3
+  },
+  "Phoenix-111": {
+    "timestamp": "2025-11-21T20:31:39.165032",
+    "fields_updated": 3
+  },
+  "Stormbreaker-112": {
+    "timestamp": "2025-11-21T20:31:42.053564",
+    "fields_updated": 3
+  },
+  "Inferno-113": {
+    "timestamp": "2025-11-21T20:31:44.882788",
+    "fields_updated": 3
+  },
+  "Voltage-114": {
+    "timestamp": "2025-11-21T20:31:47.752274",
+    "fields_updated": 3
+  },
+  "Nitro-115": {
+    "timestamp": "2025-11-21T20:31:50.768967",
+    "fields_updated": 3
+  },
+  "Stormbreaker-116": {
+    "timestamp": "2025-11-21T20:31:53.633432",
+    "fields_updated": 3
+  },
+  "Jaguar-117": {
+    "timestamp": "2025-11-21T20:31:56.499070",
+    "fields_updated": 3
+  },
+  "Thunderbolt-118": {
+    "timestamp": "2025-11-21T20:31:59.416683",
+    "fields_updated": 3
+  },
+  "Voltage-119": {
+    "timestamp": "2025-11-21T20:32:02.307399",
+    "fields_updated": 3
+  },
+  "Nitro-120": {
+    "timestamp": "2025-11-21T20:32:05.176913",
+    "fields_updated": 3
+  },
+  "Blaze-121": {
+    "timestamp": "2025-11-21T20:32:08.088476",
+    "fields_updated": 3
+  },
+  "Thunderbolt-122": {
+    "timestamp": "2025-11-21T20:32:11.136556",
+    "fields_updated": 3
+  },
+  "Voltage-123": {
+    "timestamp": "2025-11-21T20:32:14.138411",
+    "fields_updated": 3
+  },
+  "Hammerfall-124": {
+    "timestamp": "2025-11-21T20:32:17.224953",
+    "fields_updated": 3
+  },
+  "Grinder-125": {
+    "timestamp": "2025-11-21T20:32:20.338312",
+    "fields_updated": 3
+  },
+  "Voltage-126": {
+    "timestamp": "2025-11-21T20:32:23.399696",
+    "fields_updated": 3
+  },
+  "Voltage-127": {
+    "timestamp": "2025-11-21T20:32:26.356287",
+    "fields_updated": 3
+  },
+  "Phoenix-128": {
+    "timestamp": "2025-11-21T20:32:29.392640",
+    "fields_updated": 3
+  },
+  "Viper-129": {
+    "timestamp": "2025-11-21T20:32:32.519125",
+    "fields_updated": 3
+  },
+  "Voltage-130": {
+    "timestamp": "2025-11-21T20:32:35.505043",
+    "fields_updated": 3
+  },
+  "Blaze-131": {
+    "timestamp": "2025-11-21T20:32:38.680679",
+    "fields_updated": 3
+  },
+  "Havoc-132": {
+    "timestamp": "2025-11-21T20:32:41.650342",
+    "fields_updated": 3
+  },
+  "Jaguar-133": {
+    "timestamp": "2025-11-21T20:32:44.611808",
+    "fields_updated": 3
+  },
+  "Thunderbolt-134": {
+    "timestamp": "2025-11-21T20:32:47.644275",
+    "fields_updated": 3
+  },
+  "Voltage-135": {
+    "timestamp": "2025-11-21T20:32:50.716262",
+    "fields_updated": 3
+  },
+  "Cyclone-136": {
+    "timestamp": "2025-11-21T20:32:53.733351",
+    "fields_updated": 3
+  },
+  "Raptor-137": {
+    "timestamp": "2025-11-21T20:32:56.754345",
+    "fields_updated": 3
+  },
+  "Reactor-138": {
+    "timestamp": "2025-11-21T20:32:59.886376",
+    "fields_updated": 3
+  },
+  "Havoc-139": {
+    "timestamp": "2025-11-21T20:33:02.882424",
+    "fields_updated": 3
+  },
+  "Eclipse-140": {
+    "timestamp": "2025-11-21T20:33:05.888929",
+    "fields_updated": 3
+  },
+  "Phoenix-141": {
+    "timestamp": "2025-11-21T20:33:09.208088",
+    "fields_updated": 3
+  },
+  "Raptor-142": {
+    "timestamp": "2025-11-21T20:33:12.255988",
+    "fields_updated": 3
+  },
+  "Hammerfall-143": {
+    "timestamp": "2025-11-21T20:33:15.349242",
+    "fields_updated": 3
+  },
+  "The Seven": {
+    "timestamp": "2025-11-21T20:33:18.443632",
+    "fields_updated": 2
+  },
+  "Running EMOM": {
+    "timestamp": "2025-11-21T20:33:21.652109",
+    "fields_updated": 2
+  },
+  "Weighted Isabel": {
+    "timestamp": "2025-11-21T20:34:30.287551",
+    "fields_updated": 2
+  },
+  "Thruster Ladder": {
+    "timestamp": "2025-11-21T20:34:33.142143",
+    "fields_updated": 2
+  },
+  "Dumbbell Trio": {
+    "timestamp": "2025-11-21T20:34:37.656010",
+    "fields_updated": 2
+  },
+  "Benchmark B": {
+    "timestamp": "2025-11-21T20:34:40.519432",
+    "fields_updated": 2
+  },
+  "Core Destroyer": {
+    "timestamp": "2025-11-21T20:34:43.355162",
+    "fields_updated": 2
+  },
+  "Kettlebell Swing & Goblet": {
+    "timestamp": "2025-11-21T20:34:46.208347",
+    "fields_updated": 2
+  },
+  "Heavy Deadlifts": {
+    "timestamp": "2025-11-21T20:34:49.073979",
+    "fields_updated": 2
+  },
+  "Running & Rowing": {
+    "timestamp": "2025-11-21T20:34:51.927122",
+    "fields_updated": 2
+  },
+  "Pressing Pyramid": {
+    "timestamp": "2025-11-21T20:34:54.774116",
+    "fields_updated": 2
+  },
+  "Partner Thruster": {
+    "timestamp": "2025-11-21T20:34:57.672513",
+    "fields_updated": 2
+  },
+  "Bike & Burpee": {
+    "timestamp": "2025-11-21T20:35:00.586503",
+    "fields_updated": 2
+  },
+  "The Chipper": {
+    "timestamp": "2025-11-21T20:35:03.570586",
+    "fields_updated": 2
+  },
+  "Dumbbell Devils": {
+    "timestamp": "2025-11-21T20:35:06.567722",
+    "fields_updated": 2
+  },
+  "Triple EMOM": {
+    "timestamp": "2025-11-21T20:35:09.608865",
+    "fields_updated": 2
+  },
+  "Dumbbell AMRAP": {
+    "timestamp": "2025-11-21T20:35:12.633587",
+    "fields_updated": 2
+  },
+  "Strict Gymnastics": {
+    "timestamp": "2025-11-21T20:35:15.646908",
+    "fields_updated": 2
+  },
+  "Running EMOM Deluxe": {
+    "timestamp": "2025-11-21T20:35:18.627809",
+    "fields_updated": 2
+  },
+  "Barbell & Bike AMRAP": {
+    "timestamp": "2025-11-21T20:35:21.793410",
+    "fields_updated": 2
+  },
+  "The Push/pull EMOM": {
+    "timestamp": "2025-11-21T20:35:24.837114",
+    "fields_updated": 2
+  },
+  "Overhead Carry AMRAP": {
+    "timestamp": "2025-11-21T20:35:27.793635",
+    "fields_updated": 2
+  },
+  "EMOM Of Thrusters": {
+    "timestamp": "2025-11-21T20:35:30.877521",
+    "fields_updated": 2
+  },
+  "Rowing Pyramid AMRAP": {
+    "timestamp": "2025-11-21T20:35:33.949136",
+    "fields_updated": 2
+  },
+  "Snatch Cycle AMRAP": {
+    "timestamp": "2025-11-21T20:35:37.039181",
+    "fields_updated": 2
+  },
+  "Partner AMRAP (alt Rounds)": {
+    "timestamp": "2025-11-21T20:35:39.958239",
+    "fields_updated": 2
+  },
+  "Heavy Dumbbell EMOM": {
+    "timestamp": "2025-11-21T20:35:42.947762",
+    "fields_updated": 2
+  },
+  "Gymnastics Chipper AMRAP": {
+    "timestamp": "2025-11-21T20:35:46.007849",
+    "fields_updated": 2
+  },
+  "Double-under EMOM": {
+    "timestamp": "2025-11-21T20:35:49.016525",
+    "fields_updated": 2
+  },
+  "3 Rounds Of AMRAP": {
+    "timestamp": "2025-11-21T20:35:52.062312",
+    "fields_updated": 2
+  },
+  "Bike & Box EMOM": {
+    "timestamp": "2025-11-21T20:35:55.225700",
+    "fields_updated": 2
+  },
+  "Kettlebell Swing AMRAP": {
+    "timestamp": "2025-11-21T20:35:58.578076",
+    "fields_updated": 2
+  },
+  "Bar Muscle-up EMOM": {
+    "timestamp": "2025-11-21T20:36:01.688532",
+    "fields_updated": 2
+  },
+  "The Long Haul": {
+    "timestamp": "2025-11-21T20:36:04.703440",
+    "fields_updated": 2
+  },
+  "Bear Complex EMOM": {
+    "timestamp": "2025-11-21T20:36:07.549687",
+    "fields_updated": 2
+  },
+  "Heavy Squats & Cardio": {
+    "timestamp": "2025-11-21T20:36:10.407759",
+    "fields_updated": 2
+  },
+  "The Triplet": {
+    "timestamp": "2025-11-21T20:36:13.266288",
+    "fields_updated": 2
+  },
+  "Death By Clean": {
+    "timestamp": "2025-11-21T20:36:16.107272",
+    "fields_updated": 2
+  },
+  "Strict Press Ladder": {
+    "timestamp": "2025-11-21T20:36:18.964112",
+    "fields_updated": 2
+  },
+  "Dumbbell Overhead": {
+    "timestamp": "2025-11-21T20:36:21.818478",
+    "fields_updated": 2
+  },
+  "Heavy Deadlift Chipper": {
+    "timestamp": "2025-11-21T20:36:24.677767",
+    "fields_updated": 2
+  },
+  "Wall Ball & Carry EMOM": {
+    "timestamp": "2025-11-21T20:36:27.502494",
+    "fields_updated": 2
+  },
+  "The Olympic Complex": {
+    "timestamp": "2025-11-21T20:36:30.379361",
+    "fields_updated": 2
+  },
+  "Barbell & Run AMRAP": {
+    "timestamp": "2025-11-21T20:36:33.268164",
+    "fields_updated": 2
+  },
+  "Interval Builder": {
+    "timestamp": "2025-11-21T20:36:36.142001",
+    "fields_updated": 2
+  },
+  "Heavy Thruster 10": {
+    "timestamp": "2025-11-21T20:36:39.006183",
+    "fields_updated": 2
+  },
+  "Kettlebell Swing & Burpee": {
+    "timestamp": "2025-11-21T20:36:41.846911",
+    "fields_updated": 2
+  },
+  "The Benchmark D": {
+    "timestamp": "2025-11-21T20:36:44.743921",
+    "fields_updated": 2
+  },
+  "Strict Pull EMOM": {
+    "timestamp": "2025-11-21T20:36:47.606490",
+    "fields_updated": 2
+  },
+  "Heavy Clean & Jerk": {
+    "timestamp": "2025-11-21T20:36:50.697427",
+    "fields_updated": 2
+  },
+  "Rope Climb & Row": {
+    "timestamp": "2025-11-21T20:36:53.577053",
+    "fields_updated": 2
+  },
+  "Barbell Conditioning": {
+    "timestamp": "2025-11-21T20:36:56.473817",
+    "fields_updated": 2
+  },
+  "Long Steady Distance": {
+    "timestamp": "2025-11-21T20:37:11.330745",
+    "fields_updated": 2
+  },
+  "Bike & Burpee Ladder": {
+    "timestamp": "2025-11-21T20:37:14.271737",
+    "fields_updated": 2
+  },
+  "Odd Object Carry EMOM": {
+    "timestamp": "2025-11-21T20:37:17.144445",
+    "fields_updated": 2
+  },
+  "Ski-erg Intervals": {
+    "timestamp": "2025-11-21T20:37:19.997896",
+    "fields_updated": 2
+  },
+  "High-volume Wall Balls": {
+    "timestamp": "2025-11-21T20:37:22.890991",
+    "fields_updated": 2
+  },
+  "Heavy Double Dumbbell": {
+    "timestamp": "2025-11-21T20:37:25.818746",
+    "fields_updated": 2
+  },
+  "Grip Destroyer AMRAP": {
+    "timestamp": "2025-11-21T20:37:28.840312",
+    "fields_updated": 2
+  },
+  "Barbell And Rope": {
+    "timestamp": "2025-11-21T20:37:31.976983",
+    "fields_updated": 2
+  },
+  "The Long Cardio Chipper": {
+    "timestamp": "2025-11-21T20:37:35.010410",
+    "fields_updated": 2
+  },
+  "Overhead Stamina": {
+    "timestamp": "2025-11-21T20:37:38.037518",
+    "fields_updated": 2
+  },
+  "Interval Mix": {
+    "timestamp": "2025-11-21T20:37:41.210251",
+    "fields_updated": 2
+  },
+  "Running & Air Squat": {
+    "timestamp": "2025-11-21T20:37:44.327047",
+    "fields_updated": 2
+  },
+  "Gymnastic Skill AMRAP": {
+    "timestamp": "2025-11-21T20:37:47.657392",
+    "fields_updated": 2
+  },
+  "Assault Bike EMOM": {
+    "timestamp": "2025-11-21T20:37:50.945950",
+    "fields_updated": 2
+  },
+  "Rope Climb & Kettlebell": {
+    "timestamp": "2025-11-21T20:37:53.940805",
+    "fields_updated": 2
+  },
+  "The Half Chipper": {
+    "timestamp": "2025-11-21T20:37:57.076094",
+    "fields_updated": 2
+  },
+  "Tempo Squat EMOM": {
+    "timestamp": "2025-11-21T20:38:00.193986",
+    "fields_updated": 2
+  },
+  "Dumbbell & Run": {
+    "timestamp": "2025-11-21T20:38:03.278184",
+    "fields_updated": 2
+  },
+  "Heavy Clean & Front Squat": {
+    "timestamp": "2025-11-21T20:38:06.342462",
+    "fields_updated": 2
+  },
+  "One Dumbbell Travel": {
+    "timestamp": "2025-11-21T20:38:09.359296",
+    "fields_updated": 2
+  },
+  "Kettlebell Kitchen": {
+    "timestamp": "2025-11-21T20:38:12.499530",
+    "fields_updated": 2
+  },
+  "EMOM Of Abs": {
+    "timestamp": "2025-11-21T20:38:15.538968",
+    "fields_updated": 2
+  },
+  "The Endurance Test": {
+    "timestamp": "2025-11-21T20:38:18.632208",
+    "fields_updated": 2
+  },
+  "The Skill Builder": {
+    "timestamp": "2025-11-21T20:38:21.757291",
+    "fields_updated": 2
+  },
+  "Double Under Challenge": {
+    "timestamp": "2025-11-21T20:38:24.877889",
+    "fields_updated": 2
+  },
+  "Partner Run": {
+    "timestamp": "2025-11-21T20:38:27.863326",
+    "fields_updated": 2
+  },
+  "Heavy Finisher": {
+    "timestamp": "2025-11-21T20:38:31.137816",
+    "fields_updated": 2
+  },
+  "Rower/bike Ladder": {
+    "timestamp": "2025-11-21T20:38:34.191699",
+    "fields_updated": 2
+  },
+  "The Ghost": {
+    "timestamp": "2025-11-21T20:38:37.265137",
+    "fields_updated": 2
+  },
+  "Gymnastic Endurance": {
+    "timestamp": "2025-11-21T20:38:40.320027",
+    "fields_updated": 2
+  },
+  "Unilateral Thruster": {
+    "timestamp": "2025-11-21T20:38:43.157617",
+    "fields_updated": 2
+  },
+  "Barbell 100": {
+    "timestamp": "2025-11-21T20:38:46.003992",
+    "fields_updated": 2
+  },
+  "Severin": {
+    "timestamp": "2025-11-21T20:38:48.871551",
+    "fields_updated": 2
+  },
+  "Chad": {
+    "timestamp": "2025-11-21T20:38:51.718012",
+    "fields_updated": 2
+  },
+  "Danny": {
+    "timestamp": "2025-11-21T20:38:54.604966",
+    "fields_updated": 2
+  },
+  "Randy": {
+    "timestamp": "2025-11-21T20:38:57.468775",
+    "fields_updated": 2
+  },
+  "Abbate": {
+    "timestamp": "2025-11-21T20:39:00.328960",
+    "fields_updated": 2
+  },
+  "Wittman": {
+    "timestamp": "2025-11-21T20:39:03.213936",
+    "fields_updated": 2
+  },
+  "Holleyman": {
+    "timestamp": "2025-11-21T20:39:06.102274",
+    "fields_updated": 2
+  },
+  "J.T.": {
+    "timestamp": "2025-11-21T20:39:08.961131",
+    "fields_updated": 2
+  },
+  "Luce": {
+    "timestamp": "2025-11-21T20:39:11.873597",
+    "fields_updated": 2
+  },
+  "The Lyon": {
+    "timestamp": "2025-11-21T20:39:14.706876",
+    "fields_updated": 2
+  },
+  "T.J.": {
+    "timestamp": "2025-11-21T20:39:17.572959",
+    "fields_updated": 2
+  },
+  "Bull": {
+    "timestamp": "2025-11-21T20:39:20.416097",
+    "fields_updated": 2
+  },
+  "Capoot": {
+    "timestamp": "2025-11-21T20:39:23.280037",
+    "fields_updated": 2
+  },
+  "Dillon": {
+    "timestamp": "2025-11-21T20:39:26.119819",
+    "fields_updated": 2
+  },
+  "Jack": {
+    "timestamp": "2025-11-21T20:39:28.956326",
+    "fields_updated": 2
+  },
+  "Mccoy": {
+    "timestamp": "2025-11-21T20:39:31.855570",
+    "fields_updated": 2
+  },
+  "Raskin": {
+    "timestamp": "2025-11-21T20:39:34.688173",
+    "fields_updated": 2
+  },
+  "Handstand Skill AMRAP": {
+    "timestamp": "2025-11-21T20:39:37.584166",
+    "fields_updated": 2
+  }
+}
