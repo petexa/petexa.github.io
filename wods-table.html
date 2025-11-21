@@ -450,9 +450,21 @@
         function setupEventListeners() {
           tableSearch.addEventListener('input', debounce(filterTable, 300));
 
-          // Add sort listeners to all headers
+          // Add sort listeners to all headers with keyboard support
           document.querySelectorAll('th[data-sort]').forEach(th => {
             th.addEventListener('click', () => sortTable(th.dataset.sort));
+            
+            // Add keyboard support for Enter and Space keys
+            th.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                sortTable(th.dataset.sort);
+              }
+            });
+            
+            // Make sortable headers focusable
+            th.setAttribute('tabindex', '0');
+            th.setAttribute('role', 'button');
           });
 
           // Setup modal listeners
@@ -699,6 +711,9 @@
           const modal = document.getElementById('workout-modal');
           const modalBody = document.getElementById('modal-body');
 
+          // Store the currently focused element to return focus later
+          modal.dataset.previousFocus = document.activeElement;
+
           modalBody.innerHTML = `
             <h2 id="modal-title">${escapeHtml(workout.name)}</h2>
             <div class="modal-badges">
@@ -732,6 +747,7 @@
         `;
 
           modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden', 'false');
           document.body.style.overflow = 'hidden';
 
           // Focus on close button for accessibility
@@ -742,7 +758,15 @@
         function closeModal() {
           const modal = document.getElementById('workout-modal');
           modal.style.display = 'none';
+          modal.setAttribute('aria-hidden', 'true');
           document.body.style.overflow = '';
+          
+          // Return focus to the element that opened the modal
+          const previousFocus = modal.dataset.previousFocus;
+          if (previousFocus && document.body.contains(document.querySelector(`[data-workout-id="${modal.dataset.previousFocus}"]`))) {
+            const btn = document.querySelector(`[data-workout-id="${previousFocus}"]`);
+            if (btn) btn.focus();
+          }
         }
 
         function setupModalListeners() {
