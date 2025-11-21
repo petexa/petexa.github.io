@@ -2,12 +2,9 @@ Movement,Type,Pattern,Skill_Level,MovementID
 Thruster,Weightlifting,Squat,Intermediate,1
 Pull-Up,Gymnastics,Pull,Intermediate,2
 Clean,Weightlifting,Hinge,Intermediate,3
-45 Kgs)).,General,General,Intermediate,4
 Run,Monostructural,Locomotion,Beginner,5
 Kettlebell Swing,Weightlifting,Hinge,Intermediate,6
-16 Kg),General,General,Intermediate,7
 Push-Up,Gymnastics,Push,Intermediate,8
-15 Squats.,General,General,Intermediate,9
 Wall Ball,Weightlifting,Squat,Intermediate,10
 5 Kgs)) For Time.,General,General,Intermediate,11
 5 Kgs)),General,General,Intermediate,12
@@ -60,7 +57,6 @@ Minute 1: 12,General,General,Intermediate,45
 10 Push Press ((45,Weightlifting,Push,Intermediate,59
 Odd Minutes: 12,General,General,Intermediate,60
 24 In).,General,General,Intermediate,61
-24 Kg),General,General,Intermediate,62
 15 Squats. Score Is Total Rounds,General,General,Intermediate,63
 Muscle-Up,Gymnastics,General,Intermediate,64
 50 Push Press ((45,Weightlifting,Push,Intermediate,65
@@ -71,12 +67,10 @@ Push Press) At (60,Weightlifting,Push,Intermediate,66
 50 Ft Dual Dumbbell Overhead Lunge ((25,General,General,Intermediate,70
 100 Kgs)),General,General,Intermediate,71
 5 Kgs)). Minute 2: 100 Ft Single Arm Farmer'S Carry ((30,General,General,Intermediate,72
-25 Kgs),General,General,Intermediate,73
 Right Arm). Minute 3: 100 Ft Single Arm Farmer'S Carry ((30,General,General,Intermediate,74
 10 Overhead Squats ((50,General,General,Intermediate,75
 35 Kgs)),General,General,Intermediate,76
 Dip,Weightlifting,Push,Intermediate,77
-35 Kgs)).,General,General,Intermediate,78
 15 Air Squats. Score Is Total Reps Accumulated.,General,General,Intermediate,79
 35 Kgs)). Scale Weight Down If You Fail To Complete 5 Reps Unbroken For The Minute.,General,General,Intermediate,80
 50 Push Presses ((35,Weightlifting,Push,Intermediate,81
@@ -86,16 +80,13 @@ Dip,Weightlifting,Push,Intermediate,77
 50 Walking Lunges,General,General,Intermediate,85
 1 Legless Rope Climb (Or 2 Standard),General,General,Intermediate,86
 5 Front Squats ((60,General,General,Intermediate,87
-5 Kgs)).,General,General,Intermediate,88
 50 Air Squats,General,General,Intermediate,89
 25 Strict Press ((35,Weightlifting,Push,Intermediate,90
-25 Kgs)).,General,General,Intermediate,91
 10 Calorie Bike,Monostructural,General,Beginner,92
 Odd Minutes: 100 Ft Sandbag,General,General,Intermediate,93
 Max Calorie Ski. Score Is Total Calories Accumulated Over 10 Working Minutes.,General,General,Intermediate,94
 5 Kgs)) In The First Round. Every Round,General,General,Intermediate,95
 15 Alternating V-Ups.,General,General,Intermediate,96
-16 Kg,General,General,Intermediate,97
 5 Per Arm),General,General,Intermediate,98
 Handstand,Gymnastics,Push,Intermediate,99
 Double-Under,Monostructural,General,Beginner,100
@@ -109,9 +100,7 @@ Kettlebell,Weightlifting,Hinge,Intermediate,107
 5 Back Squats ((60,General,General,Intermediate,108
 45 Kgs)) With A 3-Second Descent (Tempo 30X0).,General,General,Intermediate,109
 10 Dumbbell Overhead Lunges ((25,General,General,Intermediate,110
-15 Kgs),General,General,Intermediate,111
 10 Front Squats ((85,General,General,Intermediate,112
-60 Kgs)).,General,General,Intermediate,113
 10 Air Squats.,General,General,Intermediate,114
 10 V-Ups,General,General,Intermediate,115
 10 Alternating Pistol Squats (Or Assisted),General,General,Intermediate,116
@@ -132,16 +121,12 @@ With 10,General,General,Intermediate,119
 1000 Box Step-Ups (20 In).,General,General,Intermediate,131
 20 Push Presses ((50,Weightlifting,Push,Intermediate,132
 Jerk,Weightlifting,General,Intermediate,133
-50 Kgs)).,General,General,Intermediate,134
-70 Kgs)).,General,General,Intermediate,135
-10 Kgs),General,General,Intermediate,136
 1.5Pood).,General,General,Intermediate,137
 10 Barbell Lunges ((85,Weightlifting,General,Intermediate,138
 50 Overhead Squats ((60,General,General,Intermediate,139
 50 Dumbbell Push Press ((20,Weightlifting,Push,Intermediate,140
 10 Push Presses ((50,Weightlifting,Push,Intermediate,141
 30 Overhead Squats ((45,General,General,Intermediate,142
-30 Kgs)).,General,General,Intermediate,143
 10 Pistol Squats (Alternating),General,General,Intermediate,144
 8 Rounds Of: 20 Seconds Work,General,General,Intermediate,145
 25 Kgs)). Score Is Total Reps.,General,General,Intermediate,146
@@ -166,7 +151,6 @@ Odd: 15,General,General,Intermediate,163
 1 Minute Max Rep Air Squats. 1 Minute Rest Between Rounds.,General,General,Intermediate,165
 5 Overhead Squats ((45,General,General,Intermediate,166
 3 Rope Climbs (Legless Optional),General,General,Intermediate,167
-10 Kgs)).,General,General,Intermediate,168
 20 Walking Lunges (Per Leg),General,General,Intermediate,169
 Odd: 100 Ft Overhead Barbell Walk (Light,Weightlifting,General,Intermediate,170
 100 Air Squats,General,General,Intermediate,171

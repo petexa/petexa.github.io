@@ -1,0 +1,31 @@
+============================================================
+WOD DATASET VALIDATION REPORT
+============================================================
+
+✓ VALIDATION PASSED
+
+Errors:   0
+Warnings: 2
+Fixes:    1
+
+------------------------------------------------------------
+DATASET STATISTICS
+------------------------------------------------------------
+Workouts:  500
+Movements: 307
+Equipment: 104
+Workout-Movement mappings: 1491
+Movement-Equipment mappings: 800
+
+------------------------------------------------------------
+WARNINGS
+------------------------------------------------------------
+1. Workouts with suspiciously short instructions: ['Long EMOM Row', 'Running Ski Repeater', 'Deadly Dozen - DFT Run', 'Deadly Dozen - DFT Team']
+2. Instructions may lack movement keywords: ['Helen', 'Fight Gone Bad', 'Bodyweight Blast', 'The Seven', 'Running EMOM']
+
+------------------------------------------------------------
+FIXES APPLIED
+------------------------------------------------------------
+1. Normalized formatting in 193 workout instructions
+
+============================================================
