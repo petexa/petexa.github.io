@@ -1,8 +1,15 @@
 /* WODs Database Styles */
 
+/* Override main grid layout for WODs page */
+main {
+    display: block;
+    max-width: none;
+    padding: 0;
+}
+
 /* Search and Filter Section */
 .search-filter-section {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 2rem auto;
     padding: 0 2rem;
 }
@@ -162,11 +169,17 @@
 /* WODs Grid */
 .wods-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem 2rem;
+}
+
+@media (max-width: 1200px) {
+    .wods-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .wod-card {

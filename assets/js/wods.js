@@ -95,7 +95,7 @@
         try {
             wodsGrid.innerHTML = '<div class="loading"><i class="fa-solid fa-spinner"></i><p>Loading workouts...</p></div>';
             
-            const response = await fetch('wods/wods-table.csv');
+            const response = await fetch('WOD/data/workouts_table.csv');
             if (!response.ok) throw new Error('Failed to load workouts');
             
             const csvText = await response.text();
