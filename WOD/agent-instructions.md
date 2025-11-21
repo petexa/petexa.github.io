@@ -151,7 +151,8 @@ Many-to-many relationship linking movements to equipment.
 ### Artifact Removal (Auto-Fix Safe)
 
 1. **Movement Library Artifacts**
-   - Remove entries matching regex patterns for weight specifications (e.g., `^\d+\s*(Kgs?|lbs?)\)\)?\.?$`)
+   - Remove entries matching regex patterns for weight specifications
+   - Pattern examples: weight-only entries like "45 Kgs", "16 Kg)", "25 Kgs)"
    - Remove entries that are just numbers with weight units
    - Remove incomplete entries like "15 Squats." without proper movement name
    - Log all removals in `dist/cleaning_changes.log`
@@ -212,8 +213,13 @@ Many-to-many relationship linking movements to equipment.
 ### Example: Adding a New Workout
 
 ```csv
-# workouts_table.csv
-501,New Workout Name,For Time,Complete 5 rounds for time: 10 Push-Ups 20 Air Squats 30 Sit-Ups,Beginner,...
+# Simplified example showing key columns only (actual CSV has 44 columns)
+# Key columns: WorkoutID, Name, Category, Instructions, DifficultyTier
+
+# workouts_table.csv (showing key fields)
+WorkoutID=501, Name="New Workout Name", Category="For Time", 
+Instructions="Complete 5 rounds for time: 10 Push-Ups, 20 Air Squats, 30 Sit-Ups", 
+DifficultyTier="Beginner"
 
 # workout_movement_map.csv
 501,45,10  # Push-Up
