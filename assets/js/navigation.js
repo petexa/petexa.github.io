@@ -42,7 +42,7 @@
     return `
             <!-- Navigation Button -->
             <button id="nav-beer-btn" class="nav-beer-btn" aria-label="Open navigation menu" aria-expanded="false">
-                <i class="fa-solid fa-beer-mug-empty" aria-hidden="true"></i>
+                <span class="beer-emoji" aria-hidden="true">🍺</span>
             </button>
 
             <!-- Navigation Dropdown Menu -->
@@ -83,10 +83,24 @@
                 outline-offset: 2px;
             }
 
-            .nav-beer-btn i {
+            .beer-emoji {
                 font-size: 40px;
-                color: #dc3545; /* Red beer mug icon */
+                display: inline-block;
                 filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+                transition: transform 0.6s ease;
+            }
+
+            .beer-emoji.spin {
+                animation: spin 0.6s ease;
+            }
+
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
             }
 
             /* Dropdown menu */
@@ -244,7 +258,15 @@
     }
 
     // Event listeners
-    beerBtn.addEventListener('click', toggleDropdown);
+    beerBtn.addEventListener('click', function() {
+      // Add spin animation
+      const beerEmoji = beerBtn.querySelector('.beer-emoji');
+      if (beerEmoji) {
+        beerEmoji.classList.add('spin');
+        setTimeout(() => beerEmoji.classList.remove('spin'), 600);
+      }
+      toggleDropdown();
+    });
 
     // Close when clicking outside
     document.addEventListener('click', function (e) {
