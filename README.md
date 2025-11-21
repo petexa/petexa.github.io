@@ -1,49 +1,93 @@
-# Bootcamp Events Website
+# IDFit Events & WODs Database
 
-A dynamic events calendar website for fitness and race events. This site displays upcoming events with countdown timers, allows users to book events, and provides calendar reminders.
+A comprehensive fitness website featuring an events calendar and a searchable workout (WODs) database. The site displays upcoming fitness events with countdown timers and provides access to hundreds of CrossFit-style workouts with detailed information.
 
 **Tagline**: *Sets and reps. Cheers and beers. That's the program*
 
 ## 🌟 Features
 
-- **Fixed Header Design**: Static header with torn page effect stays at the top while content scrolls
-- **Dynamic Event Loading**: Events are loaded from individual JSON files for easy management with robust error handling
-- **Event Countdown**: Real-time countdown timers for upcoming events (updates every minute)
-- **Calendar Integration**: Download .ics files with sanitized filenames to add events to your calendar
-- **Responsive Design**: Mobile-friendly layout that works on all devices
-- **Accessibility**: Skip-to-content link, keyboard navigation, ARIA labels, and screen reader support
-- **Past Events Archive**: Browse through previously completed events
-- **Event Highlighting**: Next upcoming event is highlighted with a special border
-- **Robust Error Handling**: Gracefully handles partial event loading failures
-- **Security**: All external links use `rel="noopener noreferrer"` for security
+### Events Calendar
+- **Dynamic Event Loading**: Events loaded from individual JSON files for easy management
+- **Event Countdown**: Real-time countdown timers for upcoming events
+- **Calendar Integration**: Download .ics files to add events to your calendar
+- **Past Events Archive**: Browse previously completed events
+- **Event Highlighting**: Next upcoming event highlighted with special border
+
+### WODs Database
+- **500+ Workouts**: Comprehensive database of CrossFit-style workouts
+- **Multiple Views**: Card view, table view, and advanced search interface
+- **Detailed Information**: Coach notes, descriptions, scaling options, equipment needed
+- **Random Workouts**: Get 6 random workouts in card view, refresh for more
+- **Advanced Search**: Filter by workout type, duration, equipment, movements, and more
+- **Sortable Table**: Sort by name, type, duration, or rounds
+- **Equipment Tracking**: See required equipment for each workout
+- **Movement Library**: Browse all movements used across workouts
+
+### Technical Features
+- **Fixed Compact Header**: Minimal header with torn page effect stays at top
+- **Responsive Design**: Mobile-friendly layout for all devices
+- **Accessibility**: WCAG compliant with keyboard navigation and screen reader support
+- **Security**: All external links use `rel="noopener noreferrer"`
+- **Robust Error Handling**: Gracefully handles loading failures
 
 ## 📁 Project Structure
 
 ```
 petexa.github.io/
-├── index.html              # Main page showing upcoming events
-├── past-events.html        # Archive page for past events
-├── assets/                 # Static assets
+├── index.html              # Main events calendar page
+├── past-events.html        # Archive of past events
+├── wods.html              # Random WODs card view
+├── wods-table.html        # Sortable WODs table view
+├── timers.html            # Workout timers page
+├── 24hr-workout.html      # Special 24-hour workout event
+├── assets/                # Static assets
 │   ├── css/
-│   │   └── styles.css      # Main stylesheet
+│   │   ├── styles.css     # Main stylesheet
+│   │   ├── wods.css       # WODs-specific styles
+│   │   └── past-events.css
 │   └── js/
-│       ├── utils.js        # Utility functions (slugify, ICS generation, etc.)
-│       └── main.js         # Main application logic
-├── events/                 # Event data directory
-│   ├── events-list.json    # List of all event JSON files
-│   ├── *.json              # Individual event data files
-│   └── README.md           # Guide for adding new events
-├── images/                 # Image assets
-└── README.md               # This file
+│       ├── main.js        # Events page logic
+│       ├── wods.js        # WODs database logic
+│       ├── timers.js      # Timer functionality
+│       ├── navigation.js  # Site navigation
+│       ├── footer.js      # Footer component
+│       └── utils.js       # Shared utilities
+├── events/                # Event data
+│   ├── events-list.json   # Master event list
+│   ├── *.json             # Individual event files
+│   └── README.md          # Events documentation
+├── WOD/                   # Workout database
+│   ├── data/
+│   │   ├── workouts_table.csv      # Main workout data
+│   │   ├── movement_library.csv    # Movement definitions
+│   │   ├── equipment_library.csv   # Equipment catalog
+│   │   └── *_map.csv              # Relationship tables
+│   ├── dist/              # Generated web data
+│   ├── scripts/
+│   │   └── validate_and_build.py  # Data validation
+│   ├── search.html        # Advanced workout search
+│   └── README.md          # WODs documentation
+├── scripts/               # Data management scripts
+│   ├── clean_workouts.py  # Workout data cleaning with web search
+│   └── README.md          # Scripts documentation
+└── images/                # Image assets
 ```
 
 ## 🚀 Getting Started
 
 ### Viewing the Website
 
-Simply open `index.html` in a web browser, or visit the live site at: [https://petexa.github.io/](https://petexa.github.io/)
+Visit the live site at: [https://gym.petefox.co.uk/](https://gym.petefox.co.uk/)
 
-### Local Development and Testing
+**Pages:**
+- **Events Calendar**: `/index.html` - Upcoming fitness events
+- **Past Events**: `/past-events.html` - Event archive
+- **Random WODs**: `/wods.html` - 6 random workouts (refresh for more)
+- **WODs Table**: `/wods-table.html` - Sortable workout database
+- **Advanced Search**: `/WOD/search.html` - Filter and search workouts
+- **Timers**: `/timers.html` - EMOM, Tabata, and AMRAP timers
+
+### Local Development
 
 To test locally with a simple HTTP server:
 
@@ -54,186 +98,202 @@ python3 -m http.server 8000
 # Then open http://localhost:8000 in your browser
 ```
 
-Or use any other static file server like `live-server`, `http-server`, or VS Code's Live Server extension.
+### WODs Database Management
 
-### Testing Event Loading
+The workout database uses Python scripts for data cleaning and validation:
 
-To test the robust error handling:
-1. Temporarily rename one of the event JSON files (e.g., add `.disabled` extension)
-2. Refresh the page
-3. You should see a toast message: "Some events failed to load; showing available events."
-4. The other events should still display correctly
+```bash
+# Clean and enhance workout data (includes web search for missing info)
+python3 scripts/clean_workouts.py --web-search
 
-### Testing Calendar Downloads
+# Validate and build the database
+python3 WOD/validate_and_fix.py
 
-1. Click the "Remind Me" button on any event card
-2. A `.ics` file should download with a sanitized filename (e.g., `24-hour-work-out.ics`)
-3. Import the file into your calendar app (Google Calendar, Outlook, Apple Calendar, etc.)
-4. Verify the event details are correct
+# View detailed documentation
+cat WOD/README.md
+cat scripts/README.md
+```
 
 ### Adding a New Event
 
-1. **Create a new JSON file** in the `events/` directory (e.g., `my-event.json`)
+See [events/README.md](events/README.md) for detailed instructions on adding events.
 
-2. **Use this template** for your event data:
+### Adding or Editing Workouts
 
-```json
-{
-  "name": "Event Name",
-  "date": "2026-12-31T10:00:00",
-  "link": "https://event-website.com",
-  "image": "https://example.com/image.jpg",
-  "description": "Brief description of the event",
-  "calendarDetails": {
-    "location": "Event Location",
-    "description": "Detailed description for calendar",
-    "durationHours": 4
-  },
-  "showMoreInfo": true,
-  "showBookNow": false,
-  "showRemindMe": true
-}
-```
+See [WOD/README.md](WOD/README.md) for comprehensive documentation on the workout database structure and management.
 
-3. **Add your event file** to `events/events-list.json`:
+## 🏋️ WODs Database Details
 
-```json
-[
-  "events/existing-event.json",
-  "events/my-event.json"
-]
-```
+### Database Structure
 
-4. **Refresh the page** - Your event will automatically appear!
+The workout database is built on a relational model with CSV files:
 
-For more detailed instructions, see the [events/README.md](events/README.md) file.
+- **workouts_table.csv**: Main workout data (499 workouts)
+- **movement_library.csv**: All movements/exercises used
+- **equipment_library.csv**: Equipment catalog
+- **workout_movement_map.csv**: Links workouts to movements
+- **movement_equipment_map.csv**: Links movements to equipment
 
-## 🎨 Customization
+### Data Cleaning & Web Search
+
+The `scripts/clean_workouts.py` script provides:
+- Automated data cleaning (double parentheses, whitespace, etc.)
+- Web search functionality to find missing workout details
+- Intelligent prioritization (benchmark workouts first)
+- 24-hour caching to avoid re-searching
+- Processes up to 50 workouts per run
+
+### Workout Information
+
+Each workout includes:
+- **Name**: Workout title (e.g., "Murph", "Fran")
+- **Type**: Benchmark, Hero, Girls, For Time, AMRAP, EMOM, etc.
+- **Description**: What the workout entails
+- **Coach Notes**: Tips and guidance
+- **Scaling Options**: Modifications for different skill levels
+- **Equipment Needed**: Required gear
+- **Movements**: Exercises included
+- **Duration/Rounds**: Time or round specifications
+
+## 🎨 Design
 
 ### Header Design
 
-The site features a fixed header with a black background and torn page effect:
+- **Compact Fixed Header**: 32px height (30px mobile) with minimal padding
+- **Black Background**: `#202023`
+- **Torn Page Effect**: SVG tear effect positioned directly below header
+- **Typography**: 1.25rem header font (1.1rem mobile)
 
-- **Header Background**: `#000` (Black)
-- **Fixed Positioning**: Header stays at the top while content scrolls beneath it
-- **Torn Page Effect**: Uses `images/scratch-black-top-04.svg` below the header for a paper tear visual
-- **Tagline**: "Sets and reps. Cheers and beers. That's the program"
+### Color Scheme
 
-### Styling
+- **Primary Red**: `#d32f2f` - Buttons and accents
+- **Success Green**: `#23bb57` - Next event highlight
+- **Accent Blue**: `#80affe` - Secondary accents
+- **Dark Background**: `#202023` - Header and footer
+- **Light Background**: `#f8f9fa` - Page background
 
-All styles are now in `assets/css/styles.css` for easy maintenance. Key style variables:
+### Typography
 
-- **Primary Background**: `#000080` (Navy Blue)
-- **Header Background**: `#000` (Black)
-- **Highlight Color**: `#23bb57` (Green) - for next event
-- **Button Colors**: Various blues and oranges
-- **Font**: Montserrat (loaded from Google Fonts)
+- **Font Family**: Montserrat (Google Fonts)
+- **Header**: 1.25rem, weight 600
+- **Body**: 1rem, weight 400
+- **Compact Design**: Minimal line-height for tight spacing
 
-### Event Display Options
+## 📅 Site Pages
 
-Each event can be customized with these boolean flags:
+### Events Calendar (index.html)
+- Displays upcoming fitness and race events
+- Real-time countdown timers
+- Next event highlighted with green border
+- Calendar download (.ics) for reminders
+- Links to event booking pages
 
-- `showMoreInfo`: Display "More Info" button (default: true)
-- `showBookNow`: Display "Book Now" button (default: false)
-- `showRemindMe`: Display calendar download button (default: true)
+### Past Events Archive (past-events.html)
+- Historical event archive
+- Sorted by date (most recent first)
+- "Event Completed" status indicators
+- Links to event information
 
-## 📅 Event Management
+### Random WODs (wods.html)
+- Shows 6 random workouts from the database
+- Refresh page to see different workouts
+- Card-based layout with full workout details
+- Equipment and movement information
 
-### Event States
+### WODs Table (wods-table.html)
+- Complete workout database in sortable table format
+- Click column headers to sort
+- View all 499+ workouts at once
+- Quick scanning and comparison
 
-Events automatically display in different states:
+### Advanced Search (WOD/search.html)
+- Filter by workout type (Benchmark, Hero, Girls, etc.)
+- Filter by duration or rounds
+- Search by equipment needed
+- Search by movement/exercise
+- Text search across all fields
 
-1. **Upcoming Events**: Normal display with countdown timer
-2. **Next Event**: Highlighted with green border (closest future event)
-3. **Past Events**: Grayed out and filtered on the main page
-4. **Past Events Archive**: Available on the separate past-events.html page
+### Timers (timers.html)
+- EMOM (Every Minute On the Minute) timer
+- Tabata timer (20s work / 10s rest)
+- AMRAP (As Many Rounds As Possible) timer
+- Customizable intervals
 
-### Automatic Features
+## 🛠️ Technical Stack
 
-- Events are automatically sorted by date
-- Countdown timers update every second
-- Past events are automatically detected
-- The next upcoming event is automatically highlighted
-
-## 🛠️ Technical Details
-
-### Technologies Used
-
+### Frontend
 - **HTML5**: Semantic markup with accessibility features
-- **CSS3**: Modern styling with flexbox and focus-visible support
+- **CSS3**: Modern styling with CSS custom properties, flexbox, grid
 - **JavaScript (ES6+)**: Modular code with dynamic content loading
-- **Font Awesome 6**: Icons
-- **Google Fonts**: Roboto font family
+- **Font Awesome 6**: Icon library
+- **Google Fonts**: Montserrat typography
 
-### Browser Compatibility
+### Backend/Data
+- **Python 3**: Data processing and validation scripts
+- **Pandas**: CSV data manipulation
+- **Requests**: Web scraping for missing workout data
+- **JSON/CSV**: Data storage formats
 
-The site works on all modern browsers including:
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+### Deployment
+- **GitHub Pages**: Static site hosting
+- **Git**: Version control
+- **No build tools required**: Pure static site for simplicity
 
-### Performance & Robustness
+### Key Technologies
+- `Promise.allSettled()` for fault-tolerant data loading
+- Blob API for calendar file generation
+- LocalStorage for timer preferences
+- CSS Grid and Flexbox for responsive layouts
+- Intersection Observer for performance optimization
 
-- Events loaded asynchronously with `Promise.allSettled()` for fault tolerance
-- Images lazy-loaded with `loading="lazy"`
-- Countdown updates optimized to run once per minute (not every second)
-- Stable event IDs generated from event name and date
-- Safe DOM manipulation using `textContent` to prevent XSS
-- ICS files generated using Blob API for reliable downloads
-- No build tools or dependencies required - pure static site
+## ♿ Accessibility
 
-### Accessibility Features
-
-- **Skip-to-content link**: First focusable element for keyboard users
-- **ARIA labels**: Descriptive labels for screen readers
-- **Focus-visible**: Clear focus indicators for keyboard navigation
-- **Semantic HTML**: Proper use of header, main, footer, section elements
-- **Live regions**: Toast notifications announced by screen readers
-- **Color contrast**: WCAG compliant button and text colors
-
-## 📱 Pages
-
-### Main Page (index.html)
-
-- Displays all upcoming and recent events
-- Shows countdown timers for future events
-- Highlights the next upcoming event
-- Past events are grayed out but visible
-- Link to Past Events archive in footer
-
-### Past Events (past-events.html)
-
-- Archive of all completed events
-- Events sorted by date (most recent first)
-- Shows "Event Completed" status
-- "More Info" button to learn about past events
-- Link back to main page
+- **WCAG 2.1 AA Compliant**: Meets accessibility standards
+- **Keyboard Navigation**: Full site accessible via keyboard
+- **Screen Reader Support**: ARIA labels and live regions
+- **Skip Links**: Jump to main content
+- **Focus Indicators**: Clear visual focus states
+- **Semantic HTML**: Proper heading hierarchy and landmarks
+- **Color Contrast**: AAA compliant text contrast ratios
+- **Alt Text**: Descriptive alternative text for images
 
 ## 🤝 Contributing
 
-To contribute to this project:
+### Adding Events
+1. Create event JSON file in `events/` directory
+2. Add to `events/events-list.json`
+3. Commit and push changes
 
-1. Add or modify event JSON files in the `events/` directory
-2. Update `events/events-list.json` to include new events
-3. Test changes locally by opening `index.html` in a browser
-4. Commit changes to the repository
+### Managing Workouts
+1. Edit CSV files in `WOD/data/`
+2. Run validation: `python3 WOD/validate_and_fix.py`
+3. Clean data: `python3 scripts/clean_workouts.py --web-search`
+4. Review validation report and commit changes
+
+### Code Contributions
+1. Fork the repository
+2. Create a feature branch
+3. Test changes locally
+4. Submit a pull request
+
+## 📝 Documentation
+
+- **[Events README](events/README.md)**: Event management guide
+- **[WOD README](WOD/README.md)**: Workout database documentation
+- **[Scripts README](scripts/README.md)**: Data cleaning script guide
+- **[Data Dictionary](WOD/data_dictionary.md)**: Database schema reference
 
 ## 📄 License
 
-This project is maintained by the Bootcamp Events team.
+This project is maintained by IDFit / Pete Fox.
 
 ## 📞 Contact
 
-Have an event to add? [Contact us](mailto:gym@petefox.co.uk)
-
-Follow us on social media:
-- Facebook
-- Instagram
-- X (Twitter)
+- **Email**: [gym@petefox.co.uk](mailto:gym@petefox.co.uk)
+- **Website**: [https://gym.petefox.co.uk/](https://gym.petefox.co.uk/)
 
 ---
 
-**Last Updated**: 2025
+**Last Updated**: November 2025
 
 *Built with ❤️ for the fitness community*
