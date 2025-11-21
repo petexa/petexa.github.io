@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Search and explore the complete WOD dataset. Browse 500+ workouts with advanced filtering by name, movements, stimulus, and tags.">
+<meta property="og:title" content="WOD Dataset Search - Bootcamp Events">
+<meta property="og:description" content="Searchable database of 500+ CrossFit-style workouts">
+<meta property="og:type" content="website">
+<title>WOD Dataset Search - Bootcamp Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/wods.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Bootcamp Events - WOD Dataset Search",
+  "description": "Search and explore 500+ CrossFit-style workouts"
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#wods-content">Skip to content</a>
+<header>
+    <h1>WOD Dataset Search</h1>
+    <div class="subtitle">6 Random Workouts - Refresh for More!</div>
+</header>
+<div class="header-tear">
+    <img src="../images/scratch-black-top-04.svg" alt="" aria-hidden="true">
+</div>
+
+<main id="wods-content">
+    <!-- Search and Filter Section -->
+    <section class="search-filter-section">
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="search-input" placeholder="Search by name, movements, stimulus, tags..." aria-label="Search workouts">
+        </div>
+        
+        <div class="results-info">
+            <span id="results-count">Loading workouts...</span>
+            <a href="data/workouts_table.csv" class="btn-view-dataset" download>
+                <i class="fa-solid fa-table"></i> View Full Dataset
+            </a>
+        </div>
+    </section>
+
+    <!-- WODs Grid -->
+    <section id="wods-grid" class="wods-grid" aria-live="polite">
+        <!-- Workout cards will be inserted here by JavaScript -->
+    </section>
+</main>
+
+<!-- Workout Detail Modal -->
+<div id="workout-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none;">
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div id="modal-body">
+            <!-- Workout details will be inserted here -->
+        </div>
+    </div>
+</div>
+
+<footer>
+  <div style="margin-top: 15px;">
+    &copy; <span id="footerYear"></span> Have an event? <a href="mailto:gym@petefox.co.uk" style="color:#fff;text-decoration:underline;">Contact us</a>
+  </div>
+  <div class="footer-links">
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" aria-label="Facebook (opens in new tab)"><i class="fab fa-facebook"></i></a>
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram (opens in new tab)"><i class="fab fa-instagram"></i></a>
+    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)" aria-label="Twitter/X (opens in new tab)"><i class="fab fa-x-twitter"></i></a>
+  </div>
+</footer>
+
+<div id="toast" class="toast-message" style="display:none;" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<script src="../assets/js/navigation.js" defer></script>
+<script src="../assets/js/utils.js" defer></script>
+<script>
+// WOD Dataset Search JavaScript
+(function() {
+    'use strict';
+    
+    let allWorkouts = [];
+    let displayedWorkouts = [];
+    
+    // DOM Elements
+    const searchInput = document.getElementById('search-input');
+    const wodsGrid = document.getElementById('wods-grid');
+    const resultsCount = document.getElementById('results-count');
+    const modal = document.getElementById('workout-modal');
+    const modalBody = document.getElementById('modal-body');
+    const modalClose = document.querySelector('.modal-close');
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', init);
+    
+    function init() {
+        loadWorkouts();
+        setupEventListeners();
+        updateFooterYear();
+    }
+    
+    function updateFooterYear() {
+        const footerYear = document.getElementById('footerYear');
+        if (footerYear) {
+            footerYear.textContent = new Date().getFullYear();
+        }
+    }
+    
+    function setupEventListeners() {
+        searchInput.addEventListener('input', debounce(handleSearch, 300));
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeModal();
+            }
+        });
+    }
+    
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
+    function parseCSV(csvText) {
+        const lines = csvText.split('\n');
+        if (lines.length === 0 || !lines[0].trim()) {
+            console.error('CSV file is empty');
+            return [];
+        }
+        
+        const headers = lines[0].split(',').map(h => h.trim());
+        const workouts = [];
+        
+        // Find column indices
+        const nameIdx = headers.findIndex(h => h === 'Name');
+        const categoryIdx = headers.findIndex(h => h === 'Category');
+        const instructionsIdx = headers.findIndex(h => h === 'Instructions');
+        const equipmentIdx = headers.findIndex(h => h === 'Equipment Needed');
+        const difficultyIdx = headers.findIndex(h => h === 'DifficultyTier');
+        const stimulusIdx = headers.findIndex(h => h === 'Stimulus');
+        const patternsIdx = headers.findIndex(h => h === 'Movement Patterns');
+        const workoutIdIdx = headers.findIndex(h => h === 'WorkoutID');
+        
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+            
+            // Parse CSV line handling quoted fields
+            const fields = parseCSVLine(line);
+            
+            if (fields.length > Math.max(nameIdx, categoryIdx, instructionsIdx)) {
+                const workout = {
+                    id: workoutIdIdx >= 0 ? fields[workoutIdIdx] : i,
+                    name: fields[nameIdx] || 'Unnamed Workout',
+                    category: fields[categoryIdx] || 'Unknown',
+                    instructions: fields[instructionsIdx] || '',
+                    equipment: equipmentIdx >= 0 ? fields[equipmentIdx] : '',
+                    difficulty: difficultyIdx >= 0 ? fields[difficultyIdx] : '',
+                    stimulus: stimulusIdx >= 0 ? fields[stimulusIdx] : '',
+                    patterns: patternsIdx >= 0 ? fields[patternsIdx] : ''
+                };
+                workouts.push(workout);
+            }
+        }
+        
+        return workouts;
+    }
+    
+    function parseCSVLine(line) {
+        const fields = [];
+        let currentField = '';
+        let inQuotes = false;
+        
+        for (let j = 0; j < line.length; j++) {
+            const char = line[j];
+            
+            if (char === '"') {
+                if (inQuotes && line[j + 1] === '"') {
+                    currentField += '"';
+                    j++;
+                } else {
+                    inQuotes = !inQuotes;
+                }
+            } else if (char === ',' && !inQuotes) {
+                fields.push(currentField.trim().replace(/^"+|"+$/g, ''));
+                currentField = '';
+            } else {
+                currentField += char;
+            }
+        }
+        fields.push(currentField.trim().replace(/^"+|"+$/g, ''));
+        
+        return fields;
+    }
+    
+    async function loadWorkouts() {
+        try {
+            wodsGrid.innerHTML = '<div class="loading"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading workouts...</p></div>';
+            
+            const response = await fetch('data/workouts_table.csv');
+            if (!response.ok) throw new Error('Failed to load workouts');
+            
+            const csvText = await response.text();
+            allWorkouts = parseCSV(csvText);
+            
+            console.log(`Loaded ${allWorkouts.length} workouts`);
+            
+            // Display 6 random workouts on initial load
+            displayRandomWorkouts();
+            updateResultsCount();
+        } catch (error) {
+            console.error('Error loading workouts:', error);
+            wodsGrid.innerHTML = `
+                <div class="empty-wods">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <h3>Error Loading Workouts</h3>
+                    <p>Unable to load the workouts database. Please try refreshing the page.</p>
+                    <p style="font-size: 0.9em; color: #666;">${error.message}</p>
+                </div>
+            `;
+        }
+    }
+    
+    function displayRandomWorkouts() {
+        // Select 6 random workouts using Fisher-Yates shuffle
+        const shuffled = [...allWorkouts];
+        const RANDOM_WORKOUT_COUNT = 6;
+        
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        
+        displayedWorkouts = shuffled.slice(0, RANDOM_WORKOUT_COUNT);
+        displayWorkouts();
+    }
+    
+    function handleSearch(e) {
+        const query = e.target.value.toLowerCase().trim();
+        
+        if (!query) {
+            displayRandomWorkouts();
+            updateResultsCount();
+            return;
+        }
+        
+        // Search in name, movements (patterns), stimulus, and instructions
+        displayedWorkouts = allWorkouts.filter(workout => {
+            return workout.name.toLowerCase().includes(query) ||
+                   workout.instructions.toLowerCase().includes(query) ||
+                   workout.patterns.toLowerCase().includes(query) ||
+                   workout.stimulus.toLowerCase().includes(query) ||
+                   workout.equipment.toLowerCase().includes(query) ||
+                   workout.category.toLowerCase().includes(query);
+        });
+        
+        displayWorkouts();
+        updateResultsCount(query);
+    }
+    
+    function updateResultsCount(query = null) {
+        if (query) {
+            resultsCount.textContent = `Found ${displayedWorkouts.length} workout${displayedWorkouts.length !== 1 ? 's' : ''} matching "${query}"`;
+        } else {
+            resultsCount.textContent = `Showing ${displayedWorkouts.length} of ${allWorkouts.length} workouts`;
+        }
+    }
+    
+    function displayWorkouts() {
+        if (displayedWorkouts.length === 0) {
+            wodsGrid.innerHTML = `
+                <div class="empty-wods">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <h3>No Workouts Found</h3>
+                    <p>Try adjusting your search.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        wodsGrid.innerHTML = '';
+        
+        displayedWorkouts.forEach(workout => {
+            const card = createWorkoutCard(workout);
+            wodsGrid.appendChild(card);
+        });
+    }
+    
+    function createWorkoutCard(workout) {
+        const card = document.createElement('div');
+        card.className = 'wod-card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `View details for ${workout.name}`);
+        
+        // Truncate instructions for preview
+        const instructionsPreview = workout.instructions.length > 120 
+            ? workout.instructions.substring(0, 120) + '...' 
+            : workout.instructions;
+        
+        card.innerHTML = `
+            <div class="wod-header">
+                <h3 class="wod-title">${escapeHtml(workout.name)}</h3>
+                <div class="wod-badges">
+                    <span class="badge badge-category">${escapeHtml(workout.category)}</span>
+                    ${workout.difficulty ? `<span class="badge badge-difficulty">${escapeHtml(workout.difficulty)}</span>` : ''}
+                </div>
+            </div>
+            <div class="wod-instructions">
+                <p>${escapeHtml(instructionsPreview)}</p>
+            </div>
+            <div class="wod-info">
+                ${workout.equipment ? `
+                <div class="wod-info-row">
+                    <span class="emoji-icon">🏋️</span>
+                    <span><strong>Equipment:</strong> ${escapeHtml(workout.equipment)}</span>
+                </div>
+                ` : ''}
+                ${workout.patterns ? `
+                <div class="wod-info-row">
+                    <span class="emoji-icon">💪</span>
+                    <span><strong>Patterns:</strong> ${escapeHtml(workout.patterns)}</span>
+                </div>
+                ` : ''}
+                ${workout.stimulus ? `
+                <div class="wod-info-row">
+                    <span class="emoji-icon">⚡</span>
+                    <span><strong>Stimulus:</strong> ${escapeHtml(workout.stimulus)}</span>
+                </div>
+                ` : ''}
+            </div>
+        `;
+        
+        card.addEventListener('click', () => openModal(workout));
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(workout);
+            }
+        });
+        
+        return card;
+    }
+    
+    function openModal(workout) {
+        modalBody.innerHTML = `
+            <h2 id="modal-title">${escapeHtml(workout.name)}</h2>
+            <div class="modal-badges">
+                <span class="badge badge-category">${escapeHtml(workout.category)}</span>
+                ${workout.difficulty ? `<span class="badge badge-difficulty">${escapeHtml(workout.difficulty)}</span>` : ''}
+            </div>
+            <div class="modal-section">
+                <h3><i class="fa-solid fa-clipboard-list"></i> Instructions</h3>
+                <p>${escapeHtml(workout.instructions)}</p>
+            </div>
+            ${workout.equipment ? `
+            <div class="modal-section">
+                <h3><i class="fa-solid fa-dumbbell"></i> Equipment</h3>
+                <p>${escapeHtml(workout.equipment)}</p>
+            </div>
+            ` : ''}
+            ${workout.patterns ? `
+            <div class="modal-section">
+                <h3><i class="fa-solid fa-diagram-project"></i> Movement Patterns</h3>
+                <p>${escapeHtml(workout.patterns)}</p>
+            </div>
+            ` : ''}
+            ${workout.stimulus ? `
+            <div class="modal-section">
+                <h3><i class="fa-solid fa-bolt"></i> Target Stimulus</h3>
+                <p>${escapeHtml(workout.stimulus)}</p>
+            </div>
+            ` : ''}
+        `;
+        
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+        modalClose.focus();
+    }
+    
+    function closeModal() {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        searchInput.focus();
+    }
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+})();
+</script>
+</body>
+</html>
