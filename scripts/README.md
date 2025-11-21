@@ -64,6 +64,53 @@ python3 scripts/clean_workouts.py
 
 ---
 
+## 💻 Running in VS Code
+
+**VS Code users:** You can run the script directly in VS Code - it's even easier!
+
+### Method 1: Using VS Code Terminal (Recommended)
+
+1. Open VS Code and open your repository folder
+2. Open the integrated terminal: 
+   - Menu: `View` → `Terminal`
+   - Or keyboard shortcut: `` Ctrl+` `` (Windows/Linux) or `` Cmd+` `` (Mac)
+3. Run the script:
+   ```bash
+   python3 scripts/clean_workouts.py
+   ```
+
+### Method 2: Right-Click Run
+
+1. In VS Code Explorer, navigate to `scripts/clean_workouts.py`
+2. Right-click on the file in the editor
+3. Select **"Run Python File in Terminal"**
+
+### Method 3: VS Code Debugger
+
+1. Open `scripts/clean_workouts.py` in VS Code
+2. Press `F5` to run with the debugger
+3. Select **"Python File"** when prompted
+4. Watch the script execute with full debugging capabilities
+
+### Installing pandas in VS Code
+
+Open the integrated terminal in VS Code (`` Ctrl+` ``) and run:
+```bash
+pip3 install pandas
+```
+
+### VS Code Bonus Features
+
+- **Python Extension:** VS Code will suggest installing it if you don't have it - highly recommended!
+- **Output Panel:** See all script output directly in the integrated terminal
+- **File Explorer:** The cleaned CSV file will appear automatically in the sidebar
+- **Git Integration:** View changes to `workouts_table.csv` right in VS Code
+- **Stop Script:** Use `Ctrl+C` in the terminal if you need to stop
+
+**All commands from this README work exactly the same in VS Code's terminal!**
+
+---
+
 ## 📖 Detailed Usage
 
 ### Basic Cleaning (Fast - Recommended for Most Users)
