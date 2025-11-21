@@ -54,9 +54,11 @@ MAX_EQUIPMENT_NAME_LENGTH = 100
 # Minimum instruction length (shorter entries may be incomplete)
 MIN_INSTRUCTION_LENGTH = 20
 
-# File paths
-DATA_DIR = "data"
-OUT_DIR = "dist"
+# File paths - use absolute paths relative to this config file
+import os
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(_SCRIPT_DIR, "data")
+OUT_DIR = os.path.join(_SCRIPT_DIR, "dist")
 
 # Required CSV files
 REQUIRED_FILES = [

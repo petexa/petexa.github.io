@@ -53,40 +53,48 @@ body > header {
   right: 0;
   z-index: 1000;
   text-align: center;
-  padding: 1rem 2rem;
+  padding: 0.25rem 2rem;
   background: #202023;
   color: #fff;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
 }
 
 @media (max-width: 768px) {
   body > header {
-    padding: 0.8rem 1rem;
+    padding: 0.25rem 1rem;
+    min-height: 36px;
   }
 }
 
 .header-tear {
   position: fixed;
-  top: 54px; /* Position slightly overlapping the header to eliminate gap */
+  top: 40px;
   left: 0;
   right: 0;
   z-index: 999;
-  height: 35px;
+  height: 30px;
   overflow: hidden;
   pointer-events: none;
 }
 
 @media (max-width: 768px) {
   .header-tear {
-    top: 46px;
+    top: 36px;
+    height: 25px;
   }
 }
 
 .header-tear img {
   width: 100%;
-  height: 100%;
+  min-width: 100%;
+  height: auto;
   display: block;
-  object-fit: cover;
-  object-position: top;
+  object-fit: fill;
+  object-position: center;
 }
 
 .footer-tear {
