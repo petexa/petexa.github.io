@@ -26,7 +26,7 @@
 <a class="skip-link" href="#wods-content">Skip to content</a>
 <header>
     <h1>WOD Dataset Search</h1>
-    <div class="subtitle">6 Random Workouts - Refresh for More!</div>
+    <div class="subtitle">Showing 6 Random Workouts - Search to Filter!</div>
 </header>
 <div class="header-tear">
     <img src="../images/scratch-black-top-04.svg" alt="" aria-hidden="true">
@@ -166,11 +166,14 @@
             // Parse CSV line handling quoted fields
             const fields = parseCSVLine(line);
             
-            // Validate that we have enough fields for required columns
-            const requiredIndices = [nameIdx, categoryIdx, instructionsIdx].filter(idx => idx >= 0);
-            const maxRequiredIdx = Math.max(...requiredIndices, 0);
+            // Validate that we have required columns and enough fields
+            if (nameIdx < 0 || categoryIdx < 0 || instructionsIdx < 0) {
+                continue; // Skip if required columns are missing
+            }
             
-            if (fields.length > maxRequiredIdx) {
+            const maxRequiredIdx = Math.max(nameIdx, categoryIdx, instructionsIdx);
+            
+            if (fields.length > maxRequiredIdx && fields[nameIdx] && fields[categoryIdx]) {
                 const workout = {
                     id: workoutIdIdx >= 0 && fields[workoutIdIdx] ? fields[workoutIdIdx] : i,
                     name: nameIdx >= 0 && fields[nameIdx] ? fields[nameIdx] : 'Unnamed Workout',
@@ -224,8 +227,6 @@
             
             const csvText = await response.text();
             allWorkouts = parseCSV(csvText);
-            
-            console.log(`Loaded ${allWorkouts.length} workouts`);
             
             // Display 6 random workouts on initial load
             displayRandomWorkouts();
