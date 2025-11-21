@@ -1,5 +1,12 @@
 /* WODs Database Styles */
 
+/* Override main grid layout for WODs page */
+main {
+    display: block;
+    max-width: none;
+    padding: 0;
+}
+
 /* Search and Filter Section */
 .search-filter-section {
     max-width: 1400px;
