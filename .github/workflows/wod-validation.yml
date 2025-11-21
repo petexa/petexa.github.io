@@ -117,7 +117,7 @@ jobs:
         
     - name: Push cleaned data
       if: steps.changes.outputs.changes == 'true' && github.event_name != 'pull_request'
-      uses: ad-m/github-push-action@master
+      uses: ad-m/github-push-action@v0.8.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}

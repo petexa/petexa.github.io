@@ -11,19 +11,16 @@ import re
 from typing import Dict, List, Tuple, Set
 import json
 
-# Configuration
-DATA_DIR = 'data'
-OUT_DIR = 'dist'
-os.makedirs(OUT_DIR, exist_ok=True)
+# Import shared configuration
+from config import (
+    DATA_DIR, OUT_DIR, REQUIRED_FILES,
+    MOVEMENT_KEYWORDS, ARTIFACT_PATTERNS,
+    MOVEMENT_CAPITALIZATIONS, VALID_DIFFICULTY_TIERS,
+    MIN_INSTRUCTION_LENGTH, EXPECTED_WORKOUT_COLUMNS,
+    EXPECTED_MOVEMENT_COLUMNS, EXPECTED_EQUIPMENT_COLUMNS
+)
 
-# Required files
-REQUIRED_FILES = [
-    'workouts_table.csv',
-    'movement_library.csv',
-    'workout_movement_map.csv',
-    'equipment_library.csv',
-    'movement_equipment_map.csv'
-]
+os.makedirs(OUT_DIR, exist_ok=True)
 
 class WODValidator:
     """Main validation and auto-fix class for WOD dataset"""
@@ -71,19 +68,15 @@ class WODValidator:
             self.errors.append('Equipment table missing EquipmentID column')
         
         # Check for expected columns
-        expected_workout_cols = ['WorkoutID', 'Name', 'Instructions', 'DifficultyTier']
-        expected_movement_cols = ['MovementID', 'Movement', 'Type', 'Pattern']
-        expected_equipment_cols = ['EquipmentID', 'Equipment']
-        
-        for col in expected_workout_cols:
+        for col in EXPECTED_WORKOUT_COLUMNS:
             if col not in self.workouts.columns:
                 self.warnings.append(f'Workouts table missing recommended column: {col}')
         
-        for col in expected_movement_cols:
+        for col in EXPECTED_MOVEMENT_COLUMNS:
             if col not in self.movements.columns:
                 self.warnings.append(f'Movements table missing recommended column: {col}')
         
-        for col in expected_equipment_cols:
+        for col in EXPECTED_EQUIPMENT_COLUMNS:
             if col not in self.equipment.columns:
                 self.warnings.append(f'Equipment table missing recommended column: {col}')
         
@@ -211,22 +204,8 @@ class WODValidator:
         if 'Movement' in self.movements.columns:
             original = self.movements['Movement'].copy()
             self.movements['Movement'] = self.movements['Movement'].str.strip()
-            # Standardize capitalization for common movements
-            movement_caps = {
-                'pull-up': 'Pull-Up',
-                'push-up': 'Push-Up',
-                'sit-up': 'Sit-Up',
-                'kettlebell swing': 'Kettlebell Swing',
-                'box jump': 'Box Jump',
-                'wall ball': 'Wall Ball',
-                'burpee': 'Burpee',
-                'thruster': 'Thruster',
-                'deadlift': 'Deadlift',
-                'squat': 'Squat',
-                'row': 'Row',
-                'run': 'Run',
-            }
-            for lower, proper in movement_caps.items():
+            # Standardize capitalization for common movements using config
+            for lower, proper in MOVEMENT_CAPITALIZATIONS.items():
                 mask = self.movements['Movement'].str.lower() == lower
                 self.movements.loc[mask, 'Movement'] = proper
             
@@ -260,16 +239,15 @@ class WODValidator:
         
         # Check for very short instructions (likely incomplete)
         short_instructions = self.workouts[
-            (self.workouts['Instructions'].str.len() < 20) & 
+            (self.workouts['Instructions'].str.len() < MIN_INSTRUCTION_LENGTH) & 
             (self.workouts['Instructions'].str.len() > 0)
         ]
         if not short_instructions.empty:
             self.warnings.append(f"Workouts with suspiciously short instructions: {short_instructions['Name'].tolist()[:5]}")
         
         # Check that instructions contain movement-related keywords
-        movement_keywords = r'\b(rep|round|minute|meter|calorie|complete|perform|execute|do|amrap|emom|for time)\b'
         missing_keywords = self.workouts[
-            ~self.workouts['Instructions'].str.contains(movement_keywords, case=False, na=False, regex=True) &
+            ~self.workouts['Instructions'].str.contains(MOVEMENT_KEYWORDS, case=False, na=False, regex=True) &
             (self.workouts['Instructions'].str.len() > 0)
         ]
         if not missing_keywords.empty:
@@ -284,15 +262,8 @@ class WODValidator:
         if 'Movement' not in self.movements.columns:
             return
         
-        # Identify movements that look like parsing artifacts
+        # Identify movements that look like parsing artifacts using shared patterns
         artifacts = []
-        artifact_patterns = [
-            r'^\d+\s+(kg|kgs|kg\)|kgs\)|kg\)\)\.?|lb|lbs)$',  # Just weight specs
-            r'^[\d\s\-/]+$',  # Just numbers/dashes
-            r'^\([^\)]*\)\.?$',  # Just parentheses content
-            r'.*\)\)\.+$',  # Ends with multiple parentheses and periods
-            r'^\d+\s+\w+\.$',  # Pattern like "15 Squats."
-        ]
         
         for idx, row in self.movements.iterrows():
             movement = str(row['Movement']).strip()
@@ -300,7 +271,7 @@ class WODValidator:
                 artifacts.append(idx)
                 continue
             
-            for pattern in artifact_patterns:
+            for pattern in ARTIFACT_PATTERNS:
                 if re.match(pattern, movement, re.IGNORECASE):
                     artifacts.append(idx)
                     self.warnings.append(f"Movement library contains artifact: '{movement}' (ID: {row.get('MovementID', 'N/A')})")
@@ -319,7 +290,7 @@ class WODValidator:
             self.warnings.append("DifficultyTier column not found in workouts")
             return
         
-        valid_tiers = {'Beginner', 'Intermediate', 'Advanced', 'Elite', 'Moderate', 'Hard'}
+        valid_tiers = VALID_DIFFICULTY_TIERS
         
         invalid_tiers = self.workouts[
             ~self.workouts['DifficultyTier'].isin(valid_tiers) &

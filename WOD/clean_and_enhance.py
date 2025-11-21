@@ -10,9 +10,11 @@ import os
 import re
 from typing import Dict, List, Set
 
-# Configuration
-DATA_DIR = 'data'
-OUT_DIR = 'dist'
+# Import shared configuration
+from config import (
+    DATA_DIR, OUT_DIR, ARTIFACT_PATTERNS,
+    MAX_EQUIPMENT_NAME_LENGTH
+)
 
 class WODCleaner:
     """Advanced cleaning for WOD dataset"""
@@ -37,14 +39,6 @@ class WODCleaner:
         """Remove parsing artifacts from movement library"""
         print("\n=== Removing Movement Artifacts ===")
         
-        artifact_patterns = [
-            r'^\d+\s+(kg|kgs|kg\)|kgs\)|kg\)\)\.?|lb|lbs)$',  # Just weight specs
-            r'^[\d\s\-/]+$',  # Just numbers/dashes
-            r'^\([^\)]*\)\.?$',  # Just parentheses content
-            r'.*\)\)\.+$',  # Ends with multiple parentheses and periods
-            r'^\d+\s+\w+\.$',  # Pattern like "15 Squats."
-        ]
-        
         artifacts_to_remove = []
         
         for idx, row in self.movements.iterrows():
@@ -56,7 +50,7 @@ class WODCleaner:
                 self.changes.append(f"Removing empty movement (ID: {movement_id})")
                 continue
             
-            for pattern in artifact_patterns:
+            for pattern in ARTIFACT_PATTERNS:
                 if re.match(pattern, movement, re.IGNORECASE):
                     artifacts_to_remove.append(movement_id)
                     self.changes.append(f"Removing artifact movement: '{movement}' (ID: {movement_id})")
@@ -89,7 +83,7 @@ class WODCleaner:
         print("\n=== Cleaning Equipment Names ===")
         
         # Find equipment entries that are too long (likely parsing errors)
-        long_equipment = self.equipment[self.equipment['Equipment'].str.len() > 100]
+        long_equipment = self.equipment[self.equipment['Equipment'].str.len() > MAX_EQUIPMENT_NAME_LENGTH]
         
         if not long_equipment.empty:
             equipment_to_remove = long_equipment['EquipmentID'].tolist()
@@ -131,7 +125,9 @@ class WODCleaner:
             self.movements = self.movements[~self.movements['MovementID'].isin(duplicate_ids)]
             
             # Update mappings to use the kept movement IDs
-            # This is a simplified approach - in production you might want to remap
+            # Note: This simplified approach removes mappings for duplicates.
+            # In production, you may want to implement remapping logic to preserve
+            # all workout relationships by updating references to use the canonical movement ID.
             wm_before = len(self.wm_map)
             self.wm_map = self.wm_map[~self.wm_map['MovementID'].isin(duplicate_ids)]
             wm_removed = wm_before - len(self.wm_map)
