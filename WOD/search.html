@@ -37,7 +37,7 @@
     <section class="search-filter-section">
         <div class="search-container">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="search-input" placeholder="Search by name, movements, stimulus, tags..." aria-label="Search workouts">
+            <input type="text" id="search-input" placeholder="Search by name, movements, stimulus, equipment, category..." aria-label="Search workouts">
         </div>
         
         <div class="results-info">
@@ -145,7 +145,8 @@
             return [];
         }
         
-        const headers = lines[0].split(',').map(h => h.trim());
+        // Parse headers using the same parseCSVLine function to handle quoted fields
+        const headers = parseCSVLine(lines[0]);
         const workouts = [];
         
         // Find column indices
@@ -165,16 +166,20 @@
             // Parse CSV line handling quoted fields
             const fields = parseCSVLine(line);
             
-            if (fields.length > Math.max(nameIdx, categoryIdx, instructionsIdx)) {
+            // Validate that we have enough fields for required columns
+            const requiredIndices = [nameIdx, categoryIdx, instructionsIdx].filter(idx => idx >= 0);
+            const maxRequiredIdx = Math.max(...requiredIndices, 0);
+            
+            if (fields.length > maxRequiredIdx) {
                 const workout = {
-                    id: workoutIdIdx >= 0 ? fields[workoutIdIdx] : i,
-                    name: fields[nameIdx] || 'Unnamed Workout',
-                    category: fields[categoryIdx] || 'Unknown',
-                    instructions: fields[instructionsIdx] || '',
-                    equipment: equipmentIdx >= 0 ? fields[equipmentIdx] : '',
-                    difficulty: difficultyIdx >= 0 ? fields[difficultyIdx] : '',
-                    stimulus: stimulusIdx >= 0 ? fields[stimulusIdx] : '',
-                    patterns: patternsIdx >= 0 ? fields[patternsIdx] : ''
+                    id: workoutIdIdx >= 0 && fields[workoutIdIdx] ? fields[workoutIdIdx] : i,
+                    name: nameIdx >= 0 && fields[nameIdx] ? fields[nameIdx] : 'Unnamed Workout',
+                    category: categoryIdx >= 0 && fields[categoryIdx] ? fields[categoryIdx] : 'Unknown',
+                    instructions: instructionsIdx >= 0 && fields[instructionsIdx] ? fields[instructionsIdx] : '',
+                    equipment: equipmentIdx >= 0 && fields[equipmentIdx] ? fields[equipmentIdx] : '',
+                    difficulty: difficultyIdx >= 0 && fields[difficultyIdx] ? fields[difficultyIdx] : '',
+                    stimulus: stimulusIdx >= 0 && fields[stimulusIdx] ? fields[stimulusIdx] : '',
+                    patterns: patternsIdx >= 0 && fields[patternsIdx] ? fields[patternsIdx] : ''
                 };
                 workouts.push(workout);
             }
@@ -239,16 +244,18 @@
     }
     
     function displayRandomWorkouts() {
-        // Select 6 random workouts using Fisher-Yates shuffle
-        const shuffled = [...allWorkouts];
+        // Select 6 random workouts using random index selection (more efficient than shuffling)
         const RANDOM_WORKOUT_COUNT = 6;
+        const count = Math.min(RANDOM_WORKOUT_COUNT, allWorkouts.length);
+        const selectedIndices = new Set();
         
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        // Randomly select indices without duplicates
+        while (selectedIndices.size < count) {
+            const randomIndex = Math.floor(Math.random() * allWorkouts.length);
+            selectedIndices.add(randomIndex);
         }
         
-        displayedWorkouts = shuffled.slice(0, RANDOM_WORKOUT_COUNT);
+        displayedWorkouts = Array.from(selectedIndices).map(idx => allWorkouts[idx]);
         displayWorkouts();
     }
     
