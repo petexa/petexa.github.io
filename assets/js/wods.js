@@ -208,6 +208,23 @@
     return card;
   }
 
+  // Helper function to format text as bullet list
+  function formatAsBulletList(text) {
+    if (!text) return '';
+    
+    // Split by common delimiters: semicolon, comma, or period followed by space
+    const items = text.split(/[;,]|\.(?=\s)/)
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+    
+    // If only one item or no clear separators, return as single item
+    if (items.length <= 1) {
+      return `<ul><li>${escapeHtml(text)}</li></ul>`;
+    }
+    
+    return '<ul>' + items.map(item => `<li>${escapeHtml(item)}</li>`).join('') + '</ul>';
+  }
+
   function openModal(workout) {
     // Store the currently focused element to return focus later
     modal.dataset.previousFocus = document.activeElement?.id || '';
@@ -266,13 +283,13 @@
             
             <div class="modal-section">
                 <h4><span class="emoji-icon">📋</span> Instructions</h4>
-                <p>${escapeHtml(workout.Instructions || workout.Instructions_Clean || '')}</p>
+                ${formatAsBulletList(workout.Instructions || workout.Instructions_Clean || '')}
             </div>
             
             ${workout['Equipment Needed'] ? `
             <div class="modal-section">
                 <h4><span class="emoji-icon">🧰</span> Equipment Needed</h4>
-                <p>${escapeHtml(workout['Equipment Needed'])}</p>
+                ${formatAsBulletList(workout['Equipment Needed'])}
             </div>
             ` : ''}
             
@@ -315,7 +332,7 @@
                     ${workout.Warmup ? `
                     <div class="modal-section">
                         <h4><span class="emoji-icon">🔥</span> Warmup</h4>
-                        <p>${escapeHtml(workout.Warmup)}</p>
+                        ${formatAsBulletList(workout.Warmup)}
                     </div>
                     ` : ''}
                     
