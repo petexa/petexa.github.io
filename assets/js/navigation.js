@@ -52,7 +52,7 @@
         return `
             <!-- Navigation Button -->
             <button id="nav-kettlebell-btn" class="nav-kettlebell-btn" aria-label="Open navigation menu" aria-expanded="false">
-                <i class="fa-solid fa-bell" aria-hidden="true"></i>
+                <i class="fa-solid fa-kettlebell" aria-hidden="true"></i>
             </button>
 
             <!-- Navigation Dropdown Menu -->
@@ -69,28 +69,23 @@
             /* Navigation button */
             .nav-kettlebell-btn {
                 position: fixed;
-                top: 20px;
+                top: 95px; /* Position below the black banner and tear */
                 right: 20px;
                 z-index: 1100;
-                width: 60px;
-                height: 60px;
-                background: #808080; /* Grey circle background */
-                border: 2px solid rgba(128, 175, 254, 0.3);
-                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                background: transparent; /* No background circle */
+                border: none;
                 cursor: pointer;
                 padding: 0;
                 transition: all 0.3s ease;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             }
 
             .nav-kettlebell-btn:hover {
-                background: #999999; /* Lighter grey on hover */
-                border-color: #80affe;
-                transform: scale(1.05);
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+                transform: scale(1.1);
             }
 
             .nav-kettlebell-btn:focus {
@@ -98,20 +93,16 @@
                 outline-offset: 2px;
             }
 
-            .nav-kettlebell-btn[aria-expanded="true"] {
-                background: #999999;
-                border-color: #80affe;
-            }
-
             .nav-kettlebell-btn i {
-                font-size: 28px;
-                color: #000000; /* Black bell icon */
+                font-size: 40px;
+                color: #dc3545; /* Red kettlebell icon */
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
             }
 
             /* Dropdown menu */
             .nav-dropdown {
                 position: fixed;
-                top: 80px;
+                top: 155px; /* Position below the button */
                 right: 20px;
                 z-index: 1099;
                 background: #202023;
@@ -187,16 +178,18 @@
             /* Mobile adjustments */
             @media (max-width: 768px) {
                 .nav-kettlebell-btn {
-                    width: 50px;
-                    height: 50px;
-                    top: 10px;
-                    right: 10px;
-                    padding: 6px;
-                    z-index: 1001; /* Above header */
+                    top: 90px; /* Position below header on mobile */
+                    right: 15px;
+                    width: 45px;
+                    height: 45px;
+                }
+                
+                .nav-kettlebell-btn i {
+                    font-size: 36px;
                 }
 
                 .nav-dropdown {
-                    top: 70px;
+                    top: 145px;
                     right: 10px;
                     min-width: 200px;
                 }
