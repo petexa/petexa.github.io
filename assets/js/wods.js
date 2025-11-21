@@ -288,7 +288,7 @@
             
             ${workout['Equipment Needed'] ? `
             <div class="modal-section">
-                <h4><span class="emoji-icon">🧰</span> Equipment Needed</h4>
+                <h4><span class="emoji-icon">🍺</span> Equipment Needed</h4>
                 ${formatAsBulletList(workout['Equipment Needed'])}
             </div>
             ` : ''}
