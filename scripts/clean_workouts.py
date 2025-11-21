@@ -388,7 +388,7 @@ class WorkoutDataCleaner:
                     sleep(2)
                     
                 except Exception as e:
-                    print(f"✗ ({str(e)[:30]})")
+                    print(f"✗ ({str(e)[:50]})")
                     continue
             
             print(f"    ✓ Successfully fetched {self.stats['coach_notes_from_web']} coach notes from web")
@@ -415,7 +415,6 @@ class WorkoutDataCleaner:
         # If not in knowledge base, try web search
         try:
             import requests
-            import json
         except ImportError:
             return None
         
@@ -463,9 +462,10 @@ class WorkoutDataCleaner:
                         coach_notes = coach_notes[:497] + '...'
                     return coach_notes
             
-        except Exception as e:
-            # If web search fails (no internet, API down, etc.), silently continue
-            # The curated notes already handled well-known workouts
+        except Exception:
+            # If web search fails (no internet, API down, blocked domain, etc.),
+            # silently continue. The curated knowledge base already handles
+            # well-known workouts, and we don't want to disrupt the cleaning process.
             pass
         
         return None
