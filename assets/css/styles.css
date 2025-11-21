@@ -49,8 +49,7 @@ body {
 .hero-banner {
   position: relative;
   width: 100%;
-  min-height: 40vh;
-  max-height: 50vh;
+  height: clamp(30vh, 40vh, 50vh);
   background: linear-gradient(135deg, #1a1a1d 0%, #202023 50%, #1a1a1d 100%);
   display: flex;
   align-items: center;
@@ -95,7 +94,7 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  font-size: clamp(1.75rem, 1rem + 3vw, 3.5rem);
   font-weight: 700;
   color: #fff;
   letter-spacing: 0.5px;
@@ -166,15 +165,29 @@ body > header h1 {
 }
 
 /* Add padding to body when using fixed header */
+body {
+  padding-top: 0;
+}
+
 body:has(> header) {
   padding-top: 90px;
+}
+
+/* Fallback for browsers that don't support :has() */
+@supports not selector(:has(*)) {
+  body {
+    padding-top: 90px;
+  }
+  
+  body.hero-page {
+    padding-top: 0;
+  }
 }
 
 /* Responsive adjustments for hero banner */
 @media (max-width: 768px) {
   .hero-banner {
-    min-height: 35vh;
-    max-height: 45vh;
+    height: clamp(30vh, 35vh, 45vh);
   }
   
   .hero-content {
@@ -205,7 +218,7 @@ body:has(> header) {
 
 @media (max-width: 480px) {
   .hero-banner {
-    min-height: 30vh;
+    height: 30vh;
   }
   
   .hero-content {
