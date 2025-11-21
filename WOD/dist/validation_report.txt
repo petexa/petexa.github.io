@@ -1,0 +1,2 @@
+VALIDATION FAILED
+- Some workouts may have malformed instructions; sample names: Karen, Bodyweight Blast, Weighted Isabel, Dumbbell Trio, Benchmark B
