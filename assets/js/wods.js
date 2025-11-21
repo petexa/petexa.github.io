@@ -212,8 +212,8 @@
   function formatAsBulletList(text) {
     if (!text) return '';
     
-    // Split by common delimiters: semicolon, comma, or period followed by space
-    const items = text.split(/[;,]|\.(?=\s)/)
+    // Split by common delimiters: semicolon or comma
+    const items = text.split(/[;,]/)
       .map(item => item.trim())
       .filter(item => item.length > 0);
     
