@@ -64,7 +64,8 @@
     }
     
     .wods-table th {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #2c3e50;
+        color: #ecf0f1;
         padding: 15px 10px;
         text-align: left;
         font-weight: 600;
@@ -74,10 +75,11 @@
         z-index: 10;
         white-space: nowrap;
         user-select: none;
+        border-bottom: 3px solid #3498db;
     }
     
     .wods-table th:hover {
-        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        background: #34495e;
     }
     
     .wods-table th i {
@@ -92,7 +94,7 @@
     }
     
     .wods-table tr:hover {
-        background: rgba(102, 126, 234, 0.05);
+        background: rgba(52, 152, 219, 0.08);
     }
     
     .badge-small {
@@ -121,7 +123,7 @@
     }
     
     .category-badge {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #3498db;
         color: white;
         padding: 3px 8px;
         border-radius: 4px;
@@ -143,19 +145,21 @@
     }
     
     .view-details-btn {
-        background: rgba(255, 255, 255, 0.1);
-        color: #80affe;
-        border: 1px solid #80affe;
-        padding: 5px 12px;
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 6px 14px;
         border-radius: 6px;
         font-size: 12px;
         cursor: pointer;
         transition: all 0.2s;
+        font-weight: 500;
     }
     
     .view-details-btn:hover {
-        background: #80affe;
-        color: #1a1a2e;
+        background: #2980b9;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
     
     .results-info {
@@ -179,6 +183,117 @@
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+    }
+    
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.7);
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .modal-content {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: white;
+        margin: 20px;
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 800px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    
+    .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .modal-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+    }
+    
+    .modal-body h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 28px;
+        color: #80affe;
+    }
+    
+    .modal-section {
+        margin-bottom: 20px;
+    }
+    
+    .modal-section h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #80affe;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .modal-section p {
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .goals-cell {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+        .wods-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .wods-table {
+            min-width: 800px;
+        }
+        
+        .table-search {
+            min-width: 100%;
+        }
+        
+        .modal-content {
+            margin: 10px;
+            padding: 20px;
+            max-height: 95vh;
+        }
+        
+        .modal-body h2 {
+            font-size: 24px;
+            padding-right: 30px;
+        }
     }
 </style>
 </head>
@@ -211,11 +326,10 @@
                     <tr>
                         <th data-sort="name">Name <i class="fa-solid fa-sort"></i></th>
                         <th data-sort="category">Category <i class="fa-solid fa-sort"></i></th>
-                        <th data-sort="difficulty">Difficulty <i class="fa-solid fa-sort"></i></th>
+                        <th data-sort="format">Format & Duration <i class="fa-solid fa-sort"></i></th>
                         <th data-sort="equipment">Equipment <i class="fa-solid fa-sort"></i></th>
-                        <th data-sort="muscles">Muscles <i class="fa-solid fa-sort"></i></th>
-                        <th data-sort="format">Format <i class="fa-solid fa-sort"></i></th>
-                        <th data-sort="duration">Duration <i class="fa-solid fa-sort"></i></th>
+                        <th data-sort="muscles">Muscle Groups <i class="fa-solid fa-sort"></i></th>
+                        <th data-sort="goals">Training Goals <i class="fa-solid fa-sort"></i></th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -226,6 +340,18 @@
         </div>
     </div>
 </main>
+
+<!-- Workout Detail Modal -->
+<div id="workout-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none;">
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div id="modal-body">
+            <!-- Workout details will be inserted here -->
+        </div>
+    </div>
+</div>
 
 <footer>
   <div style="margin-top: 15px;">
@@ -275,6 +401,9 @@
         document.querySelectorAll('th[data-sort]').forEach(th => {
             th.addEventListener('click', () => sortTable(th.dataset.sort));
         });
+        
+        // Setup modal listeners
+        setupModalListeners();
     }
     
     function parseCSV(csvText) {
@@ -322,16 +451,11 @@
                     id: i,
                     name: fields[0].replace(/^"+|"+$/g, ''),
                     category: fields[1],
-                    difficulty: 'Intermediate', // Default difficulty since CSV doesn't have this
-                    equipment: fields[4].split(',').map(e => e.trim()),
-                    muscleGroups: fields[5].split(',').map(m => m.trim()),
-                    setsRepsOrDuration: {
-                        format: fields[2],
-                        duration: fields[2],
-                        reps: ''
-                    },
+                    formatDuration: fields[2],
                     instructions: fields[3],
-                    source: fields[6]
+                    equipment: fields[4],
+                    muscleGroups: fields[5],
+                    trainingGoals: fields[6]
                 };
                 workouts.push(workout);
             }
@@ -365,7 +489,7 @@
     
     function displayTable() {
         if (filteredWorkouts.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;">No workouts found matching your search.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;">No workouts found matching your search.</td></tr>';
             return;
         }
         
@@ -380,29 +504,23 @@
     function createTableRow(workout) {
         const row = document.createElement('tr');
         
-        const difficultyClass = workout.difficulty.toLowerCase();
-        const equipmentText = Array.isArray(workout.equipment) && workout.equipment.length > 0 && workout.equipment[0] 
-            ? workout.equipment.join(', ') 
-            : 'None';
-        const musclesText = Array.isArray(workout.muscleGroups) 
-            ? workout.muscleGroups.join(', ') 
-            : workout.muscleGroups;
-        const duration = workout.setsRepsOrDuration.duration || 'N/A';
-        
         row.innerHTML = `
             <td><strong>${escapeHtml(workout.name)}</strong></td>
             <td><span class="category-badge">${escapeHtml(workout.category)}</span></td>
-            <td><span class="badge-small badge-${difficultyClass}">${workout.difficulty}</span></td>
-            <td class="equipment-cell" title="${escapeHtml(equipmentText)}">${escapeHtml(equipmentText)}</td>
-            <td class="muscle-cell" title="${escapeHtml(musclesText)}">${escapeHtml(musclesText)}</td>
-            <td>${escapeHtml(workout.setsRepsOrDuration.format)}</td>
-            <td>${escapeHtml(duration)}</td>
+            <td>${escapeHtml(workout.formatDuration)}</td>
+            <td class="equipment-cell" title="${escapeHtml(workout.equipment)}">${escapeHtml(workout.equipment)}</td>
+            <td class="muscle-cell" title="${escapeHtml(workout.muscleGroups)}">${escapeHtml(workout.muscleGroups)}</td>
+            <td class="goals-cell" title="${escapeHtml(workout.trainingGoals)}">${escapeHtml(workout.trainingGoals)}</td>
             <td>
-                <button class="view-details-btn" onclick="window.location.href='wods.html#${workout.id}'" title="View details">
+                <button class="view-details-btn" data-workout-id="${workout.id}" title="View details">
                     <i class="fa-solid fa-eye"></i> View
                 </button>
             </td>
         `;
+        
+        // Add click event to the button
+        const btn = row.querySelector('.view-details-btn');
+        btn.addEventListener('click', () => openModal(workout));
         
         return row;
     }
@@ -414,18 +532,13 @@
             filteredWorkouts = [...allWorkouts];
         } else {
             filteredWorkouts = allWorkouts.filter(workout => {
-                const equipmentMatch = Array.isArray(workout.equipment) 
-                    ? workout.equipment.some(eq => eq.toLowerCase().includes(searchTerm))
-                    : workout.equipment.toLowerCase().includes(searchTerm);
-                const muscleMatch = Array.isArray(workout.muscleGroups)
-                    ? workout.muscleGroups.some(m => m.toLowerCase().includes(searchTerm))
-                    : workout.muscleGroups.toLowerCase().includes(searchTerm);
-                
                 return workout.name.toLowerCase().includes(searchTerm) ||
                        workout.category.toLowerCase().includes(searchTerm) ||
-                       workout.difficulty.toLowerCase().includes(searchTerm) ||
-                       equipmentMatch ||
-                       muscleMatch;
+                       workout.formatDuration.toLowerCase().includes(searchTerm) ||
+                       workout.equipment.toLowerCase().includes(searchTerm) ||
+                       workout.muscleGroups.toLowerCase().includes(searchTerm) ||
+                       workout.trainingGoals.toLowerCase().includes(searchTerm) ||
+                       workout.instructions.toLowerCase().includes(searchTerm);
             });
         }
         
@@ -453,26 +566,21 @@
                     aVal = a.category.toLowerCase();
                     bVal = b.category.toLowerCase();
                     break;
-                case 'difficulty':
-                    const diffOrder = { beginner: 1, intermediate: 2, advanced: 3 };
-                    aVal = diffOrder[a.difficulty.toLowerCase()] || 0;
-                    bVal = diffOrder[b.difficulty.toLowerCase()] || 0;
+                case 'format':
+                    aVal = a.formatDuration.toLowerCase();
+                    bVal = b.formatDuration.toLowerCase();
                     break;
                 case 'equipment':
-                    aVal = a.equipment.join(', ').toLowerCase();
-                    bVal = b.equipment.join(', ').toLowerCase();
+                    aVal = a.equipment.toLowerCase();
+                    bVal = b.equipment.toLowerCase();
                     break;
                 case 'muscles':
-                    aVal = a.muscleGroups.join(', ').toLowerCase();
-                    bVal = b.muscleGroups.join(', ').toLowerCase();
+                    aVal = a.muscleGroups.toLowerCase();
+                    bVal = b.muscleGroups.toLowerCase();
                     break;
-                case 'format':
-                    aVal = a.setsRepsOrDuration.format.toLowerCase();
-                    bVal = b.setsRepsOrDuration.format.toLowerCase();
-                    break;
-                case 'duration':
-                    aVal = a.setsRepsOrDuration.duration || '';
-                    bVal = b.setsRepsOrDuration.duration || '';
+                case 'goals':
+                    aVal = a.trainingGoals.toLowerCase();
+                    bVal = b.trainingGoals.toLowerCase();
                     break;
                 default:
                     return 0;
@@ -528,6 +636,78 @@
             timeout = setTimeout(later, wait);
         };
     }
+    
+    function openModal(workout) {
+        const modal = document.getElementById('workout-modal');
+        const modalBody = document.getElementById('modal-body');
+        
+        modalBody.innerHTML = `
+            <h2 id="modal-title">${escapeHtml(workout.name)}</h2>
+            <div class="modal-badges">
+                <span class="category-badge">${escapeHtml(workout.category)}</span>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fa-solid fa-clock"></i> Format & Duration</h3>
+                <p>${escapeHtml(workout.formatDuration)}</p>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fa-solid fa-list-check"></i> Instructions</h3>
+                <p>${escapeHtml(workout.instructions)}</p>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fa-solid fa-dumbbell"></i> Equipment Needed</h3>
+                <p>${escapeHtml(workout.equipment)}</p>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fa-solid fa-person-running"></i> Muscle Groups</h3>
+                <p>${escapeHtml(workout.muscleGroups)}</p>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fa-solid fa-bullseye"></i> Training Goals</h3>
+                <p>${escapeHtml(workout.trainingGoals)}</p>
+            </div>
+        `;
+        
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Focus on close button for accessibility
+        const closeBtn = modal.querySelector('.modal-close');
+        if (closeBtn) closeBtn.focus();
+    }
+    
+    function closeModal() {
+        const modal = document.getElementById('workout-modal');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+    
+    function setupModalListeners() {
+        const modal = document.getElementById('workout-modal');
+        const modalClose = document.querySelector('.modal-close');
+        
+        if (modalClose) {
+            modalClose.addEventListener('click', closeModal);
+        }
+        
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+    }
+    
+    // Global escape key handler (only added once)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+            closeModal();
+        }
+    });
 })();
 </script>
 </body>
