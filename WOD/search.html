@@ -159,6 +159,14 @@
         const patternsIdx = headers.findIndex(h => h === 'Movement Patterns');
         const workoutIdIdx = headers.findIndex(h => h === 'WorkoutID');
         
+        // Validate required columns exist in header
+        if (nameIdx < 0 || categoryIdx < 0 || instructionsIdx < 0) {
+            console.error('Required columns missing from CSV');
+            return [];
+        }
+        
+        const maxRequiredIdx = Math.max(nameIdx, categoryIdx, instructionsIdx);
+        
         for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
             if (!line) continue;
@@ -166,19 +174,13 @@
             // Parse CSV line handling quoted fields
             const fields = parseCSVLine(line);
             
-            // Validate that we have required columns and enough fields
-            if (nameIdx < 0 || categoryIdx < 0 || instructionsIdx < 0) {
-                continue; // Skip if required columns are missing
-            }
-            
-            const maxRequiredIdx = Math.max(nameIdx, categoryIdx, instructionsIdx);
-            
+            // Ensure we have enough fields and required fields are non-empty
             if (fields.length > maxRequiredIdx && fields[nameIdx] && fields[categoryIdx]) {
                 const workout = {
                     id: workoutIdIdx >= 0 && fields[workoutIdIdx] ? fields[workoutIdIdx] : i,
-                    name: nameIdx >= 0 && fields[nameIdx] ? fields[nameIdx] : 'Unnamed Workout',
-                    category: categoryIdx >= 0 && fields[categoryIdx] ? fields[categoryIdx] : 'Unknown',
-                    instructions: instructionsIdx >= 0 && fields[instructionsIdx] ? fields[instructionsIdx] : '',
+                    name: fields[nameIdx],
+                    category: fields[categoryIdx],
+                    instructions: fields[instructionsIdx] || '',
                     equipment: equipmentIdx >= 0 && fields[equipmentIdx] ? fields[equipmentIdx] : '',
                     difficulty: difficultyIdx >= 0 && fields[difficultyIdx] ? fields[difficultyIdx] : '',
                     stimulus: stimulusIdx >= 0 && fields[stimulusIdx] ? fields[stimulusIdx] : '',
@@ -245,18 +247,29 @@
     }
     
     function displayRandomWorkouts() {
-        // Select 6 random workouts using random index selection (more efficient than shuffling)
+        // Select 6 random workouts efficiently
         const RANDOM_WORKOUT_COUNT = 6;
         const count = Math.min(RANDOM_WORKOUT_COUNT, allWorkouts.length);
-        const selectedIndices = new Set();
         
-        // Randomly select indices without duplicates
-        while (selectedIndices.size < count) {
-            const randomIndex = Math.floor(Math.random() * allWorkouts.length);
-            selectedIndices.add(randomIndex);
+        // Use different algorithms based on count
+        if (count > allWorkouts.length / 2) {
+            // If selecting more than half, shuffle and slice (more efficient)
+            const shuffled = [...allWorkouts];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            displayedWorkouts = shuffled.slice(0, count);
+        } else {
+            // If selecting less than half, use Set-based random selection
+            const selectedIndices = new Set();
+            while (selectedIndices.size < count) {
+                const randomIndex = Math.floor(Math.random() * allWorkouts.length);
+                selectedIndices.add(randomIndex);
+            }
+            displayedWorkouts = Array.from(selectedIndices).map(idx => allWorkouts[idx]);
         }
         
-        displayedWorkouts = Array.from(selectedIndices).map(idx => allWorkouts[idx]);
         displayWorkouts();
     }
     
