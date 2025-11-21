@@ -51,6 +51,21 @@ body > header {
     display: block;
 }
 
+.footer-tear {
+    position: relative;
+    margin-top: -1px;
+    height: 35px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.footer-tear img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform: rotate(180deg);
+}
+
 .logo {
     width: 85px;
     height: 85px;
