@@ -35,17 +35,61 @@
     <div class="header-tear">
       <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
     </div>
-    <main id="events-list" aria-live="polite"></main>
+    <main id="events-list" aria-live="polite">
+      <!-- Loading skeleton (shown while events are loading) -->
+      <div id="loading-skeleton" class="loading-skeleton" aria-label="Loading events...">
+        <div class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-date"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-countdown"></div>
+            <div class="skeleton-actions">
+              <div class="skeleton-button"></div>
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-date"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-countdown"></div>
+            <div class="skeleton-actions">
+              <div class="skeleton-button"></div>
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-date"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-desc"></div>
+            <div class="skeleton-countdown"></div>
+            <div class="skeleton-actions">
+              <div class="skeleton-button"></div>
+              <div class="skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <!-- Event card template -->
     <template id="event-card-template">
-      <section class="event-card">
+      <article class="event-card">
         <img src="" class="event-img" alt="" loading="lazy" />
         <div class="event-content">
-          <header>
-            <div class="event-title"></div>
-            <time class="event-date" datetime=""></time>
-          </header>
+          <h2 class="event-title"></h2>
+          <time class="event-date" datetime=""></time>
           <div class="event-desc"></div>
           <div class="countdown">
             <i class="fa-regular fa-clock"></i>
@@ -55,7 +99,7 @@
             <!-- Buttons will be added dynamically -->
           </div>
         </div>
-      </section>
+      </article>
     </template>
 
     <div class="footer-tear">
@@ -63,9 +107,9 @@
     </div>
 
     <footer>
-      <div style="margin-top: 15px">
+      <div class="mt-15">
         &copy; <span id="footerYear"></span> Have an event?
-        <a href="mailto:gym@petefox.co.uk" style="color: #fff; text-decoration: underline">Contact us</a>
+        <a href="mailto:gym@petefox.co.uk" class="footer-link">Contact us</a>
       </div>
       <div class="footer-links">
         <a
@@ -97,8 +141,7 @@
 
     <div
       id="toast"
-      class="toast-message"
-      style="display: none"
+      class="toast-message hidden"
       role="status"
       aria-live="polite"
       aria-atomic="true"

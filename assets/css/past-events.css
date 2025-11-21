@@ -1,5 +1,6 @@
 /* Past Events Page - Additional Styles */
 /* Extends styles.css with past-events specific features */
+/* Note: CSS custom properties are inherited from styles.css */
 
 /* Back link in header */
 .back-link {
@@ -7,7 +8,7 @@
 }
 
 .back-link a {
-  color: #80affe;
+  color: var(--color-accent);
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.18s;
@@ -15,7 +16,7 @@
 
 .back-link a:hover,
 .back-link a:focus {
-  color: #29ffb4;
+  color: var(--color-accent-light);
   text-decoration: underline;
 }
 
@@ -35,7 +36,7 @@
 .event-status {
   color: #023;
   background: #f0f4ff;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   font-size: 1rem;
   font-weight: 600;
   padding: 6px 0 4px 0;
@@ -179,6 +180,34 @@
   font-size: 12px;
 }
 
+/* Error message styles for ARIA-enhanced validation */
+.error-message {
+  display: block;
+  margin-top: 6px;
+  color: var(--color-primary, #d32f2f);
+  font-size: 13px;
+  font-weight: 500;
+  min-height: 0;
+  transition: min-height 0.2s ease;
+}
+
+.error-message:not(:empty) {
+  min-height: 18px;
+}
+
+.form-group input[aria-invalid="true"],
+.form-group textarea[aria-invalid="true"],
+.form-group select[aria-invalid="true"] {
+  border-color: var(--color-primary, #d32f2f);
+  background-color: #fff5f5;
+}
+
+.form-group input[aria-invalid="false"]:focus,
+.form-group textarea[aria-invalid="false"]:focus,
+.form-group select[aria-invalid="false"]:focus {
+  border-color: var(--color-secondary, #23bb57);
+}
+
 .checkbox-group {
   display: flex;
   align-items: center;
@@ -254,3 +283,20 @@
     width: 100%;
   }
 }
+
+/* Reduced Motion Support - WCAG 2.3.3 Level AAA */
+@media (prefers-reduced-motion: reduce) {
+  .modal {
+    animation: none;
+  }
+  
+  .btn:hover {
+    transform: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

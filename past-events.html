@@ -35,9 +35,9 @@
       <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
     </div>
     <footer>
-      <div style="margin-top: 15px">
+      <div class="mt-15">
         &copy; <span id="footerYear"></span> Have an event?
-        <a href="mailto:gym@petefox.co.uk" style="color: #fff; text-decoration: underline">Contact us</a>
+        <a href="mailto:gym@petefox.co.uk" class="footer-link">Contact us</a>
       </div>
       <div class="footer-links">
         <a
@@ -77,22 +77,45 @@
           </button>
         </div>
         <div class="modal-body">
-          <form id="eventForm">
+          <form id="eventForm" novalidate>
             <div class="form-group">
               <label for="eventName">Event Name *</label>
-              <input type="text" id="eventName" name="eventName" required placeholder="e.g., Nuclear Fit Spring 2026" />
+              <input 
+                type="text" 
+                id="eventName" 
+                name="eventName" 
+                required 
+                placeholder="e.g., Nuclear Fit Spring 2026"
+                aria-describedby="eventName-error"
+              />
+              <span id="eventName-error" class="error-message" role="alert"></span>
             </div>
 
             <div class="form-group">
               <label for="eventDate">Event Date & Time *</label>
-              <input type="datetime-local" id="eventDate" name="eventDate" required />
-              <small>Select the date and time of the event</small>
+              <input 
+                type="datetime-local" 
+                id="eventDate" 
+                name="eventDate" 
+                required
+                aria-describedby="eventDate-help eventDate-error"
+              />
+              <small id="eventDate-help">Select the date and time of the event</small>
+              <span id="eventDate-error" class="error-message" role="alert"></span>
             </div>
 
             <div class="form-group">
               <label for="eventLink">Event Link (URL) *</label>
-              <input type="url" id="eventLink" name="eventLink" required placeholder="https://example.com/event" />
-              <small>Link to event registration or information page</small>
+              <input 
+                type="url" 
+                id="eventLink" 
+                name="eventLink" 
+                required 
+                placeholder="https://example.com/event"
+                aria-describedby="eventLink-help eventLink-error"
+              />
+              <small id="eventLink-help">Link to event registration or information page</small>
+              <span id="eventLink-error" class="error-message" role="alert"></span>
             </div>
 
             <div class="form-group">
@@ -102,8 +125,9 @@
                 id="eventImage"
                 name="eventImage"
                 placeholder="https://example.com/image.jpg or /images/event.jpg"
+                aria-describedby="eventImage-help"
               />
-              <small>URL or path to the event image (optional)</small>
+              <small id="eventImage-help">URL or path to the event image (optional)</small>
             </div>
 
             <div class="form-group">
@@ -113,7 +137,9 @@
                 name="eventDescription"
                 required
                 placeholder="Brief description of the event"
+                aria-describedby="eventDescription-error"
               ></textarea>
+              <span id="eventDescription-error" class="error-message" role="alert"></span>
             </div>
 
             <div class="form-group">
@@ -137,16 +163,16 @@
             </div>
 
             <div class="form-group">
-              <label style="margin-bottom: 12px">Display Options</label>
+              <label class="mb-12">Display Options</label>
               <div class="checkbox-group">
                 <input type="checkbox" id="showMoreInfo" name="showMoreInfo" checked />
                 <label for="showMoreInfo">Show "More Info" button</label>
               </div>
-              <div class="checkbox-group" style="margin-top: 8px">
+              <div class="checkbox-group mt-8">
                 <input type="checkbox" id="showBookNow" name="showBookNow" />
                 <label for="showBookNow">Show "Book Now" button</label>
               </div>
-              <div class="checkbox-group" style="margin-top: 8px">
+              <div class="checkbox-group mt-8">
                 <input type="checkbox" id="showRemindMe" name="showRemindMe" checked />
                 <label for="showRemindMe">Show "Remind Me" button</label>
               </div>
@@ -224,13 +250,11 @@
               const imgId = `event-img-${i}`;
               let imgHtml = `<img src="${ev.image}" class="event-img" id="${imgId}" alt="Preview for ${ev.name}" loading="lazy" onerror="onImgError('${imgId}')">`;
 
-              return `<section class="event-card">
+              return `<article class="event-card">
                 ${imgHtml}
                 <div class="event-content">
-                  <header>
-                    <div class="event-title">${ev.name}</div>
-                    <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
-                  </header>
+                  <h2 class="event-title">${ev.name}</h2>
+                  <time class="event-date" datetime="${ev.date}">${formatEventDate(ev.date)}</time>
                   <div class="event-desc">${ev.description}</div>
                   <div class="event-status">
                       <i class="fa-solid fa-check-circle"></i>
@@ -242,7 +266,7 @@
                     ev.name
                   } (opens in new tab)">More Info</a>
                 </div>
-              </section>`;
+              </article>`;
             })
             .join('');
         }
@@ -288,7 +312,16 @@
         const modal = document.getElementById('eventModal');
         modal.style.display = 'none';
         modal.setAttribute('aria-hidden', 'true');
-        document.getElementById('eventForm').reset();
+        
+        const form = document.getElementById('eventForm');
+        form.reset();
+        
+        // Clear all error messages and aria-invalid attributes
+        const errorMessages = form.querySelectorAll('.error-message');
+        errorMessages.forEach(error => error.textContent = '');
+        
+        const fields = form.querySelectorAll('[aria-invalid]');
+        fields.forEach(field => field.removeAttribute('aria-invalid'));
       }
 
       // Close modal when clicking outside
@@ -309,12 +342,78 @@
         }
       });
 
+      // Enhanced form validation with ARIA support
+      function validateField(field) {
+        const errorSpan = document.getElementById(`${field.id}-error`);
+        if (!errorSpan) return true;
+
+        // Clear previous error
+        errorSpan.textContent = '';
+        field.removeAttribute('aria-invalid');
+
+        if (!field.validity.valid) {
+          let errorMessage = '';
+          if (field.validity.valueMissing) {
+            errorMessage = `${field.labels[0].textContent.replace(' *', '')} is required.`;
+          } else if (field.validity.typeMismatch) {
+            if (field.type === 'url') {
+              errorMessage = 'Please enter a valid URL (e.g., https://example.com)';
+            } else if (field.type === 'email') {
+              errorMessage = 'Please enter a valid email address';
+            }
+          } else if (field.validity.patternMismatch) {
+            errorMessage = 'Please match the requested format';
+          } else if (field.validity.rangeUnderflow || field.validity.rangeOverflow) {
+            errorMessage = `Please enter a value between ${field.min} and ${field.max}`;
+          }
+
+          errorSpan.textContent = errorMessage;
+          field.setAttribute('aria-invalid', 'true');
+          return false;
+        }
+
+        field.setAttribute('aria-invalid', 'false');
+        return true;
+      }
+
+      // Add validation listeners to all required fields
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('eventForm');
+        const requiredFields = form.querySelectorAll('[required]');
+
+        requiredFields.forEach(field => {
+          // Validate on blur
+          field.addEventListener('blur', () => validateField(field));
+
+          // Clear error on input
+          field.addEventListener('input', () => {
+            if (field.getAttribute('aria-invalid') === 'true') {
+              validateField(field);
+            }
+          });
+        });
+      });
+
       function generateEvent() {
         const form = document.getElementById('eventForm');
 
+        // Validate all required fields
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+          if (!validateField(field)) {
+            isValid = false;
+          }
+        });
+
         // Validate form
-        if (!form.checkValidity()) {
-          form.reportValidity();
+        if (!isValid || !form.checkValidity()) {
+          // Focus first invalid field
+          const firstInvalid = form.querySelector('[aria-invalid="true"]');
+          if (firstInvalid) {
+            firstInvalid.focus();
+          }
           return;
         }
 

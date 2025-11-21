@@ -200,6 +200,9 @@
   }
 
   function openModal(workout) {
+    // Store the currently focused element to return focus later
+    modal.dataset.previousFocus = document.activeElement?.id || '';
+
     modalBody.innerHTML = `
             <h2>${escapeHtml(workout.name)}</h2>
             <div class="modal-badges">
@@ -233,13 +236,22 @@
         `;
 
     modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     modalClose.focus();
   }
 
   function closeModal() {
     modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    
+    // Return focus to the element that opened the modal
+    const previousFocusId = modal.dataset.previousFocus;
+    if (previousFocusId) {
+      const element = document.getElementById(previousFocusId);
+      if (element) element.focus();
+    }
   }
 
   function handleSearch() {

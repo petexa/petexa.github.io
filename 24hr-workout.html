@@ -301,6 +301,24 @@
         height: 1px;
         overflow: hidden;
       }
+
+      /* Utility classes for consistent styling */
+      .workout-note {
+        font-style: italic;
+        color: #cfdff9;
+        margin-top: 6px;
+      }
+
+      footer {
+        text-align: center;
+        color: #cfe6ff;
+        margin-top: 24px;
+      }
+
+      footer a {
+        color: #fff;
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body>
@@ -315,7 +333,7 @@
 
       <div class="top-center">
         <!-- IDFit logo added back in, centered -->
-        <img src="images/idfit.jpg" alt="IDFit logo" class="idfit-top" loading="lazy" />
+        <img src="images/idfit.jpg" alt="IDFit logo" class="idfit-top" width="1024" height="585" loading="lazy" />
         <div>
           <h1 class="page-title">24 Hour Work Out</h1>
           <div class="page-sub">Current hour shown at top. When it passes it drops to the bottom.</div>
@@ -331,7 +349,7 @@
           aria-label="Donate to Ender's Touch on GoFundMe"
           title="Donate to Ender's Touch"
         >
-          <img src="images/enders.png" alt="Ender's Touch charity logo" />
+          <img src="images/enders.png" alt="Ender's Touch charity logo" width="529" height="472" />
         </a>
       </div>
 
@@ -371,7 +389,7 @@
               <li>20 DB Snatch</li>
               <li>10 push up</li>
             </ul>
-            <div style="font-style: italic; color: #cfdff9; margin-top: 6px">5 rounds - *-25 calories each round</div>
+            <div class="workout-note">5 rounds - *-25 calories each round</div>
           </div>
         </article>
 
@@ -385,7 +403,7 @@
               <li>DB Bench Press</li>
               <li>SA Push Press</li>
             </ul>
-            <div style="font-style: italic; color: #cfdff9; margin-top: 6px">Time cap - 45 minutes</div>
+            <div class="workout-note">Time cap - 45 minutes</div>
           </div>
         </article>
 
@@ -412,7 +430,7 @@
               <li>10 EZ bar curl</li>
               <li>12 Hammer curl</li>
             </ul>
-            <div style="font-style: italic; color: #cfdff9; margin-top: 6px">Max push ups to finish</div>
+            <div class="workout-note">Max push ups to finish</div>
           </div>
         </article>
 
@@ -448,7 +466,7 @@
           <div class="workout">
             <strong>In a group:</strong>
             <p>10000m row</p>
-            <div style="font-style: italic; color: #cfdff9; margin-top: 6px">Timecap: 40 minutes</div>
+            <div class="workout-note">Timecap: 40 minutes</div>
           </div>
         </article>
 
@@ -490,7 +508,7 @@
               <li>Hang clean</li>
               <li>Push press</li>
             </ul>
-            <div style="font-style: italic; color: #cfdff9; margin-top: 6px">Buy out: 100 calorie row</div>
+            <div class="workout-note">Buy out: 100 calorie row</div>
           </div>
         </article>
 
@@ -527,7 +545,7 @@
               <li>10 butterfly sit up</li>
               <li>10s plank</li>
             </ul>
-            <div style="font-style: italic; color: #cfdff9; margin-top: 6px">
+            <div class="workout-note">
               +10 second/reps each round — Go until failure
             </div>
           </div>
@@ -644,9 +662,9 @@
       <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
     </div>
 
-    <footer style="text-align: center; color: #cfe6ff; margin-top: 24px">
+    <footer>
       &copy; <span id="year"></span> IDFit Events | Have an event?
-      <a href="mailto:gym@petefox.co.uk" style="color: #fff; text-decoration: underline">Contact us</a>
+      <a href="mailto:gym@petefox.co.uk">Contact us</a>
     </footer>
 
     <script>

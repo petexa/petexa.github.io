@@ -189,9 +189,19 @@
         }
       }
 
+      /* Reduced Motion Support */
+      @media (prefers-reduced-motion: reduce) {
+        .loading i {
+          animation: none;
+        }
+        .view-details-btn:hover {
+          transform: none;
+        }
+      }
+
       /* Modal Styles */
       .modal {
-        display: none;
+        display: flex;
         position: fixed;
         z-index: 1000;
         left: 0;
@@ -331,7 +341,7 @@
             <i class="fa-solid fa-spinner"></i>
             <p>Loading workout database...</p>
           </div>
-          <table id="wods-table" class="wods-table" style="display: none">
+          <table id="wods-table" class="wods-table hidden">
             <thead>
               <tr>
                 <th data-sort="name">Name <i class="fa-solid fa-sort"></i></th>
@@ -354,11 +364,10 @@
     <!-- Workout Detail Modal -->
     <div
       id="workout-modal"
-      class="modal"
+      class="modal hidden"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
-      style="display: none"
     >
       <div class="modal-content">
         <button class="modal-close" aria-label="Close modal">
@@ -440,9 +449,21 @@
         function setupEventListeners() {
           tableSearch.addEventListener('input', debounce(filterTable, 300));
 
-          // Add sort listeners to all headers
+          // Add sort listeners to all headers with keyboard support
           document.querySelectorAll('th[data-sort]').forEach(th => {
             th.addEventListener('click', () => sortTable(th.dataset.sort));
+            
+            // Add keyboard support for Enter and Space keys
+            th.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                sortTable(th.dataset.sort);
+              }
+            });
+            
+            // Make sortable headers focusable
+            th.setAttribute('tabindex', '0');
+            th.setAttribute('role', 'button');
           });
 
           // Setup modal listeners
@@ -519,8 +540,8 @@
             displayTable();
             updateResultsCount();
 
-            tableLoading.style.display = 'none';
-            wodsTable.style.display = 'table';
+            tableLoading.classList.add('hidden');
+            wodsTable.classList.remove('hidden');
           } catch (error) {
             console.error('Error loading workouts:', error);
             tableLoading.innerHTML = `
@@ -689,6 +710,9 @@
           const modal = document.getElementById('workout-modal');
           const modalBody = document.getElementById('modal-body');
 
+          // Store the currently focused element to return focus later
+          modal.dataset.previousFocus = document.activeElement;
+
           modalBody.innerHTML = `
             <h2 id="modal-title">${escapeHtml(workout.name)}</h2>
             <div class="modal-badges">
@@ -721,7 +745,8 @@
             </div>
         `;
 
-          modal.style.display = 'flex';
+          modal.classList.remove('hidden');
+          modal.setAttribute('aria-hidden', 'false');
           document.body.style.overflow = 'hidden';
 
           // Focus on close button for accessibility
@@ -731,8 +756,16 @@
 
         function closeModal() {
           const modal = document.getElementById('workout-modal');
-          modal.style.display = 'none';
+          modal.classList.add('hidden');
+          modal.setAttribute('aria-hidden', 'true');
           document.body.style.overflow = '';
+          
+          // Return focus to the element that opened the modal
+          const previousFocus = modal.dataset.previousFocus;
+          if (previousFocus && document.body.contains(document.querySelector(`[data-workout-id="${modal.dataset.previousFocus}"]`))) {
+            const btn = document.querySelector(`[data-workout-id="${previousFocus}"]`);
+            if (btn) btn.focus();
+          }
         }
 
         function setupModalListeners() {
@@ -752,7 +785,7 @@
 
         // Global escape key handler (only added once)
         document.addEventListener('keydown', e => {
-          if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+          if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
             closeModal();
           }
         });
