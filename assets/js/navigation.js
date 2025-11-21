@@ -1,6 +1,6 @@
 /**
  * Global Navigation Dropdown Component
- * Provides a kettlebell icon that opens a dropdown menu
+ * Provides a dumbbell icon that opens a dropdown menu
  */
 
 (function() {
@@ -39,20 +39,10 @@
             }
         });
         
-        // Add Create Event button only for past-events.html
-        if (currentPage === 'past-events.html') {
-            menuItemsHTML += `
-                <button id="nav-create-event-btn" class="nav-dropdown-item nav-dropdown-button">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Create Event</span>
-                </button>
-            `;
-        }
-        
         return `
             <!-- Navigation Button -->
-            <button id="nav-kettlebell-btn" class="nav-kettlebell-btn" aria-label="Open navigation menu" aria-expanded="false">
-                <i class="fa-solid fa-kettlebell" aria-hidden="true"></i>
+            <button id="nav-dumbbell-btn" class="nav-dumbbell-btn" aria-label="Open navigation menu" aria-expanded="false">
+                <i class="fa-solid fa-dumbbell" aria-hidden="true"></i>
             </button>
 
             <!-- Navigation Dropdown Menu -->
@@ -67,7 +57,7 @@
         const style = document.createElement('style');
         style.textContent = `
             /* Navigation button */
-            .nav-kettlebell-btn {
+            .nav-dumbbell-btn {
                 position: fixed;
                 top: 95px; /* Position below the black banner and tear */
                 right: 20px;
@@ -84,18 +74,18 @@
                 justify-content: center;
             }
 
-            .nav-kettlebell-btn:hover {
+            .nav-dumbbell-btn:hover {
                 transform: scale(1.1);
             }
 
-            .nav-kettlebell-btn:focus {
+            .nav-dumbbell-btn:focus {
                 outline: 3px solid #80affe;
                 outline-offset: 2px;
             }
 
-            .nav-kettlebell-btn i {
+            .nav-dumbbell-btn i {
                 font-size: 40px;
-                color: #dc3545; /* Red kettlebell icon */
+                color: #dc3545; /* Red dumbbell icon */
                 filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
             }
 
@@ -177,14 +167,14 @@
 
             /* Mobile adjustments */
             @media (max-width: 768px) {
-                .nav-kettlebell-btn {
+                .nav-dumbbell-btn {
                     top: 90px; /* Position below header on mobile */
                     right: 15px;
                     width: 45px;
                     height: 45px;
                 }
                 
-                .nav-kettlebell-btn i {
+                .nav-dumbbell-btn i {
                     font-size: 36px;
                 }
 
@@ -218,9 +208,8 @@
         document.body.appendChild(navContainer);
 
         // Get elements
-        const kettlebellBtn = document.getElementById('nav-kettlebell-btn');
+        const dumbbellBtn = document.getElementById('nav-dumbbell-btn');
         const dropdown = document.getElementById('nav-dropdown');
-        const createEventBtn = document.getElementById('nav-create-event-btn');
 
         // Toggle dropdown
         function toggleDropdown() {
@@ -235,21 +224,21 @@
         // Open dropdown
         function openDropdown() {
             dropdown.style.display = 'block';
-            kettlebellBtn.setAttribute('aria-expanded', 'true');
+            dumbbellBtn.setAttribute('aria-expanded', 'true');
         }
 
         // Close dropdown
         function closeDropdown() {
             dropdown.style.display = 'none';
-            kettlebellBtn.setAttribute('aria-expanded', 'false');
+            dumbbellBtn.setAttribute('aria-expanded', 'false');
         }
 
         // Event listeners
-        kettlebellBtn.addEventListener('click', toggleDropdown);
+        dumbbellBtn.addEventListener('click', toggleDropdown);
 
         // Close when clicking outside
         document.addEventListener('click', function(e) {
-            if (!kettlebellBtn.contains(e.target) && !dropdown.contains(e.target)) {
+            if (!dumbbellBtn.contains(e.target) && !dropdown.contains(e.target)) {
                 closeDropdown();
             }
         });
@@ -258,22 +247,9 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && dropdown.style.display === 'block') {
                 closeDropdown();
-                kettlebellBtn.focus();
+                dumbbellBtn.focus();
             }
         });
-
-        // Handle Create Event button if present
-        if (createEventBtn) {
-            createEventBtn.addEventListener('click', function() {
-                closeDropdown();
-                // Trigger the existing openModal function if it exists
-                if (typeof window.openModal === 'function') {
-                    window.openModal();
-                } else {
-                    console.warn('openModal function not found');
-                }
-            });
-        }
     }
 
     // Initialize when DOM is ready
