@@ -138,7 +138,7 @@ class WorkoutDataCleaner:
         """
         Search for missing data using multiple strategies:
         1. Look for patterns in the dataset (similar workouts, same category)
-        2. Search the web for known workout information
+        2. Use known benchmark workout data (could be extended to web API calls)
         3. Only apply defaults if no data found
         """
         print("\nSearching for missing data...")
@@ -146,8 +146,8 @@ class WorkoutDataCleaner:
         # Strategy 1: Fill based on dataset patterns
         self._fill_from_dataset_patterns()
         
-        # Strategy 2: Search web for specific well-known workouts
-        self._fill_from_web_search()
+        # Strategy 2: Use known benchmark workout data
+        self._fill_from_known_benchmarks()
         
         print(f"  ✓ Found {self.stats['values_found_from_dataset']} values from dataset patterns")
         print(f"  ✓ Found {self.stats['values_found_from_web']} values from web searches")
@@ -187,14 +187,15 @@ class WorkoutDataCleaner:
                                     self.df.at[idx, col] = median_val
                                     self.stats['values_found_from_dataset'] += 1
     
-    def _fill_from_web_search(self):
+    def _fill_from_known_benchmarks(self):
         """
-        Search the web for missing workout information.
-        For well-known workouts (benchmarks), try to find standard values.
+        Fill missing data from known benchmark workout information.
+        This is a lookup table for well-known CrossFit benchmarks.
+        For extensibility, this could be replaced with actual web API calls.
         """
         
         # Known benchmark workouts and their standard configurations
-        # This simulates web-sourced data for common CrossFit benchmarks
+        # This is a curated lookup table of common CrossFit benchmarks
         known_workouts = {
             'Fran': {
                 'Category': 'Benchmark (girl/classic)',
@@ -243,7 +244,7 @@ class WorkoutDataCleaner:
             },
         }
         
-        # Fill known workouts with web-sourced data
+        # Fill known workouts with benchmark data
         for idx, row in self.df.iterrows():
             workout_name = row['Name']
             if pd.notna(workout_name) and workout_name in known_workouts:
@@ -275,10 +276,16 @@ class WorkoutDataCleaner:
                     defaults_applied += mask.sum()
                 
                 elif col == 'WorkoutID':
-                    # Generate UUID for missing WorkoutIDs
+                    # Generate UUID for missing WorkoutIDs with collision check
                     mask = self.df[col].isnull()
+                    existing_ids = set(self.df[col].dropna().astype(str))
                     for idx in self.df[mask].index:
-                        self.df.at[idx, col] = str(uuid.uuid4())[:8]  # Use first 8 chars
+                        # Generate unique ID and check for collisions
+                        new_id = str(uuid.uuid4())
+                        while new_id in existing_ids:
+                            new_id = str(uuid.uuid4())
+                        self.df.at[idx, col] = new_id
+                        existing_ids.add(new_id)
                         self.stats['workoutids_generated'] += 1
                     defaults_applied += mask.sum()
                 
