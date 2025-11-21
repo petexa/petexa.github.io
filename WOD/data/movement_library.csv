@@ -1,0 +1,324 @@
+Movement,Type,Pattern,Skill_Level,MovementID
+Thruster,Weightlifting,Squat,Intermediate,1
+Pull-Up,Gymnastics,Pull,Intermediate,2
+Clean,Weightlifting,Hinge,Intermediate,3
+45 Kgs)).,General,General,Intermediate,4
+Run,Monostructural,Locomotion,Beginner,5
+Kettlebell Swing,Weightlifting,Hinge,Intermediate,6
+16 Kg),General,General,Intermediate,7
+Push-Up,Gymnastics,Push,Intermediate,8
+15 Squats.,General,General,Intermediate,9
+Wall Ball,Weightlifting,Squat,Intermediate,10
+5 Kgs)) For Time.,General,General,Intermediate,11
+5 Kgs)),General,General,Intermediate,12
+Deadlift,Weightlifting,Hinge,Intermediate,13
+25 Kgs)),General,General,Intermediate,14
+Box Jump,General,General,Intermediate,15
+Push Presses ((35,Weightlifting,Push,Intermediate,16
+Row,Monostructural,General,Beginner,17
+Burpee,General,General,Intermediate,18
+Sit-Up,General,General,Intermediate,19
+30 Air Squats.,General,General,Intermediate,20
+Handstand Push-Up,Gymnastics,Push,Intermediate,21
+45 Kgs)),General,General,Intermediate,22
+7 Knees-To-Elbows,General,General,Intermediate,23
+75 Kgs)),General,General,Intermediate,24
+1.5Pood),General,General,Intermediate,25
+Snatch,Weightlifting,Hinge,Intermediate,26
+30 Kgs)),General,General,Intermediate,27
+9; Etc.),General,General,Intermediate,28
+15 Kgs)),General,General,Intermediate,29
+20 Dumbbell Box Step-Overs (20 In),General,General,Intermediate,30
+20 V-Ups.,General,General,Intermediate,31
+Double Under,General,General,Intermediate,32
+Toes-To-Bar,Gymnastics,General,Intermediate,33
+15 Back Extensions.,General,General,Intermediate,34
+10 Goblet Squats (24,General,General,Intermediate,35
+85 Kgs)),General,General,Intermediate,36
+20 In).,General,General,Intermediate,37
+Odd Minutes: Max Effort Strict Press ((45,Weightlifting,Push,Intermediate,38
+30 Kgs)). Partner A Works,General,General,Intermediate,39
+15 Calorie Bike,Monostructural,General,Beginner,40
+10 Overhead Squats ((45,General,General,Intermediate,41
+30 Kgs)). Must Complete All Reps Of One Exercise Before Moving To The Next.,General,General,Intermediate,42
+5 Devil'S Press ((25,Weightlifting,Push,Intermediate,43
+10 Alternating Pistol Squats (Or Weighted Lunges).,General,General,Intermediate,44
+Minute 1: 12,General,General,Intermediate,45
+10 Kgs)),General,General,Intermediate,46
+10 Dumbbell Box Step-Overs (20 In).,General,General,Intermediate,47
+60 Kgs)),General,General,Intermediate,48
+8 Calorie Bike.,Monostructural,General,Beginner,49
+100 Single Unders,General,General,Intermediate,50
+10 Walking Lunges (Per Leg).,General,General,Intermediate,51
+50 Ft Single-Arm Overhead Dumbbell Carry (Right Arm,General,General,Intermediate,52
+50 Ft Single-Arm Overhead Dumbbell Carry (Left Arm),General,General,Intermediate,53
+30 Kgs)). Rest With Any Remaining Time.,General,General,Intermediate,54
+15 Squats. After Each Round,General,General,Intermediate,55
+20 In),General,General,Intermediate,56
+16 Kg).,General,General,Intermediate,57
+25 Kgs)). Minutes 6-10: 5 Dumbbell Shoulder-To-Overhead. Minutes 11-15: 5 Dumbbell Squats (Holding Dbs).,General,General,Intermediate,58
+10 Push Press ((45,Weightlifting,Push,Intermediate,59
+Odd Minutes: 12,General,General,Intermediate,60
+24 In).,General,General,Intermediate,61
+24 Kg),General,General,Intermediate,62
+15 Squats. Score Is Total Rounds,General,General,Intermediate,63
+Muscle-Up,Gymnastics,General,Intermediate,64
+50 Push Press ((45,Weightlifting,Push,Intermediate,65
+Push Press) At (60,Weightlifting,Push,Intermediate,66
+45 Kgs).,General,General,Intermediate,67
+10 Back Squats ((85,General,General,Intermediate,68
+10 Strict Press ((35,Weightlifting,Push,Intermediate,69
+50 Ft Dual Dumbbell Overhead Lunge ((25,General,General,Intermediate,70
+100 Kgs)),General,General,Intermediate,71
+5 Kgs)). Minute 2: 100 Ft Single Arm Farmer'S Carry ((30,General,General,Intermediate,72
+25 Kgs),General,General,Intermediate,73
+Right Arm). Minute 3: 100 Ft Single Arm Farmer'S Carry ((30,General,General,Intermediate,74
+10 Overhead Squats ((50,General,General,Intermediate,75
+35 Kgs)),General,General,Intermediate,76
+Dip,Weightlifting,Push,Intermediate,77
+35 Kgs)).,General,General,Intermediate,78
+15 Air Squats. Score Is Total Reps Accumulated.,General,General,Intermediate,79
+35 Kgs)). Scale Weight Down If You Fail To Complete 5 Reps Unbroken For The Minute.,General,General,Intermediate,80
+50 Push Presses ((35,Weightlifting,Push,Intermediate,81
+50 Knees-To-Elbows,General,General,Intermediate,82
+50 Hip Extensions.,General,General,Intermediate,83
+50 Kgs)),General,General,Intermediate,84
+50 Walking Lunges,General,General,Intermediate,85
+1 Legless Rope Climb (Or 2 Standard),General,General,Intermediate,86
+5 Front Squats ((60,General,General,Intermediate,87
+5 Kgs)).,General,General,Intermediate,88
+50 Air Squats,General,General,Intermediate,89
+25 Strict Press ((35,Weightlifting,Push,Intermediate,90
+25 Kgs)).,General,General,Intermediate,91
+10 Calorie Bike,Monostructural,General,Beginner,92
+Odd Minutes: 100 Ft Sandbag,General,General,Intermediate,93
+Max Calorie Ski. Score Is Total Calories Accumulated Over 10 Working Minutes.,General,General,Intermediate,94
+5 Kgs)) In The First Round. Every Round,General,General,Intermediate,95
+15 Alternating V-Ups.,General,General,Intermediate,96
+16 Kg,General,General,Intermediate,97
+5 Per Arm),General,General,Intermediate,98
+Handstand,Gymnastics,Push,Intermediate,99
+Double-Under,Monostructural,General,Beginner,100
+8 Overhead Squats ((45,General,General,Intermediate,101
+Minute 1: 15,General,General,Intermediate,102
+50 Air Squats.,General,General,Intermediate,103
+Complete 15,General,General,Intermediate,104
+12 Calorie Bike. If The Task Is Completed Early,Monostructural,General,Beginner,105
+3 Rope Climbs (15 Ft),General,General,Intermediate,106
+Kettlebell,Weightlifting,Hinge,Intermediate,107
+5 Back Squats ((60,General,General,Intermediate,108
+45 Kgs)) With A 3-Second Descent (Tempo 30X0).,General,General,Intermediate,109
+10 Dumbbell Overhead Lunges ((25,General,General,Intermediate,110
+15 Kgs),General,General,Intermediate,111
+10 Front Squats ((85,General,General,Intermediate,112
+60 Kgs)).,General,General,Intermediate,113
+10 Air Squats.,General,General,Intermediate,114
+10 V-Ups,General,General,Intermediate,115
+10 Alternating Pistol Squats (Or Assisted),General,General,Intermediate,116
+5 Wall Walks,General,General,Intermediate,117
+15 V-Ups.,General,General,Intermediate,118
+With 10,General,General,Intermediate,119
+10 Box Step-Overs,General,General,Intermediate,120
+10 Front Squats (Repeat 5 Times At (60,General,General,Intermediate,121
+10 Walking Lunges (Per Leg),General,General,Intermediate,122
+10 Air Squats,General,General,Intermediate,123
+70 Kgs)),General,General,Intermediate,124
+50 Walking Lunges (Per Leg),General,General,Intermediate,125
+50 Push Presses ((20,Weightlifting,Push,Intermediate,126
+50 Back Extensions,General,General,Intermediate,127
+300 Air Squats,General,General,Intermediate,128
+5 Rounds Of: 50 Air Squats,General,General,Intermediate,129
+5 Per Arm).,General,General,Intermediate,130
+1000 Box Step-Ups (20 In).,General,General,Intermediate,131
+20 Push Presses ((50,Weightlifting,Push,Intermediate,132
+Jerk,Weightlifting,General,Intermediate,133
+50 Kgs)).,General,General,Intermediate,134
+70 Kgs)).,General,General,Intermediate,135
+10 Kgs),General,General,Intermediate,136
+1.5Pood).,General,General,Intermediate,137
+10 Barbell Lunges ((85,Weightlifting,General,Intermediate,138
+50 Overhead Squats ((60,General,General,Intermediate,139
+50 Dumbbell Push Press ((20,Weightlifting,Push,Intermediate,140
+10 Push Presses ((50,Weightlifting,Push,Intermediate,141
+30 Overhead Squats ((45,General,General,Intermediate,142
+30 Kgs)).,General,General,Intermediate,143
+10 Pistol Squats (Alternating),General,General,Intermediate,144
+8 Rounds Of: 20 Seconds Work,General,General,Intermediate,145
+25 Kgs)). Score Is Total Reps.,General,General,Intermediate,146
+20 Dual Dumbbell Overhead Lunges ((20,General,General,Intermediate,147
+3 Back Squats (70% 1Rm). Focus On Excellent Form,General,General,Intermediate,148
+5 Strict Press ((45,Weightlifting,Push,Intermediate,149
+10 Goblet Reverse Lunges (24,General,General,Intermediate,150
+5 Per Leg),General,General,Intermediate,151
+10 Alternating Pistol Squats.,General,General,Intermediate,152
+7 Calorie Ski,General,General,Intermediate,153
+3 Wall Walks,General,General,Intermediate,154
+12 Calorie Bike.,Monostructural,General,Beginner,155
+6.4 Kg Vest),General,General,Intermediate,156
+20 Air Squats,General,General,Intermediate,157
+40 Calorie Bike. Must Complete All Three Stations Before Starting The Next Round.,Monostructural,General,Beginner,158
+10 Pistols (Alternating).,General,General,Intermediate,159
+10 Dumbbell Push Press ((25,Weightlifting,Push,Intermediate,160
+Overhead Squats ((60,General,General,Intermediate,161
+With 100 Ft Single Arm Farmer'S Carry (Heavy Kb) After Each Set.,Weightlifting,Hinge,Intermediate,162
+Odd: 15,General,General,Intermediate,163
+1 Minute Plank Hold (Weighted Optional).,General,General,Intermediate,164
+1 Minute Max Rep Air Squats. 1 Minute Rest Between Rounds.,General,General,Intermediate,165
+5 Overhead Squats ((45,General,General,Intermediate,166
+3 Rope Climbs (Legless Optional),General,General,Intermediate,167
+10 Kgs)).,General,General,Intermediate,168
+20 Walking Lunges (Per Leg),General,General,Intermediate,169
+Odd: 100 Ft Overhead Barbell Walk (Light,Weightlifting,General,Intermediate,170
+100 Air Squats,General,General,Intermediate,171
+20 Box Step-Ups (No Weight).,General,General,Intermediate,172
+2000M Ski-Erg,General,General,Intermediate,173
+2000M Bike. Rest 2 Minutes Between Machines.,Monostructural,General,Beginner,174
+10 Turkish Get-Ups ((20,General,General,Intermediate,175
+100 Weighted Box Step-Ups (50,General,General,Intermediate,176
+15.9 Kg Dbs). Every Time You Break,General,General,Intermediate,177
+35 Kgs)). If You Stop Or Break The Set Of 10,General,General,Intermediate,178
+45 Kgs)). 5 Minute Time Cap.,General,General,Intermediate,179
+50 Ft Farmer'S Carry (Heavy),General,General,Intermediate,180
+50 Ft Overhead Carry (Medium),General,General,Intermediate,181
+60 Kgs)). Switch Roles At The Top Of The Next Minute.,General,General,Intermediate,182
+100 Air Squats.,General,General,Intermediate,183
+6.4 Kg Vest Optional).,General,General,Intermediate,184
+6.4 Kgs),General,General,Intermediate,185
+150 Push Press (75,Weightlifting,Push,Intermediate,186
+24.9 Kgs). Every 30 Reps,General,General,Intermediate,187
+9 Calorie Ski Erg,General,General,Intermediate,188
+43.1 Kgs).,General,General,Intermediate,189
+20.4 Kgs). Every Break,General,General,Intermediate,190
+000M Bike). Every 10 Minutes,Monostructural,General,Beginner,191
+20 Dumbbell Box Step-Overs (50,General,General,Intermediate,192
+15.9 Kgs).,General,General,Intermediate,193
+50 Ft Yoke Carry (Heavy),General,General,Intermediate,194
+61.2 Kgs),General,General,Intermediate,195
+50 Ft Sled Pull (Heavy).,Gymnastics,Pull,Intermediate,196
+1 Pegboard Ascent (Or 2 Legless Rope Climbs),General,General,Intermediate,197
+29.5 Kgs).,General,General,Intermediate,198
+100 Ft Sled Push (Heavy). Rest 1 Minute Between Rounds.,General,General,Intermediate,199
+Max L,General,General,Intermediate,200
+43.1 Kgs),General,General,Intermediate,201
+20 Overhead Squats (95,General,General,Intermediate,202
+29.5 Kgs),General,General,Intermediate,203
+83.9 Kgs),General,General,Intermediate,204
+5 Strict Press (115,Weightlifting,Push,Intermediate,205
+34.0 Kgs),General,General,Intermediate,206
+30 Dumbbell,General,General,Intermediate,207
+Odd). Every 5 Reps,General,General,Intermediate,208
+50 Strict Press (65,Weightlifting,Push,Intermediate,209
+20.4 Kgs).,General,General,Intermediate,210
+12 Calorie Bike,Monostructural,General,Beginner,211
+5000M Ski-Erg. Every 5 Minutes,General,General,Intermediate,212
+24.9 Kgs).,General,General,Intermediate,213
+11.3 Kgs),General,General,Intermediate,214
+70.3 Kgs). After Each Set,General,General,Intermediate,215
+Dumbbell Farmer'S Carry For 1 Minute (Static Hold Or Walk).,General,General,Intermediate,216
+Instructions,General,General,Intermediate,217
+500M Ski Erg,General,General,Intermediate,218
+25M Sled Push (Heavy),General,General,Intermediate,219
+50M Farmer'S Carry (Heavy),General,General,Intermediate,220
+50M Sled Push (Very Heavy),General,General,Intermediate,221
+50M Sled Pull (Very Heavy),Gymnastics,Pull,Intermediate,222
+20 Sandbag Squats (Heavy).,General,General,Intermediate,223
+6.4 Kgs). Every Minute On The Minute,General,General,Intermediate,224
+100 Sandbag Lunges (Heavy,General,General,Intermediate,225
+14 Kgs Bag). Every Time You Break,General,General,Intermediate,226
+1000M Bike,Monostructural,General,Beginner,227
+1000M Ski,General,General,Intermediate,228
+200M Farmer'S Carry (Heavy),General,General,Intermediate,229
+500M Ski (Max Effort),General,General,Intermediate,230
+250M Ski. Rest 30 Seconds After Each 500M Set.,General,General,Intermediate,231
+100M Ski,General,General,Intermediate,232
+200M Ski. Rest The Remainder Of The Minute.,General,General,Intermediate,233
+400M Ski,General,General,Intermediate,234
+10 Air Squats. Rest 90 Seconds.,General,General,Intermediate,235
+4 Sets Of 15,General,General,Intermediate,236
+12 Calorie Ski. Rest 30 Seconds. 4 Sets Of 15,General,General,Intermediate,237
+20 Air Squats.,General,General,Intermediate,238
+5000M Ski Erg.,General,General,Intermediate,239
+Perform 1 Minute Plank Hold.,General,General,Intermediate,240
+3000M Ski Erg,General,General,Intermediate,241
+Amrap In 15 Minutes: 500M Ski,General,General,Intermediate,242
+75 Calorie Ski,General,General,Intermediate,243
+50 Air Squats. Rest 2 Minutes.,General,General,Intermediate,244
+Emom For 45 Minutes: 100M Ski,General,General,Intermediate,245
+12 Calorie Ski. Even: 15,General,General,Intermediate,246
+200M Ski,General,General,Intermediate,247
+500M Ski. Rest 1 Minute After Each Set Of 1000M.,General,General,Intermediate,248
+7 Calorie Ski.,General,General,Intermediate,249
+500M Ski,General,General,Intermediate,250
+24.9 Kgs),General,General,Intermediate,251
+500M Ski.,General,General,Intermediate,252
+70.3 Kgs),General,General,Intermediate,253
+15 Calorie Ski,General,General,Intermediate,254
+15.9 Kgs,General,General,Intermediate,255
+10 Per Arm),General,General,Intermediate,256
+750M Ski.,General,General,Intermediate,257
+7 Cal Ski,General,General,Intermediate,258
+21 Cal Ski,General,General,Intermediate,259
+7 Cal Ski.,General,General,Intermediate,260
+250M Ski.,General,General,Intermediate,261
+Amrap In 15 Minutes: 100M Ski,General,General,Intermediate,262
+30 Synchronized Air Squats,General,General,Intermediate,263
+43.1 Kgs). Partner 2: Holds Plank. P1 Finishes,General,General,Intermediate,264
+P2 Immediately Starts 5 C&Js. Score Is Total C&Js.,General,General,Intermediate,265
+20.4 Kgs),General,General,Intermediate,266
+Total Reps Per Round Of Dual Dumbbell Devil'S Press (50,Weightlifting,Push,Intermediate,267
+150 Calorie Bike (Split,Monostructural,General,Beginner,268
+Work Simultaneously). Every 40 Cals (Total),General,General,Intermediate,269
+102.1 Kgs) (Split Reps). Bar Cannot Be Dropped Until The 21,General,General,Intermediate,270
+Or 9 Reps Are Complete. After Each Set,General,General,Intermediate,271
+P1 Must Stop Work. P1,General,General,Intermediate,272
+5 Wall Walks (P1 Works,General,General,Intermediate,273
+43.1 Kgs) (Ygiy),General,General,Intermediate,274
+15 Calorie Ski (Split Reps),General,General,Intermediate,275
+70.3 Kgs) (Split Reps).,General,General,Intermediate,276
+47.6 Kgs).,General,General,Intermediate,277
+P1 Bikes 15,Monostructural,General,Beginner,278
+100 Alternating Pistol Squats (Ygiy,General,General,Intermediate,279
+P1 Does 1,General,General,Intermediate,280
+P2 Does 1). Every Time A Rep Is Missed,General,General,Intermediate,281
+Both Partners Perform 5 Air Squats.,General,General,Intermediate,282
+10 Rope Climbs (Split Reps).,General,General,Intermediate,283
+13.6 Kgs),General,General,Intermediate,284
+P1 Carries P2 50 Ft (Fireman Or Piggyback). 10 Synchro Air Squats. Switch Roles.,General,General,Intermediate,285
+P1 Carries Yoke 100 Ft (Heavy). P2 Completes Max Reps Of Overhead Squats (95,General,General,Intermediate,286
+29.5 Kgs). Switch.,General,General,Intermediate,287
+100 Push Press (Split Reps,Weightlifting,Push,Intermediate,288
+Kb Swing,Weightlifting,Hinge,Intermediate,289
+16 Kg). P2 Holds A Chin-Over-Bar Hold. Switch.,General,General,Intermediate,290
+225 Calorie Bike (Split,Monostructural,General,Beginner,291
+Work Simultaneously). Every 50 Cals (Total),General,General,Intermediate,292
+83.9 Kgs) (Ygiy),General,General,Intermediate,293
+10 Man-Makers (Ygiy,General,General,Intermediate,294
+11.3 Kgs Dbs),General,General,Intermediate,295
+20 V-Ups (Split Reps).,General,General,Intermediate,296
+P2 Holds A Squat. Switch When P1 Finishes Set,General,General,Intermediate,297
+Drops. 2000M Ski (Split Reps),General,General,Intermediate,298
+P2 Holds A Plank. Switch When P1 Finishes Set,General,General,Intermediate,299
+43.1 Kgs) (Ygiy). P2 Holds Barbell In Front Rack. Switch When P1 Finishes Set Or P2 Drops Bar.,Weightlifting,General,Intermediate,300
+50M Heavy Sled Push (P1 Works,General,General,Intermediate,301
+P2 Rests). 50M Heavy Sled Pull (P2 Works,Gymnastics,Pull,Intermediate,302
+300 Cals Total (Split Reps). Partners Can Exchange At Any Time But Must Switch Every Time A Partner Drops Their Hands From The Handles.,General,General,Intermediate,303
+16 Kg). Switch Roles. Score Is Total Swings.,General,General,Intermediate,304
+P1 Performs 10 Front Squats (135,General,General,Intermediate,305
+43.1 Kgs). P2 Holds Barbell In The Front Rack. Switch When P1 Finishes Set Or P2 Drops Bar.,Weightlifting,General,Intermediate,306
+"You Go"" (P1 Does 1",General,General,Intermediate,307
+P2 Does 1). Every 20 Reps,General,General,Intermediate,308
+Alternating Legs Every 30S). Switch When P2 Breaks Hold.,General,General,Intermediate,309
+16 Kg). Every Time Partners Fall Out Of Sync,General,General,Intermediate,310
+One Partner Wears 20,General,General,Intermediate,311
+5 Synchronized Wall Walks,General,General,Intermediate,312
+10 Synchro Air Squats.,General,General,Intermediate,313
+56.7 Kgs) (Ygiy). P2 Holds Barbell In Back Rack. Switch When P1 Finishes Set Or P2 Drops Bar.,Weightlifting,General,Intermediate,314
+Partner Works). 10 Air Squats (Synchro).,General,General,Intermediate,315
+1 Legless Rope Climb (Ygiy),General,General,Intermediate,316
+43.1 Kgs) (Ygiy).,General,General,Intermediate,317
+10 Sandbag Front Squats (Heavy,General,General,Intermediate,318
+Ygiy). P2 Performs A Wall Sit. Switch When P1 Finishes Set Or P2 Drops From Wall.,General,General,Intermediate,319
+For Time (12 Rounds),General,General,Intermediate,320
+For Time (All 12 Labours),General,General,Intermediate,321
+For Time (6 Rounds),General,General,Intermediate,322
+Bike Erg,Monostructural,General,Beginner,323

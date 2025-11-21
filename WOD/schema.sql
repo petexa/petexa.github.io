@@ -1,0 +1,1 @@
+-- schema placeholder (see online docs)\n
