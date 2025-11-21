@@ -26,7 +26,12 @@
 
 /* Event title styling for past events - removed to use default from styles.css */
 
-/* Event status badge */
+/* Event description should flex to fill space */
+.event-desc {
+    flex: 1 1 auto;
+}
+
+/* Event status badge - fixed size */
 .event-status {
     color: #023;
     background: #f0f4ff;
@@ -41,6 +46,7 @@
     margin-bottom: 12px;
     min-height: 34px;
     letter-spacing: 0.5px;
+    flex: 0 0 auto;
 }
 
 .event-status i {
@@ -48,34 +54,12 @@
     margin-right: 5px;
 }
 
-/* Floating Action Button */
-.fab {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 60px;
-    height: 60px;
-    background: #23bb57;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    cursor: pointer;
-    border: none;
-    z-index: 999;
-    transition: transform 0.2s, background 0.2s;
+/* More Info button - fixed size */
+.button {
+    flex: 0 0 auto;
 }
 
-.fab:hover {
-    background: #1d9947;
-    transform: scale(1.1);
-}
 
-.fab i {
-    color: #fff;
-    font-size: 24px;
-}
 
 /* Modal Dialog */
 .modal {
@@ -250,17 +234,6 @@
 }
 
 @media (max-width: 600px) {
-    .fab {
-        bottom: 20px;
-        right: 20px;
-        width: 56px;
-        height: 56px;
-    }
-    
-    .fab i {
-        font-size: 22px;
-    }
-    
     .modal-content {
         margin: 10px auto;
         width: calc(100% - 20px);
