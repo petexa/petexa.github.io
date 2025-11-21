@@ -2,9 +2,12 @@
 
 /* Override main grid layout for WODs page */
 main {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: none;
     padding: 0;
+    flex: 1;
 }
 
 /* Search and Filter Section */
