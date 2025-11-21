@@ -49,6 +49,33 @@
         color: rgba(0, 0, 0, 0.4);
     }
     
+    .btn-download-csv {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        cursor: pointer;
+        border: none;
+    }
+    
+    .btn-download-csv:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-download-csv:active {
+        transform: translateY(0);
+    }
+    
     .wods-table-wrapper {
         overflow-x: auto;
         background: white;
@@ -312,6 +339,9 @@
         <div class="table-header">
             <div class="table-controls">
                 <input type="text" id="table-search" class="table-search" placeholder="Search workouts..." aria-label="Search workouts">
+                <a href="wods/wods-table.csv" class="btn-download-csv" download="wods-database.csv">
+                    <i class="fa-solid fa-download"></i> Download CSV
+                </a>
             </div>
             <div class="results-info" id="results-count">Loading workouts...</div>
         </div>
