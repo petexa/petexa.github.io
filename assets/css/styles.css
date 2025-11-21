@@ -125,7 +125,52 @@ body {
   object-position: top;
 }
 
-/* Responsive adjustments */
+/* Traditional header styles for other pages */
+body > header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  text-align: center;
+  padding: 1rem 2rem;
+  background: #202023;
+  color: #fff;
+}
+
+body > header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.header-tear {
+  position: fixed;
+  top: 54px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  height: 35px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.header-tear img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Add padding to body when using fixed header */
+body:has(> header) {
+  padding-top: 90px;
+}
+
+/* Responsive adjustments for hero banner */
 @media (max-width: 768px) {
   .hero-banner {
     min-height: 35vh;
@@ -142,6 +187,19 @@ body {
   
   .hero-tear {
     height: 30px;
+  }
+  
+  body > header {
+    padding: 0.8rem 1rem;
+  }
+  
+  body > header h1 {
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .header-tear {
+    top: 46px;
   }
 }
 
