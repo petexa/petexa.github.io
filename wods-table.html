@@ -197,6 +197,9 @@
         .view-details-btn:hover {
           transform: none;
         }
+        .additional-info-content {
+          animation: none;
+        }
       }
 
       /* Modal Styles */
@@ -215,66 +218,199 @@
       }
 
       .modal-content {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        color: white;
-        margin: 20px;
-        padding: 30px;
-        border-radius: 15px;
-        max-width: 800px;
-        width: 90%;
+        background: #fff;
+        border-radius: 12px;
+        max-width: 700px;
+        width: 100%;
         max-height: 90vh;
         overflow-y: auto;
         position: relative;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        padding: 2rem;
       }
 
       .modal-close {
         position: absolute;
-        top: 15px;
-        right: 15px;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
+        top: 1rem;
+        right: 1rem;
+        background: none;
         border: none;
-        padding: 10px;
-        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+        transition: color 0.3s;
         width: 40px;
         height: 40px;
-        cursor: pointer;
-        transition: all 0.2s;
-        font-size: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
       }
 
       .modal-close:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: scale(1.1);
+        color: #222;
       }
 
-      .modal-body h2 {
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 28px;
-        color: #80affe;
+      #modal-body h2 {
+        font-size: 2rem;
+        margin: 0 0 1rem 0;
+        color: #222;
+        padding-right: 40px;
+      }
+
+      .modal-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-section-header {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #222;
+      }
+
+      .modal-section-header h3 {
+        font-size: 1.3rem;
+        color: #222;
+        margin: 0;
+        font-weight: 600;
       }
 
       .modal-section {
-        margin-bottom: 20px;
+        margin-bottom: 1.5rem;
       }
 
-      .modal-section h3 {
-        font-size: 18px;
-        margin-bottom: 10px;
-        color: #80affe;
+      .modal-section h3,
+      .modal-section h4 {
+        font-size: 1.1rem;
+        color: #222;
+        margin: 0 0 0.75rem 0;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 0.5rem;
+        font-weight: 600;
+      }
+
+      .modal-section h3 i,
+      .modal-section h3 .emoji-icon,
+      .modal-section h4 i,
+      .modal-section h4 .emoji-icon {
+        font-size: 1.1rem;
+        font-style: normal;
+        margin-right: 0.3rem;
       }
 
       .modal-section p {
+        color: #555;
         line-height: 1.6;
-        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+      }
+
+      .modal-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .modal-section li {
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .modal-section li:before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: #222;
+        font-weight: bold;
+      }
+
+      .scaling-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .scaling-item {
+        background: #f8f9fa;
+        padding: 0.75rem;
+        border-radius: 6px;
+        border-left: 3px solid #222;
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.5;
+      }
+
+      .scaling-item strong {
+        color: #222;
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+
+      /* Additional Info Expandable Section */
+      .additional-info-section {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 2px solid #eee;
+      }
+
+      .expand-button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #222;
+        cursor: pointer;
+        transition:
+          background 0.3s,
+          border-color 0.3s;
+      }
+
+      .expand-button:hover {
+        background: #e9ecef;
+        border-color: #222;
+      }
+
+      .expand-button:focus {
+        outline: 2px solid #222;
+        outline-offset: 2px;
+      }
+
+      .expand-icon {
+        font-size: 0.9rem;
+        transition: transform 0.3s;
+        display: inline-block;
+      }
+
+      .expand-button[aria-expanded="true"] .expand-icon {
+        transform: rotate(90deg);
+      }
+
+      .additional-info-content {
+        margin-top: 1.5rem;
+        animation: slideDown 0.3s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .goals-cell {
@@ -299,14 +435,16 @@
         }
 
         .modal-content {
-          margin: 10px;
-          padding: 20px;
-          max-height: 95vh;
+          padding: 1.5rem;
         }
 
-        .modal-body h2 {
-          font-size: 24px;
-          padding-right: 30px;
+        #modal-body h2 {
+          font-size: 1.5rem;
+        }
+
+        .modal-section h3,
+        .modal-section h4 {
+          font-size: 1rem;
         }
       }
     </style>
@@ -521,6 +659,56 @@
                 muscleGroups: fields[5],
                 trainingGoals: fields[6],
               };
+              
+              // Map additional fields by header names
+              headers.forEach((header, index) => {
+                if (index < fields.length) {
+                  const fieldName = header.toLowerCase().replace(/[^a-z0-9]/g, '');
+                  if (!workout[fieldName] && index >= REQUIRED_FIELD_COUNT) {
+                    workout[fieldName] = fields[index].replace(/^"+|"+$/g, '');
+                  }
+                }
+              });
+              
+              // Store commonly used additional fields with friendly names
+              const warmupIndex = headers.findIndex(h => h === 'Warmup');
+              const coachingCuesIndex = headers.findIndex(h => h === 'Coaching-Cues');
+              const estimatedTimesHumanIndex = headers.findIndex(h => h === 'Estimated-Times-Human');
+              const environmentIndex = headers.findIndex(h => h === 'Environment');
+              const flavorTextIndex = headers.findIndex(h => h === 'Flavor-Text');
+              const movementTypesIndex = headers.findIndex(h => h === 'Movement Types');
+              const targetStimulusIndex = headers.findIndex(h => h === 'Target Stimulus');
+              const scalingOptionsIndex = headers.findIndex(h => h === 'Scaling Options');
+              const scoreTypeIndex = headers.findIndex(h => h === 'Score Type');
+              
+              if (warmupIndex >= 0 && warmupIndex < fields.length) {
+                workout.warmup = fields[warmupIndex].replace(/^"+|"+$/g, '');
+              }
+              if (coachingCuesIndex >= 0 && coachingCuesIndex < fields.length) {
+                workout.coachingCues = fields[coachingCuesIndex].replace(/^"+|"+$/g, '');
+              }
+              if (estimatedTimesHumanIndex >= 0 && estimatedTimesHumanIndex < fields.length) {
+                workout.estimatedTimes = fields[estimatedTimesHumanIndex].replace(/^"+|"+$/g, '');
+              }
+              if (environmentIndex >= 0 && environmentIndex < fields.length) {
+                workout.environment = fields[environmentIndex].replace(/^"+|"+$/g, '');
+              }
+              if (flavorTextIndex >= 0 && flavorTextIndex < fields.length) {
+                workout.flavorText = fields[flavorTextIndex].replace(/^"+|"+$/g, '');
+              }
+              if (movementTypesIndex >= 0 && movementTypesIndex < fields.length) {
+                workout.movementTypes = fields[movementTypesIndex].replace(/^"+|"+$/g, '');
+              }
+              if (targetStimulusIndex >= 0 && targetStimulusIndex < fields.length) {
+                workout.targetStimulus = fields[targetStimulusIndex].replace(/^"+|"+$/g, '');
+              }
+              if (scalingOptionsIndex >= 0 && scalingOptionsIndex < fields.length) {
+                workout.scalingOptions = fields[scalingOptionsIndex].replace(/^"+|"+$/g, '');
+              }
+              if (scoreTypeIndex >= 0 && scoreTypeIndex < fields.length) {
+                workout.scoreType = fields[scoreTypeIndex].replace(/^"+|"+$/g, '');
+              }
+              
               workouts.push(workout);
             }
           }
@@ -694,6 +882,23 @@
           return div.innerHTML;
         }
 
+        // Helper function to format text as bullet list
+        function formatAsBulletList(text) {
+          if (!text) return '';
+          
+          // Split by common delimiters: semicolon or comma
+          const items = text.split(/[;,]/)
+            .map(item => item.trim())
+            .filter(item => item.length > 0);
+          
+          // If only one item or no clear separators, return as single item
+          if (items.length <= 1) {
+            return `<ul><li>${escapeHtml(text)}</li></ul>`;
+          }
+          
+          return '<ul>' + items.map(item => `<li>${escapeHtml(item)}</li>`).join('') + '</ul>';
+        }
+
         function debounce(func, wait) {
           let timeout;
           return function executedFunction(...args) {
@@ -713,37 +918,140 @@
           // Store the currently focused element to return focus later
           modal.dataset.previousFocus = document.activeElement;
 
+          // Get additional fields from the workout data
+          const warmup = workout.warmup || '';
+          const coachingCues = workout.coachingCues || '';
+          const estimatedTimes = workout.estimatedTimes || '';
+          const environment = workout.environment || '';
+          const flavorText = workout.flavorText || '';
+          const movementTypes = workout.movementTypes || '';
+          const targetStimulus = workout.targetStimulus || '';
+          const scalingOptions = workout.scalingOptions || '';
+          const scoreType = workout.scoreType || '';
+          
+          // Check if there's any additional info to show
+          const hasAdditionalInfo = warmup || coachingCues || estimatedTimes || environment || flavorText;
+
           modalBody.innerHTML = `
             <h2 id="modal-title">${escapeHtml(workout.name)}</h2>
             <div class="modal-badges">
                 <span class="category-badge">${escapeHtml(workout.category)}</span>
             </div>
             
-            <div class="modal-section">
-                <h3><i class="fa-solid fa-clock"></i> Format & Duration</h3>
-                <p>${escapeHtml(workout.formatDuration)}</p>
+            <!-- Workout Essentials Section -->
+            <div class="modal-section-header">
+                <h3>💪 Workout Essentials</h3>
             </div>
             
             <div class="modal-section">
-                <h3><i class="fa-solid fa-list-check"></i> Instructions</h3>
-                <p>${escapeHtml(workout.instructions)}</p>
+                <h4><span class="emoji-icon">📋</span> Instructions</h4>
+                ${formatAsBulletList(workout.instructions)}
             </div>
             
+            ${workout.equipment ? `
             <div class="modal-section">
-                <h3><i class="fa-solid fa-dumbbell"></i> Equipment Needed</h3>
-                <p>${escapeHtml(workout.equipment)}</p>
+                <h4><span class="emoji-icon">🧰</span> Equipment Needed</h4>
+                ${formatAsBulletList(workout.equipment)}
             </div>
+            ` : ''}
             
+            ${movementTypes ? `
             <div class="modal-section">
-                <h3><i class="fa-solid fa-person-running"></i> Muscle Groups</h3>
-                <p>${escapeHtml(workout.muscleGroups)}</p>
+                <h4><span class="emoji-icon">🧠</span> Movement Types</h4>
+                <p>${escapeHtml(movementTypes)}</p>
             </div>
+            ` : ''}
             
+            ${targetStimulus ? `
             <div class="modal-section">
-                <h3><i class="fa-solid fa-bullseye"></i> Training Goals</h3>
-                <p>${escapeHtml(workout.trainingGoals)}</p>
+                <h4><span class="emoji-icon">⚡</span> Target Stimulus</h4>
+                <p>${escapeHtml(targetStimulus)}</p>
             </div>
+            ` : ''}
+            
+            ${scalingOptions ? `
+            <div class="modal-section">
+                <h4><span class="emoji-icon">🔧</span> Scaling Options</h4>
+                <div class="scaling-content">${escapeHtml(scalingOptions)}</div>
+            </div>
+            ` : ''}
+            
+            ${scoreType ? `
+            <div class="modal-section">
+                <h4><span class="emoji-icon">🧮</span> Score Type</h4>
+                <p>${escapeHtml(scoreType)}</p>
+            </div>
+            ` : ''}
+            
+            ${hasAdditionalInfo ? `
+            <!-- Additional Info Section (Expandable) -->
+            <div class="additional-info-section">
+                <button class="expand-button" id="expand-additional-info" aria-expanded="false">
+                    <span class="expand-icon">▶</span>
+                    <span class="expand-text">Show Additional Info</span>
+                </button>
+                
+                <div class="additional-info-content" id="additional-info-content" style="display: none;">
+                    ${warmup ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">🔥</span> Warmup</h4>
+                        ${formatAsBulletList(warmup)}
+                    </div>
+                    ` : ''}
+                    
+                    ${coachingCues ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">🎓</span> Coaching Cues</h4>
+                        <p>${escapeHtml(coachingCues)}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${estimatedTimes ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">⏳</span> Estimated Times</h4>
+                        <p>${escapeHtml(estimatedTimes)}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${environment ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">🏟️</span> Environment</h4>
+                        <p>${escapeHtml(environment)}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${flavorText ? `
+                    <div class="modal-section">
+                        <h4><span class="emoji-icon">🧠</span> About This Workout</h4>
+                        <p>${escapeHtml(flavorText)}</p>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+            ` : ''}
         `;
+
+          // Setup expand/collapse functionality
+          const expandButton = document.getElementById('expand-additional-info');
+          const additionalContent = document.getElementById('additional-info-content');
+          
+          if (expandButton && additionalContent) {
+            expandButton.addEventListener('click', function() {
+              const isExpanded = this.getAttribute('aria-expanded') === 'true';
+              this.setAttribute('aria-expanded', !isExpanded);
+              additionalContent.style.display = isExpanded ? 'none' : 'block';
+              
+              const icon = this.querySelector('.expand-icon');
+              const text = this.querySelector('.expand-text');
+              if (isExpanded) {
+                icon.textContent = '▶';
+                text.textContent = 'Show Additional Info';
+              } else {
+                icon.textContent = '▼';
+                text.textContent = 'Hide Additional Info';
+              }
+            });
+          }
 
           modal.classList.remove('hidden');
           modal.setAttribute('aria-hidden', 'false');
