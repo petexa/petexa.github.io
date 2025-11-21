@@ -8,6 +8,8 @@ body {
     min-height: 100vh;
     color: #333;
     padding-top: 90px; /* Space for fixed header */
+    display: flex;
+    flex-direction: column;
 }
 
 body > header {
@@ -157,6 +159,7 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     box-sizing: border-box;
+    flex: 1;
 }
 
 .event-card {
