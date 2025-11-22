@@ -26,7 +26,7 @@
       const darkModeBtn = document.createElement('button');
       darkModeBtn.id = 'dark-mode-toggle';
       darkModeBtn.setAttribute('aria-label', 'Toggle dark mode');
-      darkModeBtn.innerHTML = '<span aria-hidden="true">🌙</span>';
+      darkModeBtn.innerHTML = '<i class="fas fa-moon"></i>';
       footerLinks.appendChild(darkModeBtn);
     }
   }
