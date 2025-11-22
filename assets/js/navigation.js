@@ -1,7 +1,4 @@
-/**
- * Global Navigation Dropdown Component
- * Provides a beer mug icon that opens a dropdown menu
- */
+// Global Navigation - Dropdown Menu Component
 
 (function () {
   'use strict';
