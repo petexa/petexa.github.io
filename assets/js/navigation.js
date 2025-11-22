@@ -108,10 +108,10 @@
                 top: 155px; /* Position below the button */
                 right: 20px;
                 z-index: 1099;
-                background: #202023;
-                border: 2px solid rgba(128, 175, 254, 0.3);
-                border-radius: 12px;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+                background: #ffffff;
+                border: 2px solid #e0e0e0;
+                border-radius: 16px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
                 min-width: 220px;
                 overflow: hidden;
                 animation: slideDown 0.3s ease;
@@ -143,8 +143,8 @@
                 display: flex;
                 align-items: center;
                 gap: 12px;
-                padding: 12px 18px;
-                color: #fff;
+                padding: 14px 18px;
+                color: #333;
                 text-decoration: none;
                 font-size: 1rem;
                 font-weight: 600;
@@ -155,7 +155,7 @@
                 width: 100%;
                 text-align: left;
                 font-family: 'Bai Jamjuree', sans-serif;
-                border-bottom: 1px solid rgba(128, 175, 254, 0.1);
+                border-bottom: 1px solid #f5f5f5;
             }
 
             .nav-dropdown-item:last-child {
@@ -163,29 +163,25 @@
             }
 
             .nav-dropdown-item:hover {
-                background: rgba(128, 175, 254, 0.15);
-                color: #29ffb4;
+                background: #f5f5f5;
+                color: #4CAF50;
             }
 
             .nav-dropdown-item:focus {
-                outline: 2px solid #80affe;
+                outline: 2px solid #4CAF50;
                 outline-offset: -2px;
-                background: rgba(128, 175, 254, 0.1);
+                background: #f5f5f5;
             }
 
             .nav-dropdown-item i {
                 font-size: 1.1rem;
-                color: #80affe;
+                color: #666;
                 min-width: 20px;
                 text-align: center;
             }
 
             .nav-dropdown-item:hover i {
-                color: #29ffb4;
-            }
-
-            .nav-dropdown-button i {
-                color: #29ffb4;
+                color: #4CAF50;
             }
 
             /* Mobile adjustments */
