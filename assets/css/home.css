@@ -492,18 +492,11 @@ body {
   color: #333;
 }
 
-  background: #1a1a1a;
-  color: #fff;
-}
-
 .wod-modal h2 {
   font-size: 2rem;
   font-weight: 700;
   margin: 0 0 30px 0;
   color: #333;
-}
-
-  color: #fff;
 }
 
 .daily-wod-content {
@@ -513,7 +506,7 @@ body {
 .wod-name {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #80affe;
+  color: #4CAF50;
   margin-bottom: 20px;
 }
 
@@ -521,9 +514,6 @@ body {
   font-size: 1rem;
   color: #666;
   margin-bottom: 10px;
-}
-
-  color: #ccc;
 }
 
 .wod-description {
@@ -534,11 +524,7 @@ body {
   padding: 15px;
   background: #f8f8f8;
   border-radius: 10px;
-  border-left: 4px solid #80affe;
-}
-
-  background: #1a1a1a;
-  color: #fff;
+  border-left: 4px solid #4CAF50;
 }
 
 .wod-equipment {
@@ -547,16 +533,10 @@ body {
   margin: 15px 0;
 }
 
-  color: #ccc;
-}
-
 .wod-movements {
   font-size: 1rem;
   color: #333;
   margin: 15px 0;
-}
-
-  color: #fff;
 }
 
 .wod-movements ul {
@@ -569,9 +549,6 @@ body {
   color: #666;
 }
 
-  color: #ccc;
-}
-
 .wod-modal-footer {
   margin-top: 30px;
   text-align: center;
@@ -579,25 +556,15 @@ body {
   border-top: 1px solid #eee;
 }
 
-  border-top-color: #444;
-}
-
 .wod-modal-footer .btn {
   background: transparent;
-  color: #80affe;
-  border: 2px solid #80affe;
+  color: #4CAF50;
+  border: 2px solid #4CAF50;
 }
 
 .wod-modal-footer .btn:hover {
-  background: rgba(128, 175, 254, 0.1);
+  background: rgba(76, 175, 80, 0.1);
   transform: translateY(-2px);
-}
-
-  color: #29ffb4;
-  border-color: #29ffb4;
-}
-
-  background: rgba(41, 255, 180, 0.1);
 }
 
 @media (max-width: 768px) {
