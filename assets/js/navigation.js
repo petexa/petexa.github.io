@@ -300,7 +300,32 @@
       }
     }
 
+    /**
+     * Initialize dark mode
+     */
+    function initDarkMode() {
+      // Check for saved preference or system preference
+      const savedMode = localStorage.getItem('darkMode');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedMode === 'enabled' || (!savedMode && prefersDark)) {
+        document.body.classList.add('dark-mode');
+      }
+    }
 
+    /**
+     * Toggle dark mode
+     */
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      
+      // Save preference
+      if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    }
 
     // Event listeners
     beerBtn.addEventListener('click', function() {
@@ -318,7 +343,17 @@
       toggleDropdown();
     });
 
-
+    // Setup dark mode toggle (will be in footer)
+    function setupDarkModeToggle() {
+      const darkModeBtn = document.getElementById('dark-mode-toggle');
+      if (darkModeBtn) {
+        darkModeBtn.addEventListener('click', toggleDarkMode);
+      } else {
+        // Retry after a short delay if footer hasn't loaded yet
+        setTimeout(setupDarkModeToggle, 100);
+      }
+    }
+    setupDarkModeToggle();
 
     // Close when clicking outside
     document.addEventListener('click', function (e) {
@@ -334,6 +369,9 @@
         beerBtn.focus();
       }
     });
+
+    // Initialize dark mode
+    initDarkMode();
   }
 
   // Initialize when DOM is ready
