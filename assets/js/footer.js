@@ -19,6 +19,16 @@
     if (footerYearSpan) {
       footerYearSpan.textContent = currentYear;
     }
+
+    // Add dark mode toggle to footer links
+    const footerLinks = footer.querySelector('.footer-links');
+    if (footerLinks && !document.getElementById('dark-mode-toggle')) {
+      const darkModeBtn = document.createElement('button');
+      darkModeBtn.id = 'dark-mode-toggle';
+      darkModeBtn.setAttribute('aria-label', 'Toggle dark mode');
+      darkModeBtn.innerHTML = '<span aria-hidden="true">🌙</span>';
+      footerLinks.appendChild(darkModeBtn);
+    }
   }
 
   // Initialize on DOM load

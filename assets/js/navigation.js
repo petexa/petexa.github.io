@@ -25,8 +25,11 @@
 
     // Define all navigation items with categories
     const navStructure = {
+      'Home': [
+        { href: 'index.html', icon: 'fa-home', label: 'Home' },
+      ],
       'Events': [
-        { href: 'index.html', icon: 'fa-calendar', label: 'Upcoming Events' },
+        { href: 'events.html', icon: 'fa-calendar', label: 'Upcoming Events' },
         { href: 'past-events.html', icon: 'fa-calendar-check', label: 'Past Events' },
       ],
       'Workouts': [
@@ -67,11 +70,6 @@
             <nav id="nav-dropdown" class="nav-dropdown" role="navigation" aria-label="Main navigation" style="display: none;">
                 ${menuItemsHTML}
             </nav>
-
-            <!-- Dark Mode Toggle -->
-            <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
-                <span class="moon-emoji" aria-hidden="true">🌙</span>
-            </button>
         `;
   }
 
@@ -222,39 +220,6 @@
                 color: #4CAF50;
             }
 
-            /* Dark Mode Toggle */
-            .dark-mode-toggle {
-                position: fixed;
-                bottom: 20px;
-                left: 20px;
-                z-index: 1100;
-                width: 50px;
-                height: 50px;
-                background: transparent;
-                border: none;
-                cursor: pointer;
-                padding: 0;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .dark-mode-toggle:hover {
-                transform: scale(1.1);
-            }
-
-            .moon-emoji {
-                font-size: 40px;
-                display: inline-block;
-                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-                transition: transform 0.3s ease;
-            }
-
-            .dark-mode-toggle:hover .moon-emoji {
-                transform: rotate(-20deg);
-            }
-
             /* Dark Mode Styles */
             body.dark-mode {
                 background: #1a1a1a;
@@ -388,7 +353,6 @@
     // Get elements
     const beerBtn = document.getElementById('nav-beer-btn');
     const dropdown = document.getElementById('nav-dropdown');
-    const darkModeBtn = document.getElementById('dark-mode-toggle');
 
     /**
      * Toggle dropdown open/closed state
@@ -465,10 +429,17 @@
       toggleDropdown();
     });
 
-    // Dark mode toggle
-    if (darkModeBtn) {
-      darkModeBtn.addEventListener('click', toggleDarkMode);
+    // Setup dark mode toggle (will be in footer)
+    function setupDarkModeToggle() {
+      const darkModeBtn = document.getElementById('dark-mode-toggle');
+      if (darkModeBtn) {
+        darkModeBtn.addEventListener('click', toggleDarkMode);
+      } else {
+        // Retry after a short delay if footer hasn't loaded yet
+        setTimeout(setupDarkModeToggle, 100);
+      }
     }
+    setupDarkModeToggle();
 
     // Close when clicking outside
     document.addEventListener('click', function (e) {

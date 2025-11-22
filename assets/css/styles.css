@@ -101,6 +101,7 @@ body > header {
 .footer-tear {
   position: relative;
   margin-top: 0;
+  margin-bottom: -1px;
   height: 35px;
   overflow: hidden;
   pointer-events: none;
@@ -483,6 +484,27 @@ footer {
   color: var(--color-accent-light);
 }
 
+#dark-mode-toggle {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  vertical-align: middle;
+}
+
+#dark-mode-toggle:hover {
+  color: var(--color-accent-light);
+  transform: scale(1.1);
+}
+
+body.dark-mode #dark-mode-toggle {
+  color: var(--color-accent-light);
+}
+
 /* Workout Timers Section - CrossHero Style */
 .timers-section {
   background: #ffffff;
@@ -721,7 +743,6 @@ footer {
   color: #999;
   margin-bottom: 12px;
   letter-spacing: 0.5px;
-}
 }
 
 .emom-status {

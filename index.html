@@ -5,102 +5,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Your calendar for fitness and race events. Browse upcoming events, book your spot, and add reminders to your calendar."
+      content="Transform your fitness journey with our CrossFit community. Sets and reps. Cheers and beers. That's the program."
     />
-    <meta property="og:title" content="Bootcamp Events" />
+    <meta property="og:title" content="CrossFit Bootcamp - Transform Your Fitness" />
     <meta
       property="og:description"
-      content="Your calendar for fitness and race events. Browse upcoming events, book your spot, and add reminders to your calendar."
+      content="Join our elite CrossFit community. Train hard, celebrate harder."
     />
     <meta property="og:type" content="website" />
-    <title>Events</title>
+    <title>CrossFit Bootcamp - Home</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Bootcamp Events",
-        "description": "Fitness and race events calendar"
-      }
-    </script>
+    <link rel="stylesheet" href="assets/css/home.css" />
   </head>
   <body>
-    <a class="skip-link" href="#events-list">Skip to content</a>
-    <header>
-      <h1>Sets and reps. Cheers and beers. That's the program</h1>
-    </header>
-    <div class="header-tear">
-      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
-    </div>
-    <main id="events-list" aria-live="polite">
-      <!-- Loading skeleton (shown while events are loading) -->
-      <div id="loading-skeleton" class="loading-skeleton" aria-label="Loading events...">
-        <div class="skeleton-card">
-          <div class="skeleton-image"></div>
-          <div class="skeleton-content">
-            <div class="skeleton-title"></div>
-            <div class="skeleton-date"></div>
-            <div class="skeleton-desc"></div>
-            <div class="skeleton-desc"></div>
-            <div class="skeleton-countdown"></div>
-            <div class="skeleton-actions">
-              <div class="skeleton-button"></div>
-              <div class="skeleton-button"></div>
+    <a class="skip-link" href="#hero">Skip to content</a>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+      <div class="hero-content">
+        <div class="logo-container">
+          <div class="logo">
+            <div class="logo-circle">
+              <i class="fas fa-dumbbell"></i>
             </div>
+            <h1 class="logo-text">
+              <span class="logo-main">BOOTCAMP</span>
+              <span class="logo-tagline">ELITE FITNESS</span>
+            </h1>
           </div>
         </div>
-        <div class="skeleton-card">
-          <div class="skeleton-image"></div>
-          <div class="skeleton-content">
-            <div class="skeleton-title"></div>
-            <div class="skeleton-date"></div>
-            <div class="skeleton-desc"></div>
-            <div class="skeleton-desc"></div>
-            <div class="skeleton-countdown"></div>
-            <div class="skeleton-actions">
-              <div class="skeleton-button"></div>
-              <div class="skeleton-button"></div>
-            </div>
-          </div>
+        
+        <h2 class="hero-title">
+          Sets and Reps.<br />
+          Cheers and Beers.<br />
+          <span class="hero-highlight">That's the Program.</span>
+        </h2>
+        
+        <p class="hero-subtitle">
+          Join our community of athletes who push limits, celebrate victories, and build strength together.
+        </p>
+        
+        <div class="hero-cta">
+          <a href="events.html" class="btn btn-primary">
+            <i class="fas fa-calendar-alt"></i> View Events
+          </a>
+          <a href="wods.html" class="btn btn-secondary">
+            <i class="fas fa-fire"></i> Today's WOD
+          </a>
         </div>
-        <div class="skeleton-card">
-          <div class="skeleton-image"></div>
-          <div class="skeleton-content">
-            <div class="skeleton-title"></div>
-            <div class="skeleton-date"></div>
-            <div class="skeleton-desc"></div>
-            <div class="skeleton-desc"></div>
-            <div class="skeleton-countdown"></div>
-            <div class="skeleton-actions">
-              <div class="skeleton-button"></div>
-              <div class="skeleton-button"></div>
-            </div>
+        
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Athletes</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Events/Year</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Commitment</div>
           </div>
         </div>
       </div>
-    </main>
+      
+      <div class="hero-scroll">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </section>
 
-    <!-- Event card template -->
-    <template id="event-card-template">
-      <article class="event-card">
-        <img src="" class="event-img" alt="" loading="lazy" />
-        <div class="event-content">
-          <h2 class="event-title"></h2>
-          <time class="event-date" datetime=""></time>
-          <div class="event-desc"></div>
-          <div class="countdown">
-            <i class="fa-regular fa-clock"></i>
-            <span></span>
+    <div class="section-divider">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+
+    <!-- Features Section -->
+    <section class="features">
+      <div class="container">
+        <h2 class="section-title">Why Train With Us?</h2>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Community First</h3>
+            <p>Train alongside passionate athletes who push you to be your best. We celebrate every PR and support through every challenge.</p>
           </div>
-          <div class="card-actions">
-            <!-- Buttons will be added dynamically -->
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Track Progress</h3>
+            <p>Monitor your PRs, benchmark WODs, and watch your strength grow with our comprehensive tracking tools.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <h3>Epic Events</h3>
+            <p>From intense competitions to social gatherings, we balance hard work with good times. Because fitness should be fun.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <h3>Daily WODs</h3>
+            <p>Fresh, challenging workouts every day. Scaled options available for all fitness levels. Come as you are, leave stronger.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-stopwatch"></i>
+            </div>
+            <h3>Pro Timers</h3>
+            <p>AMRAP, EMOM, Tabata - all the tools you need to time your workouts perfectly and push your limits.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-beer"></i>
+            </div>
+            <h3>Social Events</h3>
+            <p>Train hard, celebrate harder. Join us for post-workout socials, team outings, and community celebrations.</p>
           </div>
         </div>
-      </article>
-    </template>
+      </div>
+    </section>
+
+    <div class="section-divider inverted">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Ready to Transform?</h2>
+          <p>Join hundreds of athletes who've discovered their strongest selves. Your journey starts today.</p>
+          <div class="cta-buttons">
+            <a href="events.html" class="btn btn-primary btn-large">
+              <i class="fas fa-calendar-plus"></i> Browse Events
+            </a>
+            <a href="wod-generator.html" class="btn btn-secondary btn-large">
+              <i class="fas fa-random"></i> Generate WOD
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="quick-links">
+      <div class="container">
+        <h2 class="section-title">Explore</h2>
+        <div class="links-grid">
+          <a href="benchmarks.html" class="link-card">
+            <i class="fas fa-trophy"></i>
+            <span>Benchmark WODs</span>
+          </a>
+          <a href="pr-tracker.html" class="link-card">
+            <i class="fas fa-chart-bar"></i>
+            <span>PR Tracker</span>
+          </a>
+          <a href="leaderboard.html" class="link-card">
+            <i class="fas fa-medal"></i>
+            <span>Leaderboard</span>
+          </a>
+          <a href="timers.html" class="link-card">
+            <i class="fas fa-clock"></i>
+            <span>Timers</span>
+          </a>
+          <a href="wods.html" class="link-card">
+            <i class="fas fa-fire"></i>
+            <span>WODs Library</span>
+          </a>
+          <a href="past-events.html" class="link-card">
+            <i class="fas fa-history"></i>
+            <span>Past Events</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
     <div class="footer-tear">
       <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
@@ -139,17 +231,7 @@
       </div>
     </footer>
 
-    <div
-      id="toast"
-      class="toast-message hidden"
-      role="status"
-      aria-live="polite"
-      aria-atomic="true"
-    ></div>
-
     <script src="assets/js/navigation.js" defer></script>
-    <script src="assets/js/utils.js" defer></script>
     <script src="assets/js/footer.js" defer></script>
-    <script src="assets/js/main.js" defer></script>
   </body>
 </html>
