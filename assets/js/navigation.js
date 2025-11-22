@@ -1,16 +1,25 @@
-// Global Navigation - Dropdown Menu Component
+/**
+ * Global Navigation - Dropdown Menu Component
+ * Provides a beer mug icon that opens a dropdown menu
+ */
 
 (function () {
   'use strict';
 
-  // Get current page filename
+  /**
+   * Get current page filename
+   * @returns {string} Current page filename
+   */
   function getCurrentPage() {
     const path = window.location.pathname;
     const page = path.split('/').pop() || 'index.html';
     return page;
   }
 
-  // Create navigation HTML structure
+  /**
+   * Create navigation HTML structure
+   * @returns {string} HTML string for navigation component
+   */
   function createNavigationHTML() {
     const currentPage = getCurrentPage();
 
@@ -49,7 +58,9 @@
         `;
   }
 
-  // Create CSS styles for navigation
+  /**
+   * Create CSS styles for navigation
+   */
   function createNavigationStyles() {
     const style = document.createElement('style');
     style.textContent = `
@@ -209,7 +220,9 @@
     document.head.appendChild(style);
   }
 
-  // Initialize navigation
+  /**
+   * Initialize navigation component
+   */
   function initNavigation() {
     // Add styles
     createNavigationStyles();
@@ -223,7 +236,9 @@
     const beerBtn = document.getElementById('nav-beer-btn');
     const dropdown = document.getElementById('nav-dropdown');
 
-    // Toggle dropdown
+    /**
+     * Toggle dropdown open/closed state
+     */
     function toggleDropdown() {
       const isOpen = dropdown.style.display === 'block';
       if (isOpen) {
@@ -233,13 +248,17 @@
       }
     }
 
-    // Open dropdown
+    /**
+     * Open dropdown menu
+     */
     function openDropdown() {
       dropdown.style.display = 'block';
       beerBtn.setAttribute('aria-expanded', 'true');
     }
 
-    // Close dropdown
+    /**
+     * Close dropdown menu and reset beer mug rotation
+     */
     function closeDropdown() {
       dropdown.style.display = 'none';
       beerBtn.setAttribute('aria-expanded', 'false');
