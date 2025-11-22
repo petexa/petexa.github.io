@@ -364,19 +364,21 @@ function initializeEMOMTimer() {
   const pauseBtn = document.getElementById('emom-pause');
   const resetBtn = document.getElementById('emom-reset');
   const roundsInput = document.getElementById('emom-rounds');
-  const intervalInput = document.getElementById('emom-interval');
+  const workInput = document.getElementById('emom-work');
   const restInput = document.getElementById('emom-rest');
 
   startBtn.addEventListener('click', startEMOMTimer);
   pauseBtn.addEventListener('click', pauseEMOMTimer);
   resetBtn.addEventListener('click', resetEMOMTimer);
 
-  [roundsInput, intervalInput, restInput].forEach(input => {
-    input.addEventListener('change', () => {
-      if (!emomRunning) {
-        updateEMOMDisplay();
-      }
-    });
+  [roundsInput, workInput, restInput].forEach(input => {
+    if (input) {
+      input.addEventListener('change', () => {
+        if (!emomRunning) {
+          updateEMOMDisplay();
+        }
+      });
+    }
   });
 
   updateEMOMDisplay();
@@ -389,18 +391,15 @@ function startEMOMTimer() {
   if (emomRunning) return;
 
   const roundsInput = document.getElementById('emom-rounds');
-  const workMinInput = document.getElementById('emom-work-min');
-  const workSecInput = document.getElementById('emom-work-sec');
+  const workInput = document.getElementById('emom-work');
   const restInput = document.getElementById('emom-rest');
   const startBtn = document.getElementById('emom-start');
   const pauseBtn = document.getElementById('emom-pause');
 
   // Initialize if starting fresh
   if (emomTimeRemaining === 0) {
-    const workMin = parseInt(workMinInput.value) || 0;
-    const workSec = parseInt(workSecInput.value) || 0;
-    const interval = (workMin * 60) + workSec;
-    emomTimeRemaining = interval > 0 ? interval : 60; // Default to 60 if invalid
+    const workMin = parseInt(workInput.value) || 1;
+    emomTimeRemaining = workMin * 60;
     emomCurrentRound = 1;
     emomInRest = false;
   }
@@ -409,8 +408,7 @@ function startEMOMTimer() {
   startBtn.disabled = true;
   pauseBtn.disabled = false;
   roundsInput.disabled = true;
-  workMinInput.disabled = true;
-  workSecInput.disabled = true;
+  workInput.disabled = true;
   restInput.disabled = true;
 
   updateEMOMStatus('Work!');
@@ -433,8 +431,7 @@ function startEMOMTimer() {
  */
 function handleEMOMRoundComplete() {
   const roundsInput = document.getElementById('emom-rounds');
-  const workMinInput = document.getElementById('emom-work-min');
-  const workSecInput = document.getElementById('emom-work-sec');
+  const workInput = document.getElementById('emom-work');
   const restInput = document.getElementById('emom-rest');
   const totalRounds = parseInt(roundsInput.value) || 10;
   const restTime = parseInt(restInput.value) || 0;
@@ -449,10 +446,8 @@ function handleEMOMRoundComplete() {
       completeEMOMTimer();
     } else {
       // Start next work interval
-      const workMin = parseInt(workMinInput.value) || 0;
-      const workSec = parseInt(workSecInput.value) || 0;
-      const interval = (workMin * 60) + workSec;
-      emomTimeRemaining = interval > 0 ? interval : 60;
+      const workMin = parseInt(workInput.value) || 1;
+      emomTimeRemaining = workMin * 60;
       updateEMOMStatus('Work!');
       playBeep();
     }
@@ -467,10 +462,8 @@ function handleEMOMRoundComplete() {
     } else if (emomCurrentRound < totalRounds) {
       // No rest, move to next round immediately
       emomCurrentRound++;
-      const workMin = parseInt(workMinInput.value) || 0;
-      const workSec = parseInt(workSecInput.value) || 0;
-      const interval = (workMin * 60) + workSec;
-      emomTimeRemaining = interval > 0 ? interval : 60;
+      const workMin = parseInt(workInput.value) || 1;
+      emomTimeRemaining = workMin * 60;
       updateEMOMStatus('Work!');
       playBeep();
     } else {
@@ -512,15 +505,13 @@ function resetEMOMTimer() {
   const startBtn = document.getElementById('emom-start');
   const pauseBtn = document.getElementById('emom-pause');
   const roundsInput = document.getElementById('emom-rounds');
-  const workMinInput = document.getElementById('emom-work-min');
-  const workSecInput = document.getElementById('emom-work-sec');
+  const workInput = document.getElementById('emom-work');
   const restInput = document.getElementById('emom-rest');
 
   startBtn.disabled = false;
   pauseBtn.disabled = true;
   roundsInput.disabled = false;
-  workMinInput.disabled = false;
-  workSecInput.disabled = false;
+  workInput.disabled = false;
   restInput.disabled = false;
 
   updateEMOMDisplay();
@@ -564,17 +555,14 @@ function updateEMOMDisplay() {
   const currentRoundEl = document.getElementById('emom-current-round');
   const totalRoundsEl = document.getElementById('emom-total-rounds');
   const roundsInput = document.getElementById('emom-rounds');
-  const workMinInput = document.getElementById('emom-work-min');
-  const workSecInput = document.getElementById('emom-work-sec');
+  const workInput = document.getElementById('emom-work');
 
   currentRoundEl.textContent = emomCurrentRound;
   totalRoundsEl.textContent = roundsInput.value;
 
   if (emomTimeRemaining === 0 && !emomRunning) {
-    const workMin = parseInt(workMinInput.value) || 0;
-    const workSec = parseInt(workSecInput.value) || 0;
-    const interval = (workMin * 60) + workSec;
-    display.textContent = formatTime(interval > 0 ? interval : 60);
+    const workMin = parseInt(workInput.value) || 1;
+    display.textContent = formatTime(workMin * 60);
   } else {
     display.textContent = formatTime(emomTimeRemaining);
   }
