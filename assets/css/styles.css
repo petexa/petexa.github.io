@@ -36,11 +36,11 @@
 
 body {
   font-family: 'Bai Jamjuree', sans-serif;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: #ffffff;
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  color: #fff;
+  color: #333;
   padding-top: 90px; /* Space for fixed header */
   display: flex;
   flex-direction: column;
@@ -54,7 +54,7 @@ body > header {
   z-index: 1000;
   text-align: center;
   padding: 0.15rem 2rem;
-  background: #202023;
+  background: #4CAF50;
   color: #fff;
   height: 32px;
   display: flex;
@@ -76,7 +76,7 @@ body > header {
   border-radius: 50%;
   margin-bottom: 12px;
   object-fit: cover;
-  background: #2d2d2d;
+  background: #f0f0f0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
@@ -141,8 +141,8 @@ body > header h1::after {
 }
 
 .empty-events {
-  color: #fff;
-  background: #2d2d2d;
+  color: #666;
+  background: #f5f5f5;
   text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
@@ -421,10 +421,10 @@ a:focus-visible {
 
 footer {
   text-align: center;
-  color: #ccc;
+  color: #666;
   font-size: 0.9rem;
   padding: 1rem;
-  background: #202023;
+  background: #f5f5f5;
   margin-top: 0;
 }
 
@@ -447,7 +447,7 @@ footer {
 
 /* Workout Timers Section - CrossHero Style */
 .timers-section {
-  background: #2d2d2d;
+  background: #ffffff;
   padding: 40px 20px;
   margin: 40px auto 0 auto;
   max-width: 600px;
@@ -456,7 +456,7 @@ footer {
 }
 
 .timer-section {
-  background: #2d2d2d;
+  background: #ffffff;
   padding: 40px 20px;
   margin: 40px auto 0 auto;
   max-width: 600px;
@@ -499,8 +499,8 @@ footer {
 .icon-btn {
   width: 44px;
   height: 44px;
-  border: 2px solid #444;
-  background: #2d2d2d;
+  border: 2px solid #ddd;
+  background: #f5f5f5;
   border-radius: 12px;
   cursor: pointer;
   display: flex;
@@ -586,13 +586,13 @@ footer {
 }
 
 .timer-tab.active {
-  background: #2d2d2d;
+  background: #4CAF50;
   color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .timer-tab:focus-visible {
-  outline: 3px solid #80affe;
+  outline: 3px solid #4CAF50;
   outline-offset: 2px;
 }
 
@@ -912,8 +912,8 @@ footer {
   border-radius: 12px;
   font-size: 1.5rem;
   font-weight: 500;
-  color: #fff;
-  background: #2d2d2d;
+  color: #333;
+  background: #f5f5f5;
   transition: all 0.2s;
   box-sizing: border-box;
   text-align: center;
@@ -965,8 +965,8 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #2d2d2d;
-  color: #fff;
+  background: #f5f5f5;
+  color: #333;
 }
 
 .timer-btn.large {
