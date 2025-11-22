@@ -216,7 +216,13 @@
 
       <!-- One Rep Max Calculator Section -->
       <section id="one-rep-max" class="timers-section">
-        <h2 class="timers-title">One Rep Max Calculator</h2>
+        <div class="timer-header">
+          <h2 class="timers-title">One Rep Max Calculator</h2>
+        </div>
+
+        <div class="timer-selector">
+          <button class="timer-tab active" aria-pressed="true">1RM Calculator</button>
+        </div>
         
         <div class="timer-container active">
           <div class="timer-config">
@@ -301,12 +307,16 @@
       </section>
 
       <!-- Back Squat Calculator -->
-      <section id="backsquat" class="timer-section">
-        <h2 class="section-title">
-          <i class="fa-solid fa-calculator"></i> Back Squat Calculator
-        </h2>
+      <section id="backsquat" class="timers-section">
+        <div class="timer-header">
+          <h2 class="timers-title">Back Squat Calculator</h2>
+        </div>
+
+        <div class="timer-selector">
+          <button class="timer-tab active" aria-pressed="true">Squat %</button>
+        </div>
         
-        <div class="timer-card">
+        <div class="timer-container active">
           <div class="timer-config">
             <div class="config-group">
               <label for="bs-1rm">Back Squat 1RM</label>
@@ -377,6 +387,7 @@
               <div class="bs-cell">20+</div>
             </div>
           </div>
+        </div>
         </div>
       </section>
     </main>

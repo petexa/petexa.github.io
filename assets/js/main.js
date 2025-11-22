@@ -39,7 +39,7 @@ async function loadEvents() {
 
     // Generate stable IDs for each event
     events = events.map(ev => {
-      ev._id = ev.id || slugify(`${ev.name}-${ev.date}`);
+      ev._id = ev._id || ev.id || slugify(`${ev.name}-${ev.date}`);
       return ev;
     });
 
