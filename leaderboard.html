@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Track competition results and gym records. See who's leading the pack!"
+    />
+    <title>Leaderboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#leaderboard">Skip to content</a>
+    <header>
+      <h1>Sets and reps. Cheers and beers. That's the program</h1>
+    </header>
+    <div class="header-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+
+    <main id="leaderboard">
+      <section class="timer-section">
+        <h2 class="section-title">
+          <i class="fa-solid fa-ranking-star"></i> Leaderboard
+        </h2>
+        <p class="section-intro">Track your progress and compete with the community!</p>
+
+        <!-- Add Result Form -->
+        <div class="leaderboard-form-card">
+          <h3 class="leaderboard-form-title">Add Your Result</h3>
+          <form id="leaderboard-form" class="leaderboard-form">
+            <div class="leaderboard-form-grid">
+              <div class="leaderboard-form-group">
+                <label for="result-name">Your Name</label>
+                <input type="text" id="result-name" required placeholder="Enter your name" />
+              </div>
+
+              <div class="leaderboard-form-group">
+                <label for="result-workout">Workout</label>
+                <input type="text" id="result-workout" required placeholder="e.g., Fran, Murph" list="workout-suggestions" />
+                <datalist id="workout-suggestions">
+                  <option value="Fran"></option>
+                  <option value="Grace"></option>
+                  <option value="Cindy"></option>
+                  <option value="Annie"></option>
+                  <option value="Helen"></option>
+                  <option value="Karen"></option>
+                  <option value="Murph"></option>
+                  <option value="DT"></option>
+                  <option value="Fight Gone Bad"></option>
+                </datalist>
+              </div>
+
+              <div class="leaderboard-form-group">
+                <label for="result-score">Score/Time</label>
+                <input type="text" id="result-score" required placeholder="e.g., 3:45, 20 rounds, 350 reps" />
+              </div>
+
+              <div class="leaderboard-form-group">
+                <label for="result-date">Date</label>
+                <input type="date" id="result-date" required />
+              </div>
+            </div>
+
+            <button type="submit" class="leaderboard-form-submit">
+              <i class="fa-solid fa-plus"></i> Add Result
+            </button>
+          </form>
+        </div>
+
+        <!-- Filter -->
+        <div class="leaderboard-controls">
+          <div class="leaderboard-filter">
+            <label for="filter-workout">Show results for:</label>
+            <select id="filter-workout">
+              <option value="all">All Workouts</option>
+            </select>
+          </div>
+
+          <button id="clear-leaderboard" class="leaderboard-clear-btn">
+            <i class="fa-solid fa-trash"></i> Clear All Results
+          </button>
+        </div>
+
+        <!-- Leaderboard Table -->
+        <div id="leaderboard-container" class="leaderboard-container">
+          <div class="leaderboard-empty-state">
+            <i class="fa-solid fa-ranking-star"></i>
+            <p>No results yet!</p>
+            <p class="leaderboard-empty-hint">Be the first to add your result above.</p>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <div class="footer-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+
+    <footer>
+      <div class="mt-15">
+        &copy; <span id="footerYear"></span> Have an event?
+        <a href="mailto:gym@petefox.co.uk" class="footer-link">Contact us</a>
+      </div>
+      <div class="footer-links">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </footer>
+
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/footer.js" defer></script>
+    <script src="assets/js/leaderboard.js" defer></script>
+  </body>
+</html>

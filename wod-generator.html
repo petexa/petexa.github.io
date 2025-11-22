@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Generate random WODs and metcons. Get inspired with fresh workout ideas!"
+    />
+    <title>WOD Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#wod-generator">Skip to content</a>
+    <header>
+      <h1>Sets and reps. Cheers and beers. That's the program</h1>
+    </header>
+    <div class="header-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+
+    <main id="wod-generator">
+      <section class="timer-section">
+        <h2 class="section-title">
+          <i class="fa-solid fa-dice"></i> Random WOD Generator
+        </h2>
+        <p class="section-intro">Click the button below to generate a random workout from our database of over 800 WODs!</p>
+
+        <!-- Generator Controls -->
+        <div class="generator-controls">
+          <div class="generator-filter">
+            <label for="wod-type-filter">Workout Type:</label>
+            <select id="wod-type-filter">
+              <option value="all">All Types</option>
+              <option value="AMRAP">AMRAP</option>
+              <option value="EMOM">EMOM</option>
+              <option value="For Time">For Time</option>
+              <option value="Tabata">Tabata</option>
+              <option value="Chipper">Chipper</option>
+            </select>
+          </div>
+
+          <button id="generate-wod-btn" class="generator-btn">
+            <i class="fa-solid fa-dice"></i> Generate Random WOD
+          </button>
+        </div>
+
+        <!-- Generated WOD Display -->
+        <div id="wod-display" class="wod-display" style="display: none;">
+          <div class="wod-display-header">
+            <h3 id="wod-name" class="wod-display-name"></h3>
+            <span id="wod-type-badge" class="wod-type-badge"></span>
+          </div>
+
+          <div id="wod-details" class="wod-details"></div>
+
+          <div class="wod-actions">
+            <button id="save-wod-btn" class="wod-action-btn primary">
+              <i class="fa-solid fa-bookmark"></i> Save to Favorites
+            </button>
+            <button id="regenerate-btn" class="wod-action-btn secondary">
+              <i class="fa-solid fa-rotate-right"></i> Generate Another
+            </button>
+          </div>
+        </div>
+
+        <!-- Saved WODs -->
+        <div class="saved-wods-section">
+          <h3 class="saved-wods-title">
+            <i class="fa-solid fa-bookmark"></i> Saved Favorites
+          </h3>
+          <div id="saved-wods-container" class="saved-wods-container">
+            <div class="saved-wods-empty">
+              <i class="fa-regular fa-bookmark"></i>
+              <p>No saved WODs yet</p>
+              <p class="saved-wods-hint">Generate a WOD and save it to your favorites!</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <div class="footer-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+
+    <footer>
+      <div class="mt-15">
+        &copy; <span id="footerYear"></span> Have an event?
+        <a href="mailto:gym@petefox.co.uk" class="footer-link">Contact us</a>
+      </div>
+      <div class="footer-links">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </footer>
+
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/footer.js" defer></script>
+    <script src="assets/js/wod-generator.js" defer></script>
+  </body>
+</html>
