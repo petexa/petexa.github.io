@@ -160,9 +160,6 @@ body {
 /* Features Section */
 .features {
   padding: 100px 20px;
-  background: #fff;
-}
-
   background: #1a1a1a;
 }
 
@@ -176,9 +173,6 @@ body {
   font-weight: 700;
   text-align: center;
   margin-bottom: 60px;
-  color: #333;
-}
-
   color: #fff;
 }
 
@@ -189,7 +183,7 @@ body {
 }
 
 .feature-card {
-  background: #f8f8f8;
+  background: #2d2d2d;
   padding: 40px;
   border-radius: 20px;
   text-align: center;
@@ -200,12 +194,6 @@ body {
 .feature-card:hover {
   transform: translateY(-10px);
   border-color: #80affe;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-}
-
-  background: #2d2d2d;
-}
-
   box-shadow: 0 15px 40px rgba(128, 175, 254, 0.2);
 }
 
@@ -230,18 +218,12 @@ body {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 15px;
-  color: #333;
-}
-
   color: #fff;
 }
 
 .feature-card p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #666;
-}
-
   color: #ccc;
 }
 
@@ -296,9 +278,6 @@ body {
 /* Quick Links Section */
 .quick-links {
   padding: 100px 20px;
-  background: #f8f8f8;
-}
-
   background: #2d2d2d;
 }
 
@@ -311,12 +290,12 @@ body {
 }
 
 .link-card {
-  background: #fff;
+  background: #1a1a1a;
   padding: 40px 30px;
   border-radius: 15px;
   text-align: center;
   text-decoration: none;
-  color: #333;
+  color: #fff;
   transition: all 0.3s ease;
   border: 2px solid transparent;
   display: flex;
@@ -328,13 +307,6 @@ body {
 .link-card:hover {
   transform: translateY(-5px);
   border-color: #80affe;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-  background: #1a1a1a;
-  color: #fff;
-}
-
   box-shadow: 0 10px 30px rgba(128, 175, 254, 0.2);
 }
 
@@ -470,7 +442,8 @@ body {
 }
 
 .wod-modal-content {
-  background: #fff;
+  background: #2d2d2d;
+  color: #fff;
   border-radius: 20px;
   max-width: 700px;
   width: 100%;
@@ -480,10 +453,6 @@ body {
   padding: 40px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   animation: modalSlideIn 0.3s ease-out;
-}
-
-  background: #2d2d2d;
-  color: #fff;
 }
 
 @keyframes modalSlideIn {
@@ -516,10 +485,6 @@ body {
 }
 
 .wod-modal-close:hover {
-  background: #f0f0f0;
-  color: #333;
-}
-
   background: #1a1a1a;
   color: #fff;
 }
@@ -528,9 +493,6 @@ body {
   font-size: 2rem;
   font-weight: 700;
   margin: 0 0 30px 0;
-  color: #333;
-}
-
   color: #fff;
 }
 
@@ -547,44 +509,31 @@ body {
 
 .wod-meta {
   font-size: 1rem;
-  color: #666;
-  margin-bottom: 10px;
-}
-
   color: #ccc;
+  margin-bottom: 10px;
 }
 
 .wod-description {
   font-size: 1.1rem;
   line-height: 1.6;
-  color: #333;
+  color: #fff;
   margin: 20px 0;
   padding: 15px;
-  background: #f8f8f8;
+  background: #1a1a1a;
   border-radius: 10px;
   border-left: 4px solid #80affe;
 }
 
-  background: #1a1a1a;
-  color: #fff;
-}
-
 .wod-equipment {
   font-size: 1rem;
-  color: #666;
-  margin: 15px 0;
-}
-
   color: #ccc;
+  margin: 15px 0;
 }
 
 .wod-movements {
   font-size: 1rem;
-  color: #333;
-  margin: 15px 0;
-}
-
   color: #fff;
+  margin: 15px 0;
 }
 
 .wod-movements ul {
@@ -594,9 +543,6 @@ body {
 
 .wod-movements li {
   margin: 5px 0;
-  color: #666;
-}
-
   color: #ccc;
 }
 
@@ -604,10 +550,7 @@ body {
   margin-top: 30px;
   text-align: center;
   padding-top: 20px;
-  border-top: 1px solid #eee;
-}
-
-  border-top-color: #444;
+  border-top: 1px solid #444;
 }
 
 .wod-modal-footer .btn {
@@ -617,15 +560,10 @@ body {
 }
 
 .wod-modal-footer .btn:hover {
-  background: rgba(128, 175, 254, 0.1);
+  background: rgba(41, 255, 180, 0.1);
   transform: translateY(-2px);
-}
-
   color: #29ffb4;
   border-color: #29ffb4;
-}
-
-  background: rgba(41, 255, 180, 0.1);
 }
 
 @media (max-width: 768px) {
