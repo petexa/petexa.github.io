@@ -445,37 +445,6 @@ footer {
   color: var(--color-accent-light);
 }
 
-#dark-mode-toggle {
-  background: none;
-  border: none;
-  color: var(--color-accent);
-  font-size: 1.2rem;
-  margin: 0 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-  vertical-align: middle;
-  display: inline-block;
-}
-
-#dark-mode-toggle i {
-  color: var(--color-accent);
-}
-
-#dark-mode-toggle:hover {
-  color: var(--color-accent-light);
-  transform: scale(1.1);
-}
-
-#dark-mode-toggle:hover i {
-  color: var(--color-accent-light);
-}
-
-body.dark-mode #dark-mode-toggle,
-body.dark-mode #dark-mode-toggle i {
-  color: var(--color-accent-light);
-}
-
 /* Workout Timers Section - CrossHero Style */
 .timers-section {
   background: #2d2d2d;
@@ -500,11 +469,6 @@ body.dark-mode #dark-mode-toggle i {
   border-radius: 20px;
   padding: 30px;
   margin-top: 20px;
-}
-
-body.dark-mode .timer-card {
-  background: #2d2d2d;
-  border-color: #444;
 }
 
 .timers-section.fullscreen {
