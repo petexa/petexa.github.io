@@ -911,47 +911,11 @@ function playCompletionSound() {
 /**
  * Initialize One Rep Max Calculator
  */
-let currentOrmUnit = 'kg'; // Track current unit
-
 function initializeOneRepMaxCalculator() {
   const weightInput = document.getElementById('orm-weight');
   const repsInput = document.getElementById('orm-reps');
-  const unitButtons = document.querySelectorAll('.unit-toggle-btn');
 
   if (!weightInput || !repsInput) return;
-
-  // Handle unit toggle
-  unitButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const newUnit = btn.dataset.unit;
-      if (newUnit === currentOrmUnit) return;
-
-      // Update active state
-      unitButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      // Convert existing weight value
-      const currentWeight = parseFloat(weightInput.value);
-      if (currentWeight > 0) {
-        if (newUnit === 'lbs' && currentOrmUnit === 'kg') {
-          // Kg to Lbs: multiply by 2.20462
-          weightInput.value = Math.round(currentWeight * 2.20462);
-        } else if (newUnit === 'kg' && currentOrmUnit === 'lbs') {
-          // Lbs to Kg: divide by 2.20462
-          weightInput.value = Math.round(currentWeight / 2.20462);
-        }
-      }
-
-      currentOrmUnit = newUnit;
-
-      // Update unit labels
-      document.getElementById('orm-weight-unit').textContent = newUnit;
-      document.getElementById('orm-result-unit').textContent = newUnit;
-
-      // Recalculate with new unit
-      calculateOneRepMax();
-    });
-  });
 
   // Calculate on input change
   weightInput.addEventListener('input', calculateOneRepMax);
@@ -995,7 +959,7 @@ function calculateOneRepMax() {
     const el = document.getElementById(`orm-${percent}`);
     if (el) {
       const value = Math.round(oneRepMax * (percent / 100));
-      el.textContent = `${value} ${currentOrmUnit}`;
+      el.textContent = `${value} kg`;
     }
   });
 }
