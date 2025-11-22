@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeTabataTimer();
   initializeControls();
   initializeOneRepMaxCalculator();
+  initializeBackSquatCalculator();
 });
 
 /**
@@ -958,3 +959,31 @@ function calculateOneRepMax() {
     }
   });
 }
+
+/**
+ * Back Squat Calculator
+ */
+function initializeBackSquatCalculator() {
+  const input = document.getElementById('bs-1rm');
+  
+  if (input) {
+    input.addEventListener('input', calculateBackSquat);
+    calculateBackSquat(); // Initial calculation
+  }
+}
+
+function calculateBackSquat() {
+  const input = document.getElementById('bs-1rm');
+  const oneRM = parseFloat(input.value) || 100;
+  
+  const percentages = [100, 95, 90, 85, 80, 75, 70, 60, 50];
+  
+  percentages.forEach(percent => {
+    const el = document.getElementById(`bs-${percent}`);
+    if (el) {
+      const value = (oneRM * (percent / 100)).toFixed(1);
+      el.textContent = `${value} kg`;
+    }
+  });
+}
+

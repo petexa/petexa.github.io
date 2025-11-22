@@ -29,6 +29,7 @@
       { href: 'past-events.html', icon: 'fa-calendar-check', label: 'Past Events' },
       { href: 'wods.html', icon: 'fa-beer-mug-empty', label: 'WODs Database' },
       { href: 'wods-table.html', icon: 'fa-table', label: 'WODs Table' },
+      { href: 'benchmarks.html', icon: 'fa-trophy', label: 'Benchmark WODs' },
       { href: 'timers.html', icon: 'fa-stopwatch', label: 'Workout Timers' },
     ];
 

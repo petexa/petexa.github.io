@@ -1160,6 +1160,65 @@ footer {
   font-size: 0.9rem;
 }
 
+/* Back Squat Calculator */
+.bs-grid {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.bs-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background 0.2s ease;
+}
+
+.bs-row:hover:not(.bs-header) {
+  background: #f9f9f9;
+}
+
+.bs-header {
+  background: #4CAF50;
+  color: white;
+  font-weight: 700;
+  border-radius: 8px 8px 0 0;
+  border-bottom: none;
+}
+
+.bs-cell {
+  text-align: center;
+  font-size: 1rem;
+}
+
+.bs-row:not(.bs-header) .bs-cell:first-child {
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+.bs-row:not(.bs-header) .bs-cell:nth-child(2) {
+  font-weight: 700;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+}
+
+.bs-row:not(.bs-header) .bs-cell:last-child {
+  color: #666;
+}
+
+@media (max-width: 500px) {
+  .bs-row {
+    grid-template-columns: 80px 1fr 80px;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+  
+  .bs-cell {
+    font-size: 0.9rem;
+  }
+}
+
 /* Utility Classes for Inline Style Replacement */
 .mt-8 {
   margin-top: 8px;
@@ -1328,3 +1387,194 @@ footer {
     padding: 10px;
   }
 }
+
+/* Benchmark WODs */
+.section-intro {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.benchmark-category {
+  margin-bottom: 60px;
+}
+
+.benchmark-category-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #4CAF50;
+  text-align: center;
+}
+
+.benchmark-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+}
+
+.benchmark-card:hover {
+  border-color: #4CAF50;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+}
+
+.benchmark-card.hero {
+  border-color: #ff6b6b;
+  background: linear-gradient(to bottom, #fff, #fff9f9);
+}
+
+.benchmark-card.hero:hover {
+  border-color: #ff5252;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+}
+
+.benchmark-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.benchmark-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.benchmark-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.benchmark-badge.for-time {
+  background: #4CAF50;
+  color: white;
+}
+
+.benchmark-badge.amrap {
+  background: #2196F3;
+  color: white;
+}
+
+.benchmark-badge.rounds {
+  background: #FF9800;
+  color: white;
+}
+
+.benchmark-scheme {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.benchmark-movements {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 25px 0;
+}
+
+.benchmark-movements li {
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #f9f9f9;
+  border-left: 4px solid #4CAF50;
+  border-radius: 4px;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.benchmark-card.hero .benchmark-movements li {
+  border-left-color: #ff6b6b;
+}
+
+.benchmark-note {
+  background: #f0f9ff;
+  border: 1px solid #b3d9ff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.benchmark-note i {
+  color: #2196F3;
+  margin-right: 8px;
+}
+
+.benchmark-standards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 2px solid #f0f0f0;
+}
+
+.benchmark-standard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.benchmark-standard:hover {
+  background: #f0f0f0;
+}
+
+.standard-label {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.standard-value {
+  font-weight: 700;
+  color: #4CAF50;
+  font-size: 1.05rem;
+}
+
+.benchmark-card.hero .standard-value {
+  color: #ff6b6b;
+}
+
+@media (max-width: 768px) {
+  .benchmark-card {
+    padding: 20px;
+  }
+  
+  .benchmark-name {
+    font-size: 1.5rem;
+  }
+  
+  .benchmark-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .benchmark-standards {
+    grid-template-columns: 1fr;
+  }
+}
+
