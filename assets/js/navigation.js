@@ -76,28 +76,19 @@
             }
 
             .nav-beer-btn:focus {
-                outline: 3px solid #80affe;
-                outline-offset: 2px;
+                outline: none;
             }
 
             .beer-emoji {
                 font-size: 40px;
                 display: inline-block;
                 filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-                transition: transform 0.6s ease;
+                transition: transform 0.3s ease;
+                transform: rotate(0deg);
             }
 
-            .beer-emoji.spin {
-                animation: spin 0.6s ease;
-            }
-
-            @keyframes spin {
-                from {
-                    transform: rotate(0deg);
-                }
-                to {
-                    transform: rotate(360deg);
-                }
+            .beer-emoji.tipped {
+                transform: rotate(-90deg);
             }
 
             /* Dropdown menu */
@@ -252,15 +243,24 @@
     function closeDropdown() {
       dropdown.style.display = 'none';
       beerBtn.setAttribute('aria-expanded', 'false');
+      const beerEmoji = beerBtn.querySelector('.beer-emoji');
+      if (beerEmoji) {
+        beerEmoji.classList.remove('tipped');
+      }
     }
 
     // Event listeners
     beerBtn.addEventListener('click', function() {
-      // Add spin animation
       const beerEmoji = beerBtn.querySelector('.beer-emoji');
+      const isOpen = dropdown.style.display === 'block';
+      
+      // Toggle tilt based on open/close state
       if (beerEmoji) {
-        beerEmoji.classList.add('spin');
-        setTimeout(() => beerEmoji.classList.remove('spin'), 600);
+        if (isOpen) {
+          beerEmoji.classList.remove('tipped');
+        } else {
+          beerEmoji.classList.add('tipped');
+        }
       }
       toggleDropdown();
     });
