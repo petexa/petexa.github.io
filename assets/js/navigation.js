@@ -30,6 +30,7 @@
       { href: 'wods.html', icon: 'fa-beer-mug-empty', label: 'WODs Database' },
       { href: 'wods-table.html', icon: 'fa-table', label: 'WODs Table' },
       { href: 'benchmarks.html', icon: 'fa-trophy', label: 'Benchmark WODs' },
+      { href: 'pr-tracker.html', icon: 'fa-chart-line', label: 'PR Tracker' },
       { href: 'timers.html', icon: 'fa-stopwatch', label: 'Workout Timers' },
     ];
 

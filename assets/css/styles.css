@@ -1578,3 +1578,286 @@ footer {
   }
 }
 
+/* PR Tracker */
+.pr-form-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+.pr-form-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.pr-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.pr-form-notes {
+  grid-column: 1 / -1;
+}
+
+.pr-form-group label {
+  display: block;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.pr-form-group input,
+.pr-form-group select,
+.pr-form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Bai Jamjuree', sans-serif;
+  transition: border-color 0.2s ease;
+}
+
+.pr-form-group input:focus,
+.pr-form-group select:focus,
+.pr-form-group textarea:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.pr-form-submit {
+  width: 100%;
+  padding: 15px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pr-form-submit:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+.pr-controls {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.pr-filter,
+.pr-sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pr-filter label,
+.pr-sort label {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.pr-filter select,
+.pr-sort select {
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: white;
+  cursor: pointer;
+}
+
+.pr-clear-btn {
+  padding: 10px 20px;
+  background: #ff5252;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pr-clear-btn:hover {
+  background: #ff1744;
+}
+
+.prs-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.pr-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.pr-empty-state i {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #ddd;
+}
+
+.pr-empty-state p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.pr-empty-hint {
+  font-size: 1rem !important;
+  color: #bbb;
+}
+
+.pr-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.pr-card:hover {
+  border-color: #4CAF50;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+  transform: translateY(-2px);
+}
+
+.pr-card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.pr-card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pr-card-icon i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.pr-card-title {
+  flex: 1;
+}
+
+.pr-card-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 5px 0;
+}
+
+.pr-card-category {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pr-delete-btn {
+  background: transparent;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.pr-delete-btn:hover {
+  background: #ffebee;
+  color: #ff5252;
+}
+
+.pr-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pr-card-value,
+.pr-card-date,
+.pr-card-notes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+.pr-card-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #4CAF50;
+}
+
+.pr-card-value i {
+  color: #4CAF50;
+}
+
+.pr-card-date i,
+.pr-card-notes i {
+  color: #999;
+  width: 20px;
+}
+
+.pr-card-notes {
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .pr-form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pr-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .pr-filter,
+  .pr-sort {
+    width: 100%;
+  }
+  
+  .pr-filter select,
+  .pr-sort select {
+    flex: 1;
+  }
+  
+  .prs-container {
+    grid-template-columns: 1fr;
+  }
+}
+

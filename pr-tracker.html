@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Track your personal records for lifts and benchmark WODs. Log your PRs and watch your progress!"
+    />
+    <title>PR Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#pr-tracker">Skip to content</a>
+    <header>
+      <h1>Sets and reps. Cheers and beers. That's the program</h1>
+    </header>
+    <div class="header-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+
+    <main id="pr-tracker">
+      <section class="timer-section">
+        <h2 class="section-title">
+          <i class="fa-solid fa-chart-line"></i> Personal Records Tracker
+        </h2>
+        <p class="section-intro">Log your personal records and track your progress over time. All data is stored locally in your browser.</p>
+
+        <!-- Add PR Form -->
+        <div class="pr-form-card">
+          <h3 class="pr-form-title">Add New PR</h3>
+          <form id="pr-form" class="pr-form">
+            <div class="pr-form-grid">
+              <div class="pr-form-group">
+                <label for="pr-category">Category</label>
+                <select id="pr-category" required>
+                  <option value="">Select category...</option>
+                  <option value="lift">Lift</option>
+                  <option value="benchmark">Benchmark WOD</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="pr-form-group">
+                <label for="pr-name">Exercise/WOD Name</label>
+                <input type="text" id="pr-name" required placeholder="e.g., Back Squat, Fran" list="pr-suggestions" />
+                <datalist id="pr-suggestions">
+                  <!-- Lifts -->
+                  <option value="Back Squat"></option>
+                  <option value="Front Squat"></option>
+                  <option value="Overhead Squat"></option>
+                  <option value="Deadlift"></option>
+                  <option value="Bench Press"></option>
+                  <option value="Shoulder Press"></option>
+                  <option value="Push Press"></option>
+                  <option value="Push Jerk"></option>
+                  <option value="Clean"></option>
+                  <option value="Snatch"></option>
+                  <option value="Clean & Jerk"></option>
+                  <!-- Benchmark WODs -->
+                  <option value="Fran"></option>
+                  <option value="Grace"></option>
+                  <option value="Cindy"></option>
+                  <option value="Annie"></option>
+                  <option value="Helen"></option>
+                  <option value="Karen"></option>
+                  <option value="Murph"></option>
+                  <option value="DT"></option>
+                  <option value="Fight Gone Bad"></option>
+                  <option value="Filthy Fifty"></option>
+                </datalist>
+              </div>
+
+              <div class="pr-form-group">
+                <label for="pr-value">Value</label>
+                <input type="text" id="pr-value" required placeholder="e.g., 100kg, 3:45, 20 rounds" />
+              </div>
+
+              <div class="pr-form-group">
+                <label for="pr-date">Date</label>
+                <input type="date" id="pr-date" required />
+              </div>
+
+              <div class="pr-form-group pr-form-notes">
+                <label for="pr-notes">Notes (optional)</label>
+                <textarea id="pr-notes" rows="2" placeholder="Add any notes about this PR..."></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="pr-form-submit">
+              <i class="fa-solid fa-plus"></i> Add PR
+            </button>
+          </form>
+        </div>
+
+        <!-- Filter and Sort -->
+        <div class="pr-controls">
+          <div class="pr-filter">
+            <label for="filter-category">Filter by:</label>
+            <select id="filter-category">
+              <option value="all">All Categories</option>
+              <option value="lift">Lifts</option>
+              <option value="benchmark">Benchmark WODs</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="pr-sort">
+            <label for="sort-by">Sort by:</label>
+            <select id="sort-by">
+              <option value="date-desc">Newest First</option>
+              <option value="date-asc">Oldest First</option>
+              <option value="name-asc">Name (A-Z)</option>
+              <option value="name-desc">Name (Z-A)</option>
+            </select>
+          </div>
+
+          <button id="clear-all-prs" class="pr-clear-btn">
+            <i class="fa-solid fa-trash"></i> Clear All PRs
+          </button>
+        </div>
+
+        <!-- PRs List -->
+        <div id="prs-container" class="prs-container">
+          <div class="pr-empty-state">
+            <i class="fa-solid fa-chart-line"></i>
+            <p>No personal records yet!</p>
+            <p class="pr-empty-hint">Start tracking your progress by adding your first PR above.</p>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <div class="footer-tear">
+      <img src="images/scratch-black-top-04.svg" alt="" aria-hidden="true" />
+    </div>
+
+    <footer>
+      <div class="mt-15">
+        &copy; <span id="footerYear"></span> Have an event?
+        <a href="mailto:gym@petefox.co.uk" class="footer-link">Contact us</a>
+      </div>
+      <div class="footer-links">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </footer>
+
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/footer.js" defer></script>
+    <script src="assets/js/pr-tracker.js" defer></script>
+  </body>
+</html>
