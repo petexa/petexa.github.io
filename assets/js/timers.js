@@ -933,13 +933,9 @@ function calculateOneRepMax() {
   const weightInput = document.getElementById('orm-weight');
   const repsInput = document.getElementById('orm-reps');
   const resultEl = document.getElementById('orm-result');
-  const unitEl = document.getElementById('orm-result-unit');
 
   const weight = parseFloat(weightInput.value) || 0;
   const reps = parseInt(repsInput.value) || 1;
-
-  // Get current unit
-  const currentUnit = unitEl ? unitEl.textContent : 'kg';
 
   // Epley formula
   let oneRepMax;
@@ -957,13 +953,13 @@ function calculateOneRepMax() {
     resultEl.textContent = oneRepMax;
   }
 
-  // Update percentage values
+  // Update percentage values (kg only)
   const percentages = [95, 90, 85, 80, 75, 70, 65, 60];
   percentages.forEach(percent => {
     const el = document.getElementById(`orm-${percent}`);
     if (el) {
       const value = Math.round(oneRepMax * (percent / 100));
-      el.textContent = `${value} ${currentUnit}`;
+      el.textContent = `${value} kg`;
     }
   });
 }
