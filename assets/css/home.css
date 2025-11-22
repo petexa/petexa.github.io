@@ -2,6 +2,11 @@
    HOME PAGE STYLES - Landing Page
    ================================================ */
 
+/* Remove header padding for home page */
+body {
+  padding-top: 0 !important;
+}
+
 /* Hero Section */
 .hero {
   position: relative;
