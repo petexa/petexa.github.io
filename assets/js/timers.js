@@ -934,8 +934,15 @@ function calculateOneRepMax() {
   const repsInput = document.getElementById('orm-reps');
   const resultEl = document.getElementById('orm-result');
 
+  if (!weightInput || !repsInput || !resultEl) {
+    console.error('ORM Calculator: Missing input elements');
+    return;
+  }
+
   const weight = parseFloat(weightInput.value) || 0;
   const reps = parseInt(repsInput.value) || 1;
+
+  console.log('ORM Calculation:', { weight, reps });
 
   // Epley formula
   let oneRepMax;
@@ -948,10 +955,10 @@ function calculateOneRepMax() {
   // Round to nearest integer
   oneRepMax = Math.round(oneRepMax);
 
+  console.log('Calculated 1RM:', oneRepMax);
+
   // Update main result
-  if (resultEl) {
-    resultEl.textContent = oneRepMax;
-  }
+  resultEl.textContent = oneRepMax;
 
   // Update percentage values (kg only)
   const percentages = [95, 90, 85, 80, 75, 70, 65, 60];
