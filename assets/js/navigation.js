@@ -23,30 +23,38 @@
   function createNavigationHTML() {
     const currentPage = getCurrentPage();
 
-    // Define all navigation items
-    const navItems = [
-      { href: 'index.html', icon: 'fa-calendar', label: 'Upcoming Events' },
-      { href: 'past-events.html', icon: 'fa-calendar-check', label: 'Past Events' },
-      { href: 'wods.html', icon: 'fa-beer-mug-empty', label: 'WODs Database' },
-      { href: 'wods-table.html', icon: 'fa-table', label: 'WODs Table' },
-      { href: 'benchmarks.html', icon: 'fa-trophy', label: 'Benchmark WODs' },
-      { href: 'pr-tracker.html', icon: 'fa-chart-line', label: 'PR Tracker' },
-      { href: 'wod-generator.html', icon: 'fa-dice', label: 'WOD Generator' },
-      { href: 'leaderboard.html', icon: 'fa-ranking-star', label: 'Leaderboard' },
-      { href: 'timers.html', icon: 'fa-stopwatch', label: 'Workout Timers' },
-    ];
+    // Define all navigation items with categories
+    const navStructure = {
+      'Events': [
+        { href: 'index.html', icon: 'fa-calendar', label: 'Upcoming Events' },
+        { href: 'past-events.html', icon: 'fa-calendar-check', label: 'Past Events' },
+      ],
+      'Workouts': [
+        { href: 'wods.html', icon: 'fa-beer-mug-empty', label: 'WODs Database' },
+        { href: 'wods-table.html', icon: 'fa-table', label: 'WODs Table' },
+        { href: 'benchmarks.html', icon: 'fa-trophy', label: 'Benchmark WODs' },
+        { href: 'wod-generator.html', icon: 'fa-dice', label: 'WOD Generator' },
+      ],
+      'Tools': [
+        { href: 'timers.html', icon: 'fa-stopwatch', label: 'Workout Timers' },
+        { href: 'pr-tracker.html', icon: 'fa-chart-line', label: 'PR Tracker' },
+        { href: 'leaderboard.html', icon: 'fa-ranking-star', label: 'Leaderboard' },
+      ]
+    };
 
-    // Build menu items HTML, excluding current page
+    // Build categorized menu HTML
     let menuItemsHTML = '';
-    navItems.forEach(item => {
-      if (item.href !== currentPage) {
+    Object.keys(navStructure).forEach(category => {
+      menuItemsHTML += `<div class="nav-category">${category}</div>`;
+      navStructure[category].forEach(item => {
+        const isActive = item.href === currentPage;
         menuItemsHTML += `
-                    <a href="${item.href}" class="nav-dropdown-item">
-                        <i class="fa-solid ${item.icon}"></i>
-                        <span>${item.label}</span>
-                    </a>
-                `;
-      }
+          <a href="${item.href}" class="nav-dropdown-item ${isActive ? 'nav-active' : ''}">
+            <i class="fa-solid ${item.icon}"></i>
+            <span>${item.label}</span>
+          </a>
+        `;
+      });
     });
 
     return `
@@ -59,6 +67,11 @@
             <nav id="nav-dropdown" class="nav-dropdown" role="navigation" aria-label="Main navigation" style="display: none;">
                 ${menuItemsHTML}
             </nav>
+
+            <!-- Dark Mode Toggle -->
+            <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                <span class="moon-emoji" aria-hidden="true">🌙</span>
+            </button>
         `;
   }
 
@@ -143,11 +156,22 @@
             }
 
             /* Dropdown items */
+            .nav-category {
+                padding: 12px 18px 8px 18px;
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #999;
+                background: #fafafa;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
             .nav-dropdown-item {
                 display: flex;
                 align-items: center;
                 gap: 12px;
-                padding: 14px 18px;
+                padding: 14px 18px 14px 28px;
                 color: #333;
                 text-decoration: none;
                 font-size: 1rem;
@@ -171,6 +195,12 @@
                 color: #4CAF50;
             }
 
+            .nav-dropdown-item.nav-active {
+                background: #e8f5e9;
+                color: #4CAF50;
+                font-weight: 700;
+            }
+
             .nav-dropdown-item:focus {
                 outline: 2px solid #4CAF50;
                 outline-offset: -2px;
@@ -186,6 +216,129 @@
 
             .nav-dropdown-item:hover i {
                 color: #4CAF50;
+            }
+
+            .nav-dropdown-item.nav-active i {
+                color: #4CAF50;
+            }
+
+            /* Dark Mode Toggle */
+            .dark-mode-toggle {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                z-index: 1100;
+                width: 50px;
+                height: 50px;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .dark-mode-toggle:hover {
+                transform: scale(1.1);
+            }
+
+            .moon-emoji {
+                font-size: 40px;
+                display: inline-block;
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+                transition: transform 0.3s ease;
+            }
+
+            .dark-mode-toggle:hover .moon-emoji {
+                transform: rotate(-20deg);
+            }
+
+            /* Dark Mode Styles */
+            body.dark-mode {
+                background: #1a1a1a;
+                color: #e0e0e0;
+            }
+
+            body.dark-mode header {
+                background: #2d2d2d;
+                color: #e0e0e0;
+            }
+
+            body.dark-mode .nav-dropdown {
+                background: #2d2d2d;
+                border-color: #444;
+            }
+
+            body.dark-mode .nav-category {
+                background: #252525;
+                color: #888;
+                border-bottom-color: #333;
+            }
+
+            body.dark-mode .nav-dropdown-item {
+                color: #e0e0e0;
+                border-bottom-color: #333;
+            }
+
+            body.dark-mode .nav-dropdown-item:hover {
+                background: #353535;
+                color: #4CAF50;
+            }
+
+            body.dark-mode .nav-dropdown-item.nav-active {
+                background: #1b3a1b;
+            }
+
+            body.dark-mode .timer-section,
+            body.dark-mode .timer-card,
+            body.dark-mode .benchmark-card,
+            body.dark-mode .pr-form-card,
+            body.dark-mode .pr-card,
+            body.dark-mode .wod-display,
+            body.dark-mode .saved-wod-card,
+            body.dark-mode .leaderboard-form-card,
+            body.dark-mode .leaderboard-table-wrapper {
+                background: #2d2d2d;
+                border-color: #444;
+                color: #e0e0e0;
+            }
+
+            body.dark-mode .section-title,
+            body.dark-mode .benchmark-name,
+            body.dark-mode .pr-card-name,
+            body.dark-mode .wod-display-name,
+            body.dark-mode .saved-wod-name,
+            body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+                color: #e0e0e0;
+            }
+
+            body.dark-mode input,
+            body.dark-mode select,
+            body.dark-mode textarea {
+                background: #252525;
+                border-color: #444;
+                color: #e0e0e0;
+            }
+
+            body.dark-mode .benchmark-movements li,
+            body.dark-mode .orm-item,
+            body.dark-mode .bs-row {
+                background: #252525;
+                border-color: #444;
+            }
+
+            body.dark-mode .leaderboard-table thead {
+                background: #252525;
+            }
+
+            body.dark-mode .leaderboard-table td {
+                border-bottom-color: #333;
+            }
+
+            body.dark-mode .leaderboard-podium {
+                background: linear-gradient(to right, #2a2416, #1a1a1a);
             }
 
             /* Mobile adjustments */
@@ -235,6 +388,7 @@
     // Get elements
     const beerBtn = document.getElementById('nav-beer-btn');
     const dropdown = document.getElementById('nav-dropdown');
+    const darkModeBtn = document.getElementById('dark-mode-toggle');
 
     /**
      * Toggle dropdown open/closed state
@@ -268,6 +422,33 @@
       }
     }
 
+    /**
+     * Initialize dark mode
+     */
+    function initDarkMode() {
+      // Check for saved preference or system preference
+      const savedMode = localStorage.getItem('darkMode');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedMode === 'enabled' || (!savedMode && prefersDark)) {
+        document.body.classList.add('dark-mode');
+      }
+    }
+
+    /**
+     * Toggle dark mode
+     */
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      
+      // Save preference
+      if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    }
+
     // Event listeners
     beerBtn.addEventListener('click', function() {
       const beerEmoji = beerBtn.querySelector('.beer-emoji');
@@ -284,6 +465,11 @@
       toggleDropdown();
     });
 
+    // Dark mode toggle
+    if (darkModeBtn) {
+      darkModeBtn.addEventListener('click', toggleDarkMode);
+    }
+
     // Close when clicking outside
     document.addEventListener('click', function (e) {
       if (!beerBtn.contains(e.target) && !dropdown.contains(e.target)) {
@@ -298,6 +484,9 @@
         beerBtn.focus();
       }
     });
+
+    // Initialize dark mode
+    initDarkMode();
   }
 
   // Initialize when DOM is ready
