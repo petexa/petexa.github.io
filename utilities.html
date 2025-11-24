@@ -86,18 +86,247 @@
         </div>
       </section>
 
-      <!-- Utilities Content -->
-      <div class="events-main">
-        
-        <!-- Section 1: Progress Tracker -->
-        <section class="utilities-section" aria-labelledby="progress-tracker-title">
-          <h2 id="progress-tracker-title" class="utilities-section-title">
-            <span class="section-icon" aria-hidden="true">📊</span>
-            Progress Tracker
-          </h2>
-          
-          <!-- Stats Placeholder -->
-          <div class="utility-card">
+        <!-- Collapsible Utility Tools (Neon Theme) -->
+        <div class="utility-collapsible-list">
+          <!-- Plate Calculator -->
+          <div class="utility-collapsible">
+            <button class="utility-collapsible-header" onclick="toggleUtilitySection('plate-calc')" aria-expanded="false" aria-controls="plate-calc-content">
+              <span class="section-icon" aria-hidden="true">🏋️‍♂️</span> Plate Calculator (KG)
+            </button>
+            <div class="utility-collapsible-content" id="plate-calc-content" style="display:none;">
+              <div class="utility-card" style="margin-top:0;">
+                <h3 class="event-title" style="margin-bottom:18px;text-align:center;">Plate Calculator (KG)</h3>
+                <div id="plate-calc-mode" style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;">
+                  <button type="button" class="neon-btn neon-btn-blue" id="mode-plates" onclick="setPlateCalcMode('plates')" aria-pressed="true">Calculate Plates Needed</button>
+                  <button type="button" class="neon-btn neon-btn-yellow" id="mode-weight" onclick="setPlateCalcMode('weight')" aria-pressed="false">Calculate Total Weight</button>
+                </div>
+                <form id="plate-calculator-form" style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:400px;margin:0 auto;">
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <label for="bar-weight" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Bar Weight (KG):</label>
+                    <input type="number" id="bar-weight" min="10" max="30" value="20" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Bar weight in KG" />
+                  </div>
+                  <div id="plates-mode-fields">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <label for="target-weight" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Target Total Weight (KG):</label>
+                      <input type="number" id="target-weight" min="20" max="300" value="60" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Target total weight in KG" />
+                    </div>
+                    <button type="button" class="neon-btn neon-btn-blue" onclick="calculatePlates()" aria-label="Calculate plate breakdown">Calculate Plates</button>
+                  </div>
+                  <div id="weight-mode-fields" style="display:none;">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <label for="side-plates" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Plates on One Side (KG, comma separated):</label>
+                      <input type="text" id="side-plates" placeholder="e.g. 20,10,2.5" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Plates on one side in KG" />
+                      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(25)">+25kg</button>
+                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(20)">+20kg</button>
+                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(15)">+15kg</button>
+                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(10)">+10kg</button>
+                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(5)">+5kg</button>
+                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(2.5)">+2.5kg</button>
+                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(1.25)">+1.25kg</button>
+                      </div>
+                    </div>
+                    <button type="button" class="neon-btn neon-btn-blue" onclick="calculateWeight()" aria-label="Calculate total weight">Calculate Total Weight</button>
+                  </div>
+                </form>
+                <div id="plate-result" style="margin-top:18px;text-align:center;color:#fff;font-family:'Orbitron',Arial,sans-serif;"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Progress Chart -->
+          <div class="utility-collapsible">
+            <button class="utility-collapsible-header" onclick="toggleUtilitySection('progress-chart')" aria-expanded="false" aria-controls="progress-chart-content">
+              <span class="section-icon" aria-hidden="true">📈</span> Progress Chart
+            </button>
+            <div class="utility-collapsible-content" id="progress-chart-content" style="display:none;">
+              <div class="utility-card" style="margin-top:0;">
+                <div class="stats-placeholder">
+                  <div class="stat-box">
+                    <div class="stat-value" id="total-workouts">0</div>
+                    <div class="stat-label">Total Workouts</div>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-value" id="total-prs">0</div>
+                    <div class="stat-label">Personal Records</div>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-value" id="this-week">0</div>
+                    <div class="stat-label">This Week</div>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-value" id="streak">0</div>
+                    <div class="stat-label">Day Streak</div>
+                  </div>
+                </div>
+                <h3 style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;text-align:center;margin-bottom:16px;">Progress Chart</h3>
+                <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+                  <label for="chart-exercise" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Select Exercise to View:</label>
+                  <select id="chart-exercise" onchange="updateChart()" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;font-family:'Orbitron',Arial,sans-serif;" aria-label="Select exercise for chart">
+                    <option value="">-- Select Exercise --</option>
+                    <option value="bench-press">Bench Press</option>
+                    <option value="front-squat">Front Squat</option>
+                    <option value="back-squat">Back Squat</option>
+                    <option value="squat">Squat</option>
+                    <option value="deadlift">Deadlift</option>
+                    <option value="overhead-press">Overhead Press</option>
+                    <option value="barbell-row">Barbell Row</option>
+                    <option value="pullups">Pull-ups/Chin-ups</option>
+                    <option value="dips">Dips</option>
+                    <option value="bicep-curl">Bicep Curl</option>
+                    <option value="tricep-extension">Tricep Extension</option>
+                    <option value="lunges">Lunges</option>
+                  </select>
+                </div>
+                <canvas id="workout-chart" style="max-height:300px;"></canvas>
+              </div>
+            </div>
+          </div>
+          <!-- Workout Tracker -->
+          <div class="utility-collapsible">
+            <button class="utility-collapsible-header" onclick="toggleUtilitySection('workout-tracker')" aria-expanded="false" aria-controls="workout-tracker-content">
+              <span class="section-icon" aria-hidden="true">📝</span> Workout Tracker
+            </button>
+            <div class="utility-collapsible-content" id="workout-tracker-content" style="display:none;">
+              <div class="utility-card" style="margin-top:0;">
+                <h3 class="event-title" style="margin-bottom:18px;text-align:center;">Log Workout</h3>
+                <form id="workout-form" style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:500px;margin:0 auto;">
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <label for="workout-exercise" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Exercise:</label>
+                    <select id="workout-exercise" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;font-family:'Orbitron',Arial,sans-serif;" aria-label="Select exercise">
+                      <option value="">-- Select Exercise --</option>
+                      <option value="bench-press">Bench Press</option>
+                      <option value="front-squat">Front Squat</option>
+                      <option value="back-squat">Back Squat</option>
+                      <option value="squat">Squat</option>
+                      <option value="deadlift">Deadlift</option>
+                      <option value="overhead-press">Overhead Press</option>
+                      <option value="barbell-row">Barbell Row</option>
+                      <option value="pullups">Pull-ups/Chin-ups</option>
+                      <option value="dips">Dips</option>
+                      <option value="bicep-curl">Bicep Curl</option>
+                      <option value="tricep-extension">Tricep Extension</option>
+                      <option value="lunges">Lunges</option>
+                    </select>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <label for="workout-date" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Date:</label>
+                    <input type="date" id="workout-date" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Workout date" />
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <label for="workout-sets" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">Sets:</label>
+                      <input type="number" id="workout-sets" min="1" max="20" value="3" style="padding:12px;border-radius:6px;border:2px solid #ffb84d;background:#222;color:#fff;font-size:1rem;" aria-label="Number of sets" />
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                      <label for="workout-reps" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">Reps:</label>
+                      <input type="number" id="workout-reps" min="1" max="50" value="10" style="padding:12px;border-radius:6px;border:2px solid #ffb84d;background:#222;color:#fff;font-size:1rem;" aria-label="Number of reps" />
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <div id="workout-weight-row">
+                      <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <label for="workout-weight" style="color:#39ff14;font-family:'Orbitron',Arial,sans-serif;">Weight:</label>
+                        <div style="display:flex;gap:8px;">
+                          <button type="button" id="unit-kg" class="neon-btn neon-btn-blue" onclick="setWeightUnit('kg')" style="padding:6px 12px;font-size:0.85rem;" aria-label="Set unit to kilograms" aria-pressed="true">KG</button>
+                          <button type="button" id="unit-lb" class="neon-btn neon-btn-yellow" onclick="setWeightUnit('lb')" style="padding:6px 12px;font-size:0.85rem;opacity:0.5;" aria-label="Set unit to pounds" aria-pressed="false">LB</button>
+                        </div>
+                      </div>
+                      <input type="number" id="workout-weight" min="0" max="1000" step="0.5" value="60" style="padding:12px;border-radius:6px;border:2px solid #39ff14;background:#222;color:#fff;font-size:1rem;margin-top:8px;width:100%;box-sizing:border-box;" aria-label="Weight lifted" />
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <label for="workout-notes" style="color:#fff;font-family:'Orbitron',Arial,sans-serif;">Notes (form cues, RPE, tempo):</label>
+                    <textarea id="workout-notes" rows="3" style="padding:12px;border-radius:6px;border:2px solid #fff;background:#222;color:#fff;font-size:1rem;font-family:Arial,sans-serif;resize:vertical;" placeholder="e.g., RPE 8, controlled tempo, good form" aria-label="Workout notes"></textarea>
+                  </div>
+                  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+                    <button type="button" class="neon-btn neon-btn-blue" onclick="saveWorkout()" aria-label="Save workout entry" style="flex:1;min-width:120px;">Save Entry</button>
+                    <button type="button" class="neon-btn neon-btn-yellow" onclick="exportWorkouts()" aria-label="Export workouts as CSV" style="flex:1;min-width:120px;">Export CSV</button>
+                  </div>
+                </form>
+                <div id="workout-pr-message" style="margin-top:16px;padding:12px;border-radius:8px;background:rgba(57,255,20,0.1);border:2px solid #39ff14;color:#39ff14;font-family:'Orbitron',Arial,sans-serif;text-align:center;display:none;" role="alert" aria-live="assertive">
+                  🏆 NEW PERSONAL RECORD! 🏆
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- CrossFit Timer -->
+          <div class="utility-collapsible">
+            <button class="utility-collapsible-header" onclick="toggleUtilitySection('crossfit-timer')" aria-expanded="false" aria-controls="crossfit-timer-content">
+              <span class="section-icon" aria-hidden="true">⏱️</span> CrossFit Timer
+            </button>
+            <div class="utility-collapsible-content" id="crossfit-timer-content" style="display:none;">
+              <div class="utility-card" style="margin-top:0;">
+                <h3 class="event-title" style="margin-bottom:18px;text-align:center;">CrossFit Timer</h3>
+                <div id="timer-list" style="display:flex;flex-direction:column;gap:18px;margin:24px 0;">
+                  <button class="timer-mode-btn" onclick="selectTimerMode('clock')" aria-label="Select Clock mode">CLOCK</button>
+                  <button class="timer-mode-btn" onclick="selectTimerMode('tabata')" aria-label="Select Tabata mode">TABATA</button>
+                  <button class="timer-mode-btn" onclick="selectTimerMode('fortime')" aria-label="Select For Time mode">FOR TIME</button>
+                  <button class="timer-mode-btn" onclick="selectTimerMode('emom')" aria-label="Select EMOM mode">EMOM</button>
+                  <button class="timer-mode-btn" onclick="selectTimerMode('amrap')" aria-label="Select AMRAP mode">AMRAP</button>
+                </div>
+                <div id="timer-mode-ui" style="display:none;"></div>
+              </div>
+            </div>
+          </div>
+          <!-- One Rep Max Calculator -->
+          <div class="utility-collapsible">
+            <button class="utility-collapsible-header" onclick="toggleUtilitySection('orm-calculator')" aria-expanded="false" aria-controls="orm-calculator-content">
+              <span class="section-icon" aria-hidden="true">💪</span> One Rep Max Calculator (KG)
+            </button>
+            <div class="utility-collapsible-content" id="orm-calculator-content" style="display:none;">
+              <div class="utility-card" style="margin-top:0;">
+                <h3 class="event-title" style="margin-bottom:18px;text-align:center;">One Rep Max Calculator (KG)</h3>
+                <form id="orm-form" style="display:flex;flex-direction:column;gap:16px;align-items:center;">
+                  <div style="display:flex;gap:12px;align-items:center;">
+                    <label for="orm-weight" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Weight (kg):</label>
+                    <input type="number" id="orm-weight" min="1" max="500" value="60" style="width:80px;padding:6px 8px;border-radius:6px;border:1px solid #19baff;background:#222;color:#fff;" aria-label="Weight in kilograms" />
+                  </div>
+                  <div style="display:flex;flex-direction:column;align-items:center;width:100%;">
+                    <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;justify-content:center;">
+                      <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(1)" aria-label="Set reps to 1">1</button>
+                      <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(3)" aria-label="Set reps to 3">3</button>
+                      <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(5)" aria-label="Set reps to 5">5</button>
+                      <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(8)" aria-label="Set reps to 8">8</button>
+                      <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(10)" aria-label="Set reps to 10">10</button>
+                    </div>
+                    <div style="display:flex;gap:12px;align-items:center;">
+                      <label for="orm-reps" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">Reps:</label>
+                      <input type="number" id="orm-reps" min="1" max="20" value="5" style="width:60px;padding:6px 8px;border-radius:6px;border:1px solid #ffb84d;background:#222;color:#fff;" aria-label="Number of repetitions" />
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:12px;align-items:center;">
+                    <label for="orm-formula" style="color:#39ff14;font-family:'Orbitron',Arial,sans-serif;">Formula:</label>
+                    <select id="orm-formula" style="padding:6px 8px;border-radius:6px;border:1px solid #39ff14;background:#222;color:#fff;" aria-label="Select calculation formula">
+                      <option value="epley">Epley</option>
+                      <option value="all">All</option>
+                      <option value="brzycki">Brzycki</option>
+                      <option value="lombardi">Lombardi</option>
+                      <option value="oconner">O'Conner</option>
+                    </select>
+                  </div>
+                  <button type="button" class="neon-btn neon-btn-blue" onclick="calculateORM()" aria-label="Calculate one rep max">Calculate 1RM</button>
+                </form>
+                <div id="orm-result" style="margin-top:18px;font-size:1.2rem;color:#39ff14;text-align:center;font-family:'Orbitron',Arial,sans-serif;" role="status" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+                              <option value="deadlift">Deadlift</option>
+                              <option value="overhead-press">Overhead Press</option>
+                              <option value="barbell-row">Barbell Row</option>
+                              <option value="pullups">Pull-ups/Chin-ups</option>
+                              <option value="dips">Dips</option>
+                              <option value="bicep-curl">Bicep Curl</option>
+                              <option value="tricep-extension">Tricep Extension</option>
+                              <option value="lunges">Lunges</option>
+                            </select>
+                          </div>
+                          <canvas id="workout-chart" style="max-height:300px;"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- Repeat for other utilities: Progress Chart, Workout Tracker, etc. -->
+                </div>
             <div class="stats-placeholder">
               <div class="stat-box">
                 <div class="stat-value" id="total-workouts">0</div>
@@ -125,6 +354,8 @@
                 <select id="chart-exercise" onchange="updateChart()" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;font-family:'Orbitron',Arial,sans-serif;" aria-label="Select exercise for chart">
                   <option value="">-- Select Exercise --</option>
                   <option value="bench-press">Bench Press</option>
+                  <option value="front-squat">Front Squat</option>
+                  <option value="back-squat">Back Squat</option>
                   <option value="squat">Squat</option>
                   <option value="deadlift">Deadlift</option>
                   <option value="overhead-press">Overhead Press</option>
@@ -150,6 +381,8 @@
                 <select id="workout-exercise" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;font-family:'Orbitron',Arial,sans-serif;" aria-label="Select exercise">
                   <option value="">-- Select Exercise --</option>
                   <option value="bench-press">Bench Press</option>
+                  <option value="front-squat">Front Squat</option>
+                  <option value="back-squat">Back Squat</option>
                   <option value="squat">Squat</option>
                   <option value="deadlift">Deadlift</option>
                   <option value="overhead-press">Overhead Press</option>
@@ -304,13 +537,13 @@
       <div class="footer-content">
         <nav class="footer-social" aria-label="Social media links">
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
-            <span aria-hidden="true">📷</span>
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #e1306c);" />
           </a>
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
-            <span aria-hidden="true">📘</span>
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1877f3);" />
           </a>
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
-            <span aria-hidden="true">🐦</span>
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1da1f2);" />
           </a>
         </nav>
         <p class="footer-copyright">

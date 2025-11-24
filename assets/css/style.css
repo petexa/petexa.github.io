@@ -1,3 +1,46 @@
+/* Neon Collapsible Utility Headers */
+.utility-collapsible-header {
+	width: 100%;
+	background: rgba(10, 20, 40, 0.92);
+	border: 2px solid #19baff;
+	border-radius: 16px;
+	padding: 20px 24px;
+	font-family: 'Orbitron', Arial, sans-serif;
+	font-size: 1.2rem;
+	color: #19baff;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 12px;
+	box-shadow: 0 0 24px rgba(25, 186, 255, 0.18);
+	transition: background 0.3s, box-shadow 0.3s, border-color 0.3s;
+	text-shadow: 0 0 8px #19baff;
+}
+.utility-collapsible-header:hover,
+.utility-collapsible-header:focus {
+	background: rgba(25, 186, 255, 0.12);
+	box-shadow: 0 0 32px #19baff44;
+	outline: 2px solid #19baff;
+	outline-offset: 2px;
+}
+.utility-collapsible-header[aria-expanded="true"] {
+	border-color: #39ff14;
+	color: #39ff14;
+	text-shadow: 0 0 12px #39ff14;
+}
+.utility-collapsible-header .section-icon {
+	font-size: 1.5rem;
+	margin-right: 8px;
+}
+/* Sticky footer social icons */
+.sticky-footer-social {
+	position: sticky;
+	bottom: 0;
+	background: rgba(10, 10, 15, 0.98);
+	z-index: 100;
+	padding-bottom: 16px;
+}
 .orm-rep-btn {
 	padding: 4px 10px;
 	font-size: 0.95rem;
@@ -742,10 +785,11 @@ font-size: 1.1rem;
 .footer-social a:hover,
 .footer-social a:focus {
 	color: #ffb84d;
-	transform: scale(1.2);
-	outline: 2px solid #ffb84d;
-	outline-offset: 4px;
-	border-radius: 50%;
+	background: radial-gradient(circle at center, rgba(255, 184, 77, 0.35) 0%, rgba(25, 186, 255, 0.10) 70%, transparent 100%);
+	box-shadow: 0 0 24px 8px rgba(255, 184, 77, 0.25);
+	outline: none;
+	border-radius: 8px;
+	transition: background 0.3s, box-shadow 0.3s;
 }
 
 .footer-copyright {
