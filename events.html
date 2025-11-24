@@ -9,17 +9,23 @@
   <script defer src="assets/js/events.js"></script>
 </head>
 <body class="neon-bg">
-  <nav class="neon-nav">
+  <nav class="neon-nav" role="navigation" aria-label="Main navigation">
+    <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="#" class="active">Events</a></li>
-      <li><a href="#">Nights Out</a></li>
+      <li><a href="index.html" aria-label="Home page">Home</a></li>
+      <li><a href="#" class="active" aria-label="View upcoming events" aria-current="page">Events</a></li>
+      <li><a href="#" aria-label="Nights out information">Nights Out</a></li>
     </ul>
   </nav>
-  <main class="events-main">
+  <main class="events-main" role="main">
     <h1 class="neon-title">Upcoming Events</h1>
-    <div id="events-grid" class="events-grid"></div>
+    <div id="events-grid" class="events-grid" role="list"></div>
   </main>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
 
