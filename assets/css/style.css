@@ -1,3 +1,7 @@
+.event-card.next-event {
+	border: 2px solid #39ff14;
+	box-shadow: 0 0 32px #39ff1444;
+}
 /* Base styles and CSS reset */
 * {
 	box-sizing: border-box;
@@ -34,12 +38,13 @@
 	background: rgba(10, 20, 40, 0.85);
 	border-radius: 16px;
 	box-shadow: 0 0 32px #19baff44;
+	border: 2px solid #19baff;
 	overflow: hidden;
 	color: #fff;
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	transition: box-shadow 0.2s;
+	transition: box-shadow 0.2s, border-color 0.2s;
 }
 .event-card.past {
 	opacity: 0.5;

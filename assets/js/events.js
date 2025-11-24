@@ -174,7 +174,11 @@ async function renderEvents() {
     grid.innerHTML = '';
     
     // Upcoming first
-    upcoming.forEach(e => grid.appendChild(createEventCard(e, false)));
+    upcoming.forEach((e, i) => {
+      const card = createEventCard(e, false);
+      if (i === 0) card.classList.add('next-event');
+      grid.appendChild(card);
+    });
     // Past events greyed out
     past.forEach(e => grid.appendChild(createEventCard(e, true)));
     
