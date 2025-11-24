@@ -1,0 +1,146 @@
+# Iron & Ale Copilot Instructions
+
+You are assisting in building the Iron & Ale site.  
+Apply the same neon design system consistently across all HTML, CSS, and JS files.
+
+## Guidance Level: Novice Mode
+- Assume developer is a beginner.
+- Provide step-by-step scaffolds for HTML, CSS, and JS.
+- Add explanatory comments in code to clarify purpose of each section.
+- Suggest safe defaults before advanced options.
+- Keep examples simple, modular, and easy to test in browser.
+- Use semantic HTML5 and accessible ARIA attributes consistently.
+- Highlight where code can be extended later, but don’t overwhelm with complexity.
+
+## Global HTML Layout
+- Use semantic HTML5 tags: <header>, <nav>, <main>, <section>, <footer>.
+- Include hero banner with neon flicker heading and silhouettes on index.html.
+- Sticky navigation bar with logo, links, hamburger menu, overlay, and close button.
+- Footer with social links and consistent neon styling.
+- Ensure aria-current for active nav link and ARIA attributes for accessibility.
+
+## Page Section Structures
+- index.html → Hero banner, intro sections, CTA buttons.
+- events.html → Upcoming events grid with neon cards, CTA buttons, modal details.
+- past-events.html → Archived events list with neon badges, modal details.
+- timers.html → Countdown timer section with neon glow digits and progress rings.
+- wods.html → Workout of the Day entries with neon section headers.
+- wods-table.html → Tabular workout data with neon borders and hover highlights.
+- benchmarks.html → Benchmark workout sections with neon emphasis on titles/categories.
+- pr-tracker.html → Personal record tracker with neon progress bars and glowing indicators.
+- wod-generator.html → Generator form with neon inputs, glowing submit button.
+- leaderboard.html → Leaderboard table with neon highlights for top ranks.
+- admin-events.html → Admin event management with neon-styled forms and buttons.
+- 24hr-workout.html → Special challenge page with neon countdown, progress tracker, event details.
+
+## Constraints
+- Keep layouts responsive across desktop and mobile.
+- Preserve accessibility with labels and ARIA attributes.
+- Maintain consistent neon theme across all sections.
+
+# GitHub Copilot Prompt
+Generate a unified CSS master stylesheet for Iron & Ale site.
+Organize styles into clear sections:
+
+1. Variables & Base
+- Define CSS variables for neon colors, text, backgrounds, radii.
+- Global resets and typography.
+
+2. Hero Banner
+- Neon flicker heading, glowing silhouettes, radial background.
+- Responsive padding and text alignment.
+
+3. Navigation
+- Sticky nav bar with glowing hover states and flickering accents.
+- Responsive hamburger menu with neon bars.
+- Mobile menu with overlay, close button, ESC support.
+- Neon underline animations for desktop and mobile links.
+- Staggered link animations (cascade in/out).
+
+4. Buttons
+- Neon blue and amber buttons with pulsing animations.
+- Hover lift effect.
+
+5. Events & Past Events
+- Event cards with neon borders and glow.
+- Responsive grid layout.
+- Hover pulse effect.
+- Modal popup styling for event details.
+
+6. Timers
+- Countdown timers styled with neon glow.
+- Animated digits and progress rings.
+
+7. WODs & Tables
+- Workout of the Day sections with neon headers.
+- Tables with neon borders, hover highlights, and responsive layout.
+
+8. Benchmarks & PR Tracker
+- Benchmark workout cards with neon emphasis.
+- PR tracker progress bars with glowing fill.
+
+9. WOD Generator
+- Form inputs styled with neon outlines.
+- Glowing submit button with pulse animation.
+
+10. Leaderboard
+- Table with neon highlights for top ranks.
+- Hover glow on rows.
+
+11. Admin Events
+- Admin forms styled with neon inputs and glowing buttons.
+- Consistent modal and grid layout.
+
+12. 24hr Workout
+- Special challenge page with neon countdown.
+- Progress tracker styled with glowing bars and neon accents.
+
+## Constraints
+- Bundle all styles into one unified stylesheet.
+- Preserve accessibility and semantic structure.
+- Keep animations smooth and consistent with neon theme.
+- Ensure responsive layouts across desktop and mobile.
+
+# GitHub Copilot Prompt
+Generate unified JavaScript behaviors for Iron & Ale site.
+Apply consistent neon design system across all interactive elements.
+
+## Navigation & Menus
+- Toggle mobile menu open/close with hamburger and close button.
+- Add ESC key and overlay click support for closing.
+- Trigger staggered link animations (cascade in/out).
+- Preserve accessibility with focus management when menu opens/closes.
+
+## Timers
+- Countdown timers with neon glow digits and animated progress rings.
+- Support multiple timers on timers.html and 24hr-workout.html.
+- Allow start, pause, reset controls with glowing buttons.
+
+## Modals
+- Event detail modals with neon-styled backdrop and close button.
+- Trigger modals from CTA buttons on events.html and past-events.html.
+- Ensure accessibility: focus trap, aria-hidden, ESC key close.
+
+## WOD Generator & Forms
+- Handle form submission with glowing feedback (success/fail).
+- Validate inputs with neon outline highlights.
+- Generate random WOD entries and display them dynamically.
+
+## Leaderboard & Tables
+- Sort leaderboard by score/time with neon highlight for top ranks.
+- Animate row hover glow.
+- Support responsive table interactions.
+
+## PR Tracker
+- Update progress bars dynamically with glowing fill animation.
+- Store/retrieve PR data (localStorage or backend hook).
+
+## Admin Events
+- Handle event creation/edit/delete with neon-styled forms.
+- Validate inputs and show glowing confirmation messages.
+
+## Constraints
+- Keep scripts modular and reusable across pages.
+- Ensure accessibility (keyboard navigation, ARIA attributes).
+- Maintain smooth animations consistent with neon theme.
+- Bundle into one unified JS file or modules for clarity.

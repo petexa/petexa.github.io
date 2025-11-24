@@ -40,10 +40,10 @@ The system automatically runs on any changes to the `WOD/` folder:
 cd WOD
 
 # Step 1: Clean data (removes artifacts, deduplicates)
-python clean_and_enhance.py
+python WOD/clean_and_enhance.py
 
 # Step 2: Validate and normalize
-python validate_and_fix.py
+python WOD/validate_and_fix.py
 
 # Review outputs in dist/
 cat dist/validation_report.txt
