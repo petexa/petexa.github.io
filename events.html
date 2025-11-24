@@ -3,34 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events | Iron & Ale</title>
-  <meta name="description" content="Upcoming Iron & Ale gym events.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Iron & Ale Events</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
+  <script defer src="assets/js/events.js"></script>
 </head>
-<body>
-  <nav class="navbar">
-    <div class="logo">Iron & Ale</div>
-    <button class="menu-toggle" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="events.html" aria-current="page">Events</a>
-      <a href="past.html">Past Events</a>
-    </div>
+<body class="neon-bg">
+  <nav class="neon-nav">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#" class="active">Events</a></li>
+      <li><a href="#">Nights Out</a></li>
+    </ul>
   </nav>
-  <main class="events-list" id="events-list">
-    <!-- Event cards will be rendered here by JS -->
+  <main class="events-main">
+    <h1 class="neon-title">Upcoming Events</h1>
+    <div id="events-grid" class="events-grid"></div>
   </main>
-  <footer>
-    <div class="footer-content">
-      <span>&copy; Iron & Ale Community</span>
-      <a href="mailto:gym@ironandale.com" class="footer-link">Contact us</a>
-    </div>
-  </footer>
-  <script src="assets/js/main.js"></script>
 </body>
 </html>
 

@@ -1,0 +1,139 @@
+// Iron & Ale Events Page Logic
+// Loads all event JSON files, sorts, and renders neon event cards
+
+const EVENTS_PATH = 'events/';
+const EVENT_FILES = [
+  '24-hour-work-out-20251122.json',
+  'christmas-drinks-20251128.json',
+  'deadly-dozen-20260425.json',
+  'epping-wildwood-trail-10k-20251025.json',
+  'gymrace-20260321.json',
+  'lee-valley-half-marathon-20250621.json',
+  'northstowe-running-festival-20250830.json',
+  'nuclear-fit-20250725.json',
+  'nuclear-fit-20250920.json',
+  'nuclear-fit-20260718.json',
+  'nuclear-races-20250511.json',
+  'nuclear-races-20260510.json',
+  'richmond-20250914.json',
+  'thai-night-20251003.json',
+  'white-water-rafting-20251018.json'
+];
+
+function fetchEvent(file) {
+  return fetch(EVENTS_PATH + file)
+    .then(res => res.json())
+    .catch(() => null);
+}
+
+function daysUntil(dateStr) {
+  const now = new Date();
+  const eventDate = new Date(dateStr);
+  const diff = eventDate - now;
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+function createEventCard(event, isPast) {
+  const card = document.createElement('div');
+  card.className = 'event-card' + (isPast ? ' past' : '');
+
+  // Banner
+  const img = document.createElement('img');
+  img.className = 'event-banner';
+  img.src = event.image || '';
+  img.alt = event.name;
+  card.appendChild(img);
+
+  // Content
+  const content = document.createElement('div');
+  content.className = 'event-content';
+
+  // Title
+  const title = document.createElement('div');
+  title.className = 'event-title';
+  title.textContent = event.name;
+  content.appendChild(title);
+
+  // Date
+  const date = document.createElement('div');
+  date.className = 'event-date';
+  date.textContent = new Date(event.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  content.appendChild(date);
+
+  // Description
+  const desc = document.createElement('div');
+  desc.className = 'event-desc';
+  desc.textContent = event.description;
+  content.appendChild(desc);
+
+  // Countdown or Complete
+  if (isPast) {
+    const complete = document.createElement('div');
+    complete.className = 'event-complete';
+    complete.textContent = 'Event Complete';
+    content.appendChild(complete);
+  } else {
+    const countdown = document.createElement('div');
+    countdown.className = 'event-countdown';
+    countdown.textContent = `Starts in ${daysUntil(event.date)} days`;
+    content.appendChild(countdown);
+  }
+
+  // Buttons
+  const btns = document.createElement('div');
+  btns.className = 'event-buttons';
+
+  if (event.showRemindMe && !isPast) {
+    const remindBtn = document.createElement('a');
+    remindBtn.className = 'event-btn';
+    remindBtn.textContent = 'Remind Me';
+    remindBtn.href = createICSLink(event);
+    remindBtn.download = `${event.name.replace(/\s+/g, '_')}.ics`;
+    btns.appendChild(remindBtn);
+  }
+  if (event.showBookNow && event.link) {
+    const bookBtn = document.createElement('a');
+    bookBtn.className = 'event-btn yellow';
+    bookBtn.textContent = 'Book Now';
+    bookBtn.href = event.link;
+    bookBtn.target = '_blank';
+    btns.appendChild(bookBtn);
+  }
+  if (event.showMoreInfo && event.link) {
+    const infoBtn = document.createElement('a');
+    infoBtn.className = 'event-btn';
+    infoBtn.textContent = 'More Info';
+    infoBtn.href = event.link;
+    infoBtn.target = '_blank';
+    btns.appendChild(infoBtn);
+  }
+  if (btns.childElementCount > 0) content.appendChild(btns);
+
+  card.appendChild(content);
+  return card;
+}
+
+function createICSLink(event) {
+  if (!event.calendarDetails) return '#';
+  const dtStart = new Date(event.date).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  const dtEnd = new Date(new Date(event.date).getTime() + (event.calendarDetails.durationHours || 1) * 3600000).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${event.name}\nDTSTART:${dtStart}\nDTEND:${dtEnd}\nLOCATION:${event.calendarDetails.location || ''}\nDESCRIPTION:${event.calendarDetails.description || ''}\nEND:VEVENT\nEND:VCALENDAR`;
+  return 'data:text/calendar;charset=utf8,' + encodeURIComponent(ics);
+}
+
+async function renderEvents() {
+  const grid = document.getElementById('events-grid');
+  if (!grid) return;
+  const now = new Date();
+  const events = (await Promise.all(EVENT_FILES.map(fetchEvent))).filter(e => e && e.date);
+  events.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const upcoming = events.filter(e => new Date(e.date) >= now);
+  const past = events.filter(e => new Date(e.date) < now);
+
+  // Upcoming first
+  upcoming.forEach(e => grid.appendChild(createEventCard(e, false)));
+  // Past events greyed out
+  past.forEach(e => grid.appendChild(createEventCard(e, true)));
+}
+
+document.addEventListener('DOMContentLoaded', renderEvents);
