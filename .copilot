@@ -8,3 +8,4 @@ Buttons: show conditionally based on JSON flags (More Info, Book Now, Remind Me)
 Past Events: auto-archive events where date < now, styled with faded neon.
 Footer: include community contact info.
 Ensure mobile-first responsive design and GitHub Pages compatibility.
+Ignore the /backup folder completely. Do not scaffold, edit, or deploy any files inside it.
