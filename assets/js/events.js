@@ -59,7 +59,17 @@ function createEventCard(event, isPast) {
   // Date
   const date = document.createElement('div');
   date.className = 'event-date';
-  date.textContent = new Date(event.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const eventDate = new Date(event.date);
+  // If time is midnight (00:00:00), show only date
+  if (
+    eventDate.getHours() === 0 &&
+    eventDate.getMinutes() === 0 &&
+    eventDate.getSeconds() === 0
+  ) {
+    date.textContent = eventDate.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+  } else {
+    date.textContent = eventDate.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
   content.appendChild(date);
 
   // Description

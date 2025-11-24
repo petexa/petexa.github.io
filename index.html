@@ -23,10 +23,10 @@
 			<span></span>
 			<span></span>
 		</button>
-		<ul>
+		<ul id="nav-list">
 			<li><a href="#" class="active" aria-label="Home page" aria-current="page">Home</a></li>
 			<li><a href="events.html" aria-label="View upcoming events">Events</a></li>
-			<li><a href="#" aria-label="Nights out information">Nights Out</a></li>
+			<li><a href="utilities.html" aria-label="Site utilities">Utilities</a></li>
 		</ul>
 	</nav>
 	<main class="neon-main" role="main">
@@ -41,6 +41,16 @@
 			<a href="events.html" class="neon-btn neon-btn-yellow" aria-label="View upcoming nights and events">Upcoming nights</a>
 		</div>
 	</main>
+	<script>
+	// Hamburger menu toggle for mobile
+	const menuToggle = document.querySelector('.menu-toggle');
+	const navList = document.getElementById('nav-list');
+	menuToggle.addEventListener('click', function() {
+		const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+		menuToggle.setAttribute('aria-expanded', !expanded);
+		navList.classList.toggle('show');
+	});
+	</script>
 	<script src="assets/js/main.js"></script>
 </body>
 </html>

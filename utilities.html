@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilities | Iron & Ale</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WW47GEZS2M');
+  </script>
+</head>
+<body class="neon-bg">
+  <nav class="neon-nav" role="navigation" aria-label="Main navigation">
+    <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul id="nav-list">
+      <li><a href="index.html" aria-label="Home page">Home</a></li>
+      <li><a href="events.html" aria-label="View upcoming events">Events</a></li>
+      <li><a href="utilities.html" class="active" aria-label="Site utilities" aria-current="page">Utilities</a></li>
+    </ul>
+  </nav>
+  <main class="neon-main" role="main">
+    <h1 class="neon-title">Utilities</h1>
+    <section class="timer-section">
+      <div class="event-card" style="max-width:400px;margin:0 auto;">
+        <div class="event-content" style="align-items:center;">
+          <h2 class="event-title" style="margin-bottom:18px;text-align:center;">CrossFit Timer</h2>
+          <div class="timer-mode-select" style="display:flex;flex-direction:column;gap:18px;margin:24px 0;">
+            <button class="timer-mode-btn" onclick="selectTimerMode('clock')">CLOCK</button>
+            <button class="timer-mode-btn" onclick="selectTimerMode('tabata')">TABATA</button>
+            <button class="timer-mode-btn" onclick="selectTimerMode('fortime')">FOR TIME</button>
+            <button class="timer-mode-btn" onclick="selectTimerMode('emom')">EMOM</button>
+            <button class="timer-mode-btn" onclick="selectTimerMode('amrap')">AMRAP</button>
+          </div>
+          <div id="timer-mode-ui"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    // Hamburger menu toggle for mobile
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navList = document.getElementById('nav-list');
+    menuToggle.addEventListener('click', function() {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', !expanded);
+      navList.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
