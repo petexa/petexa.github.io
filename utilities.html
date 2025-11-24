@@ -212,6 +212,7 @@
               <button class="neon-btn neon-btn-blue" onclick="startTimer()">Start</button>
               <button class="neon-btn neon-btn-yellow" onclick="pauseTimer()">Pause</button>
               <button class="neon-btn neon-btn-blue" onclick="resetTimer()">Reset</button>
+              <button class="neon-btn neon-btn-blue" onclick="toggleFullscreenTimer()" style="margin-left:16px;">Fullscreen</button>
             </div>
           </div>
         `;
@@ -228,13 +229,39 @@
             </div>
             <input type="number" id="emom-mins" min="1" max="60" value="1" style="width:50px;" />
             <br>
-            <div id="emom-timer" style="font-size:3.5rem;color:#19baff;margin:24px 0;text-align:center;letter-spacing:0.1em;font-family:Orbitron,Arial,sans-serif;background:#111;padding:16px 0;border-radius:12px;box-shadow:0 0 24px #19baff;">01:00</div>
+            <div id="emom-timer" style="font-size:3rem;color:#19baff;margin:24px 0;text-align:center;letter-spacing:0.1em;font-family:'Orbitron',Arial,sans-serif;text-shadow:0 0 16px #19baff;background:#111;padding:16px 0;border-radius:12px;box-shadow:0 0 24px #19baff;">01:00</div>
             <div id="emom-round" style="margin-bottom:8px;color:#39ff14;">Round 1</div>
             <button class="neon-btn neon-btn-blue" onclick="startEMOMTimer()">Start</button>
             <button class="neon-btn neon-btn-yellow" onclick="pauseEMOMTimer()">Pause</button>
             <button class="neon-btn neon-btn-blue" onclick="resetEMOMTimer()">Reset</button>
+              <button class="neon-btn neon-btn-blue" onclick="toggleFullscreenEMOM()" style="margin-left:16px;">Fullscreen</button>
           </div>
         `;
+  // Fullscreen logic for timer clock
+  function toggleFullscreenTimer() {
+    const display = document.getElementById('timer-display');
+    if (!display) return;
+    if (!document.fullscreenElement) {
+      display.parentElement.requestFullscreen();
+      // Hide everything except timer and buttons
+      display.parentElement.querySelectorAll('label,input,br').forEach(e => e.style.display = 'none');
+    } else {
+      document.exitFullscreen();
+      display.parentElement.querySelectorAll('label,input,br').forEach(e => e.style.display = '');
+    }
+  }
+  function toggleFullscreenEMOM() {
+    const timerDiv = document.getElementById('emom-timer');
+    if (!timerDiv) return;
+    if (!document.fullscreenElement) {
+      timerDiv.parentElement.requestFullscreen();
+      // Hide everything except timer and buttons
+      timerDiv.parentElement.querySelectorAll('label,input,br,#emom-round').forEach(e => e.style.display = 'none');
+    } else {
+      document.exitFullscreen();
+      timerDiv.parentElement.querySelectorAll('label,input,br,#emom-round').forEach(e => e.style.display = '');
+    }
+  }
         window.emomTimer = 60;
         window.emomInterval = null;
         window.emomPaused = false;
