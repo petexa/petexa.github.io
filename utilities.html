@@ -217,8 +217,7 @@
             </div>
           </div>
         `;
-        const duration = parseInt(document.getElementById('timer-duration').value) || 20;
-        timerSeconds = duration * 60;
+        timerSeconds = 20 * 60;
         updateTimerDisplay();
       } else if (mode === 'emom') {
         timerUI.innerHTML = `
