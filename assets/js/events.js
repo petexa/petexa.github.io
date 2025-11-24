@@ -87,7 +87,14 @@ function createEventCard(event, isPast) {
   } else {
     const countdown = document.createElement('div');
     countdown.className = 'event-countdown';
-    countdown.textContent = `Starts in ${daysUntil(event.date)} days`;
+    const days = daysUntil(event.date);
+    if (days === 0) {
+      countdown.textContent = 'Today!';
+    } else if (days === 1) {
+      countdown.textContent = 'Tomorrow!';
+    } else {
+      countdown.textContent = `Starts in ${days} days`;
+    }
     content.appendChild(countdown);
   }
 
@@ -107,7 +114,20 @@ function createEventCard(event, isPast) {
     });
     btns.appendChild(remindBtn);
   }
-  if (event.showBookNow && event.link) {
+  
+  // View Details button for all events
+  if (event.link) {
+    const detailsBtn = document.createElement('a');
+    detailsBtn.className = 'event-btn';
+    detailsBtn.textContent = 'View Details';
+    detailsBtn.href = event.link;
+    detailsBtn.target = '_blank';
+    detailsBtn.rel = 'noopener noreferrer';
+    detailsBtn.setAttribute('aria-label', `View details for ${event.name} (opens in new tab)`);
+    btns.appendChild(detailsBtn);
+  }
+  
+  if (event.showBookNow && event.link && !isPast) {
     const bookBtn = document.createElement('a');
     bookBtn.className = 'event-btn yellow';
     bookBtn.textContent = 'Book Now';
@@ -163,47 +183,90 @@ function showToast(message, duration = 3000) {
 
 // Show loading indicator while events load
 async function renderEvents() {
-  const grid = document.getElementById('events-grid');
-  if (!grid) return;
+  // Check for separate grids (new layout) or single grid (legacy)
+  const upcomingGrid = document.getElementById('upcoming-events-grid');
+  const pastGrid = document.getElementById('past-events-grid');
+  const legacyGrid = document.getElementById('events-grid');
+  
+  const useSeparateGrids = upcomingGrid && pastGrid;
+  const targetGrid = useSeparateGrids ? upcomingGrid : legacyGrid;
+  
+  if (!targetGrid) return;
   
   // Show loading state
   const loadingDiv = document.createElement('div');
   loadingDiv.className = 'events-loading';
   loadingDiv.innerHTML = '<div class="loading-spinner"></div><p>Loading events...</p>';
-  grid.innerHTML = '';
-  grid.appendChild(loadingDiv);
+  targetGrid.innerHTML = '';
+  targetGrid.appendChild(loadingDiv);
   
   try {
     const now = new Date();
     const events = (await Promise.all(EVENT_FILES.map(fetchEvent))).filter(e => e && e.date);
     events.sort((a, b) => new Date(a.date) - new Date(b.date));
     const upcoming = events.filter(e => new Date(e.date) >= now);
-    const past = events.filter(e => new Date(e.date) < now);
+    const past = events.filter(e => new Date(e.date) < now).reverse(); // Most recent first for past
 
     // Clear loading state
-    grid.innerHTML = '';
+    targetGrid.innerHTML = '';
     
-    // Upcoming first
-    upcoming.forEach((e, i) => {
-      const card = createEventCard(e, false);
-      if (i === 0) card.classList.add('next-event');
-      grid.appendChild(card);
-    });
-    // Past events greyed out
-    past.forEach(e => grid.appendChild(createEventCard(e, true)));
-    
-    if (events.length === 0) {
-      const emptyDiv = document.createElement('p');
-      emptyDiv.className = 'events-empty';
-      emptyDiv.textContent = 'No events found.';
-      grid.appendChild(emptyDiv);
+    if (useSeparateGrids) {
+      // New layout with separate sections
+      
+      // Upcoming events
+      if (upcoming.length === 0) {
+        const emptyDiv = document.createElement('p');
+        emptyDiv.className = 'events-empty';
+        emptyDiv.textContent = 'No upcoming events. Check back soon!';
+        upcomingGrid.appendChild(emptyDiv);
+      } else {
+        upcoming.forEach((e, i) => {
+          const card = createEventCard(e, false);
+          if (i === 0) card.classList.add('next-event');
+          upcomingGrid.appendChild(card);
+        });
+      }
+      
+      // Past events (in accordion)
+      if (past.length === 0) {
+        const emptyDiv = document.createElement('p');
+        emptyDiv.className = 'events-empty';
+        emptyDiv.textContent = 'No past events yet.';
+        pastGrid.appendChild(emptyDiv);
+      } else {
+        past.forEach(e => pastGrid.appendChild(createEventCard(e, true)));
+      }
+      
+      // Update accordion header with count
+      const accordionToggle = document.getElementById('past-events-toggle');
+      if (accordionToggle) {
+        const countSpan = accordionToggle.querySelector('span:first-child');
+        if (countSpan) {
+          countSpan.textContent = `Past Events (${past.length})`;
+        }
+      }
+    } else {
+      // Legacy single grid layout
+      upcoming.forEach((e, i) => {
+        const card = createEventCard(e, false);
+        if (i === 0) card.classList.add('next-event');
+        targetGrid.appendChild(card);
+      });
+      past.forEach(e => targetGrid.appendChild(createEventCard(e, true)));
+      
+      if (events.length === 0) {
+        const emptyDiv = document.createElement('p');
+        emptyDiv.className = 'events-empty';
+        emptyDiv.textContent = 'No events found.';
+        targetGrid.appendChild(emptyDiv);
+      }
     }
   } catch (error) {
     const errorDiv = document.createElement('p');
     errorDiv.className = 'events-error';
     errorDiv.textContent = 'Error loading events. Please try again later.';
-    grid.innerHTML = '';
-    grid.appendChild(errorDiv);
+    targetGrid.innerHTML = '';
+    targetGrid.appendChild(errorDiv);
     console.error('Error loading events:', error);
   }
 }

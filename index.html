@@ -5,51 +5,98 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Iron & Ale</title>
-		<link rel="stylesheet" href="assets/css/style.css">
-		<link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
-		<!-- Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'G-WW47GEZS2M');
-		</script>
+	<meta name="description" content="Iron & Ale - A fitness community where sets and reps meet cheers and beers. Join the crew for training plans, community challenges, and social events.">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
+	<!-- Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-WW47GEZS2M');
+	</script>
 </head>
 <body class="neon-bg">
-	<nav class="neon-nav" role="navigation" aria-label="Main navigation">
-		<button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-			<span></span>
-			<span></span>
-			<span></span>
-		</button>
-		<ul id="nav-list">
-			<li><a href="#" class="active" aria-label="Home page" aria-current="page">Home</a></li>
-			<li><a href="events.html" aria-label="View upcoming events">Events</a></li>
-			<li><a href="utilities.html" aria-label="Site utilities">Utilities</a></li>
-		</ul>
-	</nav>
-	<main class="neon-main" role="main">
-		<h1 class="neon-title">IRON & ALE</h1>
-		<div class="neon-subtext" role="doc-subtitle">
-			<div class="neon-blue">SETS AND REPS.</div>
-			<div class="neon-blue">CHEERS AND BEERS.</div>
-			<div class="neon-yellow">THAT'S THE PROGRAM.</div>
-		</div>
-		<div class="neon-buttons">
-			<a href="#" class="neon-btn neon-btn-blue" aria-label="Join the Iron & Ale crew">Join the crew</a>
-			<a href="events.html" class="neon-btn neon-btn-yellow" aria-label="View upcoming nights and events">Upcoming events</a>
-		</div>
-	</main>
+	<div class="page-wrapper">
+		<nav class="neon-nav" role="navigation" aria-label="Main navigation">
+			<button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+			<ul id="nav-list">
+				<li><a href="index.html" class="active" aria-label="Home page" aria-current="page">HOME</a></li>
+				<li><a href="events.html" aria-label="View upcoming events">EVENTS</a></li>
+				<li><a href="utilities.html" aria-label="Member utilities">UTILITIES</a></li>
+			</ul>
+		</nav>
+
+		<main role="main">
+			<!-- Hero Section -->
+			<section class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80');" aria-label="Welcome to Iron & Ale">
+				<div class="hero-content">
+					<h1 class="neon-title">IRON & ALE</h1>
+					<p class="hero-headline">
+						Sets and Reps. Cheers and Beers.<br>
+						<span class="highlight">That's the Program.</span>
+					</p>
+					<a href="#join" class="hero-btn" aria-label="Join the Iron & Ale crew">JOIN THE CREW</a>
+				</div>
+			</section>
+
+			<!-- Features Section -->
+			<section class="features-section" aria-labelledby="features-title">
+				<h2 id="features-title" class="features-title">What We Offer</h2>
+				<div class="features-grid">
+					<!-- Training Plans Card -->
+					<article class="feature-card">
+						<span class="feature-icon blue" aria-hidden="true">🏋️</span>
+						<h3 class="feature-title">Training Plans</h3>
+						<p class="feature-desc">Customized workout programs designed to help you reach your fitness goals, whether you're a beginner or advanced athlete.</p>
+					</article>
+
+					<!-- Community Challenges Card -->
+					<article class="feature-card">
+						<span class="feature-icon yellow" aria-hidden="true">📅</span>
+						<h3 class="feature-title">Community Challenges</h3>
+						<p class="feature-desc">Join monthly fitness challenges that push your limits and keep you motivated with friendly competition.</p>
+					</article>
+
+					<!-- Social Events Card -->
+					<article class="feature-card">
+						<span class="feature-icon green" aria-hidden="true">🍺</span>
+						<h3 class="feature-title">Social Events</h3>
+						<p class="feature-desc">Connect with fellow fitness enthusiasts at our regular social gatherings, from post-workout drinks to adventure trips.</p>
+					</article>
+				</div>
+			</section>
+		</main>
+
+		<!-- Footer -->
+		<footer class="site-footer" role="contentinfo">
+			<div class="footer-content">
+				<nav class="footer-social" aria-label="Social media links">
+					<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+						<span aria-hidden="true">📷</span>
+					</a>
+					<a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
+						<span aria-hidden="true">📘</span>
+					</a>
+					<a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
+						<span aria-hidden="true">🐦</span>
+					</a>
+				</nav>
+				<p class="footer-copyright">
+					&copy; <span id="current-year">2024</span> Iron & Ale. All rights reserved.
+				</p>
+			</div>
+		</footer>
+	</div>
+
 	<script>
-	// Hamburger menu toggle for mobile
-	const menuToggle = document.querySelector('.menu-toggle');
-	const navList = document.getElementById('nav-list');
-	menuToggle.addEventListener('click', function() {
-		const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-		menuToggle.setAttribute('aria-expanded', !expanded);
-		navList.classList.toggle('show');
-	});
+		// Set current year in footer
+		document.getElementById('current-year').textContent = new Date().getFullYear();
 	</script>
 	<script src="assets/js/main.js"></script>
 </body>
