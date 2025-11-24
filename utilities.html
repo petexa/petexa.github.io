@@ -714,7 +714,7 @@
       const notes = document.getElementById('workout-notes').value;
 
       if (!exercise || !date || !sets || !reps || weight < 0) {
-        alert('Please fill in all required fields');
+        showToast('Please fill in all required fields');
         return;
       }
 
@@ -814,7 +814,7 @@
       const workouts = JSON.parse(localStorage.getItem('ironAleWorkouts') || '[]');
       
       if (workouts.length === 0) {
-        alert('No workouts to export');
+        showToast('No workouts to export');
         return;
       }
 
