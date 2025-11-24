@@ -44,6 +44,42 @@
           <div id="timer-mode-ui"></div>
         </div>
       </div>
+      <div class="event-card" style="max-width:400px;margin:32px auto 0 auto;">
+        <div class="event-content" style="align-items:center;">
+          <h2 class="event-title" style="margin-bottom:18px;text-align:center;">One Rep Max Calculator (KG)</h2>
+          <form id="orm-form" style="display:flex;flex-direction:column;gap:16px;align-items:center;">
+            <div style="display:flex;gap:12px;align-items:center;">
+              <label for="orm-weight" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Weight (kg):</label>
+              <input type="number" id="orm-weight" min="1" max="500" value="60" style="width:80px;padding:6px 8px;border-radius:6px;border:1px solid #19baff;background:#222;color:#fff;">
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;width:100%;">
+              <div style="display:flex;gap:8px;margin-bottom:8px;">
+                <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(1)">1</button>
+                <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(3)">3</button>
+                <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(5)">5</button>
+                <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(8)">8</button>
+                <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(10)">10</button>
+              </div>
+              <div style="display:flex;gap:12px;align-items:center;">
+                <label for="orm-reps" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">Reps:</label>
+                <input type="number" id="orm-reps" min="1" max="20" value="5" style="width:60px;padding:6px 8px;border-radius:6px;border:1px solid #ffb84d;background:#222;color:#fff;">
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <label for="orm-formula" style="color:#39ff14;font-family:'Orbitron',Arial,sans-serif;">Formula:</label>
+              <select id="orm-formula" style="padding:6px 8px;border-radius:6px;border:1px solid #39ff14;background:#222;color:#fff;">
+                <option value="epley">Epley</option>
+                <option value="all">All</option>
+                <option value="brzycki">Brzycki</option>
+                <option value="lombardi">Lombardi</option>
+                <option value="oconner">O'Conner</option>
+              </select>
+            </div>
+            <button type="button" class="neon-btn neon-btn-blue" onclick="calculateORM()">Calculate 1RM</button>
+          </form>
+          <div id="orm-result" style="margin-top:18px;font-size:1.2rem;color:#39ff14;text-align:center;font-family:'Orbitron',Arial,sans-serif;"></div>
+        </div>
+      </div>
     </section>
   </main>
   <script>
@@ -55,6 +91,41 @@
       menuToggle.setAttribute('aria-expanded', !expanded);
       navList.classList.toggle('show');
     });
+
+    // One Rep Max Calculator (multiple formulas)
+    function setORMReps(val) {
+      document.getElementById('orm-reps').value = val;
+    }
+    function calculateORM() {
+      const weight = parseFloat(document.getElementById('orm-weight').value);
+      const reps = parseInt(document.getElementById('orm-reps').value);
+      const formula = document.getElementById('orm-formula').value;
+      if (isNaN(weight) || isNaN(reps) || weight <= 0 || reps <= 0) {
+        document.getElementById('orm-result').textContent = 'Please enter valid values.';
+        document.getElementById('orm-result').style.color = '#ff5555';
+        return;
+      }
+      // Formulas
+      const results = [];
+      if (formula === 'all' || formula === 'epley') {
+        // Epley: 1RM = weight * (1 + reps/30)
+        results.push(`<span style='color:#19baff;'>Epley:</span> <b>${(weight * (1 + reps / 30)).toFixed(1)} kg</b>`);
+      }
+      if (formula === 'all' || formula === 'brzycki') {
+        // Brzycki: 1RM = weight * (36 / (37 - reps))
+        results.push(`<span style='color:#ffb84d;'>Brzycki:</span> <b>${(weight * (36 / (37 - reps))).toFixed(1)} kg</b>`);
+      }
+      if (formula === 'all' || formula === 'lombardi') {
+        // Lombardi: 1RM = weight * reps^0.10
+        results.push(`<span style='color:#39ff14;'>Lombardi:</span> <b>${(weight * Math.pow(reps, 0.10)).toFixed(1)} kg</b>`);
+      }
+      if (formula === 'all' || formula === 'oconner') {
+        // O'Conner: 1RM = weight * (1 + 0.025 * reps)
+        results.push(`<span style='color:#ff5555;'>O'Conner:</span> <b>${(weight * (1 + 0.025 * reps)).toFixed(1)} kg</b>`);
+      }
+      document.getElementById('orm-result').innerHTML = results.join('<br>');
+      document.getElementById('orm-result').style.color = '#39ff14';
+    }
   </script>
 </body>
 </html>

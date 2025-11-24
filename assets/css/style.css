@@ -1,3 +1,12 @@
+.orm-rep-btn {
+	padding: 4px 10px;
+	font-size: 0.95rem;
+	min-width: 28px;
+	min-height: 28px;
+	border-radius: 8px;
+	margin: 0 2px;
+	box-shadow: 0 0 6px #19baff44;
+}
 .event-card.next-event {
 	border: 2px solid #39ff14;
 	box-shadow: 0 0 32px #39ff1444;
@@ -348,6 +357,56 @@ body.neon-bg {
 .toast {
 position: fixed;
 bottom: 24px;
+/* Neon CrossFit Timer Mode Buttons */
+.timer-mode-btn {
+	width: 100%;
+	padding: 24px 0;
+	font-size: 2rem;
+	font-family: 'Orbitron', Arial, sans-serif;
+	color: #19baff;
+	background: rgba(10, 20, 40, 0.85);
+	border: 2px solid #19baff;
+	border-radius: 12px;
+	margin: 0;
+	box-shadow: 0 0 24px #19baff44, 0 0 8px #111 inset;
+	transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+	letter-spacing: 0.1em;
+	cursor: pointer;
+	text-shadow: 0 0 8px #19baff, 0 0 2px #fff;
+	outline: none;
+}
+.timer-mode-btn:nth-child(2) {
+	color: #ffb84d;
+	border-color: #ffb84d;
+	box-shadow: 0 0 24px #ffb84d44, 0 0 8px #111 inset;
+	text-shadow: 0 0 8px #ffb84d, 0 0 2px #fff;
+}
+.timer-mode-btn:nth-child(3) {
+	color: #39ff14;
+	border-color: #39ff14;
+	box-shadow: 0 0 24px #39ff1444, 0 0 8px #111 inset;
+	text-shadow: 0 0 8px #39ff14, 0 0 2px #fff;
+}
+.timer-mode-btn:nth-child(4) {
+	color: #ff5555;
+	border-color: #ff5555;
+	box-shadow: 0 0 24px #ff555544, 0 0 8px #111 inset;
+	text-shadow: 0 0 8px #ff5555, 0 0 2px #fff;
+}
+.timer-mode-btn:nth-child(5) {
+	color: #fff;
+	border-color: #fff;
+	box-shadow: 0 0 24px #fff4, 0 0 8px #111 inset;
+	text-shadow: 0 0 8px #fff, 0 0 2px #19baff;
+}
+.timer-mode-btn:hover, .timer-mode-btn:focus {
+	background: #222;
+	color: #39ff14;
+	border-color: #39ff14;
+	box-shadow: 0 0 32px #39ff14, 0 0 32px #111 inset;
+	outline: 2px solid #39ff14;
+	outline-offset: 2px;
+}
 right: 24px;
 background: rgba(25, 186, 255, 0.95);
 color: #0a0a0f;
