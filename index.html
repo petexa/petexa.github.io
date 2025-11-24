@@ -9,24 +9,30 @@
 	<link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
 </head>
 <body class="neon-bg">
-	<nav class="neon-nav">
+	<nav class="neon-nav" role="navigation" aria-label="Main navigation">
+		<button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
 		<ul>
-			<li><a href="#" class="active">Home</a></li>
-			<li><a href="events.html">Events</a></li>
-			<li><a href="#">Nights Out</a></li>
+			<li><a href="#" class="active" aria-label="Home page" aria-current="page">Home</a></li>
+			<li><a href="events.html" aria-label="View upcoming events">Events</a></li>
+			<li><a href="#" aria-label="Nights out information">Nights Out</a></li>
 		</ul>
 	</nav>
-	<main class="neon-main">
+	<main class="neon-main" role="main">
 		<h1 class="neon-title">IRON & ALE</h1>
-		<div class="neon-subtext">
+		<div class="neon-subtext" role="doc-subtitle">
 			<div class="neon-blue">SETS AND REPS.</div>
 			<div class="neon-blue">CHEERS AND BEERS.</div>
 			<div class="neon-yellow">THAT'S THE PROGRAM.</div>
 		</div>
 		<div class="neon-buttons">
-			<a href="#" class="neon-btn neon-btn-blue">Join the crew</a>
-			<a href="events.html" class="neon-btn neon-btn-yellow">Upcoming nights</a>
+			<a href="#" class="neon-btn neon-btn-blue" aria-label="Join the Iron & Ale crew">Join the crew</a>
+			<a href="events.html" class="neon-btn neon-btn-yellow" aria-label="View upcoming nights and events">Upcoming nights</a>
 		</div>
 	</main>
+	<script src="assets/js/main.js"></script>
 </body>
 </html>
