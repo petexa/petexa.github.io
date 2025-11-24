@@ -36,12 +36,14 @@ function daysUntil(dateStr) {
 function createEventCard(event, isPast) {
   const card = document.createElement('div');
   card.className = 'event-card' + (isPast ? ' past' : '');
+  card.setAttribute('role', 'listitem');
 
   // Banner
   const img = document.createElement('img');
   img.className = 'event-banner';
   img.src = event.image || '';
   img.alt = event.name;
+  img.loading = 'lazy';
   card.appendChild(img);
 
   // Content
@@ -89,6 +91,10 @@ function createEventCard(event, isPast) {
     remindBtn.textContent = 'Remind Me';
     remindBtn.href = createICSLink(event);
     remindBtn.download = `${event.name.replace(/\s+/g, '_')}.ics`;
+    remindBtn.setAttribute('aria-label', `Add ${event.name} to calendar`);
+    remindBtn.addEventListener('click', function(e) {
+      showToast('Event added to your calendar!');
+    });
     btns.appendChild(remindBtn);
   }
   if (event.showBookNow && event.link) {
@@ -97,6 +103,8 @@ function createEventCard(event, isPast) {
     bookBtn.textContent = 'Book Now';
     bookBtn.href = event.link;
     bookBtn.target = '_blank';
+    bookBtn.rel = 'noopener noreferrer';
+    bookBtn.setAttribute('aria-label', `Book ${event.name} now (opens in new tab)`);
     btns.appendChild(bookBtn);
   }
   if (event.showMoreInfo && event.link) {
@@ -105,6 +113,8 @@ function createEventCard(event, isPast) {
     infoBtn.textContent = 'More Info';
     infoBtn.href = event.link;
     infoBtn.target = '_blank';
+    infoBtn.rel = 'noopener noreferrer';
+    infoBtn.setAttribute('aria-label', `More information about ${event.name} (opens in new tab)`);
     btns.appendChild(infoBtn);
   }
   if (btns.childElementCount > 0) content.appendChild(btns);
@@ -121,19 +131,65 @@ function createICSLink(event) {
   return 'data:text/calendar;charset=utf8,' + encodeURIComponent(ics);
 }
 
+
+document.addEventListener('DOMContentLoaded', renderEvents);
+
+// Toast notification function
+function showToast(message, duration = 3000) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  toast.setAttribute('role', 'alert');
+  toast.setAttribute('aria-live', 'polite');
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.classList.add('hide');
+    setTimeout(() => {
+      document.body.removeChild(toast);
+    }, 300);
+  }, duration);
+}
+
+// Show loading indicator while events load
 async function renderEvents() {
   const grid = document.getElementById('events-grid');
   if (!grid) return;
-  const now = new Date();
-  const events = (await Promise.all(EVENT_FILES.map(fetchEvent))).filter(e => e && e.date);
-  events.sort((a, b) => new Date(a.date) - new Date(b.date));
-  const upcoming = events.filter(e => new Date(e.date) >= now);
-  const past = events.filter(e => new Date(e.date) < now);
+  
+  // Show loading state
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'events-loading';
+  loadingDiv.innerHTML = '<div class="loading-spinner"></div><p>Loading events...</p>';
+  grid.innerHTML = '';
+  grid.appendChild(loadingDiv);
+  
+  try {
+    const now = new Date();
+    const events = (await Promise.all(EVENT_FILES.map(fetchEvent))).filter(e => e && e.date);
+    events.sort((a, b) => new Date(a.date) - new Date(b.date));
+    const upcoming = events.filter(e => new Date(e.date) >= now);
+    const past = events.filter(e => new Date(e.date) < now);
 
-  // Upcoming first
-  upcoming.forEach(e => grid.appendChild(createEventCard(e, false)));
-  // Past events greyed out
-  past.forEach(e => grid.appendChild(createEventCard(e, true)));
+    // Clear loading state
+    grid.innerHTML = '';
+    
+    // Upcoming first
+    upcoming.forEach(e => grid.appendChild(createEventCard(e, false)));
+    // Past events greyed out
+    past.forEach(e => grid.appendChild(createEventCard(e, true)));
+    
+    if (events.length === 0) {
+      const emptyDiv = document.createElement('p');
+      emptyDiv.className = 'events-empty';
+      emptyDiv.textContent = 'No events found.';
+      grid.appendChild(emptyDiv);
+    }
+  } catch (error) {
+    const errorDiv = document.createElement('p');
+    errorDiv.className = 'events-error';
+    errorDiv.textContent = 'Error loading events. Please try again later.';
+    grid.innerHTML = '';
+    grid.appendChild(errorDiv);
+    console.error('Error loading events:', error);
+  }
 }
-
-document.addEventListener('DOMContentLoaded', renderEvents);
