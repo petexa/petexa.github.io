@@ -298,7 +298,8 @@
         // Remove flip-in class if it exists (to allow re-triggering)
         timerUI.classList.remove('flip-in');
         
-        // Trigger reflow to restart animation
+        // Force reflow to ensure class removal takes effect before re-adding
+        // This is necessary for the animation to restart on repeated selections
         timerUI.offsetWidth;
         
         // Add flip-in class to trigger animation

@@ -490,8 +490,10 @@ outline-offset: 2px;
 	}
 }
 
+/* Applied to #timer-mode-ui when timer mode is selected */
 .flip-in {
 	animation: flipIn 0.6s ease-out;
+	/* Perspective creates 3D space for the rotateY transform */
 	perspective: 400px;
 }
 
