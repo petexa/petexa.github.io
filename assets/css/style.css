@@ -226,7 +226,6 @@ body.neon-bg {
 	font-family: 'Orbitron', Arial, sans-serif;
 	transition: color 0.2s;
 	padding: 12px 16px;
-	display: block;
 	min-height: 44px;
 	min-width: 44px;
 	display: inline-flex;
@@ -402,4 +401,27 @@ a:focus-visible,
 button:focus-visible {
 outline: 2px solid #19baff;
 outline-offset: 2px;
+}
+
+/* Event loading and message states */
+.events-loading {
+text-align: center;
+padding: 40px;
+color: #19baff;
+}
+.events-loading p {
+margin-top: 16px;
+font-size: 1.2rem;
+}
+.events-empty {
+text-align: center;
+color: #aaa;
+padding: 40px;
+font-size: 1.1rem;
+}
+.events-error {
+text-align: center;
+color: #ff5555;
+padding: 40px;
+font-size: 1.1rem;
 }

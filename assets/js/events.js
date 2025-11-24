@@ -157,7 +157,11 @@ async function renderEvents() {
   if (!grid) return;
   
   // Show loading state
-  grid.innerHTML = '<div style="text-align: center; padding: 40px; color: #19baff;"><div class="loading-spinner"></div><p style="margin-top: 16px; font-size: 1.2rem;">Loading events...</p></div>';
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'events-loading';
+  loadingDiv.innerHTML = '<div class="loading-spinner"></div><p>Loading events...</p>';
+  grid.innerHTML = '';
+  grid.appendChild(loadingDiv);
   
   try {
     const now = new Date();
@@ -175,10 +179,17 @@ async function renderEvents() {
     past.forEach(e => grid.appendChild(createEventCard(e, true)));
     
     if (events.length === 0) {
-      grid.innerHTML = '<p style="text-align: center; color: #aaa; padding: 40px;">No events found.</p>';
+      const emptyDiv = document.createElement('p');
+      emptyDiv.className = 'events-empty';
+      emptyDiv.textContent = 'No events found.';
+      grid.appendChild(emptyDiv);
     }
   } catch (error) {
-    grid.innerHTML = '<p style="text-align: center; color: #ff5555; padding: 40px;">Error loading events. Please try again later.</p>';
+    const errorDiv = document.createElement('p');
+    errorDiv.className = 'events-error';
+    errorDiv.textContent = 'Error loading events. Please try again later.';
+    grid.innerHTML = '';
+    grid.appendChild(errorDiv);
     console.error('Error loading events:', error);
   }
 }
