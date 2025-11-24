@@ -163,9 +163,6 @@ body {
   background: #fff;
 }
 
-  background: #1a1a1a;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -177,9 +174,6 @@ body {
   text-align: center;
   margin-bottom: 60px;
   color: #333;
-}
-
-  color: #fff;
 }
 
 .features-grid {
@@ -201,12 +195,6 @@ body {
   transform: translateY(-10px);
   border-color: #80affe;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-}
-
-  background: #2d2d2d;
-}
-
-  box-shadow: 0 15px 40px rgba(128, 175, 254, 0.2);
 }
 
 .feature-icon {
@@ -233,16 +221,10 @@ body {
   color: #333;
 }
 
-  color: #fff;
-}
-
 .feature-card p {
   font-size: 1rem;
   line-height: 1.6;
   color: #666;
-}
-
-  color: #ccc;
 }
 
 /* CTA Section */
@@ -299,9 +281,6 @@ body {
   background: #f8f8f8;
 }
 
-  background: #2d2d2d;
-}
-
 .links-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -329,13 +308,6 @@ body {
   transform: translateY(-5px);
   border-color: #80affe;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-  background: #1a1a1a;
-  color: #fff;
-}
-
-  box-shadow: 0 10px 30px rgba(128, 175, 254, 0.2);
 }
 
 .link-card i {
@@ -482,10 +454,6 @@ body {
   animation: modalSlideIn 0.3s ease-out;
 }
 
-  background: #2d2d2d;
-  color: #fff;
-}
-
 @keyframes modalSlideIn {
   from {
     opacity: 0;
@@ -520,18 +488,11 @@ body {
   color: #333;
 }
 
-  background: #1a1a1a;
-  color: #fff;
-}
-
 .wod-modal h2 {
   font-size: 2rem;
   font-weight: 700;
   margin: 0 0 30px 0;
   color: #333;
-}
-
-  color: #fff;
 }
 
 .daily-wod-content {
@@ -551,9 +512,6 @@ body {
   margin-bottom: 10px;
 }
 
-  color: #ccc;
-}
-
 .wod-description {
   font-size: 1.1rem;
   line-height: 1.6;
@@ -565,26 +523,16 @@ body {
   border-left: 4px solid #80affe;
 }
 
-  background: #1a1a1a;
-  color: #fff;
-}
-
 .wod-equipment {
   font-size: 1rem;
   color: #666;
   margin: 15px 0;
 }
 
-  color: #ccc;
-}
-
 .wod-movements {
   font-size: 1rem;
   color: #333;
   margin: 15px 0;
-}
-
-  color: #fff;
 }
 
 .wod-movements ul {
@@ -597,17 +545,11 @@ body {
   color: #666;
 }
 
-  color: #ccc;
-}
-
 .wod-modal-footer {
   margin-top: 30px;
   text-align: center;
   padding-top: 20px;
   border-top: 1px solid #eee;
-}
-
-  border-top-color: #444;
 }
 
 .wod-modal-footer .btn {
@@ -619,13 +561,6 @@ body {
 .wod-modal-footer .btn:hover {
   background: rgba(128, 175, 254, 0.1);
   transform: translateY(-2px);
-}
-
-  color: #29ffb4;
-  border-color: #29ffb4;
-}
-
-  background: rgba(41, 255, 180, 0.1);
 }
 
 @media (max-width: 768px) {

@@ -309,6 +309,122 @@
         margin-top: 6px;
       }
 
+      /* Countdown tracker styles */
+      .countdown-tracker {
+        max-width: 980px;
+        margin: 0 auto 32px;
+        background: linear-gradient(135deg, var(--panel-from) 0%, var(--panel-to) 100%);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        border: 2px solid var(--accent);
+      }
+
+      .tracker-title {
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--card-text);
+        margin: 0 0 20px;
+        letter-spacing: 0.5px;
+      }
+
+      .tracker-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .stat-item {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        padding: 18px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: transform 0.2s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .stat-emoji {
+        font-size: 2.5rem;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .stat-label {
+        font-size: 0.85rem;
+        color: rgba(224, 224, 224, 0.7);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
+
+      .stat-value {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--card-text);
+        line-height: 1;
+      }
+
+      .stat-subtext {
+        font-size: 0.9rem;
+        color: rgba(224, 224, 224, 0.6);
+        margin-top: 4px;
+      }
+
+      /* Session number badge */
+      .session-badge {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 700;
+        padding: 6px 12px;
+        border-radius: 20px;
+        margin-bottom: 8px;
+        box-shadow: 0 2px 8px rgba(51, 102, 255, 0.3);
+      }
+
+      /* Mobile responsiveness for tracker */
+      @media (max-width: 640px) {
+        .countdown-tracker {
+          padding: 16px;
+          margin-bottom: 24px;
+        }
+
+        .tracker-title {
+          font-size: 1.1rem;
+          margin-bottom: 16px;
+        }
+
+        .tracker-stats {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .stat-item {
+          padding: 14px;
+        }
+
+        .stat-emoji {
+          font-size: 2rem;
+        }
+
+        .stat-value {
+          font-size: 1.8rem;
+        }
+
+        .session-badge {
+          font-size: 0.75rem;
+          padding: 4px 10px;
+        }
+      }
+
       footer {
         text-align: center;
         color: #cfe6ff;
@@ -358,6 +474,31 @@
     </header>
 
     <main id="main" role="main">
+      <!-- Countdown Tracker -->
+      <section class="countdown-tracker" aria-live="polite" aria-atomic="true">
+        <h2 class="tracker-title">24-Hour Challenge Progress</h2>
+        <div class="tracker-stats">
+          <div class="stat-item">
+            <span class="stat-emoji" aria-hidden="true">✅</span>
+            <div class="stat-label">Completed</div>
+            <div class="stat-value" id="completed-sessions">0</div>
+            <div class="stat-subtext">Sessions</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-emoji" aria-hidden="true">⏳</span>
+            <div class="stat-label">In Progress</div>
+            <div class="stat-value" id="current-session">-</div>
+            <div class="stat-subtext">Current Hour</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-emoji" aria-hidden="true">🏁</span>
+            <div class="stat-label">Remaining</div>
+            <div class="stat-value" id="remaining-sessions">24</div>
+            <div class="stat-subtext">Sessions</div>
+          </div>
+        </div>
+      </section>
+
       <section class="timeblocks" id="timeblocks" aria-live="polite">
         <!-- Block elements: data-start is the London-local start time (YYYY-MM-DDTHH:mm:ss)
            Titles inside the blue box are generated from those values and formatted for Europe/London.
@@ -667,6 +808,10 @@
       (function () {
         const pad = n => String(n).padStart(2, '0');
 
+        // Event start time: Nov 22, 2025 at 12:00 PM (noon)
+        const EVENT_START = { year: 2025, month: 11, day: 22, hour: 12, minute: 0 };
+        const TOTAL_SESSIONS = 24;
+
         // parse "YYYY-MM-DDTHH:mm:ss" into parts
         function parseParts(s) {
           if (!s) return null;
@@ -679,6 +824,18 @@
             hour: Number(m[4]),
             minute: Number(m[5] || 0),
           };
+        }
+
+        // Calculate session number based on data-start (first session at 12pm is #1)
+        function calculateSessionNumber(parts) {
+          if (!parts) return null;
+          
+          // Calculate hours from event start
+          const startDate = new Date(EVENT_START.year, EVENT_START.month - 1, EVENT_START.day, EVENT_START.hour, EVENT_START.minute);
+          const sessionDate = new Date(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute);
+          const hoursDiff = Math.floor((sessionDate - startDate) / (1000 * 60 * 60));
+          
+          return hoursDiff + 1; // First session (12pm) is session #1
         }
 
         // format "HH:MM - HH:MM" using the parts (treated as Europe/London wallclock)
@@ -732,15 +889,65 @@
           );
         }
 
-        // populate the blue title boxes from data-start
+        // Update countdown tracker
+        function updateCountdownTracker() {
+          const nowParts = nowInLondonParts();
+          const blocks = document.querySelectorAll('.block');
+          
+          let completedCount = 0;
+          let currentSessionNum = null;
+          let remainingCount = TOTAL_SESSIONS;
+
+          blocks.forEach(b => {
+            const s = b.getAttribute('data-start');
+            const parts = parseParts(s);
+            
+            if (parts) {
+              const sessionNum = calculateSessionNumber(parts);
+              const k = keyFromParts(parts);
+              const nowKey = `${nowParts.year}${pad(nowParts.month)}${pad(nowParts.day)}${pad(nowParts.hour)}`;
+              
+              if (isNowActiveForParts(parts, nowParts)) {
+                currentSessionNum = sessionNum;
+              } else if (k < nowKey) {
+                completedCount++;
+              }
+            }
+          });
+
+          remainingCount = TOTAL_SESSIONS - completedCount - (currentSessionNum ? 1 : 0);
+
+          // Update DOM
+          const completedEl = document.getElementById('completed-sessions');
+          const currentEl = document.getElementById('current-session');
+          const remainingEl = document.getElementById('remaining-sessions');
+
+          if (completedEl) completedEl.textContent = completedCount;
+          if (currentEl) currentEl.textContent = currentSessionNum ? `#${currentSessionNum}` : '-';
+          if (remainingEl) remainingEl.textContent = remainingCount;
+        }
+
+        // populate the blue title boxes and add session badges
         function populateTitles() {
           document.querySelectorAll('.block').forEach(block => {
             const s = block.getAttribute('data-start');
             const parts = parseParts(s);
             const titleEl = block.querySelector('.time-box .title');
+            const workoutEl = block.querySelector('.workout');
+            
             if (parts && titleEl) {
               titleEl.textContent = formatRangeFromParts(parts);
               block.setAttribute('aria-label', `Time block ${titleEl.textContent}`);
+              
+              // Add session number badge if not already added
+              const sessionNum = calculateSessionNumber(parts);
+              if (sessionNum && workoutEl && !workoutEl.querySelector('.session-badge')) {
+                const badge = document.createElement('div');
+                badge.className = 'session-badge';
+                badge.textContent = `Session #${sessionNum}`;
+                badge.setAttribute('aria-label', `Session number ${sessionNum}`);
+                workoutEl.insertBefore(badge, workoutEl.firstChild);
+              }
             }
           });
         }
@@ -791,8 +998,13 @@
         // initialize
         populateTitles();
         reorderBlocks();
+        updateCountdownTracker();
 
-        // run periodically (15s)
+        // run periodically (60s for countdown, 15s for reordering)
+        setInterval(() => {
+          updateCountdownTracker();
+        }, 60000); // Update countdown every minute
+
         setInterval(() => {
           populateTitles(); // safe no-op after first run but cheap
           reorderBlocks();
