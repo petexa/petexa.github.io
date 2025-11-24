@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Utilities | Iron & Ale</title>
+  <title>Member Utilities | Iron & Ale</title>
+  <meta name="description" content="Iron & Ale member utilities - Track your progress, access workout resources, and connect with community tools.">
   <link rel="stylesheet" href="assets/css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -17,77 +18,88 @@
   </script>
 </head>
 <body class="neon-bg">
-  <nav class="neon-nav" role="navigation" aria-label="Main navigation">
-    <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <ul id="nav-list">
-      <li><a href="index.html" aria-label="Home page">Home</a></li>
-      <li><a href="events.html" aria-label="View upcoming events">Events</a></li>
-      <li><a href="utilities.html" class="active" aria-label="Site utilities" aria-current="page">Utilities</a></li>
-    </ul>
-  </nav>
-  <main class="neon-main" role="main">
-    <h1 class="neon-title">Utilities</h1>
-    <section class="timer-section">
-      <div class="event-card" style="max-width:400px;margin:0 auto;">
-        <div class="event-content" style="align-items:center;">
-          <h2 class="event-title" style="margin-bottom:18px;text-align:center;">CrossFit Timer</h2>
-          <div id="timer-list" style="display:flex;flex-direction:column;gap:18px;margin:24px 0;">
-            <button class="timer-mode-btn" onclick="selectTimerMode('clock')" aria-label="Select Clock mode">CLOCK</button>
-            <button class="timer-mode-btn" onclick="selectTimerMode('tabata')" aria-label="Select Tabata mode">TABATA</button>
-            <button class="timer-mode-btn" onclick="selectTimerMode('fortime')" aria-label="Select For Time mode">FOR TIME</button>
-            <button class="timer-mode-btn" onclick="selectTimerMode('emom')" aria-label="Select EMOM mode">EMOM</button>
-            <button class="timer-mode-btn" onclick="selectTimerMode('amrap')" aria-label="Select AMRAP mode">AMRAP</button>
-          </div>
-          <div id="timer-mode-ui" style="display:none;"></div>
+  <div class="page-wrapper">
+    <nav class="neon-nav" role="navigation" aria-label="Main navigation">
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="nav-list">
+        <li><a href="index.html" aria-label="Home page">HOME</a></li>
+        <li><a href="events.html" aria-label="View upcoming events">EVENTS</a></li>
+        <li><a href="utilities.html" class="active" aria-label="Member utilities" aria-current="page">UTILITIES</a></li>
+      </ul>
+    </nav>
+
+    <main role="main">
+      <!-- Hero Banner -->
+      <section class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1920&q=80'); min-height: 40vh;" aria-label="Utilities page header">
+        <div class="hero-content">
+          <h1 class="neon-title">Member Utilities</h1>
+          <p class="hero-headline">Tools to track, train, and connect</p>
         </div>
-      </div>
-        <div class="event-card" style="max-width:400px;margin:32px auto 0 auto;">
-          <div class="event-content" style="align-items:center;">
-            <h2 class="event-title" style="margin-bottom:18px;text-align:center;">One Rep Max Calculator (KG)</h2>
-            <form id="orm-form" style="display:flex;flex-direction:column;gap:16px;align-items:center;">
-              <div style="display:flex;gap:12px;align-items:center;">
-                <label for="orm-weight" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Weight (kg):</label>
-                <input type="number" id="orm-weight" min="1" max="500" value="60" style="width:80px;padding:6px 8px;border-radius:6px;border:1px solid #19baff;background:#222;color:#fff;" aria-label="Weight in kilograms" />
+      </section>
+
+      <!-- Utilities Content -->
+      <div class="events-main">
+        
+        <!-- Section 1: Progress Tracker -->
+        <section class="utilities-section" aria-labelledby="progress-tracker-title">
+          <h2 id="progress-tracker-title" class="utilities-section-title">
+            <span class="section-icon" aria-hidden="true">📊</span>
+            Progress Tracker
+          </h2>
+          
+          <!-- Stats Placeholder -->
+          <div class="utility-card">
+            <div class="stats-placeholder">
+              <div class="stat-box">
+                <div class="stat-value" id="total-workouts">0</div>
+                <div class="stat-label">Total Workouts</div>
               </div>
-              <div style="display:flex;flex-direction:column;align-items:center;width:100%;">
-                <div style="display:flex;gap:8px;margin-bottom:8px;">
-                  <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(1)" aria-label="Set reps to 1">1</button>
-                  <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(3)" aria-label="Set reps to 3">3</button>
-                  <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(5)" aria-label="Set reps to 5">5</button>
-                  <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(8)" aria-label="Set reps to 8">8</button>
-                  <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(10)" aria-label="Set reps to 10">10</button>
-                </div>
-                <div style="display:flex;gap:12px;align-items:center;">
-                  <label for="orm-reps" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">Reps:</label>
-                  <input type="number" id="orm-reps" min="1" max="20" value="5" style="width:60px;padding:6px 8px;border-radius:6px;border:1px solid #ffb84d;background:#222;color:#fff;" aria-label="Number of repetitions" />
-                </div>
+              <div class="stat-box">
+                <div class="stat-value" id="total-prs">0</div>
+                <div class="stat-label">Personal Records</div>
               </div>
-              <div style="display:flex;gap:12px;align-items:center;">
-                <label for="orm-formula" style="color:#39ff14;font-family:'Orbitron',Arial,sans-serif;">Formula:</label>
-                <select id="orm-formula" style="padding:6px 8px;border-radius:6px;border:1px solid #39ff14;background:#222;color:#fff;" aria-label="Select calculation formula">
-                  <option value="epley">Epley</option>
-                  <option value="all">All</option>
-                  <option value="brzycki">Brzycki</option>
-                  <option value="lombardi">Lombardi</option>
-                  <option value="oconner">O'Conner</option>
+              <div class="stat-box">
+                <div class="stat-value" id="this-week">0</div>
+                <div class="stat-label">This Week</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value" id="streak">0</div>
+                <div class="stat-label">Day Streak</div>
+              </div>
+            </div>
+            
+            <!-- Progress Chart -->
+            <div style="margin-top:24px;">
+              <h3 style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;text-align:center;margin-bottom:16px;">Progress Chart</h3>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+                <label for="chart-exercise" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Select Exercise to View:</label>
+                <select id="chart-exercise" onchange="updateChart()" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;font-family:'Orbitron',Arial,sans-serif;" aria-label="Select exercise for chart">
+                  <option value="">-- Select Exercise --</option>
+                  <option value="bench-press">Bench Press</option>
+                  <option value="squat">Squat</option>
+                  <option value="deadlift">Deadlift</option>
+                  <option value="overhead-press">Overhead Press</option>
+                  <option value="barbell-row">Barbell Row</option>
+                  <option value="pullups">Pull-ups/Chin-ups</option>
+                  <option value="dips">Dips</option>
+                  <option value="bicep-curl">Bicep Curl</option>
+                  <option value="tricep-extension">Tricep Extension</option>
+                  <option value="lunges">Lunges</option>
                 </select>
               </div>
-              <button type="button" class="neon-btn neon-btn-blue" onclick="calculateORM()" aria-label="Calculate one rep max">Calculate 1RM</button>
-            </form>
-            <div id="orm-result" style="margin-top:18px;font-size:1.2rem;color:#39ff14;text-align:center;font-family:'Orbitron',Arial,sans-serif;" role="status" aria-live="polite"></div>
+              <canvas id="workout-chart" style="max-height:300px;"></canvas>
+            </div>
           </div>
-        </div>
-        
-        <!-- Workout Tracker Tile -->
-        <div class="event-card" style="max-width:600px;margin:32px auto 0 auto;">
-          <div class="event-content" style="align-items:center;">
-            <h2 class="event-title" style="margin-bottom:18px;text-align:center;">Workout Tracker</h2>
+          
+          <!-- Workout Tracker Form -->
+          <div class="utility-card" style="margin-top:24px;">
+            <h3 class="event-title" style="margin-bottom:18px;text-align:center;">Log Workout</h3>
             
-            <form id="workout-form" style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:500px;">
+            <form id="workout-form" style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:500px;margin:0 auto;">
               <div style="display:flex;flex-direction:column;gap:8px;">
                 <label for="workout-exercise" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Exercise:</label>
                 <select id="workout-exercise" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;font-family:'Orbitron',Arial,sans-serif;" aria-label="Select exercise">
@@ -130,7 +142,7 @@
                       <button type="button" id="unit-lb" class="neon-btn neon-btn-yellow" onclick="setWeightUnit('lb')" style="padding:6px 12px;font-size:0.85rem;opacity:0.5;" aria-label="Set unit to pounds" aria-pressed="false">LB</button>
                     </div>
                   </div>
-                  <input type="number" id="workout-weight" min="0" max="1000" step="0.5" value="60" style="padding:12px;border-radius:6px;border:2px solid #39ff14;background:#222;color:#fff;font-size:1rem;" aria-label="Weight lifted" />
+                  <input type="number" id="workout-weight" min="0" max="1000" step="0.5" value="60" style="padding:12px;border-radius:6px;border:2px solid #39ff14;background:#222;color:#fff;font-size:1rem;margin-top:8px;width:100%;box-sizing:border-box;" aria-label="Weight lifted" />
                 </div>
               </div>
               
@@ -148,41 +160,124 @@
             <div id="workout-pr-message" style="margin-top:16px;padding:12px;border-radius:8px;background:rgba(57,255,20,0.1);border:2px solid #39ff14;color:#39ff14;font-family:'Orbitron',Arial,sans-serif;text-align:center;display:none;" role="alert" aria-live="assertive">
               🏆 NEW PERSONAL RECORD! 🏆
             </div>
-            
-            <div style="margin-top:24px;width:100%;">
-              <h3 style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;text-align:center;margin-bottom:16px;">Progress Chart</h3>
-              <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
-                <label for="chart-exercise" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Select Exercise to View:</label>
-                <select id="chart-exercise" onchange="updateChart()" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;font-family:'Orbitron',Arial,sans-serif;" aria-label="Select exercise for chart">
-                  <option value="">-- Select Exercise --</option>
-                  <option value="bench-press">Bench Press</option>
-                  <option value="squat">Squat</option>
-                  <option value="deadlift">Deadlift</option>
-                  <option value="overhead-press">Overhead Press</option>
-                  <option value="barbell-row">Barbell Row</option>
-                  <option value="pullups">Pull-ups/Chin-ups</option>
-                  <option value="dips">Dips</option>
-                  <option value="bicep-curl">Bicep Curl</option>
-                  <option value="tricep-extension">Tricep Extension</option>
-                  <option value="lunges">Lunges</option>
+          </div>
+        </section>
+
+        <!-- Section 2: Workout Resources -->
+        <section class="utilities-section" aria-labelledby="workout-resources-title">
+          <h2 id="workout-resources-title" class="utilities-section-title">
+            <span class="section-icon" aria-hidden="true">🏋️</span>
+            Workout Resources
+          </h2>
+          
+          <!-- CrossFit Timer -->
+          <div class="utility-card">
+            <h3 class="event-title" style="margin-bottom:18px;text-align:center;">CrossFit Timer</h3>
+            <div id="timer-list" style="display:flex;flex-direction:column;gap:18px;margin:24px 0;">
+              <button class="timer-mode-btn" onclick="selectTimerMode('clock')" aria-label="Select Clock mode">CLOCK</button>
+              <button class="timer-mode-btn" onclick="selectTimerMode('tabata')" aria-label="Select Tabata mode">TABATA</button>
+              <button class="timer-mode-btn" onclick="selectTimerMode('fortime')" aria-label="Select For Time mode">FOR TIME</button>
+              <button class="timer-mode-btn" onclick="selectTimerMode('emom')" aria-label="Select EMOM mode">EMOM</button>
+              <button class="timer-mode-btn" onclick="selectTimerMode('amrap')" aria-label="Select AMRAP mode">AMRAP</button>
+            </div>
+            <div id="timer-mode-ui" style="display:none;"></div>
+          </div>
+          
+          <!-- 1RM Calculator -->
+          <div class="utility-card" style="margin-top:24px;">
+            <h3 class="event-title" style="margin-bottom:18px;text-align:center;">One Rep Max Calculator (KG)</h3>
+            <form id="orm-form" style="display:flex;flex-direction:column;gap:16px;align-items:center;">
+              <div style="display:flex;gap:12px;align-items:center;">
+                <label for="orm-weight" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Weight (kg):</label>
+                <input type="number" id="orm-weight" min="1" max="500" value="60" style="width:80px;padding:6px 8px;border-radius:6px;border:1px solid #19baff;background:#222;color:#fff;" aria-label="Weight in kilograms" />
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;width:100%;">
+                <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;justify-content:center;">
+                  <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(1)" aria-label="Set reps to 1">1</button>
+                  <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(3)" aria-label="Set reps to 3">3</button>
+                  <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(5)" aria-label="Set reps to 5">5</button>
+                  <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(8)" aria-label="Set reps to 8">8</button>
+                  <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(10)" aria-label="Set reps to 10">10</button>
+                </div>
+                <div style="display:flex;gap:12px;align-items:center;">
+                  <label for="orm-reps" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">Reps:</label>
+                  <input type="number" id="orm-reps" min="1" max="20" value="5" style="width:60px;padding:6px 8px;border-radius:6px;border:1px solid #ffb84d;background:#222;color:#fff;" aria-label="Number of repetitions" />
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:center;">
+                <label for="orm-formula" style="color:#39ff14;font-family:'Orbitron',Arial,sans-serif;">Formula:</label>
+                <select id="orm-formula" style="padding:6px 8px;border-radius:6px;border:1px solid #39ff14;background:#222;color:#fff;" aria-label="Select calculation formula">
+                  <option value="epley">Epley</option>
+                  <option value="all">All</option>
+                  <option value="brzycki">Brzycki</option>
+                  <option value="lombardi">Lombardi</option>
+                  <option value="oconner">O'Conner</option>
                 </select>
               </div>
-              <canvas id="workout-chart" style="max-height:300px;"></canvas>
-            </div>
+              <button type="button" class="neon-btn neon-btn-blue" onclick="calculateORM()" aria-label="Calculate one rep max">Calculate 1RM</button>
+            </form>
+            <div id="orm-result" style="margin-top:18px;font-size:1.2rem;color:#39ff14;text-align:center;font-family:'Orbitron',Arial,sans-serif;" role="status" aria-live="polite"></div>
           </div>
-        </div>
+        </section>
+
+        <!-- Section 3: Community Tools -->
+        <section class="utilities-section" aria-labelledby="community-tools-title">
+          <h2 id="community-tools-title" class="utilities-section-title">
+            <span class="section-icon" aria-hidden="true">👥</span>
+            Community Tools
+          </h2>
+          
+          <div class="utility-card">
+            <a href="events.html" class="utility-link">
+              <span class="link-icon" aria-hidden="true">📅</span>
+              <span class="link-text">Events Calendar</span>
+              <span class="link-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="#" class="utility-link" aria-label="Access community leaderboard (coming soon)">
+              <span class="link-icon" aria-hidden="true">🏆</span>
+              <span class="link-text">Community Leaderboard</span>
+              <span class="link-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="#" class="utility-link" aria-label="Access shared workout spreadsheets (coming soon)">
+              <span class="link-icon" aria-hidden="true">📋</span>
+              <span class="link-text">Shared Workout Sheets</span>
+              <span class="link-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="#" class="utility-link" aria-label="Challenge sign-up forms (coming soon)">
+              <span class="link-icon" aria-hidden="true">✍️</span>
+              <span class="link-text">Challenge Sign-up Forms</span>
+              <span class="link-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+
       </div>
-    </section>
-  </main>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-content">
+        <nav class="footer-social" aria-label="Social media links">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+            <span aria-hidden="true">📷</span>
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
+            <span aria-hidden="true">📘</span>
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
+            <span aria-hidden="true">🐦</span>
+          </a>
+        </nav>
+        <p class="footer-copyright">
+          &copy; <span id="current-year">2024</span> Iron & Ale. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </div>
+
   <script>
-    // Hamburger menu toggle for mobile
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navList = document.getElementById('nav-list');
-    menuToggle.addEventListener('click', function() {
-      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', !expanded);
-      navList.classList.toggle('show');
-    });
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
 
     // One Rep Max Calculator (multiple formulas)
     function setORMReps(val) {
@@ -754,6 +849,9 @@
       document.getElementById('workout-weight').value = '60';
       document.getElementById('workout-notes').value = '';
 
+      // Update stats
+      updateStats();
+
       // Update chart if same exercise is selected
       if (document.getElementById('chart-exercise').value === exercise) {
         updateChart();
@@ -854,8 +952,60 @@
       }, 3000);
     }
 
+    // Update stats display
+    function updateStats() {
+      const workouts = JSON.parse(localStorage.getItem('ironAleWorkouts') || '[]');
+      
+      // Total workouts
+      const totalWorkouts = workouts.length;
+      document.getElementById('total-workouts').textContent = totalWorkouts;
+      
+      // Total PRs
+      const totalPRs = workouts.filter(w => w.isPR).length;
+      document.getElementById('total-prs').textContent = totalPRs;
+      
+      // This week
+      const now = new Date();
+      const startOfWeek = new Date(now);
+      startOfWeek.setDate(now.getDate() - now.getDay());
+      startOfWeek.setHours(0, 0, 0, 0);
+      const thisWeek = workouts.filter(w => new Date(w.date) >= startOfWeek).length;
+      document.getElementById('this-week').textContent = thisWeek;
+      
+      // Calculate streak (consecutive days with workouts)
+      if (workouts.length === 0) {
+        document.getElementById('streak').textContent = '0';
+        return;
+      }
+      
+      const dates = [...new Set(workouts.map(w => w.date))].sort().reverse();
+      let streak = 0;
+      const today = new Date().toISOString().split('T')[0];
+      const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+      
+      // Check if there's a workout today or yesterday to start the streak
+      if (dates[0] === today || dates[0] === yesterday) {
+        streak = 1;
+        for (let i = 1; i < dates.length; i++) {
+          const prevDate = new Date(dates[i - 1]);
+          const currDate = new Date(dates[i]);
+          const diff = (prevDate - currDate) / (1000 * 60 * 60 * 24);
+          if (diff === 1) {
+            streak++;
+          } else {
+            break;
+          }
+        }
+      }
+      document.getElementById('streak').textContent = streak;
+    }
+
     // Initialize workout tracker when page loads
-    document.addEventListener('DOMContentLoaded', initWorkoutTracker);
+    document.addEventListener('DOMContentLoaded', function() {
+      initWorkoutTracker();
+      updateStats();
+    });
   </script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
