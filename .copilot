@@ -1,0 +1,10 @@
+Build a mobile-first website for my gym community called "Iron & Ale".
+Purpose: list all upcoming events so members never forget.
+Design: neon-inspired theme with glowing navigation and hero banner tagline 
+"Sets and Reps. Cheers and Beers. That's the Program."
+Pages: Home, Events, Past Events.
+Events: read from /events/events.json. Render event cards with name, date, image, description, and location.
+Buttons: show conditionally based on JSON flags (More Info, Book Now, Remind Me).
+Past Events: auto-archive events where date < now, styled with faded neon.
+Footer: include community contact info.
+Ensure mobile-first responsive design and GitHub Pages compatibility.
