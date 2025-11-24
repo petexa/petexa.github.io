@@ -166,6 +166,7 @@ body.neon-bg {
 	font-family: 'Orbitron', Arial, sans-serif;
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
 }
 
 .neon-nav {
@@ -174,7 +175,7 @@ body.neon-bg {
 	background: rgba(10, 10, 15, 0.95);
 	backdrop-filter: blur(10px);
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
 	position: sticky;
 	top: 0;
@@ -196,8 +197,10 @@ body.neon-bg {
 	border: none;
 	cursor: pointer;
 	padding: 8px;
+	margin-left: auto;
 	margin-right: 24px;
 	z-index: 1001;
+	position: relative;
 }
 .menu-toggle span {
 	display: block;
@@ -355,8 +358,21 @@ body.neon-bg {
 
 /* Toast notification for success messages */
 .toast {
-position: fixed;
-bottom: 24px;
+	position: fixed;
+	bottom: 24px;
+	right: 24px;
+	background: rgba(25, 186, 255, 0.95);
+	color: #0a0a0f;
+	padding: 16px 24px;
+	border-radius: 8px;
+	box-shadow: 0 0 24px #19baff, 0 4px 12px rgba(0, 0, 0, 0.5);
+	font-family: 'Orbitron', Arial, sans-serif;
+	font-weight: bold;
+	font-size: 1rem;
+	z-index: 10000;
+	animation: slideIn 0.3s ease-out;
+}
+
 /* Neon CrossFit Timer Mode Buttons */
 .timer-mode-btn {
 	width: 100%;
@@ -407,18 +423,7 @@ bottom: 24px;
 	outline: 2px solid #39ff14;
 	outline-offset: 2px;
 }
-right: 24px;
-background: rgba(25, 186, 255, 0.95);
-color: #0a0a0f;
-padding: 16px 24px;
-border-radius: 8px;
-box-shadow: 0 0 24px #19baff, 0 4px 12px rgba(0, 0, 0, 0.5);
-font-family: 'Orbitron', Arial, sans-serif;
-font-weight: bold;
-font-size: 1rem;
-z-index: 10000;
-animation: slideIn 0.3s ease-out;
-}
+
 @keyframes slideIn {
 from {
 transform: translateX(400px);
