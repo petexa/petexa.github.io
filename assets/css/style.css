@@ -813,7 +813,7 @@ font-size: 1.1rem;
 }
 
 .accordion-content.show {
-	max-height: 2000px;
+	max-height: 5000px; /* Large enough to accommodate content, transitions smoothly */
 	transition: max-height 0.5s ease-in;
 }
 
