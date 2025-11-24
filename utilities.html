@@ -35,16 +35,16 @@
       <div class="event-card" style="max-width:400px;margin:0 auto;">
         <div class="event-content" style="align-items:center;">
           <h2 class="event-title" style="margin-bottom:18px;text-align:center;">CrossFit Timer</h2>
-          <div class="timer-mode-select" style="display:flex;flex-direction:column;gap:18px;margin:24px 0;">
+          <div id="timer-list" style="display:flex;flex-direction:column;gap:18px;margin:24px 0;">
             <button class="timer-mode-btn" onclick="selectTimerMode('clock')" aria-label="Select Clock mode">CLOCK</button>
             <button class="timer-mode-btn" onclick="selectTimerMode('tabata')" aria-label="Select Tabata mode">TABATA</button>
             <button class="timer-mode-btn" onclick="selectTimerMode('fortime')" aria-label="Select For Time mode">FOR TIME</button>
             <button class="timer-mode-btn" onclick="selectTimerMode('emom')" aria-label="Select EMOM mode">EMOM</button>
             <button class="timer-mode-btn" onclick="selectTimerMode('amrap')" aria-label="Select AMRAP mode">AMRAP</button>
           </div>
-          <div id="timer-mode-ui"></div>
+          <div id="timer-mode-ui" style="display:none;"></div>
         </div>
-        </div>
+      </div>
         <div class="event-card" style="max-width:400px;margin:32px auto 0 auto;">
           <div class="event-content" style="align-items:center;">
             <h2 class="event-title" style="margin-bottom:18px;text-align:center;">One Rep Max Calculator (KG)</h2>
@@ -356,20 +356,58 @@
     } else {
       document.exitFullscreen();
       display.parentElement.querySelectorAll('label,input,br').forEach(e => e.style.display = '');
-    }
-  }
-  function toggleFullscreenEMOM() {
-    const timerDiv = document.getElementById('emom-timer');
-    if (!timerDiv) return;
-    if (!document.fullscreenElement) {
-      timerDiv.parentElement.requestFullscreen();
-      // Hide everything except timer and buttons
-      timerDiv.parentElement.querySelectorAll('label,input,br,#emom-round').forEach(e => e.style.display = 'none');
-    } else {
-      document.exitFullscreen();
-      timerDiv.parentElement.querySelectorAll('label,input,br,#emom-round').forEach(e => e.style.display = '');
-    }
-  }
+      timerMode = mode;
+      clearInterval(timerInterval);
+      timerSeconds = 0;
+      const timerList = document.getElementById('timer-list');
+      const timerUI = document.getElementById('timer-mode-ui');
+      timerList.style.display = 'none';
+      timerUI.style.display = 'block';
+      let backArrow = `<button onclick="backToTimerList()" aria-label="Back to timer list" style="position:absolute;top:12px;left:12px;background:none;border:none;color:#19baff;font-size:2rem;z-index:10;cursor:pointer;">&#8592;</button>`;
+      let wrapperStart = `<div style='position:relative;'>${backArrow}`;
+      let wrapperEnd = `</div>`;
+      if (mode === 'clock') {
+        timerUI.innerHTML = `${wrapperStart}
+          <div style="text-align:center;">
+            <div style="position:relative;">
+              <div style="font-size:3rem;color:#19baff;font-family:'Orbitron',Arial,sans-serif;text-shadow:0 0 16px #19baff;margin:24px 0;" id="timer-display">00:00</div>
+              <button class="neon-btn neon-btn-blue" onclick="toggleFullscreen()" style="position:absolute;top:0;right:0;padding:8px 12px;font-size:0.8rem;" aria-label="Toggle fullscreen mode">⛶</button>
+            </div>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+              <button class="neon-btn neon-btn-blue" onclick="startTimer()" aria-label="Start timer">Start</button>
+              <button class="neon-btn neon-btn-yellow" onclick="pauseTimer()" aria-label="Pause timer">Pause</button>
+              <button class="neon-btn neon-btn-blue" onclick="resetTimer()" aria-label="Reset timer">Reset</button>
+            </div>
+          </div>
+        ${wrapperEnd}`;
+      } else if (mode === 'emom') {
+        timerUI.innerHTML = `${wrapperStart}
+          <div style="text-align:center;">
+            <label style="color:#19baff;">Minutes:</label>
+            <div style="display:flex;gap:6px;justify-content:center;margin-bottom:8px;flex-wrap:wrap;">
+              <button type="button" class="neon-btn neon-btn-blue orm-rep-btn" onclick="setEMOMMins(1)" aria-label="Set EMOM to 1 minute">1</button>
+              <button type="button" class="neon-btn neon-btn-blue orm-rep-btn" onclick="setEMOMMins(2)" aria-label="Set EMOM to 2 minutes">2</button>
+              <button type="button" class="neon-btn neon-btn-blue orm-rep-btn" onclick="setEMOMMins(3)" aria-label="Set EMOM to 3 minutes">3</button>
+              <button type="button" class="neon-btn neon-btn-yellow orm-rep-btn" onclick="setEMOMMins(4)" aria-label="Set EMOM to 4 minutes">4</button>
+              <button type="button" class="neon-btn neon-btn-yellow orm-rep-btn" onclick="setEMOMMins(5)" aria-label="Set EMOM to 5 minutes">5</button>
+            </div>
+            <input type="number" id="emom-mins" min="1" max="60" value="1" style="width:50px;" aria-label="EMOM minutes" />
+            <div style="margin:12px 0;">
+              <label style="color:#39ff14;">Rounds:</label>
+              <input type="number" id="emom-rounds" min="1" max="50" value="10" style="width:60px;padding:4px;border-radius:4px;border:1px solid #39ff14;background:#222;color:#fff;" aria-label="Number of EMOM rounds">
+            </div>
+            <div style="position:relative;">
+              <div id="emom-timer" style="font-size:3.5rem;color:#19baff;margin:24px 0;text-align:center;letter-spacing:0.1em;font-family:Orbitron,Arial,sans-serif;background:#111;padding:16px 0;border-radius:12px;box-shadow:0 0 24px #19baff;">01:00</div>
+              <button class="neon-btn neon-btn-blue" onclick="toggleFullscreen()" style="position:absolute;top:0;right:0;padding:8px 12px;font-size:0.8rem;" aria-label="Toggle fullscreen mode">⛶</button>
+            </div>
+            <div id="emom-round" style="margin-bottom:8px;color:#39ff14;" role="status" aria-live="polite">Round 1</div>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+              <button class="neon-btn neon-btn-blue" onclick="startEMOMTimer()" aria-label="Start EMOM timer">Start</button>
+              <button class="neon-btn neon-btn-yellow" onclick="pauseEMOMTimer()" aria-label="Pause EMOM timer">Pause</button>
+              <button class="neon-btn neon-btn-blue" onclick="resetEMOMTimer()" aria-label="Reset EMOM timer">Reset</button>
+            </div>
+          </div>
+        ${wrapperEnd}`;
         window.emomTimer = 60;
         window.emomInterval = null;
         window.emomPaused = false;
@@ -378,7 +416,7 @@
         updateEMOMDisplay();
       } else if (mode === 'fortime' || mode === 'amrap') {
         const label = mode === 'fortime' ? 'For Time' : 'AMRAP';
-        timerUI.innerHTML = `
+        timerUI.innerHTML = `${wrapperStart}
           <div style="text-align:center;">
             <div style="margin:16px 0;">
               <label style="color:#19baff;">Duration (minutes): </label>
@@ -401,11 +439,11 @@
               <button class="neon-btn neon-btn-blue" onclick="resetTimer()" aria-label="Reset timer">Reset</button>
             </div>
           </div>
-        `;
+        ${wrapperEnd}`;
         timerSeconds = 20 * 60;
         updateTimerDisplay();
       } else if (mode === 'tabata') {
-        timerUI.innerHTML = `
+        timerUI.innerHTML = `${wrapperStart}
           <div style="text-align:center;">
             <div style="margin:16px 0;display:flex;flex-direction:column;gap:12px;align-items:center;">
               <div style="display:flex;gap:12px;align-items:center;">
@@ -431,66 +469,17 @@
               <button class="neon-btn neon-btn-blue" onclick="resetTimer()" aria-label="Reset Tabata timer">Reset</button>
             </div>
           </div>
-        `;
+        ${wrapperEnd}`;
         timerSeconds = 20;
         updateTimerDisplay();
       }
     }
 
-    function updateTimerDisplay() {
-      const display = document.getElementById('timer-display');
-      if (!display) return;
-      
-      const mins = Math.floor(Math.abs(timerSeconds) / 60);
-      const secs = Math.abs(timerSeconds) % 60;
-      const sign = timerSeconds < 0 ? '-' : '';
-      display.textContent = `${sign}${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    }
-
-    function startTimer() {
+    function backToTimerList() {
+      document.getElementById('timer-list').style.display = 'flex';
+      document.getElementById('timer-mode-ui').style.display = 'none';
       clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        timerSeconds++;
-        updateTimerDisplay();
-      }, 1000);
-    }
-
-    function startCountdown() {
-      const durationInput = document.getElementById('timer-duration');
-      if (durationInput && timerSeconds === parseInt(durationInput.value) * 60) {
-        // Reset if at starting position
-        timerSeconds = parseInt(durationInput.value) * 60;
-      }
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        timerSeconds--;
-        updateTimerDisplay();
-        if (timerSeconds <= 0) {
-          clearInterval(timerInterval);
-          document.getElementById('timer-display').style.color = '#39ff14';
-        }
-      }, 1000);
-    }
-
-    function pauseTimer() {
-      clearInterval(timerInterval);
-    }
-
-    function resetTimer() {
-      clearInterval(timerInterval);
-      timerSeconds = 0;
-      if (timerMode === 'fortime' || timerMode === 'amrap') {
-        const duration = parseInt(document.getElementById('timer-duration').value) || 20;
-        timerSeconds = duration * 60;
-      }
-      if (timerMode === 'emom') {
-        document.getElementById('timer-display').textContent = 'Round 1 - 01:00';
-        return;
-      }
-      updateTimerDisplay();
-      if (document.getElementById('timer-display')) {
-        document.getElementById('timer-display').style.color = '#19baff';
-      }
+      timerMode = '';
     }
 
     function startTabata() {
