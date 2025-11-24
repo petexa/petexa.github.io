@@ -89,12 +89,12 @@
               <input type="number" id="orm-weight" min="1" max="500" value="60" style="width:80px;padding:6px 8px;border-radius:6px;border:1px solid #19baff;background:#222;color:#fff;">
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;width:100%;">
-              <div style="display:flex;gap:8px;margin-bottom:8px;">
-                <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(1)">1</button>
-                <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(3)">3</button>
-                <button type="button" class="neon-btn neon-btn-blue" onclick="setORMReps(5)">5</button>
-                <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(8)">8</button>
-                <button type="button" class="neon-btn neon-btn-yellow" onclick="setORMReps(10)">10</button>
+              <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;justify-content:center;">
+                <button type="button" class="orm-rep-btn neon-btn neon-btn-blue" onclick="setORMReps(1)" style="padding:8px 12px;font-size:0.9rem;min-width:40px;">1</button>
+                <button type="button" class="orm-rep-btn neon-btn neon-btn-blue" onclick="setORMReps(3)" style="padding:8px 12px;font-size:0.9rem;min-width:40px;">3</button>
+                <button type="button" class="orm-rep-btn neon-btn neon-btn-blue" onclick="setORMReps(5)" style="padding:8px 12px;font-size:0.9rem;min-width:40px;">5</button>
+                <button type="button" class="orm-rep-btn neon-btn neon-btn-yellow" onclick="setORMReps(8)" style="padding:8px 12px;font-size:0.9rem;min-width:40px;">8</button>
+                <button type="button" class="orm-rep-btn neon-btn neon-btn-yellow" onclick="setORMReps(10)" style="padding:8px 12px;font-size:0.9rem;min-width:40px;">10</button>
               </div>
               <div style="display:flex;gap:12px;align-items:center;">
                 <label for="orm-reps" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">Reps:</label>
@@ -143,24 +143,256 @@
       }
       // Formulas
       const results = [];
+      let oneRM = 0;
       if (formula === 'all' || formula === 'epley') {
         // Epley: 1RM = weight * (1 + reps/30)
-        results.push(`<span style='color:#19baff;'>Epley:</span> <b>${(weight * (1 + reps / 30)).toFixed(1)} kg</b>`);
+        const epley = weight * (1 + reps / 30);
+        results.push(`<span style='color:#19baff;'>Epley:</span> <b>${epley.toFixed(1)} kg</b>`);
+        if (formula === 'epley') oneRM = epley;
       }
       if (formula === 'all' || formula === 'brzycki') {
         // Brzycki: 1RM = weight * (36 / (37 - reps))
-        results.push(`<span style='color:#ffb84d;'>Brzycki:</span> <b>${(weight * (36 / (37 - reps))).toFixed(1)} kg</b>`);
+        const brzycki = weight * (36 / (37 - reps));
+        results.push(`<span style='color:#ffb84d;'>Brzycki:</span> <b>${brzycki.toFixed(1)} kg</b>`);
+        if (formula === 'brzycki') oneRM = brzycki;
       }
       if (formula === 'all' || formula === 'lombardi') {
         // Lombardi: 1RM = weight * reps^0.10
-        results.push(`<span style='color:#39ff14;'>Lombardi:</span> <b>${(weight * Math.pow(reps, 0.10)).toFixed(1)} kg</b>`);
+        const lombardi = weight * Math.pow(reps, 0.10);
+        results.push(`<span style='color:#39ff14;'>Lombardi:</span> <b>${lombardi.toFixed(1)} kg</b>`);
+        if (formula === 'lombardi') oneRM = lombardi;
       }
       if (formula === 'all' || formula === 'oconner') {
         // O'Conner: 1RM = weight * (1 + 0.025 * reps)
-        results.push(`<span style='color:#ff5555;'>O'Conner:</span> <b>${(weight * (1 + 0.025 * reps)).toFixed(1)} kg</b>`);
+        const oconner = weight * (1 + 0.025 * reps);
+        results.push(`<span style='color:#ff5555;'>O'Conner:</span> <b>${oconner.toFixed(1)} kg</b>`);
+        if (formula === 'oconner') oneRM = oconner;
       }
+      
+      // If "All" is selected, calculate average for percentages
+      if (formula === 'all') {
+        const epley = weight * (1 + reps / 30);
+        const brzycki = weight * (36 / (37 - reps));
+        const lombardi = weight * Math.pow(reps, 0.10);
+        const oconner = weight * (1 + 0.025 * reps);
+        oneRM = (epley + brzycki + lombardi + oconner) / 4;
+      }
+      
+      // Add training percentages
+      if (oneRM > 0) {
+        results.push('<br><span style="color:#39ff14;font-size:1rem;">Training Percentages:</span>');
+        const percentages = [95, 90, 85, 80, 75, 70, 65, 60];
+        const percentList = percentages.map(p => 
+          `<span style="color:#19baff;">${p}%:</span> ${(oneRM * p / 100).toFixed(1)} kg`
+        ).join(' | ');
+        results.push(`<div style="font-size:0.9rem;margin-top:8px;line-height:1.6;">${percentList}</div>`);
+      }
+      
       document.getElementById('orm-result').innerHTML = results.join('<br>');
       document.getElementById('orm-result').style.color = '#39ff14';
+    }
+
+    // CrossFit Timer functionality
+    let timerInterval = null;
+    let timerSeconds = 0;
+    let timerMode = '';
+
+    function selectTimerMode(mode) {
+      timerMode = mode;
+      clearInterval(timerInterval);
+      timerSeconds = 0;
+      
+      const timerUI = document.getElementById('timer-mode-ui');
+      
+      if (mode === 'clock') {
+        timerUI.innerHTML = `
+          <div style="text-align:center;">
+            <div style="font-size:3rem;color:#19baff;font-family:'Orbitron',Arial,sans-serif;text-shadow:0 0 16px #19baff;margin:24px 0;" id="timer-display">00:00</div>
+            <div style="display:flex;gap:12px;justify-content:center;">
+              <button class="neon-btn neon-btn-blue" onclick="startTimer()">Start</button>
+              <button class="neon-btn neon-btn-yellow" onclick="pauseTimer()">Pause</button>
+              <button class="neon-btn neon-btn-blue" onclick="resetTimer()">Reset</button>
+            </div>
+          </div>
+        `;
+      } else if (mode === 'tabata') {
+        timerUI.innerHTML = `
+          <div style="text-align:center;">
+            <div style="margin:16px 0;">
+              <label style="color:#19baff;">Work: </label>
+              <input type="number" id="tabata-work" value="20" min="1" max="180" style="width:60px;padding:4px;border-radius:4px;border:1px solid #19baff;background:#222;color:#fff;"> sec
+            </div>
+            <div style="margin:16px 0;">
+              <label style="color:#ffb84d;">Rest: </label>
+              <input type="number" id="tabata-rest" value="10" min="1" max="180" style="width:60px;padding:4px;border-radius:4px;border:1px solid #ffb84d;background:#222;color:#fff;"> sec
+            </div>
+            <div style="margin:16px 0;">
+              <label style="color:#39ff14;">Rounds: </label>
+              <input type="number" id="tabata-rounds" value="8" min="1" max="50" style="width:60px;padding:4px;border-radius:4px;border:1px solid #39ff14;background:#222;color:#fff;">
+            </div>
+            <div style="font-size:3rem;color:#19baff;font-family:'Orbitron',Arial,sans-serif;text-shadow:0 0 16px #19baff;margin:24px 0;" id="timer-display">00:00</div>
+            <div style="display:flex;gap:12px;justify-content:center;">
+              <button class="neon-btn neon-btn-blue" onclick="startTabata()">Start</button>
+              <button class="neon-btn neon-btn-yellow" onclick="resetTimer()">Reset</button>
+            </div>
+          </div>
+        `;
+      } else if (mode === 'fortime' || mode === 'amrap') {
+        const label = mode === 'fortime' ? 'For Time' : 'AMRAP';
+        timerUI.innerHTML = `
+          <div style="text-align:center;">
+            <div style="margin:16px 0;">
+              <label style="color:#19baff;">Duration (minutes): </label>
+              <input type="number" id="timer-duration" value="20" min="1" max="180" style="width:60px;padding:4px;border-radius:4px;border:1px solid #19baff;background:#222;color:#fff;">
+            </div>
+            <div style="font-size:3rem;color:#19baff;font-family:'Orbitron',Arial,sans-serif;text-shadow:0 0 16px #19baff;margin:24px 0;" id="timer-display">20:00</div>
+            <div style="display:flex;gap:12px;justify-content:center;">
+              <button class="neon-btn neon-btn-blue" onclick="startCountdown()">Start</button>
+              <button class="neon-btn neon-btn-yellow" onclick="pauseTimer()">Pause</button>
+              <button class="neon-btn neon-btn-blue" onclick="resetTimer()">Reset</button>
+            </div>
+          </div>
+        `;
+        timerSeconds = 20 * 60;
+        updateTimerDisplay();
+      } else if (mode === 'emom') {
+        timerUI.innerHTML = `
+          <div style="text-align:center;">
+            <div style="margin:16px 0;">
+              <label style="color:#19baff;">Rounds: </label>
+              <input type="number" id="emom-rounds" value="10" min="1" max="60" style="width:60px;padding:4px;border-radius:4px;border:1px solid #19baff;background:#222;color:#fff;">
+            </div>
+            <div style="font-size:3rem;color:#19baff;font-family:'Orbitron',Arial,sans-serif;text-shadow:0 0 16px #19baff;margin:24px 0;" id="timer-display">Round 1 - 01:00</div>
+            <div style="display:flex;gap:12px;justify-content:center;">
+              <button class="neon-btn neon-btn-blue" onclick="startEMOM()">Start</button>
+              <button class="neon-btn neon-btn-yellow" onclick="resetTimer()">Reset</button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function updateTimerDisplay() {
+      const display = document.getElementById('timer-display');
+      if (!display) return;
+      
+      const mins = Math.floor(Math.abs(timerSeconds) / 60);
+      const secs = Math.abs(timerSeconds) % 60;
+      const sign = timerSeconds < 0 ? '-' : '';
+      display.textContent = `${sign}${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timerSeconds++;
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function startCountdown() {
+      const durationInput = document.getElementById('timer-duration');
+      if (durationInput && timerSeconds === parseInt(durationInput.value) * 60) {
+        // Reset if at starting position
+        timerSeconds = parseInt(durationInput.value) * 60;
+      }
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timerSeconds--;
+        updateTimerDisplay();
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          document.getElementById('timer-display').style.color = '#39ff14';
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerSeconds = 0;
+      if (timerMode === 'fortime' || timerMode === 'amrap') {
+        const duration = parseInt(document.getElementById('timer-duration').value) || 20;
+        timerSeconds = duration * 60;
+      }
+      if (timerMode === 'emom') {
+        document.getElementById('timer-display').textContent = 'Round 1 - 01:00';
+        return;
+      }
+      updateTimerDisplay();
+      if (document.getElementById('timer-display')) {
+        document.getElementById('timer-display').style.color = '#19baff';
+      }
+    }
+
+    function startTabata() {
+      const work = parseInt(document.getElementById('tabata-work').value);
+      const rest = parseInt(document.getElementById('tabata-rest').value);
+      const rounds = parseInt(document.getElementById('tabata-rounds').value);
+      
+      let currentRound = 1;
+      let isWork = true;
+      timerSeconds = work;
+      
+      clearInterval(timerInterval);
+      updateTimerDisplay();
+      
+      timerInterval = setInterval(() => {
+        timerSeconds--;
+        
+        if (timerSeconds <= 0) {
+          if (isWork) {
+            // Switch to rest
+            isWork = false;
+            timerSeconds = rest;
+            document.getElementById('timer-display').style.color = '#ffb84d';
+          } else {
+            // Move to next round
+            currentRound++;
+            if (currentRound > rounds) {
+              clearInterval(timerInterval);
+              document.getElementById('timer-display').textContent = 'DONE!';
+              document.getElementById('timer-display').style.color = '#39ff14';
+              return;
+            }
+            isWork = true;
+            timerSeconds = work;
+            document.getElementById('timer-display').style.color = '#19baff';
+          }
+        }
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function startEMOM() {
+      const rounds = parseInt(document.getElementById('emom-rounds').value);
+      let currentRound = 1;
+      timerSeconds = 60;
+      
+      clearInterval(timerInterval);
+      document.getElementById('timer-display').textContent = `Round ${currentRound} - 01:00`;
+      
+      timerInterval = setInterval(() => {
+        timerSeconds--;
+        
+        if (timerSeconds <= 0) {
+          currentRound++;
+          if (currentRound > rounds) {
+            clearInterval(timerInterval);
+            document.getElementById('timer-display').textContent = 'DONE!';
+            document.getElementById('timer-display').style.color = '#39ff14';
+            return;
+          }
+          timerSeconds = 60;
+        }
+        
+        const mins = Math.floor(timerSeconds / 60);
+        const secs = timerSeconds % 60;
+        document.getElementById('timer-display').textContent = `Round ${currentRound} - ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }, 1000);
     }
   </script>
 </body>
