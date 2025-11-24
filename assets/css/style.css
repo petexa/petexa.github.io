@@ -255,19 +255,19 @@ body.neon-bg {
 	padding: 20px;
 }
 .neon-title {
-	font-size: clamp(2.5rem, 8vw, 5rem);
+	font-size: clamp(2rem, 8vw, 5rem);
 	color: #19baff;
 	text-shadow:
 		0 0 16px #19baff,
 		0 0 32px #19baff,
 		0 0 64px #19baff;
-	margin-bottom: 32px;
+	margin-bottom: 24px;
 	font-family: 'Orbitron', Arial, sans-serif;
 	letter-spacing: 2px;
 }
 .neon-subtext {
-	font-size: clamp(1.2rem, 4vw, 2.2rem);
-	margin-bottom: 32px;
+	font-size: clamp(1rem, 4vw, 2.2rem);
+	margin-bottom: 24px;
 	font-family: 'Orbitron', Arial, sans-serif;
 	line-height: 1.4;
 }
@@ -283,12 +283,12 @@ body.neon-bg {
 	display: flex;
 	gap: 20px;
 	justify-content: center;
-	margin-top: 32px;
+	margin-top: 24px;
 	flex-wrap: wrap;
 }
 .neon-btn {
-	padding: 16px 32px;
-	font-size: clamp(1rem, 2.5vw, 1.5rem);
+	padding: 14px 28px;
+	font-size: clamp(0.95rem, 2.5vw, 1.5rem);
 	border-radius: 12px;
 	border: 2px solid transparent;
 	font-family: 'Orbitron', Arial, sans-serif;
