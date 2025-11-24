@@ -122,14 +122,16 @@
               </div>
               
               <div style="display:flex;flex-direction:column;gap:8px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;">
-                  <label for="workout-weight" style="color:#39ff14;font-family:'Orbitron',Arial,sans-serif;">Weight:</label>
-                  <div style="display:flex;gap:8px;">
-                    <button type="button" id="unit-kg" class="neon-btn neon-btn-blue" onclick="setWeightUnit('kg')" style="padding:6px 12px;font-size:0.85rem;" aria-label="Set unit to kilograms" aria-pressed="true">KG</button>
-                    <button type="button" id="unit-lb" class="neon-btn neon-btn-yellow" onclick="setWeightUnit('lb')" style="padding:6px 12px;font-size:0.85rem;opacity:0.5;" aria-label="Set unit to pounds" aria-pressed="false">LB</button>
+                <div id="workout-weight-row">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <label for="workout-weight" style="color:#39ff14;font-family:'Orbitron',Arial,sans-serif;">Weight:</label>
+                    <div style="display:flex;gap:8px;">
+                      <button type="button" id="unit-kg" class="neon-btn neon-btn-blue" onclick="setWeightUnit('kg')" style="padding:6px 12px;font-size:0.85rem;" aria-label="Set unit to kilograms" aria-pressed="true">KG</button>
+                      <button type="button" id="unit-lb" class="neon-btn neon-btn-yellow" onclick="setWeightUnit('lb')" style="padding:6px 12px;font-size:0.85rem;opacity:0.5;" aria-label="Set unit to pounds" aria-pressed="false">LB</button>
+                    </div>
                   </div>
+                  <input type="number" id="workout-weight" min="0" max="1000" step="0.5" value="60" style="padding:12px;border-radius:6px;border:2px solid #39ff14;background:#222;color:#fff;font-size:1rem;" aria-label="Weight lifted" />
                 </div>
-                <input type="number" id="workout-weight" min="0" max="1000" step="0.5" value="60" style="padding:12px;border-radius:6px;border:2px solid #39ff14;background:#222;color:#fff;font-size:1rem;" aria-label="Weight lifted" />
               </div>
               
               <div style="display:flex;flex-direction:column;gap:8px;">
@@ -636,10 +638,27 @@
 
     // Initialize workout tracker
     function initWorkoutTracker() {
+            // Hide/show weight input based on exercise
+            const exerciseInput = document.getElementById('workout-exercise');
+            const weightRow = document.getElementById('workout-weight-row');
+            function updateWeightVisibility() {
+              const val = exerciseInput.value;
+              if (val === 'pullups' || val === 'dips') {
+                if (weightRow) weightRow.style.display = 'none';
+              } else {
+                if (weightRow) weightRow.style.display = '';
+              }
+            }
+            if (exerciseInput && weightRow) {
+              exerciseInput.addEventListener('change', updateWeightVisibility);
+              updateWeightVisibility();
+            }
       // Set today's date
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('workout-date').value = today;
-      
+      const dateInput = document.getElementById('workout-date');
+      if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+      }
       // Initialize chart
       const ctx = document.getElementById('workout-chart');
       if (ctx) {
