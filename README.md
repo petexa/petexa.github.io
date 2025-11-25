@@ -1,4 +1,4 @@
-```
+```text
 ==============================
 💡 Iron & Ale: Progress + Power
 ==============================
@@ -21,7 +21,7 @@ A gym community accountability system that:
 - 🎉 Celebrates wins together!
 
 **How does it work?**  
-```
+```text
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │   GitHub    │────▶│   Google    │────▶│     n8n     │────▶│  Telegram   │
 │    Pages    │     │   Sheets    │     │  Workflows  │     │     Bot     │
@@ -103,7 +103,7 @@ cd petexa.github.io
 
 Here's how the system works day-to-day:
 
-```
+```text
 ┌──────────────────────────────────────────────────────────────┐
 │                      📋 DAILY WORKFLOW                       │
 ├──────────────────────────────────────────────────────────────┤
@@ -137,7 +137,7 @@ Here's what we're aiming for this year:
 | 🌐 **Community Growth** | Build the gym community site with authentic branding |
 | 🔧 **Automation Expansion** | Refine n8n workflows to make accountability visible and frictionless |
 
-```
+```text
 ===============================================
 🎯 2026 VISION: Stronger Together, One Rep at a Time
 ===============================================
@@ -171,7 +171,7 @@ This project is licensed under the **MIT License** (or similar open-source licen
 
 ---
 
-```
+```text
 ==============================
 🍻 Iron & Ale: Sets and Reps!
 ==============================
