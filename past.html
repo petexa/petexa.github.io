@@ -7,29 +7,53 @@
   <meta name="description" content="Past Iron & Ale gym events.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-  <nav class="navbar">
-    <div class="logo">Iron & Ale</div>
-    <button class="menu-toggle" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="events.html">Events</a>
-      <a href="past.html" aria-current="page">Past Events</a>
-    </div>
-  </nav>
-  <main class="events-list" id="past-events-list">
-    <!-- Past event cards will be rendered here by JS -->
-  </main>
-  <footer>
-    <div class="footer-content">
-      <span>&copy; Iron & Ale Community</span>
-      <a href="mailto:gym@ironandale.com" class="footer-link">Contact us</a>
-    </div>
-  </footer>
+<body class="neon-bg">
+  <div class="page-wrapper">
+    <nav class="neon-nav" role="navigation" aria-label="Main navigation">
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="nav-list">
+        <li><a href="index.html" aria-label="Home page">HOME</a></li>
+        <li><a href="events.html" aria-label="View upcoming events">EVENTS</a></li>
+        <li><a href="utilities.html" aria-label="Member utilities">UTILITIES</a></li>
+      </ul>
+    </nav>
+
+    <main role="main" class="events-list" id="past-events-list">
+      <!-- Past event cards will be rendered here by JS -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-content">
+        <nav class="footer-social" aria-label="Social media links">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #e1306c);" />
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1877f3);" />
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1da1f2);" />
+          </a>
+        </nav>
+        <p class="footer-copyright">
+          &copy; <span id="current-year">2024</span> Iron & Ale. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

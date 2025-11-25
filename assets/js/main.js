@@ -73,16 +73,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const navMenu = document.querySelector('.neon-nav ul');
   
   if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', function() {
+    menuToggle.addEventListener('click', function(event) {
+      event.stopPropagation();
       const isExpanded = navMenu.classList.contains('show');
       navMenu.classList.toggle('show');
+      menuToggle.classList.toggle('active');
       menuToggle.setAttribute('aria-expanded', !isExpanded);
     });
     
     // Close menu when clicking outside
     document.addEventListener('click', function(event) {
-      if (!event.target.closest('.neon-nav')) {
+      if (!event.target.closest('.neon-nav') && !event.target.closest('.menu-toggle')) {
         navMenu.classList.remove('show');
+        menuToggle.classList.remove('active');
         menuToggle.setAttribute('aria-expanded', 'false');
       }
     });
@@ -91,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape' && navMenu.classList.contains('show')) {
         navMenu.classList.remove('show');
+        menuToggle.classList.remove('active');
         menuToggle.setAttribute('aria-expanded', 'false');
         menuToggle.focus();
       }
