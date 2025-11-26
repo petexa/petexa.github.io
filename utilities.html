@@ -1112,26 +1112,6 @@
         showToast('Saved locally (sync pending)');
       }
 
-      // Check for PB (Personal Best)
-      let workouts = JSON.parse(localStorage.getItem('ironAleWorkouts') || '[]');
-      let exercise = document.getElementById('workout-exercise').value;
-      let weight = parseFloat(document.getElementById('workout-weight').value);
-      // Check for PB (Personal Best)
-      let isPB = false;
-      if (exercise && !isNaN(weight)) {
-        let prevMax = Math.max(...workouts.filter(w => w.exercise === exercise).map(w => w.weight), 0);
-        if (weight > prevMax) {
-          isPB = true;
-        }
-      }
-      var pbMsg = document.getElementById('workout-pr-message');
-      if (isPB) {
-        pbMsg.style.display = 'block';
-        pbMsg.textContent = '🏆 NEW PERSONAL BEST! 🏆';
-      } else {
-        pbMsg.style.display = 'none';
-      }
-
       // Show PR message if applicable
       if (isPR) {
         const prMessage = document.getElementById('workout-pr-message');
@@ -1300,6 +1280,7 @@
           }
         }
       }
+      document.getElementById('streak').textContent = streak;
     }
 
     // Collapsible Utility Sections
@@ -1342,6 +1323,10 @@
       } else {
         document.getElementById('name-modal').style.display = 'none';
       }
+      // Initialize workout tracker
+      initWorkoutTracker();
+      // Update stats on page load
+      updateStats();
     });
 
     // Set workout name from localStorage and handle edit
