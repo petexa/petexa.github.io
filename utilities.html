@@ -1046,6 +1046,25 @@
         showToast('Saved locally (sync pending)');
       }
 
+      // Check for PB (Personal Best)
+      var workouts = JSON.parse(localStorage.getItem('ironAleWorkouts') || '[]');
+      var exercise = document.getElementById('workout-exercise').value;
+      var weight = parseFloat(document.getElementById('workout-weight').value);
+      var isPB = false;
+      if (exercise && !isNaN(weight)) {
+        var prevMax = Math.max(...workouts.filter(w => w.exercise === exercise).map(w => w.weight));
+        if (weight > prevMax) {
+          isPB = true;
+        }
+      }
+      var pbMsg = document.getElementById('workout-pr-message');
+      if (isPB) {
+        pbMsg.style.display = 'block';
+        pbMsg.textContent = '🏆 NEW PERSONAL BEST! 🏆';
+      } else {
+        pbMsg.style.display = 'none';
+      }
+
       // Show PR message if applicable
       if (isPR) {
         const prMessage = document.getElementById('workout-pr-message');
