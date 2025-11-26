@@ -501,6 +501,7 @@ input, button, textarea, select {
 .hover\:bg-primary-700:hover { background-color: var(--color-primary-700); }
 .hover\:text-primary-600:hover { color: var(--color-primary-600); }
 .hover\:text-white:hover { color: #fff; }
+.hover\:underline:hover { text-decoration: underline; }
 
 /* ========================================
    Cursor Utilities
