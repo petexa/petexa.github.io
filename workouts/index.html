@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workouts | Iron & Ale</title>
+  <meta name="description" content="Browse CrossFit workouts, view the Workout of the Day (WOD), pin your favorites, and explore our workout library.">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WW47GEZS2M');
+  </script>
+  <style>
+    /* Workout-specific styles */
+    .workout-tile {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--card-border);
+      padding: var(--space-5);
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .workout-tile:hover {
+      border-color: var(--color-primary-300);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .theme-dark .workout-tile:hover {
+      border-color: var(--color-primary-500);
+    }
+
+    .workout-tile:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    .workout-tile[aria-expanded="true"] {
+      border-color: var(--color-primary-400);
+    }
+
+    .workout-tile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .workout-tile-title {
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 var(--space-2) 0;
+    }
+
+    .workout-tile-meta {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      margin-bottom: var(--space-3);
+    }
+
+    .workout-tile-desc {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      line-height: var(--leading-relaxed);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .workout-tile-details {
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+
+    .workout-tile[aria-expanded="true"] .workout-tile-details {
+      display: block;
+    }
+
+    .workout-detail-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .workout-detail-label {
+      font-weight: 600;
+      color: var(--text);
+      min-width: 140px;
+      font-size: var(--text-sm);
+    }
+
+    .workout-detail-value {
+      color: var(--text-secondary);
+      font-size: var(--text-sm);
+      flex: 1;
+    }
+
+    .pin-btn {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .pin-btn:hover {
+      background: var(--bg-alt);
+      color: var(--text);
+    }
+
+    .pin-btn:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    .pin-btn[aria-pressed="true"] {
+      background: var(--color-secondary-500);
+      border-color: var(--color-secondary-500);
+      color: white;
+    }
+
+    .pin-btn[aria-pressed="true"]:hover {
+      background: var(--color-secondary-600);
+    }
+
+    .workout-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1) var(--space-2);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-wod {
+      background: var(--color-primary-100);
+      color: var(--color-primary-700);
+    }
+
+    .theme-dark .badge-wod {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--color-primary-300);
+    }
+
+    .badge-pinned {
+      background: var(--color-secondary-100);
+      color: var(--color-secondary-700);
+    }
+
+    .theme-dark .badge-pinned {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--color-secondary-300);
+    }
+
+    .badge-random {
+      background: var(--color-gray-100);
+      color: var(--color-gray-600);
+    }
+
+    .theme-dark .badge-random {
+      background: var(--color-gray-700);
+      color: var(--color-gray-300);
+    }
+
+    .wod-section {
+      background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 100%);
+      color: white;
+      padding: var(--space-8);
+      border-radius: var(--radius-xl);
+      margin-bottom: var(--space-8);
+    }
+
+    .wod-section .workout-tile {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .wod-section .workout-tile:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .wod-section .workout-tile-title,
+    .wod-section .workout-detail-label {
+      color: white;
+    }
+
+    .wod-section .workout-tile-meta,
+    .wod-section .workout-tile-desc,
+    .wod-section .workout-detail-value {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .wod-section .workout-tile-details {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .wod-section .pin-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    .wod-section .pin-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .wod-section .pin-btn[aria-pressed="true"] {
+      background: var(--color-secondary-500);
+      border-color: var(--color-secondary-500);
+    }
+
+    .section-title {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .section-title-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .workout-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      .workout-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .workout-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--space-8);
+      color: var(--text-muted);
+    }
+
+    .pin-limit-alert {
+      position: fixed;
+      bottom: var(--space-6);
+      right: var(--space-6);
+      background: var(--color-danger-600);
+      color: white;
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      z-index: 1000;
+      animation: slideIn 0.3s ease-out;
+      max-width: 300px;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .clear-pins-btn {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      margin-left: var(--space-4);
+    }
+
+    .clear-pins-btn:hover {
+      color: var(--text);
+    }
+
+    .external-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .external-link-icon {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    /* Noscript fallback styling */
+    .noscript-list .workout-tile {
+      margin-bottom: var(--space-4);
+    }
+
+    .noscript-list .workout-tile-details {
+      display: block;
+    }
+
+    /* Visually hidden for screen readers */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="site-wrapper">
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <svg class="sidebar-nav-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+          <span>Iron & Ale</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="../about/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>About</span>
+        </a>
+        <a href="../workouts/" class="sidebar-nav-item active" aria-current="page">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span>Workouts</span>
+        </a>
+        <a href="../utilities/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Utilities</span>
+        </a>
+        <a href="../events.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Events</span>
+        </a>
+        <a href="../projects.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span>Projects</span>
+        </a>
+        <a href="../admin.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+          <span>Admin</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="text-sm text-gray-400">&copy; <span id="sidebar-year">2024</span> Iron & Ale</p>
+      </div>
+    </aside>
+
+    <!-- Overlay for mobile sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Mobile Header -->
+      <header class="top-header">
+        <a href="../index.html" class="font-bold text-lg text-gray-900">Iron & Ale</a>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </header>
+
+      <main id="main-content" role="main">
+        <div class="page-container">
+          <!-- Page Header -->
+          <header class="page-header">
+            <h1 class="page-title">Workouts</h1>
+            <p class="page-subtitle">Browse our workout library, pin your favorites, and check the Workout of the Day</p>
+          </header>
+
+          <!-- Noscript fallback content -->
+          <noscript>
+            <div class="alert alert-info mb-6">
+              <p>JavaScript is disabled. Showing static workout list. Enable JavaScript for full functionality including WOD, pinning, and random workouts.</p>
+            </div>
+            <section aria-labelledby="static-workouts-title">
+              <h2 id="static-workouts-title" class="section-title">Workout Library</h2>
+              <div class="noscript-list" id="noscript-workouts">
+                <!-- Static content will be loaded here for no-JS users -->
+                <p class="text-muted">Loading workouts...</p>
+              </div>
+            </section>
+          </noscript>
+
+          <!-- Dynamic content (JavaScript required) -->
+          <div id="workouts-app">
+            <!-- WOD Section -->
+            <section class="wod-section" aria-labelledby="wod-title" id="wod-section">
+              <h2 id="wod-title" class="text-2xl font-bold mb-2">
+                <span class="inline-flex items-center gap-2">
+                  <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                  </svg>
+                  Workout of the Day
+                </span>
+              </h2>
+              <p class="text-sm opacity-80 mb-4">Same workout all day, changes at midnight UTC</p>
+              <div id="wod-container" aria-live="polite">
+                <div class="empty-state">Loading WOD...</div>
+              </div>
+            </section>
+
+            <!-- Pinned Section -->
+            <section class="mb-8" aria-labelledby="pinned-title" id="pinned-section" style="display: none;">
+              <h2 id="pinned-title" class="section-title">
+                <svg class="section-title-icon text-secondary-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/>
+                </svg>
+                Pinned Workouts
+                <span id="pinned-count" class="badge badge-warning ml-2">0/3</span>
+                <button type="button" class="clear-pins-btn" id="clear-pins-btn" aria-label="Clear all pinned workouts">Clear all</button>
+              </h2>
+              <div id="pinned-container" class="workout-grid" aria-live="polite">
+                <!-- Pinned workouts rendered here -->
+              </div>
+            </section>
+
+            <!-- Random Section -->
+            <section class="mb-8" aria-labelledby="random-title">
+              <h2 id="random-title" class="section-title">
+                <svg class="section-title-icon text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Explore Workouts
+                <span class="text-sm font-normal text-muted ml-2">(6 random picks, refreshes on reload)</span>
+              </h2>
+              <div id="random-container" class="workout-grid" aria-live="polite">
+                <div class="empty-state">Loading workouts...</div>
+              </div>
+            </section>
+          </div>
+
+          <!-- External Timer Link -->
+          <section class="mt-12 pt-8 border-t border-gray-200" aria-labelledby="timer-link-title">
+            <h2 id="timer-link-title" class="section-title">
+              <svg class="section-title-icon text-secondary-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              Timer Tools
+            </h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <a href="../utilities/crossfit-timer/" class="tool-card">
+                <div class="tool-card-icon bg-secondary-100 text-secondary-600" aria-hidden="true">⏱️</div>
+                <h3 class="tool-card-title">Iron & Ale Timer</h3>
+                <p class="tool-card-desc">Use our built-in CrossFit timer with EMOM, Tabata, AMRAP, and For Time modes.</p>
+              </a>
+              <a href="https://www.crossfit.com" target="_blank" rel="noopener noreferrer" class="tool-card external-link">
+                <div class="tool-card-icon bg-danger-100 text-danger-600" aria-hidden="true">🏋️</div>
+                <h3 class="tool-card-title">
+                  Crossfit Timers
+                  <svg class="external-link-icon inline ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                  </svg>
+                </h3>
+                <p class="tool-card-desc">Visit CrossFit.com for official timers, workout resources, and training guides.</p>
+              </a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 px-6 mt-12" role="contentinfo">
+          <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+              <div class="flex items-center gap-3">
+                <svg class="sidebar-nav-icon text-primary-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+                </svg>
+                <span class="font-semibold">Iron & Ale</span>
+              </div>
+              
+              <p class="text-sm text-gray-400">
+                &copy; <span id="footer-year">2024</span> Iron & Ale. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- Alert container for accessibility announcements -->
+  <div id="alert-container" role="alert" aria-live="assertive" class="sr-only"></div>
+
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/workouts.js"></script>
+  <script>
+    const currentYear = new Date().getFullYear();
+    document.getElementById('footer-year').textContent = currentYear;
+    document.getElementById('sidebar-year').textContent = currentYear;
+  </script>
+</body>
+</html>
