@@ -288,6 +288,32 @@
                   </div>
                   <div id="pb-json-table"></div>
                   <div id="pb-json-error" style="display:none;text-align:center;padding:16px;background:rgba(255,85,85,0.1);border:2px solid #ff5555;border-radius:8px;color:#ff5555;margin-top:12px;" role="alert"></div>
+                  <script>
+                    // Auto-load PB Matrix from new endpoint
+                    document.addEventListener('DOMContentLoaded', function() {
+                      const loading = document.getElementById('pb-json-loading');
+                      const tableContainer = document.getElementById('pb-json-table');
+                      const errorDiv = document.getElementById('pb-json-error');
+                      const url = 'https://script.google.com/macros/s/AKfycbwgMZKTvpxCDs_e-ByAyr-A4NtwzWDWoP3khUtQk5OeFIP8aPF9ST3qlMYRORp-zcVaCQ/exec?format=json';
+                      loading.style.display = 'block';
+                      tableContainer.innerHTML = '';
+                      errorDiv.style.display = 'none';
+                      fetch(url)
+                        .then(response => {
+                          if (!response.ok) throw new Error('Network response was not ok');
+                          return response.json();
+                        })
+                        .then(data => {
+                          loading.style.display = 'none';
+                          renderPBMatrixTable(data);
+                        })
+                        .catch(error => {
+                          loading.style.display = 'none';
+                          errorDiv.style.display = 'block';
+                          errorDiv.textContent = 'Failed to load PB data: ' + error.message;
+                        });
+                    });
+                  </script>
                 </div>
               </div>
             </div>
