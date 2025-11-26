@@ -192,7 +192,11 @@
                 <h3 class="event-title" style="margin-bottom:18px;text-align:center;">Log Workout</h3>
                 <form id="workout-form" style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:500px;margin:0 auto;">
                   <div style="display:flex;flex-direction:column;gap:8px;">
-                    <label for="workout-exercise" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Exercise:</label>
+                    <label for="workout-name" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Your Name: <span style="color:#ff5555;">*</span></label>
+                    <input type="text" id="workout-name" placeholder="Enter your name" required style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Your name" />
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;">
+                    <label for="workout-exercise" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Exercise: <span style="color:#ff5555;">*</span></label>
                     <select id="workout-exercise" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;font-family:'Orbitron',Arial,sans-serif;" aria-label="Select exercise">
                       <option value="">-- Select Exercise --</option>
                       <option value="bench-press">Bench Press</option>
@@ -239,11 +243,16 @@
                     <label for="workout-notes" style="color:#fff;font-family:'Orbitron',Arial,sans-serif;">Notes (form cues, RPE, tempo):</label>
                     <textarea id="workout-notes" rows="3" style="padding:12px;border-radius:6px;border:2px solid #fff;background:#222;color:#fff;font-size:1rem;font-family:Arial,sans-serif;resize:vertical;" placeholder="e.g., RPE 8, controlled tempo, good form" aria-label="Workout notes"></textarea>
                   </div>
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,184,77,0.1);border:2px solid #ffb84d;border-radius:8px;">
+                    <input type="checkbox" id="workout-pr-checkbox" style="width:24px;height:24px;accent-color:#ffb84d;cursor:pointer;" aria-label="Mark as personal record" />
+                    <label for="workout-pr-checkbox" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;cursor:pointer;">🏆 Personal Record (PR)?</label>
+                  </div>
                   <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
-                    <button type="button" class="neon-btn neon-btn-blue" onclick="saveWorkout()" aria-label="Save workout entry" style="flex:1;min-width:120px;">Save Entry</button>
+                    <button type="button" class="neon-btn neon-btn-blue" id="save-workout-btn" onclick="saveWorkout()" aria-label="Save workout entry" style="flex:1;min-width:120px;">Save Entry</button>
                     <button type="button" class="neon-btn neon-btn-yellow" onclick="exportWorkouts()" aria-label="Export workouts as CSV" style="flex:1;min-width:120px;">Export CSV</button>
                   </div>
                 </form>
+                <div id="workout-submit-message" style="margin-top:16px;padding:12px;border-radius:8px;font-family:'Orbitron',Arial,sans-serif;text-align:center;display:none;" role="alert" aria-live="polite"></div>
                 <div id="workout-pr-message" style="margin-top:16px;padding:12px;border-radius:8px;background:rgba(57,255,20,0.1);border:2px solid #39ff14;color:#39ff14;font-family:'Orbitron',Arial,sans-serif;text-align:center;display:none;" role="alert" aria-live="assertive">
                   🏆 NEW PERSONAL RECORD! 🏆
                 </div>
@@ -883,61 +892,162 @@
       }
     }
 
-    function saveWorkout() {
+    // Generate UUID v4 for workout entries
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    // n8n Webhook configuration - future-proof for multiple endpoints
+    const N8N_WEBHOOKS = {
+      'workout-log': 'https://n8n.petefox.co.uk/webhook/workout-log',
+      'milestone': 'https://n8n.petefox.co.uk/webhook/milestone',
+      'checkin': 'https://n8n.petefox.co.uk/webhook/checkin'
+    };
+
+    async function submitToWebhook(endpoint, data) {
+      const url = N8N_WEBHOOKS[endpoint];
+      if (!url) {
+        console.error('Unknown webhook endpoint:', endpoint);
+        return { success: false, error: 'Unknown endpoint' };
+      }
+      
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        
+        return { success: response.ok, response };
+      } catch (error) {
+        console.error('Webhook submission error:', error);
+        return { success: false, error: error.message };
+      }
+    }
+
+    async function saveWorkout() {
+      const name = document.getElementById('workout-name').value.trim();
       const exercise = document.getElementById('workout-exercise').value;
       const date = document.getElementById('workout-date').value;
       const sets = parseInt(document.getElementById('workout-sets').value);
       const reps = parseInt(document.getElementById('workout-reps').value);
       const weight = parseFloat(document.getElementById('workout-weight').value);
       const notes = document.getElementById('workout-notes').value;
+      const prCheckbox = document.getElementById('workout-pr-checkbox');
+      const isPRManual = prCheckbox ? prCheckbox.checked : false;
+      
+      const submitMessage = document.getElementById('workout-submit-message');
+      const saveBtn = document.getElementById('save-workout-btn');
 
-      if (!exercise || !date || !sets || !reps || weight < 0) {
+      // Validation - include name as required
+      if (!name || !exercise || !date || !sets || !reps || weight < 0) {
         showToast('Please fill in all required fields');
         return;
       }
 
-      // Get existing workouts
+      // Get existing workouts for local storage
       const workouts = JSON.parse(localStorage.getItem('ironAleWorkouts') || '[]');
       
-      // Check for PR
+      // Check for PR (auto-detect or manual)
       const exerciseWorkouts = workouts.filter(w => w.exercise === exercise);
-      const isPR = exerciseWorkouts.length === 0 || 
+      const isAutoPR = exerciseWorkouts.length === 0 || 
                    exerciseWorkouts.every(w => w.weight < weight);
+      const isPR = isPRManual || isAutoPR;
 
-      // Create workout entry
+      // Create workout entry with UUID
       const workout = {
-        id: Date.now(),
-        exercise,
+        id: generateUUID(),
         date,
+        exercise,
         sets,
         reps,
         weight,
-        unit: workoutUnit,
+        unit: workoutUnit === 'lb' ? 'lbs' : 'kg',
         notes,
-        isPR
+        pr: isPR ? 'YES' : 'NO',
+        name
       };
 
-      // Save to localStorage
-      workouts.push(workout);
+      // Show loading state
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving...';
+      }
+      if (submitMessage) {
+        submitMessage.style.display = 'block';
+        submitMessage.style.background = 'rgba(25,186,255,0.1)';
+        submitMessage.style.border = '2px solid #19baff';
+        submitMessage.style.color = '#19baff';
+        submitMessage.textContent = 'Submitting workout...';
+      }
+
+      // Submit to n8n webhook
+      const webhookResult = await submitToWebhook('workout-log', workout);
+
+      // Save to localStorage (always, regardless of webhook success)
+      const localWorkout = {
+        ...workout,
+        isPR: isPR  // Keep boolean for local storage compatibility
+      };
+      workouts.push(localWorkout);
       localStorage.setItem('ironAleWorkouts', JSON.stringify(workouts));
+
+      // Reset button state
+      if (saveBtn) {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Entry';
+      }
+
+      // Show result message
+      if (webhookResult.success) {
+        if (submitMessage) {
+          submitMessage.style.background = 'rgba(57,255,20,0.1)';
+          submitMessage.style.border = '2px solid #39ff14';
+          submitMessage.style.color = '#39ff14';
+          submitMessage.textContent = '✅ Workout logged successfully! Keep crushing it! 💪';
+          setTimeout(() => {
+            submitMessage.style.display = 'none';
+          }, 5000);
+        }
+        showToast('Workout saved & synced!');
+      } else {
+        if (submitMessage) {
+          submitMessage.style.background = 'rgba(255,184,77,0.1)';
+          submitMessage.style.border = '2px solid #ffb84d';
+          submitMessage.style.color = '#ffb84d';
+          submitMessage.textContent = '⚠️ Saved locally. Sync failed - check your connection.';
+          setTimeout(() => {
+            submitMessage.style.display = 'none';
+          }, 5000);
+        }
+        showToast('Saved locally (sync pending)');
+      }
 
       // Show PR message if applicable
       if (isPR) {
         const prMessage = document.getElementById('workout-pr-message');
-        prMessage.style.display = 'block';
-        setTimeout(() => {
-          prMessage.style.display = 'none';
-        }, 5000);
+        if (prMessage) {
+          prMessage.style.display = 'block';
+          setTimeout(() => {
+            prMessage.style.display = 'none';
+          }, 5000);
+        }
       }
 
-      // Show success message
-      showToast('Workout saved successfully!');
-
-      // Reset form
+      // Reset form but keep name
+      const savedName = document.getElementById('workout-name').value;
       document.getElementById('workout-sets').value = '3';
       document.getElementById('workout-reps').value = '10';
       document.getElementById('workout-weight').value = '60';
       document.getElementById('workout-notes').value = '';
+      if (prCheckbox) prCheckbox.checked = false;
+      document.getElementById('workout-name').value = savedName;
 
       // Update stats
       updateStats();
