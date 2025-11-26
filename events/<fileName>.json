@@ -1,0 +1,5 @@
+{
+  "filePath": "events/test-2025-11-27-1764198040472.json",
+  "fileContent": "{\n  \"name\": \"test\",\n  \"date\": \"2025-11-27T23:00:00\",\n  \"link\": \"\",\n  \"image\": \"images/default.png\",\n  \"description\": \"\",\n  \"calendarDetails\": {\n    \"location\": \"Test\",\n    \"description\": \"\",\n    \"durationHours\": 4\n  },\n  \"showMoreInfo\": true,\n  \"showBookNow\": false,\n  \"showRemindMe\": true\n}",
+  "commitMessage": "Create new event: test-2025-11-27-1764198040472.json"
+}
