@@ -26,23 +26,27 @@
       </section>
       <div class="utility-card" style="max-width:500px;margin:32px auto;">
         <form id="webhook-test-form" style="display:flex;flex-direction:column;gap:16px;">
-          <input type="text" id="test-name" placeholder="Name" required style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
-          <input type="text" id="test-exercise" placeholder="Exercise" required style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
-          <input type="date" id="test-date" required style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
-          <input type="number" id="test-sets" placeholder="Sets" min="1" required style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
-          <input type="number" id="test-reps" placeholder="Reps" min="1" required style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
-          <input type="number" id="test-weight" placeholder="Weight" min="0" required style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
-          <textarea id="test-notes" placeholder="Notes" rows="2" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;"></textarea>
+          <input type="text" id="test-name" placeholder="Name" required value="Test User" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
+          <input type="text" id="test-exercise" placeholder="Exercise" required value="Bench Press" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
+          <input type="date" id="test-date" required value="2025-11-26" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
+          <input type="number" id="test-sets" placeholder="Sets" min="1" required value="3" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
+          <input type="number" id="test-reps" placeholder="Reps" min="1" required value="10" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
+          <input type="number" id="test-weight" placeholder="Weight" min="0" required value="60" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">
+          <textarea id="test-notes" placeholder="Notes" rows="2" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;">Sample test data for webhook</textarea>
           <button type="button" class="neon-btn neon-btn-blue" onclick="sendWebhookTest()">Send Test to Webhook</button>
         </form>
         <div id="webhook-test-result" style="margin-top:18px;text-align:center;color:#fff;font-family:'Orbitron',Arial,sans-serif;"></div>
+        <div id="webhook-test-log" style="margin-top:18px;text-align:left;color:#ff5555;font-family:'Orbitron',Arial,sans-serif;background:#222;padding:12px;border-radius:8px;display:none;"></div>
       </div>
     </main>
   </div>
   <script>
     function sendWebhookTest() {
       const result = document.getElementById('webhook-test-result');
+      const log = document.getElementById('webhook-test-log');
       result.textContent = '';
+      log.style.display = 'none';
+      log.textContent = '';
       const data = {
         name: document.getElementById('test-name').value,
         exercise: document.getElementById('test-exercise').value,
@@ -57,12 +61,21 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       })
-      .then(res => res.ok ? res.text() : Promise.reject(res))
+      .then(res => {
+        if (!res.ok) {
+          log.style.display = 'block';
+          log.textContent = 'HTTP Error: ' + res.status + ' ' + res.statusText;
+          throw new Error('HTTP Error: ' + res.status);
+        }
+        return res.text();
+      })
       .then(text => {
         result.textContent = 'Webhook sent! Response: ' + text;
         result.style.color = '#39ff14';
       })
       .catch(err => {
+        log.style.display = 'block';
+        log.textContent += '\n' + (err.message || err);
         result.textContent = 'Error sending webhook.';
         result.style.color = '#ff5555';
       });
