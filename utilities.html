@@ -1449,8 +1449,10 @@
 
     function refreshPBMatrix() {
       const iframe = document.getElementById('pb-matrix-iframe');
-      if (iframe.src) {
-        iframe.src = iframe.src;
+      if (iframe.src && iframe.src !== 'about:blank') {
+        // Use cache-busting parameter for reliable refresh
+        const baseUrl = iframe.src.split('?')[0];
+        iframe.src = baseUrl + '?_=' + Date.now();
         showToast('Refreshing PB Matrix...');
       }
     }
@@ -1489,8 +1491,16 @@
         return;
       }
 
-      // Add format=json parameter
-      const jsonUrl = url.includes('?') ? url + '&format=json' : url + '?format=json';
+      // Add format=json parameter using URL constructor for robust handling
+      let jsonUrl;
+      try {
+        const urlObj = new URL(url);
+        urlObj.searchParams.set('format', 'json');
+        jsonUrl = urlObj.toString();
+      } catch (e) {
+        // Fallback for invalid URL
+        jsonUrl = url.includes('?') ? url + '&format=json' : url + '?format=json';
+      }
 
       // Show loading
       loading.style.display = 'block';
@@ -1568,9 +1578,18 @@
     }
 
     function isValidWebAppUrl(url) {
-      // Basic validation for Google Apps Script Web App URLs
-      return url.startsWith('https://script.google.com/') || 
-             url.startsWith('https://script.googleusercontent.com/');
+      // Robust validation for Google Apps Script Web App URLs
+      try {
+        const urlObj = new URL(url);
+        // Check protocol is HTTPS and host matches Google Apps Script domains
+        if (urlObj.protocol !== 'https:') {
+          return false;
+        }
+        const validHosts = ['script.google.com', 'script.googleusercontent.com'];
+        return validHosts.includes(urlObj.hostname);
+      } catch (e) {
+        return false;
+      }
     }
 
     // Initialize PB Matrix on page load
