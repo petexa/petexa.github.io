@@ -281,7 +281,6 @@
                 <p style="color:#888;text-align:center;margin-bottom:16px;font-size:0.9rem;">
                   View the maximum weight lifted for each member and exercise. Data is synced from the community workout logs.
                 </p>
-<<<<<<< HEAD
                 <!-- Display Mode Toggle -->
                 <div id="pb-display-mode" style="display:flex;justify-content:center;gap:12px;margin-bottom:16px;">
                   <button type="button" class="neon-btn neon-btn-blue" id="pb-mode-embed" onclick="setPBDisplayMode('embed')" aria-pressed="true">Embedded View</button>
@@ -297,8 +296,7 @@
                     </p>
                     <input type="text" id="pb-webapp-url" placeholder="https://script.google.com/macros/s/.../exec" 
                       style="width:100%;max-width:500px;padding:12px;border-radius:6px;border:2px solid #19baff;background:#111;color:#fff;font-size:0.9rem;margin-bottom:12px;" 
-                      aria-label="Web App URL" 
-                      value="https://script.google.com/macros/s/AKfycbzFslB8yDXO8G9ClvbFZX5q8URyvVSQa7R6mfnWpl2a7Cy4gxIRugOzkO4t4o7WlX_jOw/exec" />
+                      aria-label="Web App URL" value="https://script.google.com/macros/s/AKfycbzFslB8yDXO8G9ClvbFZX5q8URyvVSQa7R6mfnWpl2a7Cy4gxIRugOzkO4t4o7WlX_jOw/exec" />
                     <br>
                     <button type="button" class="neon-btn neon-btn-blue" onclick="loadPBMatrix()" aria-label="Load PB Matrix">Load PB Matrix</button>
                     <button type="button" class="neon-btn neon-btn-yellow" onclick="savePBWebAppUrl()" style="margin-left:8px;" aria-label="Save URL">Save URL</button>
@@ -329,19 +327,10 @@
                     </p>
                     <input type="text" id="pb-json-webapp-url" placeholder="https://script.google.com/macros/s/.../exec" 
                       style="width:100%;max-width:500px;padding:12px;border-radius:6px;border:2px solid #19baff;background:#111;color:#fff;font-size:0.9rem;margin-bottom:12px;" 
-                      aria-label="Web App URL for JSON" 
-                      value="https://script.google.com/macros/s/AKfycbzFslB8yDXO8G9ClvbFZX5q8URyvVSQa7R6mfnWpl2a7Cy4gxIRugOzkO4t4o7WlX_jOw/exec" />
+                      aria-label="Web App URL for JSON" value="https://script.google.com/macros/s/AKfycbzFslB8yDXO8G9ClvbFZX5q8URyvVSQa7R6mfnWpl2a7Cy4gxIRugOzkO4t4o7WlX_jOw/exec" />
                     <br>
                     <button type="button" class="neon-btn neon-btn-blue" onclick="fetchPBMatrixJSON()" aria-label="Fetch PB Data">Fetch PB Data</button>
                   </div>
-=======
-                <!-- Dynamic Table View -->
-                <div id="pb-json-view">
-                  <div id="pb-json-loading" style="text-align:center;padding:20px;color:#888;display:none;" role="status" aria-live="polite">
-                    <span style="font-size:1.5rem;">⏳</span> Loading Personal Bests...
-                  </div>
-                  <div id="pb-json-table"></div>
->>>>>>> 2f62ef7c0bc947326f8125ff4b837d57b334ce5f
                   <div id="pb-json-error" style="display:none;text-align:center;padding:16px;background:rgba(255,85,85,0.1);border:2px solid #ff5555;border-radius:8px;color:#ff5555;margin-top:12px;" role="alert"></div>
                 </div>
               </div>
@@ -1377,24 +1366,139 @@
     });
 
     // PB Matrix Functions
+    let pbDisplayMode = 'embed';
+
+    function setPBDisplayMode(mode) {
+      pbDisplayMode = mode;
+      const embedBtn = document.getElementById('pb-mode-embed');
+      const jsonBtn = document.getElementById('pb-mode-json');
+      const embedView = document.getElementById('pb-embed-view');
+      const jsonView = document.getElementById('pb-json-view');
+
+      if (mode === 'embed') {
+        embedBtn.style.opacity = '1';
+        embedBtn.setAttribute('aria-pressed', 'true');
+        jsonBtn.style.opacity = '0.5';
+        jsonBtn.setAttribute('aria-pressed', 'false');
+        embedView.style.display = 'block';
+        jsonView.style.display = 'none';
+      } else {
+        jsonBtn.style.opacity = '1';
+        jsonBtn.setAttribute('aria-pressed', 'true');
+        embedBtn.style.opacity = '0.5';
+        embedBtn.setAttribute('aria-pressed', 'false');
+        embedView.style.display = 'none';
+        jsonView.style.display = 'block';
+        // Sync URL if available
+        const savedUrl = localStorage.getItem('pbMatrixWebAppUrl');
+        if (savedUrl) {
+          document.getElementById('pb-json-webapp-url').value = savedUrl;
+        }
+      }
+    }
+
+    function loadPBMatrix() {
+      const urlInput = document.getElementById('pb-webapp-url');
+      const url = urlInput.value.trim();
+
+      if (!url) {
+        showToast('Please enter a Web App URL');
+        urlInput.focus();
+        return;
+      }
+
+      if (!isValidWebAppUrl(url)) {
+        showToast('Please enter a valid Google Apps Script Web App URL');
+        urlInput.focus();
+        return;
+      }
+
+      const iframe = document.getElementById('pb-matrix-iframe');
+      const placeholder = document.getElementById('pb-iframe-placeholder');
+      const container = document.getElementById('pb-iframe-container');
+
+      iframe.src = url;
+      placeholder.style.display = 'none';
+      container.style.display = 'block';
+    }
+
+    function savePBWebAppUrl() {
+      const urlInput = document.getElementById('pb-webapp-url');
+      const url = urlInput.value.trim();
+
+      if (!url) {
+        showToast('Please enter a URL first');
+        return;
+      }
+
+      if (!isValidWebAppUrl(url)) {
+        showToast('Please enter a valid Google Apps Script Web App URL');
+        return;
+      }
+
+      localStorage.setItem('pbMatrixWebAppUrl', url);
+      loadPBMatrix();
+      showToast('URL saved successfully!');
+    }
+
+    function refreshPBMatrix() {
+      const iframe = document.getElementById('pb-matrix-iframe');
+      if (iframe.src && iframe.src !== 'about:blank') {
+        // Use cache-busting parameter for reliable refresh
+        const baseUrl = iframe.src.split('?')[0];
+        iframe.src = baseUrl + '?_=' + Date.now();
+        showToast('Refreshing PB Matrix...');
+      }
+    }
+
+    function clearPBWebAppUrl() {
+      localStorage.removeItem('pbMatrixWebAppUrl');
+      const placeholder = document.getElementById('pb-iframe-placeholder');
+      const container = document.getElementById('pb-iframe-container');
+      const urlInput = document.getElementById('pb-webapp-url');
+      const iframe = document.getElementById('pb-matrix-iframe');
+
+      iframe.src = '';
+      urlInput.value = '';
+      placeholder.style.display = 'block';
+      container.style.display = 'none';
+      showToast('URL cleared');
+    }
+
     function fetchPBMatrixJSON() {
+      const urlInput = document.getElementById('pb-json-webapp-url');
+      const url = urlInput.value.trim();
       const loading = document.getElementById('pb-json-loading');
       const tableContainer = document.getElementById('pb-json-table');
+      const placeholder = document.getElementById('pb-json-placeholder');
       const errorDiv = document.getElementById('pb-json-error');
+
+      if (!url) {
+        showToast('Please enter a Web App URL');
+        urlInput.focus();
+        return;
+      }
+
+      if (!isValidWebAppUrl(url)) {
+        showToast('Please enter a valid Google Apps Script Web App URL');
+        urlInput.focus();
+        return;
+      }
 
       // Add format=json parameter using URL constructor for robust handling
       let jsonUrl;
       try {
-        const urlObj = new URL(DEFAULT_PB_MATRIX_URL);
+        const urlObj = new URL(url);
         urlObj.searchParams.set('format', 'json');
         jsonUrl = urlObj.toString();
       } catch (e) {
         // Fallback for invalid URL
-        jsonUrl = DEFAULT_PB_MATRIX_URL.includes('?') ? DEFAULT_PB_MATRIX_URL + '&format=json' : DEFAULT_PB_MATRIX_URL + '?format=json';
+        jsonUrl = url.includes('?') ? url + '&format=json' : url + '?format=json';
       }
 
       // Show loading
       loading.style.display = 'block';
+      placeholder.style.display = 'none';
       tableContainer.innerHTML = '';
       errorDiv.style.display = 'none';
 
@@ -1407,6 +1511,7 @@
         })
         .then(data => {
           loading.style.display = 'none';
+          localStorage.setItem('pbMatrixWebAppUrl', url);
           renderPBMatrixTable(data);
         })
         .catch(error => {
@@ -1481,13 +1586,25 @@
       }
     }
 
-    // Default PB Matrix Web App URL (deployed Google Apps Script)
-    const DEFAULT_PB_MATRIX_URL = 'https://script.google.com/macros/s/AKfycbwHGaQOspZW-8nIrB9hdhZT-XcxZeVxt4hjqOGUFkgdpPo6V2Yy1qAOGOfpdg5H_bzSlQ/exec';
-
-    // Initialize PB Matrix on page load - auto-fetch data
+    // Initialize PB Matrix on page load
     document.addEventListener('DOMContentLoaded', function() {
-      // Auto-fetch the PB Matrix data when page loads
-      fetchPBMatrixJSON();
+      const savedUrl = localStorage.getItem('pbMatrixWebAppUrl');
+      if (savedUrl) {
+        const urlInput = document.getElementById('pb-webapp-url');
+        const jsonUrlInput = document.getElementById('pb-json-webapp-url');
+        if (urlInput) urlInput.value = savedUrl;
+        if (jsonUrlInput) jsonUrlInput.value = savedUrl;
+        
+        // Auto-load the iframe if URL is saved
+        const iframe = document.getElementById('pb-matrix-iframe');
+        const placeholder = document.getElementById('pb-iframe-placeholder');
+        const container = document.getElementById('pb-iframe-container');
+        if (iframe && placeholder && container) {
+          iframe.src = savedUrl;
+          placeholder.style.display = 'none';
+          container.style.display = 'block';
+        }
+      }
     });
   </script>
 </body>
