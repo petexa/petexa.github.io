@@ -1,0 +1,15 @@
+{
+  "name": "Christmas",
+  "date": "2025-11-26T00:53:00",
+  "link": "https://chatgpt.com/",
+  "image": "images/default.png",
+  "description": "",
+  "calendarDetails": {
+    "location": "Lap Land",
+    "description": "",
+    "durationHours": 4
+  },
+  "showMoreInfo": true,
+  "showBookNow": false,
+  "showRemindMe": true
+}
