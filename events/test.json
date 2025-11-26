@@ -1,0 +1,15 @@
+{
+  "name": "test",
+  "date": "2025-11-29T22:14:00",
+  "link": "",
+  "image": "images/default.png",
+  "description": "",
+  "calendarDetails": {
+    "location": "test",
+    "description": "",
+    "durationHours": 4
+  },
+  "showMoreInfo": true,
+  "showBookNow": false,
+  "showRemindMe": true
+}
