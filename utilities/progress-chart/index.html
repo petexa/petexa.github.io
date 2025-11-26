@@ -117,14 +117,35 @@
               <label for="chart-exercise" class="form-label">Select Exercise to View</label>
               <select id="chart-exercise" class="form-select max-w-md" onchange="updateChart()">
                 <option value="">All Exercises</option>
-                <option value="bench-press">Bench Press</option>
-                <option value="back-squat">Back Squat</option>
-                <option value="front-squat">Front Squat</option>
-                <option value="deadlift">Deadlift</option>
-                <option value="overhead-press">Overhead Press</option>
-                <option value="barbell-row">Barbell Row</option>
-                <option value="clean-and-jerk">Clean & Jerk</option>
-                <option value="snatch">Snatch</option>
+                <optgroup label="Compound Lifts">
+                  <option value="bench-press">Bench Press</option>
+                  <option value="incline-bench">Incline Bench Press</option>
+                  <option value="back-squat">Back Squat</option>
+                  <option value="front-squat">Front Squat</option>
+                  <option value="deadlift">Deadlift</option>
+                  <option value="romanian-deadlift">Romanian Deadlift</option>
+                  <option value="overhead-press">Overhead Press</option>
+                  <option value="barbell-row">Barbell Row</option>
+                </optgroup>
+                <optgroup label="Olympic Lifts">
+                  <option value="clean-and-jerk">Clean & Jerk</option>
+                  <option value="snatch">Snatch</option>
+                  <option value="power-clean">Power Clean</option>
+                </optgroup>
+                <optgroup label="Accessories">
+                  <option value="pullups">Pull-ups/Chin-ups</option>
+                  <option value="dips">Dips</option>
+                  <option value="bicep-curl">Bicep Curl</option>
+                  <option value="tricep-extension">Tricep Extension</option>
+                  <option value="lunges">Lunges</option>
+                  <option value="hip-thrust">Hip Thrust</option>
+                </optgroup>
+                <optgroup label="Cardio">
+                  <option value="row-erg">Row Erg</option>
+                  <option value="ski-erg">Ski Erg</option>
+                  <option value="bike-erg">Bike Erg</option>
+                  <option value="running">Running</option>
+                </optgroup>
               </select>
             </div>
           </div>
@@ -141,6 +162,23 @@
               <p id="no-data-message" class="text-center text-gray-500 py-8 hidden">
                 No workout data found. <a href="../workout-tracker/" class="text-primary-600 underline">Start tracking your workouts</a> to see your progress!
               </p>
+            </div>
+          </div>
+
+          <!-- Related Tools -->
+          <div class="mt-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Related Tools</h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <a href="../workout-tracker/" class="tool-card">
+                <div class="tool-card-icon" aria-hidden="true">📝</div>
+                <h3 class="tool-card-title">Workout Tracker</h3>
+                <p class="tool-card-desc">Log your workouts and track your progress over time.</p>
+              </a>
+              <a href="../../pb-matrix.html" class="tool-card">
+                <div class="tool-card-icon bg-secondary-100 text-secondary-600" aria-hidden="true">🏆</div>
+                <h3 class="tool-card-title">Personal Bests Matrix</h3>
+                <p class="tool-card-desc">View the community PB leaderboard for all exercises.</p>
+              </a>
             </div>
           </div>
         </div>
@@ -160,7 +198,13 @@
   <script src="../../assets/js/app.js"></script>
   <script>
     const STORAGE_KEY = 'ironale_workouts';
+    const CARDIO_EXERCISES = ['row-erg', 'ski-erg', 'bike-erg', 'running'];
     let progressChart = null;
+
+    // Check if exercise is cardio
+    function isCardioExercise(exercise) {
+      return CARDIO_EXERCISES.includes(exercise);
+    }
 
     // Get workouts from storage
     function getWorkouts() {
@@ -182,14 +226,9 @@
       const workouts = getWorkouts();
       document.getElementById('stat-workouts').textContent = workouts.length;
       
-      // Calculate PRs (unique max weights per exercise)
-      const prs = {};
-      workouts.forEach(function(w) {
-        if (!prs[w.exercise] || w.weight > prs[w.exercise]) {
-          prs[w.exercise] = w.weight;
-        }
-      });
-      document.getElementById('stat-prs').textContent = Object.keys(prs).length;
+      // Calculate PRs (count workouts marked as PR)
+      const prCount = workouts.filter(function(w) { return w.pr === 'YES'; }).length;
+      document.getElementById('stat-prs').textContent = prCount;
 
       // This week
       const today = new Date();
@@ -284,6 +323,7 @@
       const workouts = getWorkouts();
       const exerciseFilter = document.getElementById('chart-exercise').value;
       const noDataMsg = document.getElementById('no-data-message');
+      const isCardio = isCardioExercise(exerciseFilter);
 
       let filtered = workouts;
       if (exerciseFilter) {
@@ -303,15 +343,29 @@
 
       noDataMsg.classList.add('hidden');
 
-      // Prepare data
+      // Prepare data - handle both cardio and strength exercises
       const labels = filtered.map(function(w) { return w.date; });
-      const data = filtered.map(function(w) { return w.weight; });
+      let data, label;
+
+      if (exerciseFilter && isCardio) {
+        // For cardio exercises, show distance
+        data = filtered.map(function(w) { return w.distance || 0; });
+        label = document.getElementById('chart-exercise').options[document.getElementById('chart-exercise').selectedIndex].text + ' (km)';
+      } else if (exerciseFilter) {
+        // For strength exercises, show weight
+        data = filtered.map(function(w) { return w.weight || 0; });
+        label = document.getElementById('chart-exercise').options[document.getElementById('chart-exercise').selectedIndex].text + ' (kg)';
+      } else {
+        // For all exercises, show weight (strength) or distance (cardio)
+        data = filtered.map(function(w) { 
+          return isCardioExercise(w.exercise) ? w.distance || 0 : w.weight || 0; 
+        });
+        label = 'Weight/Distance';
+      }
 
       progressChart.data.labels = labels;
       progressChart.data.datasets[0].data = data;
-      progressChart.data.datasets[0].label = exerciseFilter ? 
-        document.getElementById('chart-exercise').options[document.getElementById('chart-exercise').selectedIndex].text + ' (kg)' : 
-        'Weight (kg)';
+      progressChart.data.datasets[0].label = label;
       progressChart.update();
     }
 

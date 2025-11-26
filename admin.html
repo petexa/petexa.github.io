@@ -135,7 +135,23 @@
             <h2 id="webhook-test-title" class="text-xl font-bold text-gray-900 mb-6">Webhook Test</h2>
             <div class="card">
               <div class="card-body">
-                <p class="text-gray-500 mb-6">Send a test workout log to the webhook endpoint.</p>
+                <p class="text-gray-500 mb-6">Send a test workout log to the webhook endpoint. Toggle between strength and cardio modes.</p>
+                
+                <!-- Mode Toggle -->
+                <div class="mb-6">
+                  <label class="form-label">Workout Type</label>
+                  <div class="flex gap-4">
+                    <label class="inline-flex items-center">
+                      <input type="radio" name="test-mode" value="strength" checked onchange="toggleTestMode()" class="mr-2">
+                      <span>Strength</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input type="radio" name="test-mode" value="cardio" onchange="toggleTestMode()" class="mr-2">
+                      <span>Cardio</span>
+                    </label>
+                  </div>
+                </div>
+
                 <form id="webhook-test-form" class="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
                     <label for="test-name" class="form-label">Name</label>
@@ -143,23 +159,73 @@
                   </div>
                   <div>
                     <label for="test-exercise" class="form-label">Exercise</label>
-                    <input type="text" id="test-exercise" class="form-input" placeholder="Exercise" required value="Bench Press">
+                    <select id="test-exercise" class="form-select" required>
+                      <optgroup label="Compound Lifts">
+                        <option value="bench-press" selected>Bench Press</option>
+                        <option value="incline-bench">Incline Bench Press</option>
+                        <option value="back-squat">Back Squat</option>
+                        <option value="front-squat">Front Squat</option>
+                        <option value="deadlift">Deadlift</option>
+                        <option value="romanian-deadlift">Romanian Deadlift</option>
+                        <option value="overhead-press">Overhead Press</option>
+                        <option value="barbell-row">Barbell Row</option>
+                      </optgroup>
+                      <optgroup label="Olympic Lifts">
+                        <option value="clean-and-jerk">Clean & Jerk</option>
+                        <option value="snatch">Snatch</option>
+                        <option value="power-clean">Power Clean</option>
+                      </optgroup>
+                      <optgroup label="Accessories">
+                        <option value="pullups">Pull-ups/Chin-ups</option>
+                        <option value="dips">Dips</option>
+                        <option value="bicep-curl">Bicep Curl</option>
+                        <option value="tricep-extension">Tricep Extension</option>
+                        <option value="lunges">Lunges</option>
+                        <option value="hip-thrust">Hip Thrust</option>
+                      </optgroup>
+                      <optgroup label="Cardio">
+                        <option value="row-erg">Row Erg</option>
+                        <option value="ski-erg">Ski Erg</option>
+                        <option value="bike-erg">Bike Erg</option>
+                        <option value="running">Running</option>
+                      </optgroup>
+                    </select>
                   </div>
                   <div>
                     <label for="test-date" class="form-label">Date</label>
                     <input type="date" id="test-date" class="form-input" required>
                   </div>
-                  <div>
+                  
+                  <!-- Strength Fields -->
+                  <div id="test-strength-sets">
                     <label for="test-sets" class="form-label">Sets</label>
-                    <input type="number" id="test-sets" class="form-input" placeholder="Sets" min="1" required value="3">
+                    <input type="number" id="test-sets" class="form-input" placeholder="Sets" min="1" value="3">
                   </div>
-                  <div>
+                  <div id="test-strength-reps">
                     <label for="test-reps" class="form-label">Reps</label>
-                    <input type="number" id="test-reps" class="form-input" placeholder="Reps" min="1" required value="10">
+                    <input type="number" id="test-reps" class="form-input" placeholder="Reps" min="1" value="10">
                   </div>
-                  <div>
+                  <div id="test-strength-weight">
                     <label for="test-weight" class="form-label">Weight (kg)</label>
-                    <input type="number" id="test-weight" class="form-input" placeholder="Weight" min="0" required value="60">
+                    <input type="number" id="test-weight" class="form-input" placeholder="Weight" min="0" value="60">
+                  </div>
+                  
+                  <!-- Cardio Fields (hidden by default) -->
+                  <div id="test-cardio-time" style="display:none;">
+                    <label for="test-time" class="form-label">Time (minutes)</label>
+                    <input type="number" id="test-time" class="form-input" placeholder="Time" min="0" step="0.1" value="30">
+                  </div>
+                  <div id="test-cardio-distance" style="display:none;">
+                    <label for="test-distance" class="form-label">Distance (km)</label>
+                    <input type="number" id="test-distance" class="form-input" placeholder="Distance" min="0" step="0.01" value="5">
+                  </div>
+                  
+                  <div>
+                    <label for="test-pr" class="form-label">Personal Record</label>
+                    <select id="test-pr" class="form-select">
+                      <option value="NO" selected>NO</option>
+                      <option value="YES">YES</option>
+                    </select>
                   </div>
                   <div class="md:col-span-2">
                     <label for="test-notes" class="form-label">Notes</label>
@@ -246,6 +312,43 @@
     // Set today's date as default
     document.getElementById('test-date').value = new Date().toISOString().split('T')[0];
 
+    // Cardio exercises list
+    const CARDIO_EXERCISES = ['row-erg', 'ski-erg', 'bike-erg', 'running'];
+
+    // Generate UUID
+    function generateUUID() {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+      }
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    // Toggle test mode between strength and cardio
+    function toggleTestMode() {
+      const isCardio = document.querySelector('input[name="test-mode"]:checked').value === 'cardio';
+      
+      // Show/hide strength fields
+      document.getElementById('test-strength-sets').style.display = isCardio ? 'none' : '';
+      document.getElementById('test-strength-reps').style.display = isCardio ? 'none' : '';
+      document.getElementById('test-strength-weight').style.display = isCardio ? 'none' : '';
+      
+      // Show/hide cardio fields
+      document.getElementById('test-cardio-time').style.display = isCardio ? '' : 'none';
+      document.getElementById('test-cardio-distance').style.display = isCardio ? '' : 'none';
+      
+      // Update exercise dropdown to match mode
+      const exerciseSelect = document.getElementById('test-exercise');
+      if (isCardio) {
+        exerciseSelect.value = 'row-erg';
+      } else {
+        exerciseSelect.value = 'bench-press';
+      }
+    }
+
     // Password protection
     const ADMIN_PASSWORD = 'ironale2024';
     
@@ -278,14 +381,24 @@
       result.className = 'mt-4 text-center font-semibold';
       log.style.display = 'none';
       log.textContent = '';
+      
+      const isCardio = document.querySelector('input[name="test-mode"]:checked').value === 'cardio';
+      const exerciseSelect = document.getElementById('test-exercise');
+      
       const data = {
+        id: generateUUID(),
         name: document.getElementById('test-name').value,
-        exercise: document.getElementById('test-exercise').value,
+        exercise: exerciseSelect.value,
+        exerciseName: exerciseSelect.options[exerciseSelect.selectedIndex].text,
         date: document.getElementById('test-date').value,
-        sets: document.getElementById('test-sets').value,
-        reps: document.getElementById('test-reps').value,
-        weight: document.getElementById('test-weight').value,
-        notes: document.getElementById('test-notes').value
+        sets: isCardio ? null : parseInt(document.getElementById('test-sets').value),
+        reps: isCardio ? null : parseInt(document.getElementById('test-reps').value),
+        weight: isCardio ? null : parseFloat(document.getElementById('test-weight').value) || 0,
+        unit: 'kg',
+        time: isCardio ? parseFloat(document.getElementById('test-time').value) || 0 : null,
+        distance: isCardio ? parseFloat(document.getElementById('test-distance').value) || 0 : null,
+        notes: document.getElementById('test-notes').value,
+        pr: document.getElementById('test-pr').value
       };
       
       result.textContent = '⏳ Sending...';
@@ -307,9 +420,13 @@
       .then(text => {
         result.textContent = '✅ Webhook sent! Response: ' + text;
         result.className = 'mt-4 text-center font-semibold text-success-600';
+        log.style.display = 'block';
+        log.className = 'mt-4 p-4 bg-gray-100 rounded-lg text-success-600 font-mono text-sm';
+        log.textContent = 'Payload sent:\n' + JSON.stringify(data, null, 2);
       })
       .catch(err => {
         log.style.display = 'block';
+        log.className = 'mt-4 p-4 bg-gray-100 rounded-lg text-danger-600 font-mono text-sm';
         log.textContent += '\n' + (err.message || err);
         result.textContent = '❌ Error sending webhook.';
         result.className = 'mt-4 text-center font-semibold text-danger-600';
