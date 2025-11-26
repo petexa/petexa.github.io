@@ -901,7 +901,9 @@
       });
     }
 
-    // n8n Webhook configuration - future-proof for multiple endpoints
+    // n8n Webhook configuration
+    // Future-proof for multiple endpoints (workout-log, milestone, checkin, etc.)
+    // Update these URLs when deploying to different environments
     const N8N_WEBHOOKS = {
       'workout-log': 'https://n8n.petefox.co.uk/webhook/workout-log',
       'milestone': 'https://n8n.petefox.co.uk/webhook/milestone',
@@ -991,11 +993,9 @@
       const webhookResult = await submitToWebhook('workout-log', workout);
 
       // Save to localStorage (always, regardless of webhook success)
-      const localWorkout = {
-        ...workout,
-        isPR: isPR  // Keep boolean for local storage compatibility
-      };
-      workouts.push(localWorkout);
+      // Add isPR boolean for local storage compatibility with existing chart/stats
+      workout.isPR = isPR;
+      workouts.push(workout);
       localStorage.setItem('ironAleWorkouts', JSON.stringify(workouts));
 
       // Reset button state
