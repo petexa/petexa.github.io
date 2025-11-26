@@ -295,6 +295,9 @@ body.neon-bg {
 	.neon-nav ul.show {
 		right: 0;
 	}
+	#nav-list.show {
+		right: 0;
+	}
 }
 .neon-nav a {
 	color: #aaa;
