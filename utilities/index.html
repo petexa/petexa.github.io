@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilities | Iron & Ale</title>
+  <meta name="description" content="Iron & Ale member utilities - Plate calculator, one rep max calculator, workout tracker, CrossFit timers, and more fitness tools.">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WW47GEZS2M');
+  </script>
+</head>
+<body class="bg-gray-50">
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="site-wrapper">
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <svg class="sidebar-nav-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+          <span>Iron & Ale</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="../about/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>About</span>
+        </a>
+        <a href="../utilities/" class="sidebar-nav-item active" aria-current="page">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Utilities</span>
+        </a>
+        <a href="../events.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Events</span>
+        </a>
+        <a href="../projects.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span>Projects</span>
+        </a>
+        <a href="../style-guide/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+          </svg>
+          <span>Style Guide</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="text-sm text-gray-400">&copy; <span id="sidebar-year">2024</span> Iron & Ale</p>
+      </div>
+    </aside>
+
+    <!-- Overlay for mobile sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Mobile Header -->
+      <header class="top-header">
+        <a href="../index.html" class="font-bold text-lg text-gray-900">Iron & Ale</a>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </header>
+
+      <main id="main-content" role="main">
+        <div class="page-container">
+          <!-- Page Header -->
+          <header class="page-header">
+            <h1 class="page-title">Member Utilities</h1>
+            <p class="page-subtitle">Tools to track, train, and connect with the Iron & Ale community</p>
+          </header>
+
+          <!-- Calculator Tools Section -->
+          <section class="mb-12" aria-labelledby="calculators-title">
+            <h2 id="calculators-title" class="text-xl font-bold text-gray-900 mb-6">
+              <span class="inline-flex items-center gap-2">
+                <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
+                Calculators
+              </span>
+            </h2>
+            
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <a href="plate-calculator/" class="tool-card">
+                <div class="tool-card-icon" aria-hidden="true">🏋️</div>
+                <h3 class="tool-card-title">Plate Calculator</h3>
+                <p class="tool-card-desc">Calculate the plates needed for your target weight or find the total weight from plates on the bar.</p>
+                <span class="badge badge-primary mt-2">KG Only</span>
+              </a>
+
+              <a href="one-rep-max/" class="tool-card">
+                <div class="tool-card-icon bg-success-100 text-success-600" aria-hidden="true">💪</div>
+                <h3 class="tool-card-title">One Rep Max Calculator</h3>
+                <p class="tool-card-desc">Estimate your one-rep max using multiple formulas (Epley, Brzycki, Lombardi, O'Conner).</p>
+                <span class="badge badge-success mt-2">Multiple Formulas</span>
+              </a>
+            </div>
+          </section>
+
+          <!-- Timer Tools Section -->
+          <section class="mb-12" aria-labelledby="timers-title">
+            <h2 id="timers-title" class="text-xl font-bold text-gray-900 mb-6">
+              <span class="inline-flex items-center gap-2">
+                <svg class="w-5 h-5 text-secondary-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Timers
+              </span>
+            </h2>
+            
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <a href="crossfit-timer/" class="tool-card">
+                <div class="tool-card-icon bg-secondary-100 text-secondary-600" aria-hidden="true">⏱️</div>
+                <h3 class="tool-card-title">CrossFit Timer</h3>
+                <p class="tool-card-desc">Multiple timer modes: Clock, EMOM, Tabata, AMRAP, and For Time. Fullscreen support included.</p>
+                <span class="badge badge-warning mt-2">5 Modes</span>
+              </a>
+            </div>
+          </section>
+
+          <!-- Tracking Tools Section -->
+          <section class="mb-12" aria-labelledby="tracking-title">
+            <h2 id="tracking-title" class="text-xl font-bold text-gray-900 mb-6">
+              <span class="inline-flex items-center gap-2">
+                <svg class="w-5 h-5 text-success-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                Tracking
+              </span>
+            </h2>
+            
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <a href="workout-tracker/" class="tool-card">
+                <div class="tool-card-icon bg-primary-100 text-primary-600" aria-hidden="true">📝</div>
+                <h3 class="tool-card-title">Workout Tracker</h3>
+                <p class="tool-card-desc">Log your workouts, track sets, reps, and weight. Export your data as CSV.</p>
+                <span class="badge badge-primary mt-2">Local Storage</span>
+              </a>
+
+              <a href="progress-chart/" class="tool-card">
+                <div class="tool-card-icon bg-success-100 text-success-600" aria-hidden="true">📈</div>
+                <h3 class="tool-card-title">Progress Chart</h3>
+                <p class="tool-card-desc">Visualize your lifting progress over time with interactive charts.</p>
+                <span class="badge badge-success mt-2">Charts</span>
+              </a>
+            </div>
+          </section>
+
+          <!-- Community Tools Section -->
+          <section aria-labelledby="community-title">
+            <h2 id="community-title" class="text-xl font-bold text-gray-900 mb-6">
+              <span class="inline-flex items-center gap-2">
+                <svg class="w-5 h-5 text-danger-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                Community
+              </span>
+            </h2>
+            
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <a href="community-tools/" class="tool-card">
+                <div class="tool-card-icon bg-danger-100 text-danger-600" aria-hidden="true">👥</div>
+                <h3 class="tool-card-title">Community Tools</h3>
+                <p class="tool-card-desc">Access shared resources, leaderboards, and challenge sign-ups.</p>
+                <span class="badge badge-danger mt-2">Beta</span>
+              </a>
+
+              <a href="../events.html" class="tool-card">
+                <div class="tool-card-icon bg-secondary-100 text-secondary-600" aria-hidden="true">📅</div>
+                <h3 class="tool-card-title">Events Calendar</h3>
+                <p class="tool-card-desc">View upcoming community events, races, and social gatherings.</p>
+              </a>
+
+              <a href="../pb-matrix.html" class="tool-card">
+                <div class="tool-card-icon bg-primary-100 text-primary-600" aria-hidden="true">📊</div>
+                <h3 class="tool-card-title">Personal Bests Matrix</h3>
+                <p class="tool-card-desc">Track and compare personal bests across different lifts and exercises.</p>
+              </a>
+            </div>
+          </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 px-6 mt-12" role="contentinfo">
+          <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+              <div class="flex items-center gap-3">
+                <svg class="sidebar-nav-icon text-primary-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+                </svg>
+                <span class="font-semibold">Iron & Ale</span>
+              </div>
+              
+              <p class="text-sm text-gray-400">
+                &copy; <span id="footer-year">2024</span> Iron & Ale. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    const currentYear = new Date().getFullYear();
+    document.getElementById('footer-year').textContent = currentYear;
+    document.getElementById('sidebar-year').textContent = currentYear;
+  </script>
+</body>
+</html>

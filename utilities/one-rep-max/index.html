@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Rep Max Calculator | Iron & Ale</title>
+  <meta name="description" content="Calculate your one-rep max using multiple formulas: Epley, Brzycki, Lombardi, and O'Conner. Get training percentages instantly.">
+  <link rel="stylesheet" href="../../assets/css/tailwind.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WW47GEZS2M');
+  </script>
+</head>
+<body class="bg-gray-50">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="site-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="../../index.html" class="sidebar-logo">
+          <svg class="sidebar-nav-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+          <span>Iron & Ale</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="../../utilities/" class="sidebar-nav-item active" aria-current="page">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Utilities</span>
+        </a>
+        <a href="../../events.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Events</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="text-sm text-gray-400">&copy; <span id="sidebar-year">2024</span> Iron & Ale</p>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header class="top-header">
+        <a href="../../index.html" class="font-bold text-lg text-gray-900">Iron & Ale</a>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </header>
+
+      <main id="main-content" role="main">
+        <div class="page-container">
+          <!-- Breadcrumb -->
+          <nav class="mb-6" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2 text-sm text-gray-500">
+              <li><a href="../../utilities/" class="hover:text-primary-600">Utilities</a></li>
+              <li aria-hidden="true">/</li>
+              <li class="text-gray-900 font-medium">One Rep Max Calculator</li>
+            </ol>
+          </nav>
+
+          <!-- Page Header -->
+          <header class="page-header">
+            <h1 class="page-title">One Rep Max Calculator (KG)</h1>
+            <p class="page-subtitle">Estimate your 1RM using multiple formulas and get training percentages</p>
+          </header>
+
+          <!-- Calculator -->
+          <div class="card">
+            <div class="card-body">
+              <form id="orm-form" onsubmit="event.preventDefault(); calculateORM();">
+                <!-- Weight Input -->
+                <div class="mb-6">
+                  <label for="orm-weight" class="form-label">Weight Lifted (KG)</label>
+                  <input type="number" id="orm-weight" class="form-input max-w-xs" min="1" max="500" value="60" required>
+                </div>
+
+                <!-- Reps Input with Quick Select -->
+                <div class="mb-6">
+                  <label for="orm-reps" class="form-label">Repetitions</label>
+                  <div class="flex flex-wrap gap-2 mb-3">
+                    <button type="button" class="btn btn-sm btn-outline" onclick="setReps(1)">1</button>
+                    <button type="button" class="btn btn-sm btn-outline" onclick="setReps(2)">2</button>
+                    <button type="button" class="btn btn-sm btn-outline" onclick="setReps(3)">3</button>
+                    <button type="button" class="btn btn-sm btn-outline" onclick="setReps(5)">5</button>
+                    <button type="button" class="btn btn-sm btn-outline" onclick="setReps(8)">8</button>
+                    <button type="button" class="btn btn-sm btn-outline" onclick="setReps(10)">10</button>
+                  </div>
+                  <input type="number" id="orm-reps" class="form-input max-w-xs" min="1" max="20" value="5" required>
+                </div>
+
+                <!-- Formula Selection -->
+                <div class="mb-6">
+                  <label for="orm-formula" class="form-label">Formula</label>
+                  <select id="orm-formula" class="form-select max-w-xs">
+                    <option value="all">All Formulas (Average)</option>
+                    <option value="epley" selected>Epley</option>
+                    <option value="brzycki">Brzycki</option>
+                    <option value="lombardi">Lombardi</option>
+                    <option value="oconner">O'Conner</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Calculate 1RM</button>
+              </form>
+
+              <!-- Results -->
+              <div id="orm-result" class="mt-8 hidden" role="region" aria-live="polite" aria-label="Calculation results">
+                <!-- Results will be inserted here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Formula Information -->
+          <section class="mt-8" aria-labelledby="formulas-title">
+            <h2 id="formulas-title" class="text-lg font-semibold text-gray-900 mb-4">About the Formulas</h2>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="font-semibold text-primary-600 mb-2">Epley Formula</h3>
+                  <p class="text-sm text-gray-600 mb-2">1RM = weight × (1 + reps/30)</p>
+                  <p class="text-xs text-gray-500">Most commonly used, accurate for moderate rep ranges.</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="font-semibold text-secondary-600 mb-2">Brzycki Formula</h3>
+                  <p class="text-sm text-gray-600 mb-2">1RM = weight × (36 / (37 - reps))</p>
+                  <p class="text-xs text-gray-500">Popular in strength training, accurate for lower rep ranges.</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="font-semibold text-success-600 mb-2">Lombardi Formula</h3>
+                  <p class="text-sm text-gray-600 mb-2">1RM = weight × reps^0.10</p>
+                  <p class="text-xs text-gray-500">Simple exponential formula, good for general estimates.</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="font-semibold text-danger-600 mb-2">O'Conner Formula</h3>
+                  <p class="text-sm text-gray-600 mb-2">1RM = weight × (1 + 0.025 × reps)</p>
+                  <p class="text-xs text-gray-500">Conservative estimate, tends to give lower values.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 px-6 mt-12" role="contentinfo">
+          <div class="max-w-6xl mx-auto text-center">
+            <p class="text-sm text-gray-400">
+              &copy; <span id="footer-year">2024</span> Iron & Ale. All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="../../assets/js/app.js"></script>
+  <script>
+    // Set reps value
+    function setReps(val) {
+      document.getElementById('orm-reps').value = val;
+    }
+
+    // Calculate 1RM
+    function calculateORM() {
+      const weight = parseFloat(document.getElementById('orm-weight').value);
+      const reps = parseInt(document.getElementById('orm-reps').value);
+      const formula = document.getElementById('orm-formula').value;
+      const resultDiv = document.getElementById('orm-result');
+
+      if (isNaN(weight) || isNaN(reps) || weight <= 0 || reps <= 0) {
+        resultDiv.innerHTML = '<div class="alert alert-danger">Please enter valid weight and rep values.</div>';
+        resultDiv.classList.remove('hidden');
+        return;
+      }
+
+      // Calculate using all formulas
+      const epley = weight * (1 + reps / 30);
+      const brzycki = reps < 37 ? weight * (36 / (37 - reps)) : 0;
+      const lombardi = weight * Math.pow(reps, 0.10);
+      const oconner = weight * (1 + 0.025 * reps);
+
+      let oneRM = 0;
+      let resultsHTML = '';
+
+      if (formula === 'all') {
+        oneRM = (epley + brzycki + lombardi + oconner) / 4;
+        resultsHTML = '<div class="grid grid-cols-2 gap-4 mb-6 sm:grid-cols-4">';
+        resultsHTML += '<div class="p-4 bg-primary-50 rounded-lg text-center"><p class="text-sm text-gray-600">Epley</p><p class="text-xl font-bold text-primary-600">' + epley.toFixed(1) + ' kg</p></div>';
+        resultsHTML += '<div class="p-4 bg-secondary-50 rounded-lg text-center"><p class="text-sm text-gray-600">Brzycki</p><p class="text-xl font-bold text-secondary-600">' + brzycki.toFixed(1) + ' kg</p></div>';
+        resultsHTML += '<div class="p-4 bg-success-50 rounded-lg text-center"><p class="text-sm text-gray-600">Lombardi</p><p class="text-xl font-bold text-success-600">' + lombardi.toFixed(1) + ' kg</p></div>';
+        resultsHTML += '<div class="p-4 bg-danger-50 rounded-lg text-center"><p class="text-sm text-gray-600">O\'Conner</p><p class="text-xl font-bold text-danger-600">' + oconner.toFixed(1) + ' kg</p></div>';
+        resultsHTML += '</div>';
+        resultsHTML += '<div class="p-4 bg-gray-900 rounded-lg text-center mb-6"><p class="text-sm text-gray-300">Average Estimated 1RM</p><p class="text-3xl font-bold text-white">' + oneRM.toFixed(1) + ' kg</p></div>';
+      } else {
+        switch (formula) {
+          case 'epley': oneRM = epley; break;
+          case 'brzycki': oneRM = brzycki; break;
+          case 'lombardi': oneRM = lombardi; break;
+          case 'oconner': oneRM = oconner; break;
+        }
+        const formulaNames = { epley: 'Epley', brzycki: 'Brzycki', lombardi: 'Lombardi', oconner: "O'Conner" };
+        resultsHTML = '<div class="p-4 bg-primary-50 rounded-lg text-center mb-6"><p class="text-sm text-gray-600">' + formulaNames[formula] + ' Estimated 1RM</p><p class="text-3xl font-bold text-primary-600">' + oneRM.toFixed(1) + ' kg</p></div>';
+      }
+
+      // Training percentages
+      if (oneRM > 0) {
+        resultsHTML += '<h3 class="font-semibold text-gray-900 mb-4">Training Percentages</h3>';
+        resultsHTML += '<div class="overflow-x-auto"><table class="w-full text-sm">';
+        resultsHTML += '<thead><tr class="border-b"><th class="py-2 text-left">%</th><th class="py-2 text-left">Weight</th><th class="py-2 text-left">Use For</th></tr></thead>';
+        resultsHTML += '<tbody>';
+        
+        const percentages = [
+          { pct: 100, use: 'Max single' },
+          { pct: 95, use: 'Heavy singles' },
+          { pct: 90, use: '1-3 reps' },
+          { pct: 85, use: '3-5 reps' },
+          { pct: 80, use: '5-6 reps' },
+          { pct: 75, use: '6-8 reps' },
+          { pct: 70, use: '8-10 reps' },
+          { pct: 65, use: '10-12 reps' },
+          { pct: 60, use: 'Warm-up / Light' }
+        ];
+
+        percentages.forEach(function(p) {
+          const calcWeight = (oneRM * p.pct / 100).toFixed(1);
+          resultsHTML += '<tr class="border-b"><td class="py-2 font-medium">' + p.pct + '%</td><td class="py-2 text-primary-600 font-semibold">' + calcWeight + ' kg</td><td class="py-2 text-gray-500">' + p.use + '</td></tr>';
+        });
+
+        resultsHTML += '</tbody></table></div>';
+      }
+
+      resultDiv.innerHTML = resultsHTML;
+      resultDiv.classList.remove('hidden');
+    }
+
+    // Set year
+    const currentYear = new Date().getFullYear();
+    document.getElementById('footer-year').textContent = currentYear;
+    document.getElementById('sidebar-year').textContent = currentYear;
+  </script>
+</body>
+</html>

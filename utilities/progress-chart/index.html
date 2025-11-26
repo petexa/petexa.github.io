@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress Chart | Iron & Ale</title>
+  <meta name="description" content="Visualize your lifting progress over time with interactive charts.">
+  <link rel="stylesheet" href="../../assets/css/tailwind.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WW47GEZS2M');
+  </script>
+</head>
+<body class="bg-gray-50">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="site-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="../../index.html" class="sidebar-logo">
+          <svg class="sidebar-nav-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+          <span>Iron & Ale</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="../../utilities/" class="sidebar-nav-item active" aria-current="page">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Utilities</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="text-sm text-gray-400">&copy; <span id="sidebar-year">2024</span> Iron & Ale</p>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header class="top-header">
+        <a href="../../index.html" class="font-bold text-lg text-gray-900">Iron & Ale</a>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </header>
+
+      <main id="main-content" role="main">
+        <div class="page-container">
+          <!-- Breadcrumb -->
+          <nav class="mb-6" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2 text-sm text-gray-500">
+              <li><a href="../../utilities/" class="hover:text-primary-600">Utilities</a></li>
+              <li aria-hidden="true">/</li>
+              <li class="text-gray-900 font-medium">Progress Chart</li>
+            </ol>
+          </nav>
+
+          <!-- Page Header -->
+          <header class="page-header">
+            <h1 class="page-title">Progress Chart</h1>
+            <p class="page-subtitle">Visualize your lifting progress over time</p>
+          </header>
+
+          <!-- Stats Overview -->
+          <div class="grid grid-cols-2 gap-4 mb-8 md:grid-cols-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="text-3xl font-bold text-primary-600" id="stat-workouts">0</div>
+                <div class="text-sm text-gray-500">Total Workouts</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="text-3xl font-bold text-success-600" id="stat-prs">0</div>
+                <div class="text-sm text-gray-500">Personal Records</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="text-3xl font-bold text-secondary-600" id="stat-week">0</div>
+                <div class="text-sm text-gray-500">This Week</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="text-3xl font-bold text-danger-600" id="stat-streak">0</div>
+                <div class="text-sm text-gray-500">Day Streak</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exercise Selection -->
+          <div class="card mb-8">
+            <div class="card-body">
+              <label for="chart-exercise" class="form-label">Select Exercise to View</label>
+              <select id="chart-exercise" class="form-select max-w-md" onchange="updateChart()">
+                <option value="">All Exercises</option>
+                <option value="bench-press">Bench Press</option>
+                <option value="back-squat">Back Squat</option>
+                <option value="front-squat">Front Squat</option>
+                <option value="deadlift">Deadlift</option>
+                <option value="overhead-press">Overhead Press</option>
+                <option value="barbell-row">Barbell Row</option>
+                <option value="clean-and-jerk">Clean & Jerk</option>
+                <option value="snatch">Snatch</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Chart -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="font-semibold text-gray-900">Weight Progress Over Time</h2>
+            </div>
+            <div class="card-body">
+              <div class="relative" style="height: 400px;">
+                <canvas id="progress-chart"></canvas>
+              </div>
+              <p id="no-data-message" class="text-center text-gray-500 py-8 hidden">
+                No workout data found. <a href="../workout-tracker/" class="text-primary-600 underline">Start tracking your workouts</a> to see your progress!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 px-6 mt-12" role="contentinfo">
+          <div class="max-w-6xl mx-auto text-center">
+            <p class="text-sm text-gray-400">
+              &copy; <span id="footer-year">2024</span> Iron & Ale. All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="../../assets/js/app.js"></script>
+  <script>
+    const STORAGE_KEY = 'ironale_workouts';
+    let progressChart = null;
+
+    // Get workouts from storage
+    function getWorkouts() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      updateStats();
+      initChart();
+    });
+
+    // Update stats
+    function updateStats() {
+      const workouts = getWorkouts();
+      document.getElementById('stat-workouts').textContent = workouts.length;
+      
+      // Calculate PRs (unique max weights per exercise)
+      const prs = {};
+      workouts.forEach(function(w) {
+        if (!prs[w.exercise] || w.weight > prs[w.exercise]) {
+          prs[w.exercise] = w.weight;
+        }
+      });
+      document.getElementById('stat-prs').textContent = Object.keys(prs).length;
+
+      // This week
+      const today = new Date();
+      const weekStart = new Date(today);
+      weekStart.setDate(today.getDate() - today.getDay());
+      const thisWeek = workouts.filter(function(w) {
+        return new Date(w.date) >= weekStart;
+      });
+      document.getElementById('stat-week').textContent = thisWeek.length;
+
+      // Streak calculation (simplified)
+      let streak = 0;
+      const dates = [...new Set(workouts.map(function(w) { return w.date; }))].sort().reverse();
+      const checkDate = new Date();
+      for (let i = 0; i < dates.length; i++) {
+        const workoutDate = new Date(dates[i]);
+        const diffDays = Math.floor((checkDate - workoutDate) / (1000 * 60 * 60 * 24));
+        if (diffDays <= 1) {
+          streak++;
+          checkDate.setDate(checkDate.getDate() - 1);
+        } else {
+          break;
+        }
+      }
+      document.getElementById('stat-streak').textContent = streak;
+    }
+
+    // Initialize chart
+    function initChart() {
+      const ctx = document.getElementById('progress-chart');
+      if (!ctx) return;
+
+      progressChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [{
+            label: 'Weight (kg)',
+            data: [],
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderWidth: 2,
+            tension: 0.3,
+            pointRadius: 6,
+            pointHoverRadius: 8,
+            pointBackgroundColor: '#3b82f6',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              labels: {
+                color: '#374151',
+                font: { family: 'system-ui, sans-serif' }
+              }
+            },
+            tooltip: {
+              mode: 'index',
+              intersect: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false,
+              ticks: { color: '#6b7280' },
+              grid: { color: 'rgba(107, 114, 128, 0.1)' }
+            },
+            x: {
+              ticks: { color: '#6b7280' },
+              grid: { color: 'rgba(107, 114, 128, 0.1)' }
+            }
+          },
+          interaction: {
+            mode: 'nearest',
+            axis: 'x',
+            intersect: false
+          }
+        }
+      });
+
+      updateChart();
+    }
+
+    // Update chart with data
+    function updateChart() {
+      const workouts = getWorkouts();
+      const exerciseFilter = document.getElementById('chart-exercise').value;
+      const noDataMsg = document.getElementById('no-data-message');
+
+      let filtered = workouts;
+      if (exerciseFilter) {
+        filtered = workouts.filter(function(w) { return w.exercise === exerciseFilter; });
+      }
+
+      // Sort by date
+      filtered.sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+
+      if (filtered.length === 0) {
+        progressChart.data.labels = [];
+        progressChart.data.datasets[0].data = [];
+        progressChart.update();
+        noDataMsg.classList.remove('hidden');
+        return;
+      }
+
+      noDataMsg.classList.add('hidden');
+
+      // Prepare data
+      const labels = filtered.map(function(w) { return w.date; });
+      const data = filtered.map(function(w) { return w.weight; });
+
+      progressChart.data.labels = labels;
+      progressChart.data.datasets[0].data = data;
+      progressChart.data.datasets[0].label = exerciseFilter ? 
+        document.getElementById('chart-exercise').options[document.getElementById('chart-exercise').selectedIndex].text + ' (kg)' : 
+        'Weight (kg)';
+      progressChart.update();
+    }
+
+    // Set year
+    const currentYear = new Date().getFullYear();
+    document.getElementById('footer-year').textContent = currentYear;
+    document.getElementById('sidebar-year').textContent = currentYear;
+  </script>
+</body>
+</html>

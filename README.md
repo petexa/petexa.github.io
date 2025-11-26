@@ -1,182 +1,213 @@
-```text
-==============================
-💡 Iron & Ale: Progress + Power
-==============================
-```
-
-# 🍻 Iron & Ale – Handstand Tracker System
+# 🍻 Iron & Ale
 
 > **"Sets and Reps. Cheers and Beers. That's the Program."**
 
-Welcome to the **Iron & Ale** community accountability system! This project helps our gym crew track fitness milestones (especially handstand progress 🤸) and stay motivated through automated notifications and friendly reminders.
+A fitness community website built with a Tailwind-inspired technical theme. Clean, modular, and developer-focused with utility-first styling.
 
 ---
 
-## 🎯 Project Overview
+## 📁 Folder Structure
 
-**What is this?**  
-A gym community accountability system that:
-- 📈 Tracks milestones (like handstand progress)  
-- 🔔 Automates notifications to keep everyone motivated  
-- 🎉 Celebrates wins together!
-
-**How does it work?**  
-```text
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   GitHub    │────▶│   Google    │────▶│     n8n     │────▶│  Telegram   │
-│    Pages    │     │   Sheets    │     │  Workflows  │     │     Bot     │
-└─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘
-     🌐                  📊                  🔄                  🤖
-   Website            Database           Automation          Notifications
 ```
-
-**Tech Stack:**
-- 🌐 **GitHub Pages** – Hosts the website  
-- 📊 **Google Sheets** – Stores all milestone data (single source of truth)  
-- 🔄 **n8n** – Automates workflows (form submissions, updates, notifications)  
-- 🤖 **Telegram Bot** – Sends reminders and milestone celebrations  
-
----
-
-## ✨ Features
-
-| Feature | Description |
-|---------|-------------|
-| 📊 **Progress Tracker Page** | A web form + display to log and view milestones |
-| 📑 **Google Sheet Backend** | Single source of truth for all crew data |
-| 🔄 **n8n Automation** | Handles form submissions, sheet updates, and notifications |
-| 🤖 **Telegram Bot** | Sends reminders and celebrates milestone achievements |
-| 🗂️ **Modular Repos** | Organized into: site frontend, tracker backend, n8n workflows, notifications |
-
----
-
-## ⚙️ Setup Instructions
-
-Follow these steps to get the Iron & Ale tracker running:
-
-### Step 1: 🔗 Clone the Repo
-
-```bash
-git clone https://github.com/petexa/petexa.github.io.git
-cd petexa.github.io
-```
-
-### Step 2: 🌐 Enable GitHub Pages
-
-1. Go to your repository on GitHub  
-2. Click **Settings** → **Pages**  
-3. Under "Source", select your branch (usually `main`)  
-4. Click **Save**  
-5. Your site will be live at `https://yourusername.github.io/your-repo-name/`
-
-### Step 3: 📝 Connect the Site Form to n8n Webhook
-
-1. In n8n, create a new **Webhook** node  
-2. Copy the webhook URL  
-3. Update your site form's action to point to this webhook URL
-
-### Step 4: 📑 Configure Google Sheets Node in n8n
-
-1. In n8n, add a **Google Sheets** node  
-2. Connect your Google account  
-3. Select or create a spreadsheet for tracking milestones  
-4. Map the form fields to sheet columns
-
-### Step 5: 🤖 Create a Telegram Bot
-
-1. Open Telegram and search for **@BotFather**  
-2. Send `/newbot` and follow the prompts  
-3. Copy your **bot token**  
-4. In n8n, add a **Telegram** node and paste the token  
-5. Configure the bot to send messages to your group/channel
-
-### Step 6: ✅ Test End-to-End
-
-1. Submit a test entry via the site form  
-2. Check that the entry appears in Google Sheets  
-3. Verify the Telegram bot sends a notification  
-4. 🎉 Celebrate – you're all set!
-
----
-
-## 🚀 Usage
-
-Here's how the system works day-to-day:
-
-```text
-┌──────────────────────────────────────────────────────────────┐
-│                      📋 DAILY WORKFLOW                       │
-├──────────────────────────────────────────────────────────────┤
-│  1. Crew member logs a milestone via the site form  📝       │
-│                         ⬇️                                    │
-│  2. n8n receives the submission and appends to Google Sheet  │
-│                         ⬇️                                    │
-│  3. Site displays the updated tracker  🖥️                    │
-│                         ⬇️                                    │
-│  4. Telegram bot sends reminders and updates  📲             │
-└──────────────────────────────────────────────────────────────┘
-```
-
-**Quick Actions:**
-- 🏋️ Log your handstand progress on the website  
-- 📊 Check the tracker to see crew progress  
-- 📲 Get Telegram reminders to stay accountable  
-- 🎉 Celebrate milestones with the crew!  
-
----
-
-## 🏆 2026 Goals
-
-Here's what we're aiming for this year:
-
-| Goal | Description |
-|------|-------------|
-| 🤸 **Handstand Walk** | Walk the full length of the gym by end of year |
-| 🏃 **Event Participation** | Compete in Nuclear Races, Gymrace, and Nuclear Fit events |
-| 💪 **Strength & Balance** | Improve shoulder strength and balance for pressing movements and handstand stability |
-| 🌐 **Community Growth** | Build the gym community site with authentic branding |
-| 🔧 **Automation Expansion** | Refine n8n workflows to make accountability visible and frictionless |
-
-```text
-===============================================
-🎯 2026 VISION: Stronger Together, One Rep at a Time
-===============================================
+petexa.github.io/
+├── index.html                 # Home / Dashboard
+├── about/
+│   └── index.html            # About page
+├── utilities/
+│   ├── index.html            # Utilities index (list of all tools)
+│   ├── plate-calculator/     # Plate Calculator tool
+│   ├── one-rep-max/          # One Rep Max Calculator
+│   ├── crossfit-timer/       # CrossFit Timer (EMOM, Tabata, etc.)
+│   ├── workout-tracker/      # Workout Tracker
+│   ├── progress-chart/       # Progress Chart visualization
+│   └── community-tools/      # Community resources
+├── style-guide/
+│   └── index.html            # Typography, buttons, cards documentation
+├── events.html               # Events calendar
+├── projects.html             # Community projects
+├── assets/
+│   ├── css/
+│   │   ├── tailwind.css     # Tailwind-style utility CSS framework
+│   │   └── style.css        # Legacy styles (preserved for existing pages)
+│   ├── js/
+│   │   ├── app.js           # Main application JavaScript
+│   │   └── main.js          # Legacy scripts
+│   └── images/              # Image assets
+│       ├── plate-calculator/
+│       ├── workout-tracker/
+│       └── crossfit-timer/
+└── README.md
 ```
 
 ---
 
-## 📋 Project Management
+## 🎨 Styling Guidelines
 
-We use a **GitHub Project Board** to track tasks:
+### Utility-First CSS
 
-| Column | Purpose |
-|--------|---------|
-| 📥 **To Do** | Tasks that need to be started |
-| 🔄 **In Progress** | Tasks currently being worked on |
-| ✅ **Done** | Completed tasks |
+The site uses a custom Tailwind-inspired utility CSS framework (`assets/css/tailwind.css`). Key principles:
 
-**Labels we use:**
-- `frontend` – Website and UI tasks  
-- `automation` – n8n workflow tasks  
-- `accountability` – Community and tracking features  
-- `milestone` – Major project milestones  
+- **Atomic classes** for spacing, typography, colors, and layout
+- **CSS custom properties** (variables) for consistent theming
+- **Mobile-first responsive design**
+- **High contrast** for accessibility
+
+### Color Palette
+
+| Color | Variable | Usage |
+|-------|----------|-------|
+| Primary (Blue) | `--color-primary-*` | Buttons, links, accents |
+| Secondary (Amber) | `--color-secondary-*` | Highlights, warnings |
+| Success (Green) | `--color-success-*` | Success states |
+| Danger (Red) | `--color-danger-*` | Errors, destructive actions |
+| Gray | `--color-gray-*` | Text, backgrounds, borders |
+
+### Typography
+
+- **Sans-serif**: System font stack for body text
+- **Monospace**: For code and technical content
+- **Heading hierarchy**: H1–H4 with clear visual distinction
+
+### Components
+
+See `/style-guide/` for live examples of:
+- Buttons (primary, secondary, success, danger, outline)
+- Cards (basic, hover, with header/footer)
+- Forms (inputs, selects, textareas)
+- Alerts (info, success, warning, danger)
+- Badges
 
 ---
 
-## 📜 License
+## 🛠️ Adding New Utilities
 
-This project is licensed under the **MIT License** (or similar open-source license).
+1. **Create a new folder** under `/utilities/<tool-name>/`
 
-> 📝 *License details to be added.*
+2. **Create `index.html`** with the standard layout:
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Tool Name | Iron & Ale</title>
+     <meta name="description" content="Description of the tool">
+     <link rel="stylesheet" href="../../assets/css/tailwind.css">
+   </head>
+   <body class="bg-gray-50">
+     <!-- Use standard sidebar + main-content layout -->
+   </body>
+   </html>
+   ```
+
+3. **Add to utilities index** (`/utilities/index.html`):
+   ```html
+   <a href="new-tool/" class="tool-card">
+     <div class="tool-card-icon" aria-hidden="true">🔧</div>
+     <h3 class="tool-card-title">New Tool</h3>
+     <p class="tool-card-desc">Brief description.</p>
+   </a>
+   ```
+
+4. **Store images** in `assets/images/<tool-name>/` with:
+   - Descriptive kebab-case filenames
+   - Meaningful alt text
+   - WebP format preferred
+   - Lazy loading (`loading="lazy"`)
 
 ---
 
-```text
-==============================
-🍻 Iron & Ale: Sets and Reps!
-==============================
+## 🖼️ Image Handling
+
+### Guidelines
+
+- **Sources**: Use royalty-free images from Unsplash, Pexels, or Pixabay
+- **Storage**: `assets/images/<tool-name>/` with descriptive filenames
+- **Alt text**: Always include meaningful descriptions
+- **Optimization**: Compress images, use WebP/AVIF when possible
+- **Lazy loading**: Add `loading="lazy"` for offscreen images
+- **Fallbacks**: Images have error handling to show placeholder text
+
+### Example
+
+```html
+<img 
+  src="assets/images/plate-calculator/barbell-plates.webp"
+  alt="Olympic weight plates arranged on a barbell"
+  loading="lazy"
+  class="img-responsive rounded-lg"
+>
+<figcaption class="text-sm text-gray-500 mt-2">
+  Source: Unsplash | License: Free to use
+</figcaption>
 ```
+
+---
+
+## ♿ Accessibility
+
+The site follows WCAG guidelines:
+
+- **Skip-to-content links** on every page
+- **Semantic HTML** (`<main>`, `<nav>`, `<article>`, etc.)
+- **ARIA attributes** where needed
+- **Visible keyboard focus** (`:focus-visible` styles)
+- **High contrast** text and UI elements
+- **Responsive design** that works with zoom
+
+### Testing
+
+- Test with keyboard navigation
+- Run Lighthouse accessibility audit
+- Check color contrast (minimum 4.5:1)
+
+---
+
+## 🚀 Development
+
+### Local Development
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/petexa/petexa.github.io.git
+   cd petexa.github.io
+   ```
+
+2. Open `index.html` in a browser or use a local server:
+   ```bash
+   python -m http.server 8000
+   # or
+   npx serve
+   ```
+
+### No Build Required
+
+This is a static site with no build step required. Just edit HTML, CSS, and JavaScript files directly.
+
+### CSS Modifications
+
+To modify the Tailwind-style utilities:
+
+1. Edit `assets/css/tailwind.css`
+2. Add new utility classes following the existing patterns
+3. Use CSS custom properties for consistent theming
+
+---
+
+## 📋 Technical Requirements
+
+- **No heavy frameworks**: Pure HTML, CSS, and vanilla JavaScript
+- **Progressive enhancement**: Site works without JavaScript
+- **Minimal dependencies**: Only external dependency is Chart.js for progress charts
+- **Mobile-first**: Responsive from 320px and up
+
+---
+
+## 🔗 Links
+
+- **Live Site**: [petexa.github.io](https://petexa.github.io)
+- **Style Guide**: [/style-guide/](https://petexa.github.io/style-guide/)
+
+---
 
 **Made with 💪 by the Iron & Ale Crew**
-
-*Have questions? Open an issue or reach out on Telegram!*
