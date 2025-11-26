@@ -1,0 +1,327 @@
+/* ========================================
+   Theme Design Tokens (CSS Variables)
+   Iron & Ale - Light & Dark Theme
+   
+   HOW TO EDIT:
+   1. Light theme values are in :root
+   2. Dark theme values are in .theme-dark or @media (prefers-color-scheme: dark)
+   3. Semantic tokens (--bg, --surface, --text, etc.) adapt per theme
+   4. Color palette tokens (--color-*) remain consistent across themes
+   ======================================== */
+
+/* ========================================
+   Color Palette (Consistent Across Themes)
+   ======================================== */
+:root {
+  /* Neutral Palette (Gray) */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  /* Primary Accent (Blue) */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  /* Secondary Accent (Yellow/Amber) */
+  --color-secondary-50: #fffbeb;
+  --color-secondary-100: #fef3c7;
+  --color-secondary-200: #fde68a;
+  --color-secondary-300: #fcd34d;
+  --color-secondary-400: #fbbf24;
+  --color-secondary-500: #f59e0b;
+  --color-secondary-600: #d97706;
+  --color-secondary-700: #b45309;
+  --color-secondary-800: #92400e;
+  --color-secondary-900: #78350f;
+
+  /* Success (Green) */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-300: #86efac;
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+  --color-success-800: #166534;
+  --color-success-900: #14532d;
+
+  /* Danger (Red) */
+  --color-danger-50: #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-200: #fecaca;
+  --color-danger-300: #fca5a5;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+  --color-danger-800: #991b1b;
+  --color-danger-900: #7f1d1d;
+
+  /* ========================================
+     Spacing Scale
+     ======================================== */
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* ========================================
+     Typography Scale
+     ======================================== */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+  --text-5xl: 3rem;       /* 48px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Font Families */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* ========================================
+     Border Radius
+     ======================================== */
+  --radius-sm: 0.125rem;   /* 2px */
+  --radius-md: 0.375rem;   /* 6px */
+  --radius-lg: 0.5rem;     /* 8px */
+  --radius-xl: 0.75rem;    /* 12px */
+  --radius-2xl: 1rem;      /* 16px */
+  --radius-full: 9999px;
+
+  /* ========================================
+     Shadows
+     ======================================== */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* ========================================
+     Transitions
+     ======================================== */
+  --transition-fast: 150ms;
+  --transition-normal: 200ms;
+  --transition-slow: 300ms;
+
+  /* ========================================
+     Layout
+     ======================================== */
+  --sidebar-width: 16rem;
+  --header-height: 4rem;
+
+  /* ========================================
+     Semantic Tokens - LIGHT THEME (Default)
+     These adapt based on the active theme
+     ======================================== */
+  
+  /* Background Colors */
+  --bg: var(--color-gray-50);
+  --bg-alt: var(--color-gray-100);
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  
+  /* Text Colors */
+  --text: var(--color-gray-900);
+  --text-secondary: var(--color-gray-600);
+  --text-muted: var(--color-gray-500);
+  --text-inverse: #ffffff;
+  
+  /* Border Colors */
+  --border: var(--color-gray-200);
+  --border-strong: var(--color-gray-300);
+  
+  /* Interactive Elements */
+  --accent: var(--color-primary-600);
+  --accent-hover: var(--color-primary-700);
+  --accent-light: var(--color-primary-100);
+  
+  /* Button Colors */
+  --button-bg: var(--color-primary-600);
+  --button-bg-hover: var(--color-primary-700);
+  --button-text: #ffffff;
+  --button-secondary-bg: var(--color-gray-100);
+  --button-secondary-bg-hover: var(--color-gray-200);
+  --button-secondary-text: var(--color-gray-700);
+  --button-secondary-border: var(--color-gray-300);
+  
+  /* Form Colors */
+  --input-bg: #ffffff;
+  --input-border: var(--color-gray-300);
+  --input-border-focus: var(--color-primary-500);
+  --input-text: var(--color-gray-900);
+  --input-placeholder: var(--color-gray-400);
+  
+  /* Card Colors */
+  --card-bg: #ffffff;
+  --card-border: var(--color-gray-200);
+  --card-header-bg: var(--color-gray-50);
+  
+  /* Sidebar Colors */
+  --sidebar-bg: var(--color-gray-900);
+  --sidebar-text: var(--color-gray-300);
+  --sidebar-text-active: #ffffff;
+  --sidebar-border: var(--color-gray-700);
+  
+  /* Focus Ring */
+  --focus-ring: var(--color-primary-500);
+  --focus-ring-offset: 2px;
+}
+
+/* ========================================
+   DARK THEME - Applied via .theme-dark class
+   ======================================== */
+.theme-dark {
+  /* Background Colors */
+  --bg: var(--color-gray-900);
+  --bg-alt: var(--color-gray-800);
+  --surface: var(--color-gray-800);
+  --surface-elevated: var(--color-gray-700);
+  
+  /* Text Colors */
+  --text: var(--color-gray-50);
+  --text-secondary: var(--color-gray-300);
+  --text-muted: var(--color-gray-400);
+  --text-inverse: var(--color-gray-900);
+  
+  /* Border Colors */
+  --border: var(--color-gray-700);
+  --border-strong: var(--color-gray-600);
+  
+  /* Interactive Elements */
+  --accent: var(--color-primary-400);
+  --accent-hover: var(--color-primary-300);
+  --accent-light: var(--color-primary-900);
+  
+  /* Button Colors */
+  --button-bg: var(--color-primary-500);
+  --button-bg-hover: var(--color-primary-400);
+  --button-text: #ffffff;
+  --button-secondary-bg: var(--color-gray-700);
+  --button-secondary-bg-hover: var(--color-gray-600);
+  --button-secondary-text: var(--color-gray-200);
+  --button-secondary-border: var(--color-gray-600);
+  
+  /* Form Colors */
+  --input-bg: var(--color-gray-800);
+  --input-border: var(--color-gray-600);
+  --input-border-focus: var(--color-primary-400);
+  --input-text: var(--color-gray-100);
+  --input-placeholder: var(--color-gray-500);
+  
+  /* Card Colors */
+  --card-bg: var(--color-gray-800);
+  --card-border: var(--color-gray-700);
+  --card-header-bg: var(--color-gray-700);
+  
+  /* Sidebar Colors */
+  --sidebar-bg: var(--color-gray-950);
+  --sidebar-text: var(--color-gray-400);
+  --sidebar-text-active: #ffffff;
+  --sidebar-border: var(--color-gray-800);
+  
+  /* Focus Ring */
+  --focus-ring: var(--color-primary-400);
+  
+  /* Shadows - Darker for dark mode */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+}
+
+/* ========================================
+   System Preference: Dark Mode
+   Applied when no explicit class is set
+   ======================================== */
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light) {
+    /* Background Colors */
+    --bg: var(--color-gray-900);
+    --bg-alt: var(--color-gray-800);
+    --surface: var(--color-gray-800);
+    --surface-elevated: var(--color-gray-700);
+    
+    /* Text Colors */
+    --text: var(--color-gray-50);
+    --text-secondary: var(--color-gray-300);
+    --text-muted: var(--color-gray-400);
+    --text-inverse: var(--color-gray-900);
+    
+    /* Border Colors */
+    --border: var(--color-gray-700);
+    --border-strong: var(--color-gray-600);
+    
+    /* Interactive Elements */
+    --accent: var(--color-primary-400);
+    --accent-hover: var(--color-primary-300);
+    --accent-light: var(--color-primary-900);
+    
+    /* Button Colors */
+    --button-bg: var(--color-primary-500);
+    --button-bg-hover: var(--color-primary-400);
+    --button-text: #ffffff;
+    --button-secondary-bg: var(--color-gray-700);
+    --button-secondary-bg-hover: var(--color-gray-600);
+    --button-secondary-text: var(--color-gray-200);
+    --button-secondary-border: var(--color-gray-600);
+    
+    /* Form Colors */
+    --input-bg: var(--color-gray-800);
+    --input-border: var(--color-gray-600);
+    --input-border-focus: var(--color-primary-400);
+    --input-text: var(--color-gray-100);
+    --input-placeholder: var(--color-gray-500);
+    
+    /* Card Colors */
+    --card-bg: var(--color-gray-800);
+    --card-border: var(--color-gray-700);
+    --card-header-bg: var(--color-gray-700);
+    
+    /* Focus Ring */
+    --focus-ring: var(--color-primary-400);
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  }
+}
