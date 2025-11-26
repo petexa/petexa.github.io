@@ -402,6 +402,10 @@
     // Set today's date as default
     document.getElementById('test-date').value = new Date().toISOString().split('T')[0];
 
+    // Webhook endpoints
+    const WEBHOOK_WORKOUT_LOG = 'https://n8n.petefox.co.uk/webhook/workout-log';
+    const WEBHOOK_EVENTS = 'https://n8n.petefox.co.uk/webhook/events';
+
     // Cardio exercises list
     const CARDIO_EXERCISES = ['row-erg', 'ski-erg', 'bike-erg', 'running'];
 
@@ -494,7 +498,7 @@
       result.textContent = '⏳ Sending...';
       result.className = 'mt-4 text-center font-semibold text-primary-600';
       
-      fetch('https://n8n.petefox.co.uk/webhook/workout-log', {
+      fetch(WEBHOOK_WORKOUT_LOG, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -586,7 +590,8 @@
         return;
       }
       
-      // Format date to ISO 8601 (YYYY-MM-DDTHH:mm:ss)
+      // Format date to ISO 8601 local time (YYYY-MM-DDTHH:mm:ss)
+      // Note: Matches existing event JSON schema - no timezone suffix
       const dateObj = new Date(dateValue);
       const isoDate = dateObj.toISOString().replace(/\.\d{3}Z$/, '');
       
@@ -610,7 +615,7 @@
       result.textContent = '⏳ Submitting event...';
       result.className = 'mt-4 text-center font-semibold text-primary-600';
       
-      fetch('https://n8n.petefox.co.uk/webhook/events', {
+      fetch(WEBHOOK_EVENTS, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(eventData)
