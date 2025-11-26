@@ -127,6 +127,11 @@
                 <h3 class="tool-card-title">Utilities</h3>
                 <p class="tool-card-desc">Access calculators, timers, and tracking tools.</p>
               </a>
+              <a href="N8N-EVENT-WORKFLOW.md" class="tool-card" target="_blank">
+                <div class="tool-card-icon bg-primary-100 text-primary-600" aria-hidden="true">⚡</div>
+                <h3 class="tool-card-title">n8n Workflow Docs</h3>
+                <p class="tool-card-desc">Setup guide for the event automation workflow with AI enrichment.</p>
+              </a>
             </div>
           </section>
 
@@ -273,6 +278,91 @@
             </div>
           </section>
 
+          <!-- Event Submission Section -->
+          <section class="mb-8" aria-labelledby="event-submission-title">
+            <h2 id="event-submission-title" class="text-xl font-bold text-gray-900 mb-6">Add New Event</h2>
+            <div class="card">
+              <div class="card-body">
+                <p class="text-gray-500 mb-6">Submit a new event to be processed via the n8n webhook. The event will be enriched with AI-generated content and added to the events page.</p>
+                
+                <form id="event-form" class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <!-- Basic Event Info -->
+                  <div class="md:col-span-2">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Event Details</h3>
+                  </div>
+                  <div>
+                    <label for="event-name" class="form-label">Event Name *</label>
+                    <input type="text" id="event-name" class="form-input" placeholder="e.g., Nuclear Fit Summer" required>
+                  </div>
+                  <div>
+                    <label for="event-date" class="form-label">Date & Time *</label>
+                    <input type="datetime-local" id="event-date" class="form-input" required>
+                  </div>
+                  <div>
+                    <label for="event-link" class="form-label">Event Link (URL)</label>
+                    <input type="url" id="event-link" class="form-input" placeholder="https://example.com/event">
+                  </div>
+                  <div>
+                    <label for="event-image" class="form-label">Image Path</label>
+                    <input type="text" id="event-image" class="form-input" placeholder="images/event.jpg or leave blank for AI">
+                  </div>
+                  <div class="md:col-span-2">
+                    <label for="event-description" class="form-label">Description</label>
+                    <textarea id="event-description" class="form-input" placeholder="Short description (leave blank for AI-generated)" rows="2"></textarea>
+                  </div>
+                  
+                  <!-- Calendar Details -->
+                  <div class="md:col-span-2 mt-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Calendar Details</h3>
+                  </div>
+                  <div>
+                    <label for="event-location" class="form-label">Location *</label>
+                    <input type="text" id="event-location" class="form-input" placeholder="e.g., London, UK" required>
+                  </div>
+                  <div>
+                    <label for="event-duration" class="form-label">Duration (hours) *</label>
+                    <input type="number" id="event-duration" class="form-input" placeholder="4" min="1" max="72" value="4" required>
+                  </div>
+                  <div class="md:col-span-2">
+                    <label for="event-calendar-desc" class="form-label">Calendar Description</label>
+                    <textarea id="event-calendar-desc" class="form-input" placeholder="Description for calendar file (leave blank for AI-generated)" rows="2"></textarea>
+                  </div>
+                  
+                  <!-- Display Options -->
+                  <div class="md:col-span-2 mt-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Display Options</h3>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <label class="inline-flex items-center">
+                      <input type="checkbox" id="event-show-more-info" class="mr-2" checked>
+                      <span>Show More Info</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input type="checkbox" id="event-show-book-now" class="mr-2">
+                      <span>Show Book Now</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input type="checkbox" id="event-show-remind-me" class="mr-2" checked>
+                      <span>Show Remind Me</span>
+                    </label>
+                  </div>
+                  
+                  <!-- Submit Button -->
+                  <div class="md:col-span-2 mt-4">
+                    <button type="button" class="btn btn-primary" onclick="submitEvent()">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                      </svg>
+                      Submit Event to Webhook
+                    </button>
+                  </div>
+                </form>
+                <div id="event-submit-result" class="mt-4 text-center font-semibold" role="status" aria-live="polite"></div>
+                <div id="event-submit-log" class="mt-4 p-4 bg-gray-100 rounded-lg text-success-600 font-mono text-sm" style="display:none;"></div>
+              </div>
+            </div>
+          </section>
+
           <!-- Contact Section -->
           <section aria-labelledby="contact-title">
             <h2 id="contact-title" class="text-xl font-bold text-gray-900 mb-6">Contact</h2>
@@ -312,6 +402,10 @@
     
     // Set today's date as default
     document.getElementById('test-date').value = new Date().toISOString().split('T')[0];
+
+    // Webhook endpoints
+    const WEBHOOK_WORKOUT_LOG = 'https://n8n.petefox.co.uk/webhook/workout-log';
+    const WEBHOOK_EVENTS = 'https://n8n.petefox.co.uk/webhook/events';
 
     // Cardio exercises list
     const CARDIO_EXERCISES = ['row-erg', 'ski-erg', 'bike-erg', 'running'];
@@ -405,7 +499,7 @@
       result.textContent = '⏳ Sending...';
       result.className = 'mt-4 text-center font-semibold text-primary-600';
       
-      fetch('https://n8n.petefox.co.uk/webhook/workout-log', {
+      fetch(WEBHOOK_WORKOUT_LOG, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -474,6 +568,90 @@
           result.className = 'mt-4 text-center font-semibold text-danger-600';
           dataDiv.style.display = 'none';
         });
+    }
+
+    // Submit event to n8n webhook
+    function submitEvent() {
+      const result = document.getElementById('event-submit-result');
+      const log = document.getElementById('event-submit-log');
+      result.textContent = '';
+      result.className = 'mt-4 text-center font-semibold';
+      log.style.display = 'none';
+      log.textContent = '';
+      
+      // Validate required fields
+      const name = document.getElementById('event-name').value.trim();
+      const dateValue = document.getElementById('event-date').value;
+      const location = document.getElementById('event-location').value.trim();
+      const duration = parseInt(document.getElementById('event-duration').value) || 4;
+      
+      if (!name || !dateValue || !location) {
+        result.textContent = '❌ Please fill in all required fields (Name, Date, Location).';
+        result.className = 'mt-4 text-center font-semibold text-danger-600';
+        return;
+      }
+      
+      // Format date to ISO 8601 local time (YYYY-MM-DDTHH:mm:ss)
+      // Note: Matches existing event JSON schema - no timezone suffix
+      const dateObj = new Date(dateValue);
+      const isoDate = dateObj.toISOString().replace(/\.\d{3}Z$/, '');
+      
+      // Build event data
+      const eventData = {
+        name: name,
+        date: isoDate,
+        link: document.getElementById('event-link').value.trim() || null,
+        image: document.getElementById('event-image').value.trim() || null,
+        description: document.getElementById('event-description').value.trim() || null,
+        calendarDetails: {
+          location: location,
+          description: document.getElementById('event-calendar-desc').value.trim() || null,
+          durationHours: duration
+        },
+        showMoreInfo: document.getElementById('event-show-more-info').checked,
+        showBookNow: document.getElementById('event-show-book-now').checked,
+        showRemindMe: document.getElementById('event-show-remind-me').checked
+      };
+      
+      result.textContent = '⏳ Submitting event...';
+      result.className = 'mt-4 text-center font-semibold text-primary-600';
+      
+      fetch(WEBHOOK_EVENTS, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(eventData)
+      })
+      .then(res => {
+        if (!res.ok) {
+          log.style.display = 'block';
+          log.className = 'mt-4 p-4 bg-gray-100 rounded-lg text-danger-600 font-mono text-sm';
+          log.textContent = 'HTTP Error: ' + res.status + ' ' + res.statusText;
+          throw new Error('HTTP Error: ' + res.status);
+        }
+        return res.text();
+      })
+      .then(text => {
+        result.textContent = '✅ Event submitted! Response: ' + text;
+        result.className = 'mt-4 text-center font-semibold text-success-600';
+        log.style.display = 'block';
+        log.className = 'mt-4 p-4 bg-gray-100 rounded-lg text-success-600 font-mono text-sm';
+        log.textContent = 'Event data sent:\n' + JSON.stringify(eventData, null, 2);
+        
+        // Clear form on success
+        document.getElementById('event-form').reset();
+        document.getElementById('event-show-more-info').checked = true;
+        document.getElementById('event-show-remind-me').checked = true;
+        document.getElementById('event-duration').value = '4';
+      })
+      .catch(err => {
+        log.style.display = 'block';
+        log.className = 'mt-4 p-4 bg-gray-100 rounded-lg text-danger-600 font-mono text-sm';
+        if (!log.textContent) {
+          log.textContent = err.message || err;
+        }
+        result.textContent = '❌ Error submitting event.';
+        result.className = 'mt-4 text-center font-semibold text-danger-600';
+      });
     }
   </script>
 </body>
