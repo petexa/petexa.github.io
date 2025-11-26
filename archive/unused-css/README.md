@@ -2,13 +2,13 @@
 
 This folder is for archiving CSS files that are no longer part of the main theme system.
 
-## Note about style.css
-The `assets/css/style.css` file is still used by `utilities.html` which has legacy neon styling.
-When `utilities.html` is migrated to the new theme system, `style.css` can be archived here.
+## Deleted Files
+- `style.css` - Legacy neon styling, deleted as part of theme cleanup. The `utilities.html` page now redirects to `/utilities/` which uses the new theme system.
 
 ## Current CSS Structure
 See `assets/css/` for the new modular CSS system:
-- variables.css - Theme tokens
-- theme.css - Base styles
-- utilities.css - Utility classes
-- components.css - Component styles
+- `variables.css` - Theme tokens (light/dark)
+- `theme.css` - Base styles and resets
+- `utilities.css` - Utility classes
+- `components.css` - Component styles
+- `tailwind.css` - Main entry point (imports all modules)
