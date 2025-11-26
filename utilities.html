@@ -870,8 +870,93 @@
               pointBorderWidth: 2
             }]
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-              legend:
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: true,
+                  plugins: {
+                    legend: {
+                      display: true,
+                      labels: {
+                        color: '#19baff',
+                        font: {
+                          family: "'Orbitron', Arial, sans-serif"
+                        }
+                      }
+                    }
+                  },
+                  scales: {
+                    y: {
+                      beginAtZero: false,
+                      ticks: {
+                        color: '#19baff'
+                      },
+                      grid: {
+                        color: 'rgba(25, 186, 255, 0.1)'
+                      }
+                    },
+                    x: {
+                      ticks: {
+                        color: '#19baff'
+                      },
+                      grid: {
+                        color: 'rgba(25, 186, 255, 0.1)'
+                      }
+                    }
+                  }
+                }
+              });
+            }
+            // Load existing workouts
+            updateStats();
+            updateChart();
+          }
+      
+          // Check for stored user name on page load
+          window.addEventListener('DOMContentLoaded', function() {
+            const storedName = localStorage.getItem('ironale_username');
+            if (!storedName) {
+              const modal = document.getElementById('name-modal');
+              if (modal) {
+                modal.style.display = 'flex';
+              }
+            } else {
+              const nameInput = document.getElementById('workout-name');
+              if (nameInput) {
+                nameInput.value = storedName;
+              }
+            }
+            initWorkoutTracker();
+          });
+      
+          // Save user name from modal
+          function saveUserName() {
+            const input = document.getElementById('user-name-input');
+            const name = input ? input.value.trim() : '';
+            if (!name) {
+              alert('Please enter your name');
+              return;
+            }
+            localStorage.setItem('ironale_username', name);
+            const nameInput = document.getElementById('workout-name');
+            if (nameInput) {
+              nameInput.value = name;
+            }
+            const modal = document.getElementById('name-modal');
+            if (modal) {
+              modal.style.display = 'none';
+            }
+          }
+      
+          // Edit name button
+          document.addEventListener('DOMContentLoaded', function() {
+            const editBtn = document.getElementById('edit-name-btn');
+            if (editBtn) {
+              editBtn.addEventListener('click', function() {
+                const modal = document.getElementById('name-modal');
+                const input = document.getElementById('user-name-input');
+                const currentName = document.getElementById('workout-name').value;
+                if (input) input.value = currentName;
+                if (modal) modal.style.display = 'flex';
+              });
+            }
+          });
