@@ -7,6 +7,8 @@
   <meta name="description" content="Log your workouts, track sets, reps, and weight. Export your data as CSV for analysis.">
   <link rel="stylesheet" href="../../assets/css/tailwind.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <!-- Confetti for PB celebrations -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
   <script>
@@ -82,6 +84,19 @@
             <p class="page-subtitle">Log your workouts and track your progress over time</p>
           </header>
 
+          <!-- User Name Display -->
+          <div class="card mb-6">
+            <div class="card-body flex items-center gap-3">
+              <span class="text-gray-600">Logging as:</span>
+              <span id="user-name-display" class="font-semibold text-gray-900"></span>
+              <button type="button" id="edit-name-btn" class="text-primary-600 hover:text-primary-700" aria-label="Edit name" title="Edit name">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
           <!-- Workout Form -->
           <div class="card mb-8">
             <div class="card-header">
@@ -89,15 +104,21 @@
             </div>
             <div class="card-body">
               <form id="workout-form" onsubmit="event.preventDefault(); saveWorkout();">
+                <!-- Hidden fields -->
+                <input type="hidden" id="workout-id" name="id">
+                <input type="hidden" id="workout-unit" name="unit" value="kg">
+                <input type="hidden" id="workout-pr" name="pr" value="NO">
+                <input type="hidden" id="workout-name" name="name">
+
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
                     <label for="workout-date" class="form-label">Date</label>
-                    <input type="date" id="workout-date" class="form-input" required>
+                    <input type="date" id="workout-date" name="date" class="form-input" required>
                   </div>
                   
                   <div>
                     <label for="workout-exercise" class="form-label">Exercise</label>
-                    <select id="workout-exercise" class="form-select" required>
+                    <select id="workout-exercise" name="exercise" class="form-select" required>
                       <option value="">Select exercise...</option>
                       <optgroup label="Compound Lifts">
                         <option value="bench-press">Bench Press</option>
@@ -131,24 +152,36 @@
                     </select>
                   </div>
 
-                  <div>
+                  <!-- Strength Fields -->
+                  <div id="strength-fields-sets">
                     <label for="workout-sets" class="form-label">Sets</label>
-                    <input type="number" id="workout-sets" class="form-input" min="1" max="20" value="3" required>
+                    <input type="number" id="workout-sets" name="sets" class="form-input" min="1" max="20" value="3">
                   </div>
 
-                  <div>
+                  <div id="strength-fields-reps">
                     <label for="workout-reps" class="form-label">Reps</label>
-                    <input type="number" id="workout-reps" class="form-input" min="1" max="100" value="10" required>
+                    <input type="number" id="workout-reps" name="reps" class="form-input" min="1" max="100" value="10">
                   </div>
 
-                  <div>
+                  <div id="strength-fields-weight">
                     <label for="workout-weight" class="form-label">Weight (kg)</label>
-                    <input type="number" id="workout-weight" class="form-input" min="0" max="500" step="0.5" value="0">
+                    <input type="number" id="workout-weight" name="weight" class="form-input" min="0" max="500" step="0.5" value="0">
+                  </div>
+
+                  <!-- Cardio Fields (hidden by default) -->
+                  <div id="cardio-fields-time" class="hidden">
+                    <label for="workout-time" class="form-label">Time (minutes)</label>
+                    <input type="number" id="workout-time" name="time" class="form-input" min="0" max="300" step="0.1" value="">
+                  </div>
+
+                  <div id="cardio-fields-distance" class="hidden">
+                    <label for="workout-distance" class="form-label">Distance (km)</label>
+                    <input type="number" id="workout-distance" name="distance" class="form-input" min="0" max="100" step="0.01" value="">
                   </div>
 
                   <div>
                     <label for="workout-notes" class="form-label">Notes (optional)</label>
-                    <input type="text" id="workout-notes" class="form-input" placeholder="RPE, form cues, etc.">
+                    <input type="text" id="workout-notes" name="notes" class="form-input" placeholder="RPE, form cues, etc.">
                   </div>
                 </div>
 
@@ -193,11 +226,201 @@
   <script src="../../assets/js/app.js"></script>
   <script>
     const STORAGE_KEY = 'ironale_workouts';
+    const USER_NAME_KEY = 'ironale_user_name';
+    const PB_KEY = 'ironale_pbs';
+    const WEBHOOK_URL = 'https://n8n.petefox.co.uk/webhook/workout-log';
+    const CARDIO_EXERCISES = ['row-erg', 'ski-erg', 'bike-erg', 'running'];
+
+    // Generate UUID using crypto API if available, fallback to Math.random
+    function generateUUID() {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+      }
+      // Fallback for older browsers
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    // Check if exercise is cardio
+    function isCardioExercise(exercise) {
+      return CARDIO_EXERCISES.includes(exercise);
+    }
+
+    // Toggle cardio/strength fields based on exercise selection
+    function toggleCardioFields() {
+      const exercise = document.getElementById('workout-exercise').value;
+      const isCardio = isCardioExercise(exercise);
+      
+      // Strength fields
+      document.getElementById('strength-fields-sets').classList.toggle('hidden', isCardio);
+      document.getElementById('strength-fields-reps').classList.toggle('hidden', isCardio);
+      document.getElementById('strength-fields-weight').classList.toggle('hidden', isCardio);
+      
+      // Cardio fields
+      document.getElementById('cardio-fields-time').classList.toggle('hidden', !isCardio);
+      document.getElementById('cardio-fields-distance').classList.toggle('hidden', !isCardio);
+
+      // Update required attributes
+      document.getElementById('workout-sets').required = !isCardio;
+      document.getElementById('workout-reps').required = !isCardio;
+      document.getElementById('workout-time').required = isCardio;
+      document.getElementById('workout-distance').required = isCardio;
+    }
+
+    // Trigger PB overlay with confetti
+    function triggerPBOverlay() {
+      const overlay = document.createElement('div');
+      overlay.id = 'pb-overlay';
+      overlay.innerHTML = '🎉 Personal Best! 🎉';
+      overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;background:rgba(0,0,0,0.6);color:#fff;z-index:9999;';
+      document.body.appendChild(overlay);
+
+      const duration = 3000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+
+      setTimeout(function() { overlay.remove(); }, 3000);
+    }
+
+    // Get PBs from storage
+    function getPBs() {
+      try {
+        return JSON.parse(localStorage.getItem(PB_KEY)) || {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    // Save PBs to storage
+    function savePBs(pbs) {
+      localStorage.setItem(PB_KEY, JSON.stringify(pbs));
+    }
+
+    // Check if workout is a new PB
+    function checkPB(workout) {
+      const pbs = getPBs();
+      const exerciseKey = workout.exercise;
+      const lastPB = pbs[exerciseKey];
+      let isPB = false;
+
+      if (isCardioExercise(workout.exercise)) {
+        // Cardio PB: longer distance OR same distance with faster time
+        const currentDistance = parseFloat(workout.distance) || 0;
+        const currentTime = parseFloat(workout.time) || 0;
+        const lastDistance = lastPB ? parseFloat(lastPB.distance) || 0 : 0;
+        const lastTime = lastPB ? parseFloat(lastPB.time) || 0 : 0;
+
+        if (!lastPB) {
+          isPB = true;
+        } else if (currentDistance > lastDistance) {
+          isPB = true;
+        } else if (currentDistance === lastDistance && currentTime < lastTime) {
+          isPB = true;
+        }
+
+        if (isPB) {
+          pbs[exerciseKey] = { distance: currentDistance, time: currentTime };
+        }
+      } else {
+        // Strength PB: higher weight OR same weight with more reps
+        const currentWeight = parseFloat(workout.weight) || 0;
+        const currentReps = parseInt(workout.reps) || 0;
+        const lastWeight = lastPB ? parseFloat(lastPB.weight) || 0 : 0;
+        const lastReps = lastPB ? parseInt(lastPB.reps) || 0 : 0;
+
+        if (!lastPB) {
+          isPB = true;
+        } else if (currentWeight > lastWeight) {
+          isPB = true;
+        } else if (currentWeight === lastWeight && currentReps > lastReps) {
+          isPB = true;
+        }
+
+        if (isPB) {
+          pbs[exerciseKey] = { weight: currentWeight, reps: currentReps };
+        }
+      }
+
+      if (isPB) {
+        savePBs(pbs);
+      }
+
+      return isPB;
+    }
+
+    // Get user name
+    function getUserName() {
+      return localStorage.getItem(USER_NAME_KEY) || '';
+    }
+
+    // Set user name
+    function setUserName(name) {
+      localStorage.setItem(USER_NAME_KEY, name);
+      updateUserNameDisplay();
+    }
+
+    // Prompt for user name
+    function promptUserName() {
+      const currentName = getUserName();
+      const name = prompt('Enter your name:', currentName);
+      if (name && name.trim()) {
+        setUserName(name.trim());
+      }
+      return name && name.trim();
+    }
+
+    // Update user name display
+    function updateUserNameDisplay() {
+      const name = getUserName();
+      document.getElementById('user-name-display').textContent = name || 'Unknown';
+      document.getElementById('workout-name').value = name || '';
+    }
 
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
+      // Check for user name on first load (with delay to not block page load)
+      if (!getUserName()) {
+        setTimeout(function() {
+          promptUserName();
+        }, 100);
+      }
+      updateUserNameDisplay();
+
       // Set today's date
       document.getElementById('workout-date').value = new Date().toISOString().split('T')[0];
+      
+      // Generate UUID for this form session
+      document.getElementById('workout-id').value = generateUUID();
+
+      // Setup exercise change listener for cardio toggle
+      document.getElementById('workout-exercise').addEventListener('change', toggleCardioFields);
+
+      // Setup edit name button
+      document.getElementById('edit-name-btn').addEventListener('click', function() {
+        promptUserName();
+      });
+
       loadWorkouts();
     });
 
@@ -211,16 +434,25 @@
     }
 
     // Save workout
-    function saveWorkout() {
+    async function saveWorkout() {
+      const exerciseSelect = document.getElementById('workout-exercise');
+      const exercise = exerciseSelect.value;
+      const isCardio = isCardioExercise(exercise);
+
       const workout = {
-        id: Date.now(),
+        id: document.getElementById('workout-id').value,
         date: document.getElementById('workout-date').value,
-        exercise: document.getElementById('workout-exercise').value,
-        exerciseName: document.getElementById('workout-exercise').options[document.getElementById('workout-exercise').selectedIndex].text,
-        sets: parseInt(document.getElementById('workout-sets').value),
-        reps: parseInt(document.getElementById('workout-reps').value),
-        weight: parseFloat(document.getElementById('workout-weight').value) || 0,
-        notes: document.getElementById('workout-notes').value
+        exercise: exercise,
+        exerciseName: exerciseSelect.options[exerciseSelect.selectedIndex].text,
+        sets: isCardio ? null : parseInt(document.getElementById('workout-sets').value),
+        reps: isCardio ? null : parseInt(document.getElementById('workout-reps').value),
+        weight: isCardio ? null : parseFloat(document.getElementById('workout-weight').value) || 0,
+        unit: 'kg',
+        notes: document.getElementById('workout-notes').value,
+        name: getUserName(),
+        time: isCardio ? parseFloat(document.getElementById('workout-time').value) || 0 : null,
+        distance: isCardio ? parseFloat(document.getElementById('workout-distance').value) || 0 : null,
+        pr: 'NO'
       };
 
       if (!workout.exercise) {
@@ -228,13 +460,59 @@
         return;
       }
 
+      if (!workout.name) {
+        showMessage('Please set your name first', 'danger');
+        promptUserName();
+        return;
+      }
+
+      // Check for PB
+      const isPB = checkPB(workout);
+      workout.pr = isPB ? 'YES' : 'NO';
+
+      // Save to local storage as backup
       const workouts = getWorkouts();
       workouts.unshift(workout);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(workouts));
 
-      showMessage('Workout saved successfully!', 'success');
+      // Submit to n8n webhook with timeout
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(function() { controller.abort(); }, 10000); // 10 second timeout
+
+        const response = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(workout),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          showMessage('Workout saved and synced successfully!', 'success');
+        } else {
+          showMessage('Workout saved locally. Sync failed - will retry later.', 'warning');
+        }
+      } catch (error) {
+        console.error('Webhook error:', error);
+        showMessage('Workout saved locally. Sync failed - will retry later.', 'warning');
+      }
+
+      // Trigger PB celebration if applicable
+      if (isPB) {
+        triggerPBOverlay();
+      }
+
+      // Reset form
       document.getElementById('workout-form').reset();
       document.getElementById('workout-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('workout-id').value = generateUUID();
+      document.getElementById('workout-sets').value = '3';
+      document.getElementById('workout-reps').value = '10';
+      toggleCardioFields();
       loadWorkouts();
     }
 
@@ -253,14 +531,22 @@
 
       let html = '';
       workouts.slice(0, 50).forEach(function(w) {
+        const isCardio = isCardioExercise(w.exercise);
+        let details = '';
+        if (isCardio) {
+          details = w.distance + 'km in ' + w.time + ' min';
+        } else {
+          details = w.sets + ' sets × ' + w.reps + ' reps' + (w.weight > 0 ? ' @ ' + w.weight + 'kg' : '');
+        }
+        
         html += '<div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">' +
           '<div class="flex-1">' +
-          '<div class="font-medium text-gray-900">' + w.exerciseName + '</div>' +
-          '<div class="text-sm text-gray-500">' + w.date + ' • ' + w.sets + ' sets × ' + w.reps + ' reps' + 
-          (w.weight > 0 ? ' @ ' + w.weight + 'kg' : '') + '</div>' +
+          '<div class="font-medium text-gray-900">' + (w.exerciseName || w.exercise) + 
+          (w.pr === 'YES' ? ' <span class="text-yellow-500">🏆 PB</span>' : '') + '</div>' +
+          '<div class="text-sm text-gray-500">' + w.date + ' • ' + details + '</div>' +
           (w.notes ? '<div class="text-xs text-gray-400 mt-1">' + w.notes + '</div>' : '') +
           '</div>' +
-          '<button class="btn btn-sm btn-danger ml-4" onclick="deleteWorkout(' + w.id + ')" aria-label="Delete workout">×</button>' +
+          '<button class="btn btn-sm btn-danger ml-4" onclick="deleteWorkout(\'' + w.id + '\')" aria-label="Delete workout">×</button>' +
           '</div>';
       });
 
@@ -282,6 +568,7 @@
       if (!confirm('Are you sure you want to delete ALL workout data? This cannot be undone.')) return;
       
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(PB_KEY);
       loadWorkouts();
       showMessage('All workout data cleared', 'warning');
     }
@@ -294,9 +581,21 @@
         return;
       }
 
-      const headers = ['Date', 'Exercise', 'Sets', 'Reps', 'Weight (kg)', 'Notes'];
+      const headers = ['ID', 'Date', 'Exercise', 'Sets', 'Reps', 'Weight (kg)', 'Time (min)', 'Distance (km)', 'Notes', 'PR', 'Name'];
       const rows = workouts.map(function(w) {
-        return [w.date, w.exerciseName, w.sets, w.reps, w.weight, '"' + (w.notes || '') + '"'].join(',');
+        return [
+          w.id,
+          w.date,
+          w.exerciseName || w.exercise,
+          w.sets || '',
+          w.reps || '',
+          w.weight || '',
+          w.time || '',
+          w.distance || '',
+          '"' + (w.notes || '') + '"',
+          w.pr || 'NO',
+          w.name || ''
+        ].join(',');
       });
 
       const csv = headers.join(',') + '\n' + rows.join('\n');
@@ -315,7 +614,7 @@
     // Show message
     function showMessage(text, type) {
       const msgDiv = document.getElementById('save-message');
-      const alertClass = 'alert alert-' + (type === 'danger' ? 'danger' : type === 'success' ? 'success' : 'info');
+      const alertClass = 'alert alert-' + (type === 'danger' ? 'danger' : type === 'success' ? 'success' : type === 'warning' ? 'warning' : 'info');
       msgDiv.className = alertClass;
       msgDiv.textContent = text;
       msgDiv.classList.remove('hidden');
