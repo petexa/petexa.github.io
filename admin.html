@@ -4,17 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Webhook Test | Iron & Ale</title>
+  <meta name="description" content="Iron & Ale admin tools - Webhook testing and PB Matrix URL validation.">
   <link rel="stylesheet" href="assets/css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="https://api.iconify.design/mdi:dumbbell.svg?color=%2319baff" />
 </head>
 <body class="neon-bg">
   <div class="page-wrapper">
     <nav class="neon-nav" role="navigation" aria-label="Main navigation">
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <ul id="nav-list">
-        <li><a href="index.html">HOME</a></li>
-        <li><a href="events.html">EVENTS</a></li>
-        <li><a href="utilities.html">UTILITIES</a></li>
-        <li><a href="admin.html" class="active">ADMIN</a></li>
+        <li><a href="index.html" aria-label="Home page">HOME</a></li>
+        <li><a href="events.html" aria-label="View upcoming events">EVENTS</a></li>
+        <li><a href="projects.html" aria-label="View community projects">PROJECTS</a></li>
+        <li><a href="utilities.html" aria-label="Member utilities">UTILITIES</a></li>
       </ul>
     </nav>
     <main role="main">
@@ -55,8 +62,30 @@
         </div>
       </div>
     </main>
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-content">
+        <nav class="footer-social" aria-label="Social media links">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #e1306c);" />
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1877f3);" />
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1da1f2);" />
+          </a>
+        </nav>
+        <p class="footer-copyright">
+          &copy; <span id="current-year">2024</span> Iron & Ale. All rights reserved.
+        </p>
+      </div>
+    </footer>
   </div>
   <script>
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
     function sendWebhookTest() {
       const result = document.getElementById('webhook-test-result');
       const log = document.getElementById('webhook-test-log');
@@ -139,5 +168,6 @@
         });
     }
   </script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
