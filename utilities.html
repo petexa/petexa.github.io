@@ -1047,12 +1047,13 @@
       }
 
       // Check for PB (Personal Best)
-      var workouts = JSON.parse(localStorage.getItem('ironAleWorkouts') || '[]');
-      var exercise = document.getElementById('workout-exercise').value;
-      var weight = parseFloat(document.getElementById('workout-weight').value);
-      var isPB = false;
+      let workouts = JSON.parse(localStorage.getItem('ironAleWorkouts') || '[]');
+      let exercise = document.getElementById('workout-exercise').value;
+      let weight = parseFloat(document.getElementById('workout-weight').value);
+      // Check for PB (Personal Best)
+      let isPB = false;
       if (exercise && !isNaN(weight)) {
-        var prevMax = Math.max(...workouts.filter(w => w.exercise === exercise).map(w => w.weight));
+        let prevMax = Math.max(...workouts.filter(w => w.exercise === exercise).map(w => w.weight), 0);
         if (weight > prevMax) {
           isPB = true;
         }
