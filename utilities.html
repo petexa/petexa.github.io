@@ -152,9 +152,12 @@
                 </div>
                 <h3 class="event-title" style="margin-bottom:18px;text-align:center;">Log Workout</h3>
                 <form id="workout-form" style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:500px;margin:0 auto;">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
                     <label for="workout-name" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Your Name: <span style="color:#ff5555;">*</span></label>
-                    <input type="text" id="workout-name" placeholder="Enter your name" required style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Your name" />
+                    <input type="text" id="workout-name" placeholder="Enter your name" required style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;flex:1;" aria-label="Your name" />
+                    <button type="button" id="edit-name-btn" style="background:none;border:none;cursor:pointer;padding:0;margin-left:4px;" aria-label="Edit name">
+                      <span style="font-size:1.3em;color:#19baff;">✏️</span>
+                    </button>
                   </div>
                   <div style="display:flex;flex-direction:column;gap:8px;">
                     <label for="workout-exercise" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Exercise: <span style="color:#ff5555;">*</span></label>
@@ -1246,12 +1249,40 @@
       }
     }
     // Only show modal if name is missing, and hide immediately after
+
     document.addEventListener('DOMContentLoaded', function() {
       if (!localStorage.getItem('workoutUserName')) {
         document.getElementById('name-modal').style.display = 'flex';
       } else {
         document.getElementById('name-modal').style.display = 'none';
       }
+    });
+
+    // Set workout name from localStorage and handle edit
+    document.addEventListener('DOMContentLoaded', function() {
+      var nameInput = document.getElementById('workout-name');
+      var editBtn = document.getElementById('edit-name-btn');
+      var cachedName = localStorage.getItem('workoutUserName') || '';
+      if (cachedName) {
+        nameInput.value = cachedName;
+        nameInput.readOnly = true;
+        editBtn.style.display = 'inline-block';
+      } else {
+        nameInput.value = '';
+        nameInput.readOnly = false;
+        editBtn.style.display = 'none';
+      }
+      editBtn.addEventListener('click', function() {
+        nameInput.readOnly = false;
+        nameInput.focus();
+      });
+      nameInput.addEventListener('change', function() {
+        if (nameInput.value.trim()) {
+          localStorage.setItem('workoutUserName', nameInput.value.trim());
+          nameInput.readOnly = true;
+          editBtn.style.display = 'inline-block';
+        }
+      });
     });
   </script>
 </body>
