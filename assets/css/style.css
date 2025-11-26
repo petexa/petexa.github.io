@@ -1024,3 +1024,37 @@ font-size: 1.1rem;
 	white-space: nowrap;
 	border: 0;
 }
+
+/* ========================================
+   Fullscreen Styles for Timers
+   ======================================== */
+.utility-card:fullscreen,
+.utility-card:-webkit-full-screen {
+	background: #0a0a0f;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 40px;
+	width: 100vw;
+	height: 100vh;
+}
+
+.utility-card:fullscreen #timer-display,
+.utility-card:fullscreen #emom-timer,
+.utility-card:-webkit-full-screen #timer-display,
+.utility-card:-webkit-full-screen #emom-timer {
+	font-size: clamp(6rem, 20vw, 15rem) !important;
+	margin: 40px 0 !important;
+}
+
+.utility-card:fullscreen #emom-round,
+.utility-card:-webkit-full-screen #emom-round {
+	font-size: clamp(2rem, 5vw, 4rem) !important;
+}
+
+.utility-card:fullscreen .neon-btn,
+.utility-card:-webkit-full-screen .neon-btn {
+	font-size: clamp(1rem, 3vw, 2rem);
+	padding: 20px 40px;
+}
