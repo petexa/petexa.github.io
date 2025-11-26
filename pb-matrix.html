@@ -5,81 +5,228 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal Bests Matrix | Iron & Ale</title>
   <meta name="description" content="View the maximum weight lifted for each member and exercise. Data is synced from the community workout logs.">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
-</head>
-<body class="neon-bg">
-  <div class="page-wrapper">
-    <nav class="neon-nav" role="navigation" aria-label="Main navigation">
-      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul id="nav-list">
-        <li><a href="index.html" aria-label="Home page">HOME</a></li>
-        <li><a href="events.html" aria-label="View upcoming events">EVENTS</a></li>
-        <li><a href="projects.html" aria-label="View community projects">PROJECTS</a></li>
-        <li><a href="utilities.html" aria-label="Member utilities">UTILITIES</a></li>
-      </ul>
-    </nav>
-    <main role="main">
-      <!-- Hero Banner -->
-      <section class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80'); min-height: 30vh;" aria-label="Personal Bests Matrix page header">
-        <div class="hero-content">
-          <h1 class="neon-title">Personal Bests Matrix</h1>
-          <p class="hero-headline">Track your PRs and celebrate your strength gains</p>
-        </div>
-      </section>
-      <div class="utility-card" style="margin-top:32px;max-width:900px;margin-left:auto;margin-right:auto;">
-        <h2 class="event-title" style="margin-bottom:18px;text-align:center;">Community Personal Bests</h2>
-        <p style="color:#888;text-align:center;margin-bottom:16px;font-size:0.9rem;">
-          View the maximum weight lifted for each member and exercise. Data is synced from the community workout logs.
-        </p>
-        <div id="pb-json-loading" style="text-align:center;padding:20px;color:#888;">
-          <span style="font-size:1.5rem;">⏳</span> Loading Personal Bests...
-        </div>
-        <div id="pb-json-table"></div>
-        <div id="pb-json-error" style="display:none;text-align:center;padding:16px;background:rgba(255,85,85,0.1);border:2px solid #ff5555;border-radius:8px;color:#ff5555;margin-top:12px;" role="alert"></div>
-      </div>
-      <div style="text-align:center;margin-top:32px;">
-        <button id="pb-refresh-btn" class="neon-btn neon-btn-yellow" style="font-size:1rem;" onclick="refreshPBMatrix()">🔄 Refresh Data</button>
-      </div>
-    </main>
-    <footer class="site-footer" role="contentinfo">
-      <div class="footer-content">
-        <nav class="footer-social" aria-label="Social media links">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #e1306c);" />
-          </a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1877f3);" />
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1da1f2);" />
-          </a>
-        </nav>
-        <p class="footer-copyright">
-          &copy; <span id="current-year">2025</span> Iron & Ale. All rights reserved.
-        </p>
-      </div>
-    </footer>
-  </div>
+  <link rel="stylesheet" href="assets/css/tailwind.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
   <script>
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WW47GEZS2M');
+  </script>
+  <style>
+    .pb-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 400px;
+      background: white;
+    }
+    .pb-table th, .pb-table td {
+      padding: 0.75rem 1rem;
+      text-align: center;
+      border: 1px solid var(--color-gray-200);
+    }
+    .pb-table thead th {
+      background: var(--color-primary-600);
+      color: white;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .pb-table thead th:first-child {
+      background: var(--color-secondary-500);
+      position: sticky;
+      left: 0;
+      z-index: 20;
+    }
+    .pb-table tbody td:first-child {
+      background: var(--color-gray-100);
+      font-weight: 600;
+      color: var(--color-gray-900);
+      position: sticky;
+      left: 0;
+      z-index: 5;
+      white-space: nowrap;
+    }
+    .pb-table tbody tr:nth-child(even) td {
+      background-color: var(--color-gray-50);
+    }
+    .pb-table tbody tr:nth-child(even) td:first-child {
+      background-color: var(--color-gray-200);
+    }
+    .pb-value {
+      color: var(--color-success-600);
+      font-weight: 500;
+    }
+    .pb-empty {
+      color: var(--color-gray-400);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="site-wrapper">
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-logo">
+          <svg class="sidebar-nav-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+          <span>Iron & Ale</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="index.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="about/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>About</span>
+        </a>
+        <a href="utilities/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Utilities</span>
+        </a>
+        <a href="events.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Events</span>
+        </a>
+        <a href="projects.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span>Projects</span>
+        </a>
+        <a href="style-guide/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+          </svg>
+          <span>Style Guide</span>
+        </a>
+        <a href="admin.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+          <span>Admin</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="text-sm text-gray-400">&copy; <span id="sidebar-year">2024</span> Iron & Ale</p>
+      </div>
+    </aside>
+
+    <!-- Overlay for mobile sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Mobile Header -->
+      <header class="top-header">
+        <a href="index.html" class="font-bold text-lg text-gray-900">Iron & Ale</a>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </header>
+
+      <main id="main-content" role="main">
+        <div class="page-container">
+          <!-- Page Header -->
+          <header class="page-header">
+            <h1 class="page-title">Personal Bests Matrix</h1>
+            <p class="page-subtitle">Track your PRs and celebrate your strength gains</p>
+          </header>
+
+          <!-- PB Matrix Card -->
+          <section aria-labelledby="pb-matrix-title">
+            <div class="card">
+              <div class="card-body">
+                <div class="flex items-center justify-between mb-6">
+                  <h2 id="pb-matrix-title" class="text-lg font-semibold text-gray-900">Community Personal Bests</h2>
+                  <button id="pb-refresh-btn" class="btn btn-secondary btn-sm" onclick="refreshPBMatrix()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                    Refresh
+                  </button>
+                </div>
+                <p class="text-sm text-gray-500 mb-6">
+                  View the maximum weight lifted for each member and exercise. Data is synced from the community workout logs.
+                </p>
+                <div id="pb-json-loading" class="text-center py-8 text-gray-500">
+                  <svg class="animate-spin h-8 w-8 mx-auto mb-4 text-primary-500" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Loading Personal Bests...
+                </div>
+                <div id="pb-json-table" class="overflow-x-auto"></div>
+                <div id="pb-json-error" class="alert alert-danger mt-4" style="display:none;" role="alert"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 px-6 mt-12" role="contentinfo">
+          <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+              <div class="flex items-center gap-3">
+                <svg class="sidebar-nav-icon text-primary-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+                </svg>
+                <span class="font-semibold">Iron & Ale</span>
+              </div>
+              
+              <p class="text-sm text-gray-400">
+                &copy; <span id="footer-year">2024</span> Iron & Ale. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    const currentYear = new Date().getFullYear();
+    document.getElementById('footer-year').textContent = currentYear;
+    document.getElementById('sidebar-year').textContent = currentYear;
+    
     const PB_MATRIX_URL = 'https://script.google.com/macros/s/AKfycbwgMZKTvpxCDs_e-ByAyr-A4NtwzWDWoP3khUtQk5OeFIP8aPF9ST3qlMYRORp-zcVaCQ/exec?format=json';
+    
     function getPBMatrixCacheKey() {
       const today = new Date().toISOString().slice(0, 10);
       return 'pbMatrixCache_' + today;
     }
+    
     function loadPBMatrix(forceRefresh = false) {
       const loading = document.getElementById('pb-json-loading');
       const tableContainer = document.getElementById('pb-json-table');
       const errorDiv = document.getElementById('pb-json-error');
       const cacheKey = getPBMatrixCacheKey();
+      
       loading.style.display = 'block';
       tableContainer.innerHTML = '';
       errorDiv.style.display = 'none';
+      
       if (!forceRefresh) {
         const cached = localStorage.getItem(cacheKey);
         if (cached) {
@@ -93,6 +240,7 @@
           }
         }
       }
+      
       fetch(PB_MATRIX_URL)
         .then(response => {
           if (!response.ok) throw new Error('Network response was not ok');
@@ -109,54 +257,57 @@
           errorDiv.textContent = 'Failed to load PB data: ' + error.message;
         });
     }
+    
     function refreshPBMatrix() {
-      // Force refresh and update cache
       loadPBMatrix(true);
     }
-    document.addEventListener('DOMContentLoaded', function() {
-      loadPBMatrix();
-      document.getElementById('pb-refresh-btn').addEventListener('click', refreshPBMatrix);
-    });
+    
     function escapeHtmlForPB(str) {
       if (str === null || str === undefined) return '';
       const div = document.createElement('div');
       div.textContent = String(str);
       return div.innerHTML;
     }
+    
     function renderPBMatrixTable(data) {
       const container = document.getElementById('pb-json-table');
       if (!data.exercises || data.exercises.length === 0 || !data.rows || data.rows.length === 0) {
-        container.innerHTML = '<p style="text-align:center;color:#888;padding:20px;">No workout data found. Start logging your workouts!</p>';
+        container.innerHTML = '<p class="text-center text-gray-500 py-8">No workout data found. Start logging your workouts!</p>';
         return;
       }
-      let html = '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);">';
-      html += '<table style="width:100%;border-collapse:collapse;min-width:400px;background:#222;">';
+      
+      let html = '<table class="pb-table">';
       html += '<thead><tr>';
-      html += '<th style="padding:10px 12px;text-align:center;border:1px solid #333;background:linear-gradient(135deg,#ffb84d 0%,#cc8a00 100%);color:#fff;font-weight:600;position:sticky;left:0;z-index:20;">Name</th>';
+      html += '<th>Name</th>';
       data.exercises.forEach(ex => {
-        html += '<th style="padding:10px 12px;text-align:center;border:1px solid #333;background:linear-gradient(135deg,#19baff 0%,#0d7ba8 100%);color:#fff;font-weight:600;white-space:nowrap;">' + escapeHtmlForPB(ex) + '</th>';
+        html += '<th>' + escapeHtmlForPB(ex) + '</th>';
       });
       html += '</tr></thead><tbody>';
-      data.rows.forEach((row, rowIdx) => {
-        const rowBg = rowIdx % 2 === 0 ? '#222' : '#2a2a3a';
+      
+      data.rows.forEach(row => {
         html += '<tr>';
         row.forEach((cell, idx) => {
           if (idx === 0) {
-            html += '<td style="padding:10px 12px;text-align:center;border:1px solid #333;background:#2a2a4a;font-weight:600;color:#ffb84d;position:sticky;left:0;z-index:5;white-space:nowrap;">' + escapeHtmlForPB(cell) + '</td>';
+            html += '<td>' + escapeHtmlForPB(cell) + '</td>';
           } else {
             if (cell !== null && cell !== undefined) {
-              html += '<td style="padding:10px 12px;text-align:center;border:1px solid #333;background:' + rowBg + ';color:#39ff14;font-weight:500;">' + escapeHtmlForPB(cell) + ' kg</td>';
+              html += '<td class="pb-value">' + escapeHtmlForPB(cell) + ' kg</td>';
             } else {
-              html += '<td style="padding:10px 12px;text-align:center;border:1px solid #333;background:' + rowBg + ';color:#666;">—</td>';
+              html += '<td class="pb-empty">—</td>';
             }
           }
         });
         html += '</tr>';
       });
-      html += '</tbody></table></div>';
-      html += '<p style="text-align:center;color:#888;font-size:0.85rem;margin-top:12px;">All weights normalized to kilograms (kg)</p>';
+      
+      html += '</tbody></table>';
+      html += '<p class="text-center text-sm text-gray-500 mt-4">All weights normalized to kilograms (kg)</p>';
       container.innerHTML = html;
     }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      loadPBMatrix();
+    });
   </script>
 </body>
 </html>
