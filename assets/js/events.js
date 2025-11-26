@@ -39,12 +39,33 @@ function createEventCard(event, isPast) {
   card.setAttribute('role', 'listitem');
 
   // Banner
-  const img = document.createElement('img');
-  img.className = 'event-banner';
-  img.src = event.image || '';
-  img.alt = event.name;
-  img.loading = 'lazy';
-  card.appendChild(img);
+  if (event.image) {
+    const img = document.createElement('img');
+    img.className = 'event-banner';
+    img.src = event.image;
+    img.alt = event.name;
+    img.loading = 'lazy';
+    card.appendChild(img);
+  } else {
+    // Fallback placeholder for events without images
+    const placeholder = document.createElement('div');
+    placeholder.className = 'event-banner-placeholder';
+    placeholder.setAttribute('aria-label', event.name);
+    
+    // Add calendar icon
+    const icon = document.createElement('div');
+    icon.className = 'event-placeholder-icon';
+    icon.innerHTML = '📅';
+    placeholder.appendChild(icon);
+    
+    // Add event name as text
+    const text = document.createElement('div');
+    text.className = 'event-placeholder-text';
+    text.textContent = event.name;
+    placeholder.appendChild(text);
+    
+    card.appendChild(placeholder);
+  }
 
   // Content
   const content = document.createElement('div');
@@ -115,16 +136,17 @@ function createEventCard(event, isPast) {
     btns.appendChild(remindBtn);
   }
   
-  // View Details button for all events
+  // Show either "View Details" or "More Info" (not both) - only one link button
   if (event.link) {
-    const detailsBtn = document.createElement('a');
-    detailsBtn.className = 'event-btn';
-    detailsBtn.textContent = 'View Details';
-    detailsBtn.href = event.link;
-    detailsBtn.target = '_blank';
-    detailsBtn.rel = 'noopener noreferrer';
-    detailsBtn.setAttribute('aria-label', `View details for ${event.name} (opens in new tab)`);
-    btns.appendChild(detailsBtn);
+    const linkBtn = document.createElement('a');
+    linkBtn.className = 'event-btn';
+    // Use "More Info" text if showMoreInfo is true, otherwise "View Details"
+    linkBtn.textContent = event.showMoreInfo ? 'More Info' : 'View Details';
+    linkBtn.href = event.link;
+    linkBtn.target = '_blank';
+    linkBtn.rel = 'noopener noreferrer';
+    linkBtn.setAttribute('aria-label', `${event.showMoreInfo ? 'More information about' : 'View details for'} ${event.name} (opens in new tab)`);
+    btns.appendChild(linkBtn);
   }
   
   if (event.showBookNow && event.link && !isPast) {
@@ -136,16 +158,6 @@ function createEventCard(event, isPast) {
     bookBtn.rel = 'noopener noreferrer';
     bookBtn.setAttribute('aria-label', `Book ${event.name} now (opens in new tab)`);
     btns.appendChild(bookBtn);
-  }
-  if (event.showMoreInfo && event.link) {
-    const infoBtn = document.createElement('a');
-    infoBtn.className = 'event-btn';
-    infoBtn.textContent = 'More Info';
-    infoBtn.href = event.link;
-    infoBtn.target = '_blank';
-    infoBtn.rel = 'noopener noreferrer';
-    infoBtn.setAttribute('aria-label', `More information about ${event.name} (opens in new tab)`);
-    btns.appendChild(infoBtn);
   }
   if (btns.childElementCount > 0) content.appendChild(btns);
 
