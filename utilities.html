@@ -1140,7 +1140,7 @@
       const headers = ['Date', 'Exercise', 'Sets', 'Reps', 'Weight', 'Unit', 'Notes', 'PR'];
       const rows = workouts.map(w => [
         w.date,
-        w.exercise.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+        formatExerciseName(w.exercise),
         w.sets,
         w.reps,
         w.weight,
@@ -1148,6 +1148,11 @@
         w.notes ? `"${w.notes.replace(/"/g, '""')}"` : '',
         w.isPR ? 'YES' : 'NO'
       ]);
+
+      function formatExerciseName(name) {
+        if (!name) return '';
+        return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      }
 
       const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
 
