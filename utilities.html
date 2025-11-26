@@ -6,12 +6,79 @@
   <title>Member Utilities | Iron & Ale</title>
   <meta name="description" content="Iron & Ale member utilities - Track your progress, access workout resources, and connect with community tools.">
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="icon" type="image/svg+xml" href="https://api.iconify.design/mdi:dumbbell.svg?color=%2319baff" />
-  <link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="https://api.iconify.design/mdi:dumbbell.svg?color=%233b82f6" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
   <script>
+                // Save workout to n8n webhook
+                function saveWorkout() {
+                  const submitMsg = document.getElementById('workout-submit-message');
+                  if (submitMsg) {
+                    submitMsg.style.display = 'none';
+                    submitMsg.textContent = '';
+                  }
+                  const name = document.getElementById('workout-name')?.value.trim();
+                  const exercise = document.getElementById('workout-exercise')?.value;
+                  const date = document.getElementById('workout-date')?.value;
+                  const sets = document.getElementById('workout-sets')?.value;
+                  const reps = document.getElementById('workout-reps')?.value;
+                  const weight = document.getElementById('workout-weight')?.value;
+                  const time = document.getElementById('workout-time')?.value;
+                  if (!name || !exercise || !date) {
+                    if (submitMsg) {
+                      submitMsg.textContent = 'Please fill in all required fields.';
+                      submitMsg.style.display = 'block';
+                      submitMsg.style.background = '#fee2e2';
+                      submitMsg.style.color = '#b91c1c';
+                    }
+                    return;
+                  }
+                  const payload = {
+                    name,
+                    exercise,
+                    date,
+                    sets,
+                    reps,
+                    weight,
+                    time
+                  };
+                  fetch('https://n8n.petefox.co.uk/webhook/workout-log', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                  })
+                  .then(async response => {
+                    if (!response.ok) {
+                      let errorText = 'Failed to log workout.';
+                      try {
+                        const err = await response.text();
+                        errorText += ' ' + err;
+                      } catch {}
+                      throw new Error(errorText);
+                    }
+                    return response.json().catch(() => ({}));
+                  })
+                  .then(data => {
+                    if (submitMsg) {
+                      submitMsg.textContent = 'Workout logged successfully!';
+                      submitMsg.style.display = 'block';
+                      submitMsg.style.background = '#d1fae5';
+                      submitMsg.style.color = '#065f46';
+                    }
+                    document.getElementById('workout-form').reset();
+                  })
+                  .catch(error => {
+                    if (submitMsg) {
+                      submitMsg.textContent = error.message || 'Failed to log workout.';
+                      submitMsg.style.display = 'block';
+                      submitMsg.style.background = '#fee2e2';
+                      submitMsg.style.color = '#b91c1c';
+                    }
+                  });
+                }
         // Timer display update for clock, for time, amrap, tabata
         function updateTimerDisplay() {
           const display = document.getElementById('timer-display');
@@ -63,9 +130,9 @@
     gtag('config', 'G-WW47GEZS2M');
   </script>
 </head>
-<body class="neon-bg">
+<body class="bg-gray-900 text-white">
   <div class="page-wrapper">
-    <nav class="neon-nav" role="navigation" aria-label="Main navigation">
+    <nav class="bg-gray-800 shadow-lg" role="navigation" aria-label="Main navigation">
       <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
         <span></span>
         <span></span>
@@ -84,58 +151,58 @@
       <!-- Hero Banner -->
       <section class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1920&q=80'); min-height: 40vh;" aria-label="Utilities page header">
         <div class="hero-content">
-          <h1 class="neon-title">Member Utilities</h1>
+          <h1 class="text-3xl font-bold text-blue-500">Member Utilities</h1>
           <p class="hero-headline">Tools to track, train, and connect</p>
         </div>
       </section>
       </section>
 
-        <!-- Collapsible Utility Tools (Neon Theme) -->
+        <!-- Collapsible Utility Tools -->
         <div class="utility-collapsible-list">
           <!-- Plate Calculator -->
           <div class="utility-collapsible">
-            <button class="utility-collapsible-header" onclick="toggleUtilitySection('plate-calc')" aria-expanded="false" aria-controls="plate-calc-content">
-              <span class="section-icon" aria-hidden="true">🏋️‍♂️</span> Plate Calculator (KG)
+            <button class="utility-collapsible-header bg-gray-700 text-blue-400 hover:bg-blue-900 focus:bg-blue-900" onclick="toggleUtilitySection('plate-calc')" aria-expanded="false" aria-controls="plate-calc-content">
+              <span class="section-icon mr-2" aria-hidden="true">🏋️‍♂️</span> Plate Calculator (KG)
             </button>
             <div class="utility-collapsible-content" id="plate-calc-content" style="display:none;">
               <div class="utility-card" style="margin-top:0;">
                 <h3 class="event-title" style="margin-bottom:18px;text-align:center;">Plate Calculator (KG)</h3>
-                <div id="plate-calc-mode" style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;">
-                  <button type="button" class="neon-btn neon-btn-blue" id="mode-plates" onclick="setPlateCalcMode('plates')" aria-pressed="true">Calculate Plates Needed</button>
-                  <button type="button" class="neon-btn neon-btn-yellow" id="mode-weight" onclick="setPlateCalcMode('weight')" aria-pressed="false">Calculate Total Weight</button>
+                <div id="plate-calc-mode" class="flex justify-center gap-3 mb-3">
+                  <button type="button" class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-700" id="mode-plates" onclick="setPlateCalcMode('plates')" aria-pressed="true">Calculate Plates Needed</button>
+                  <button type="button" class="px-4 py-2 rounded bg-yellow-400 text-gray-900 hover:bg-yellow-500" id="mode-weight" onclick="setPlateCalcMode('weight')" aria-pressed="false">Calculate Total Weight</button>
                 </div>
                 <form id="plate-calculator-form" style="display:flex;flex-direction:column;gap:16px;width:100%;max-width:400px;margin:0 auto;">
                   <div style="display:flex;flex-direction:column;gap:8px;">
-                    <label for="bar-weight" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Bar Weight (KG):</label>
-                    <input type="number" id="bar-weight" min="10" max="30" value="20" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Bar weight in KG" />
+                    <label for="bar-weight" class="text-blue-400 font-semibold">Bar Weight (KG):</label>
+                    <input type="number" id="bar-weight" min="10" max="30" value="20" class="p-3 rounded border-2 border-blue-400 bg-gray-800 text-white text-base" aria-label="Bar weight in KG" />
                   </div>
                   <div id="plates-mode-fields">
                     <div style="display:flex;flex-direction:column;gap:8px;">
-                      <label for="target-weight" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Target Total Weight (KG):</label>
-                      <input type="number" id="target-weight" min="20" max="300" value="60" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Target total weight in KG" />
+                      <label for="target-weight" class="text-blue-400 font-semibold">Target Total Weight (KG):</label>
+                      <input type="number" id="target-weight" min="20" max="300" value="60" class="p-3 rounded border-2 border-blue-400 bg-gray-800 text-white text-base" aria-label="Target total weight in KG" />
                     </div>
-                    <button type="button" class="neon-btn neon-btn-blue" onclick="calculatePlates()" aria-label="Calculate plate breakdown">Calculate Plates</button>
+                    <button type="button" class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-700" onclick="calculatePlates()" aria-label="Calculate plate breakdown">Calculate Plates</button>
                   </div>
                   <div id="weight-mode-fields" style="display:none;">
                     <div style="display:flex;flex-direction:column;gap:8px;">
-                      <label for="side-plates" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Plates on One Side (KG, comma separated):</label>
-                      <input type="text" id="side-plates" placeholder="e.g. 20,10,2.5" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Plates on one side in KG" />
-                      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
-                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(25)">+25kg</button>
-                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(20)">+20kg</button>
-                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(15)">+15kg</button>
-                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(10)">+10kg</button>
-                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(5)">+5kg</button>
-                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(2.5)">+2.5kg</button>
-                        <button type="button" class="neon-btn neon-btn-yellow" onclick="addPlate(1.25)">+1.25kg</button>
+                      <label for="side-plates" class="text-blue-400 font-semibold">Plates on One Side (KG, comma separated):</label>
+                      <input type="text" id="side-plates" placeholder="e.g. 20,10,2.5" class="p-3 rounded border-2 border-blue-400 bg-gray-800 text-white text-base" aria-label="Plates on one side in KG" />
+                      <div class="flex gap-2 flex-wrap mt-2">
+                        <button type="button" class="px-3 py-1 rounded bg-yellow-400 text-gray-900 hover:bg-yellow-500" onclick="addPlate(25)">+25kg</button>
+                        <button type="button" class="px-3 py-1 rounded bg-yellow-400 text-gray-900 hover:bg-yellow-500" onclick="addPlate(20)">+20kg</button>
+                        <button type="button" class="px-3 py-1 rounded bg-yellow-400 text-gray-900 hover:bg-yellow-500" onclick="addPlate(15)">+15kg</button>
+                        <button type="button" class="px-3 py-1 rounded bg-yellow-400 text-gray-900 hover:bg-yellow-500" onclick="addPlate(10)">+10kg</button>
+                        <button type="button" class="px-3 py-1 rounded bg-yellow-400 text-gray-900 hover:bg-yellow-500" onclick="addPlate(5)">+5kg</button>
+                        <button type="button" class="px-3 py-1 rounded bg-yellow-400 text-gray-900 hover:bg-yellow-500" onclick="addPlate(2.5)">+2.5kg</button>
+                        <button type="button" class="px-3 py-1 rounded bg-yellow-400 text-gray-900 hover:bg-yellow-500" onclick="addPlate(1.25)">+1.25kg</button>
                       </div>
                     </div>
-                    <button type="button" class="neon-btn neon-btn-blue" onclick="calculateWeight()" aria-label="Calculate total weight">Calculate Total Weight</button>
+                    <button type="button" class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-700" onclick="calculateWeight()" aria-label="Calculate total weight">Calculate Total Weight</button>
                   </div>
                 </form>
                                 <!-- Workout Log Table -->
                                 <div id="workout-log-table" style="margin-top:32px;"></div>
-                <div id="plate-result" style="margin-top:18px;text-align:center;color:#fff;font-family:'Orbitron',Arial,sans-serif;"></div>
+                <div id="plate-result" class="mt-4 text-center text-white font-mono"></div>
               </div>
             </div>
           </div>

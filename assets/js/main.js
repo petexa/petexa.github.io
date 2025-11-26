@@ -44,7 +44,7 @@ function calculateWeight() {
   const totalPlates = sidePlates.reduce((sum, kg) => sum + kg, 0) * 2;
   const totalWeight = barWeight + totalPlates;
   const plateResult = document.getElementById('plate-result');
-  plateResult.innerHTML = `<strong>Total Weight:</strong> ${totalWeight} kg<br><span style='font-size:0.95em;color:#19baff;'>Bar: ${barWeight} kg, Plates: ${sidePlates.length ? sidePlates.join(', ') : 'None'} kg per side</span>`;
+  plateResult.innerHTML = `<strong>Total Weight:</strong> ${totalWeight} kg<br><span class='text-blue-400 text-base'>Bar: ${barWeight} kg, Plates: ${sidePlates.length ? sidePlates.join(', ') : 'None'} kg per side</span>`;
 }
 function calculatePlates() {
   const barWeight = parseFloat(document.getElementById('bar-weight').value) || 20;
