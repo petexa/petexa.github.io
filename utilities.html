@@ -829,20 +829,26 @@
 
     // Initialize workout tracker
     function initWorkoutTracker() {
-            // Hide/show weight input based on exercise
+            // Hide/show weight and time input based on exercise
             const exerciseInput = document.getElementById('workout-exercise');
             const weightRow = document.getElementById('workout-weight-row');
-            function updateWeightVisibility() {
+            const timeRow = document.getElementById('time-row');
+            function updateFieldVisibility() {
               const val = exerciseInput.value;
-              if (val === 'pullups' || val === 'dips') {
+              if (val === 'ski-erg' || val === 'row-erg') {
                 if (weightRow) weightRow.style.display = 'none';
+                if (timeRow) timeRow.style.display = '';
+              } else if (val === 'pullups' || val === 'dips') {
+                if (weightRow) weightRow.style.display = 'none';
+                if (timeRow) timeRow.style.display = 'none';
               } else {
                 if (weightRow) weightRow.style.display = '';
+                if (timeRow) timeRow.style.display = 'none';
               }
             }
-            if (exerciseInput && weightRow) {
-              exerciseInput.addEventListener('change', updateWeightVisibility);
-              updateWeightVisibility();
+            if (exerciseInput && weightRow && timeRow) {
+              exerciseInput.addEventListener('change', updateFieldVisibility);
+              updateFieldVisibility();
             }
       // Set today's date
       const dateInput = document.getElementById('workout-date');

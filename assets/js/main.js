@@ -2,18 +2,20 @@
 // Plate Calculator Logic (KG only)
 // Collapsible Utility Sections
 function toggleUtilitySection(id) {
+  // Collapse all sections and set aria-expanded to false
   document.querySelectorAll('.utility-collapsible-content').forEach(function(section) {
-    if (section.id === id + '-content') {
-      const expanded = section.style.display === 'block';
-      section.style.display = expanded ? 'none' : 'block';
-      document.querySelectorAll('.utility-collapsible-header').forEach(function(btn) {
-        btn.setAttribute('aria-expanded', 'false');
-      });
-      document.querySelector('.utility-collapsible-header[onclick*="' + id + '"]').setAttribute('aria-expanded', !expanded);
-    } else {
-      section.style.display = 'none';
-    }
+    section.style.display = 'none';
   });
+  document.querySelectorAll('.utility-collapsible-header').forEach(function(header) {
+    header.setAttribute('aria-expanded', 'false');
+  });
+  // Expand the selected section and set aria-expanded to true
+  var content = document.getElementById(id + '-content');
+  var header = document.querySelector('.utility-collapsible-header[onclick*="' + id + '"]');
+  if (content && header) {
+    content.style.display = 'block';
+    header.setAttribute('aria-expanded', 'true');
+  }
 }
 // Plate Calculator Flip Mode & Quick Plate Buttons
 let plateCalcMode = 'plates';
