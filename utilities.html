@@ -1243,6 +1243,7 @@
     function toggleUtilitySection(id) {
       document.querySelectorAll('.utility-collapsible-content').forEach(function(section) {
         if (section.id === id + '-content') {
+          // 'expanded' is the state BEFORE toggle (true = was visible, now being collapsed)
           const expanded = section.style.display === 'block';
           section.style.display = expanded ? 'none' : 'block';
           document.querySelectorAll('.utility-collapsible-header').forEach(function(btn) {
@@ -1250,7 +1251,7 @@
           });
           document.querySelector('.utility-collapsible-header[onclick*="' + id + '"]').setAttribute('aria-expanded', !expanded);
           
-          // Auto-fetch PB Matrix data when section is expanded
+          // Auto-fetch PB Matrix data when section is being expanded (!expanded = was hidden, now visible)
           if (id === 'pb-matrix' && !expanded && !pbMatrixLoaded) {
             fetchPBMatrixJSON();
           }
