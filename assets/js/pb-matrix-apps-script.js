@@ -141,7 +141,7 @@ function doGet(e) {
   const { names, exercises, rows } = getPBMatrix_();
   
   if (format.toLowerCase() === 'json') {
-    // Return JSON response
+    // Return JSON response with CORS header
     const jsonData = {
       names: names,
       exercises: exercises,
@@ -149,7 +149,8 @@ function doGet(e) {
     };
     return ContentService
       .createTextOutput(JSON.stringify(jsonData))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader("Access-Control-Allow-Origin", "*");
   }
   
   // Return HTML table
