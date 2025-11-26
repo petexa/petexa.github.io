@@ -1171,6 +1171,7 @@
       workoutChart.data.datasets[0].label = `Weight (${unit})`;
       
       // Highlight PRs
+
       workoutChart.data.datasets[0].pointBackgroundColor = exerciseWorkouts.map(w => 
         w.isPR ? '#39ff14' : '#19baff'
       );
@@ -1354,6 +1355,15 @@
           editBtn.style.display = 'inline-block';
         }
       });
+      // Autofill name on workout form submit
+      var workoutForm = document.getElementById('workout-form');
+      if (workoutForm) {
+        workoutForm.addEventListener('submit', function(e) {
+          if (!nameInput.value.trim() && cachedName) {
+            nameInput.value = cachedName;
+          }
+        });
+      }
     });
 
     // PB Matrix Functions
