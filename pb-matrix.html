@@ -17,10 +17,12 @@
   </script>
   <style>
     .pb-table {
-      @apply w-full border-collapse min-w-[400px] bg-white rounded-lg shadow;
+      @apply w-full border-collapse min-w-[400px] rounded-lg shadow;
+      background: var(--card-bg);
     }
     .pb-table th, .pb-table td {
-      @apply px-4 py-3 text-center border border-gray-200;
+      @apply px-4 py-3 text-center;
+      border: 1px solid var(--border);
     }
     .pb-table thead th {
       background: var(--color-primary-600);
@@ -35,30 +37,33 @@
       z-index: 20;
     }
     .pb-table tbody td:first-child {
-      background: var(--color-gray-100);
+      background: var(--bg-alt);
       font-weight: 600;
-      color: var(--color-gray-900);
+      color: var(--text);
       position: sticky;
       left: 0;
       z-index: 5;
       white-space: nowrap;
     }
     .pb-table tbody tr:nth-child(even) td {
-      background-color: var(--color-gray-50);
+      background-color: var(--surface);
     }
     .pb-table tbody tr:nth-child(even) td:first-child {
-      background-color: var(--color-gray-200);
+      background-color: var(--surface-elevated);
     }
     .pb-value {
       color: var(--color-success-600);
       font-weight: 500;
     }
+    .theme-dark .pb-value {
+      color: var(--color-success-400);
+    }
     .pb-empty {
-      color: var(--color-gray-400);
+      color: var(--text-muted);
     }
   </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-page">
   <!-- Skip to content link for accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -126,12 +131,18 @@
     <div class="main-content">
       <!-- Mobile Header -->
       <header class="top-header">
-        <a href="index.html" class="font-bold text-lg text-gray-900">Iron & Ale</a>
-        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
+        <a href="index.html" class="font-bold text-lg" style="color: var(--text);">Iron & Ale</a>
+        <div class="flex items-center gap-2">
+          <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
       </header>
 
       <main id="main-content" role="main">
@@ -147,7 +158,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="flex items-center justify-between mb-6">
-                  <h2 id="pb-matrix-title" class="text-lg font-semibold text-gray-900">Community Personal Bests</h2>
+                  <h2 id="pb-matrix-title" class="text-lg font-semibold" style="color: var(--text);">Community Personal Bests</h2>
                   <button id="pb-refresh-btn" class="btn btn-secondary btn-sm" onclick="refreshPBMatrix()">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -155,10 +166,10 @@
                     Refresh
                   </button>
                 </div>
-                <p class="text-sm text-gray-500 mb-6">
+                <p class="text-sm mb-6" style="color: var(--text-muted);">
                   View the maximum weight lifted for each member and exercise. Data is synced from the community workout logs.
                 </p>
-                <div id="pb-json-loading" class="text-center py-8 text-gray-500">
+                <div id="pb-json-loading" class="text-center py-8" style="color: var(--text-muted);">
                   <svg class="animate-spin h-8 w-8 mx-auto mb-4 text-primary-500" fill="none" viewBox="0 0 24 24" aria-hidden="true">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -181,7 +192,7 @@
 
           <!-- Related Tools -->
           <section class="mt-8" aria-labelledby="related-tools-title">
-            <h2 id="related-tools-title" class="text-xl font-bold text-gray-900 mb-4">Related Tools</h2>
+            <h2 id="related-tools-title" class="text-xl font-bold mb-4" style="color: var(--text);">Related Tools</h2>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <a href="utilities/workout-tracker/" class="tool-card">
                 <div class="tool-card-icon" aria-hidden="true">📝</div>
