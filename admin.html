@@ -38,6 +38,22 @@
         <div id="webhook-test-result" style="margin-top:18px;text-align:center;color:#fff;font-family:'Orbitron',Arial,sans-serif;"></div>
         <div id="webhook-test-log" style="margin-top:18px;text-align:left;color:#ff5555;font-family:'Orbitron',Arial,sans-serif;background:#222;padding:12px;border-radius:8px;display:none;"></div>
       </div>
+
+      <!-- PB Matrix URL Test Section -->
+      <div class="utility-card" style="max-width:500px;margin:32px auto;">
+        <h3 style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;text-align:center;margin-bottom:16px;">🏆 PB Matrix URL Test</h3>
+        <p style="color:#888;text-align:center;margin-bottom:16px;font-size:0.9rem;">Test the Google Apps Script URL for the Personal Bests Matrix.</p>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <input type="text" id="pb-url-test" placeholder="Enter PB Matrix URL" 
+            value="https://script.google.com/macros/s/AKfycbzFslB8yDXO8G9ClvbFZX5q8URyvVSQa7R6mfnWpl2a7Cy4gxIRugOzkO4t4o7WlX_jOw/exec" 
+            style="padding:12px;border-radius:6px;border:2px solid #ffb84d;background:#222;color:#fff;font-size:0.85rem;">
+          <button type="button" class="neon-btn neon-btn-yellow" onclick="testPBMatrixUrl()">Test PB Matrix URL</button>
+        </div>
+        <div id="pb-url-test-result" style="margin-top:18px;text-align:center;color:#fff;font-family:'Orbitron',Arial,sans-serif;"></div>
+        <div id="pb-url-test-data" style="margin-top:12px;background:#222;padding:12px;border-radius:8px;display:none;max-height:200px;overflow-y:auto;">
+          <pre id="pb-url-test-json" style="color:#39ff14;font-size:0.8rem;white-space:pre-wrap;word-break:break-all;margin:0;"></pre>
+        </div>
+      </div>
     </main>
   </div>
   <script>
@@ -79,6 +95,48 @@
         result.textContent = 'Error sending webhook.';
         result.style.color = '#ff5555';
       });
+    }
+
+    function testPBMatrixUrl() {
+      const urlInput = document.getElementById('pb-url-test');
+      const result = document.getElementById('pb-url-test-result');
+      const dataDiv = document.getElementById('pb-url-test-data');
+      const jsonPre = document.getElementById('pb-url-test-json');
+      
+      const url = urlInput.value.trim();
+      
+      if (!url) {
+        result.textContent = 'Please enter a URL';
+        result.style.color = '#ff5555';
+        return;
+      }
+      
+      // Show loading state
+      result.textContent = '⏳ Testing URL...';
+      result.style.color = '#19baff';
+      dataDiv.style.display = 'none';
+      
+      // Add format=json parameter
+      const jsonUrl = url + (url.includes('?') ? '&' : '?') + 'format=json';
+      
+      fetch(jsonUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('HTTP Error: ' + response.status + ' ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          result.textContent = '✅ URL is working! Found ' + (data.rows ? data.rows.length : 0) + ' members and ' + (data.exercises ? data.exercises.length : 0) + ' exercises.';
+          result.style.color = '#39ff14';
+          dataDiv.style.display = 'block';
+          jsonPre.textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          result.textContent = '❌ Error: ' + error.message;
+          result.style.color = '#ff5555';
+          dataDiv.style.display = 'none';
+        });
     }
   </script>
 </body>
