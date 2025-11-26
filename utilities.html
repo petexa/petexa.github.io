@@ -241,9 +241,6 @@
                     <label for="workout-time" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">Time (mm:ss):</label>
                     <input type="text" id="workout-time" pattern="^\d{1,2}:\d{2}$" placeholder="e.g. 07:30" style="padding:12px;border-radius:6px;border:2px solid #ffb84d;background:#222;color:#fff;font-size:1rem;" aria-label="Time in minutes and seconds" />
                   </div>
-                  <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,184,77,0.1);border:2px solid #ffb84d;border-radius:8px;">
-                    <!-- PR checkbox removed. PR is now detected automatically. -->
-                  </div>
                   <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
                     <button type="button" class="neon-btn neon-btn-blue" id="save-workout-btn" onclick="saveWorkout()" aria-label="Save workout entry" style="flex:1;min-width:120px;">Save Entry</button>
                     <button type="button" class="neon-btn neon-btn-yellow" onclick="exportWorkouts()" aria-label="Export workouts as CSV" style="flex:1;min-width:120px;">Export CSV</button>
@@ -832,21 +829,33 @@
             // Hide/show weight and time input based on exercise
             const exerciseInput = document.getElementById('workout-exercise');
             const weightRow = document.getElementById('workout-weight-row');
+            const setsRow = document.getElementById('workout-sets').parentElement.parentElement;
+            const repsRow = document.getElementById('workout-reps').parentElement.parentElement;
             const timeRow = document.getElementById('time-row');
             function updateFieldVisibility() {
               const val = exerciseInput.value;
               if (val === 'ski-erg' || val === 'row-erg') {
                 if (weightRow) weightRow.style.display = 'none';
-                if (timeRow) timeRow.style.display = '';
+                if (setsRow) setsRow.style.display = 'none';
+                if (repsRow) repsRow.style.display = 'none';
+                if (timeRow) {
+                  // Move timeRow to sets/reps location
+                  setsRow.parentElement.insertBefore(timeRow, setsRow);
+                  timeRow.style.display = '';
+                }
               } else if (val === 'pullups' || val === 'dips') {
                 if (weightRow) weightRow.style.display = 'none';
+                if (setsRow) setsRow.style.display = '';
+                if (repsRow) repsRow.style.display = '';
                 if (timeRow) timeRow.style.display = 'none';
               } else {
                 if (weightRow) weightRow.style.display = '';
+                if (setsRow) setsRow.style.display = '';
+                if (repsRow) repsRow.style.display = '';
                 if (timeRow) timeRow.style.display = 'none';
               }
             }
-            if (exerciseInput && weightRow && timeRow) {
+            if (exerciseInput && weightRow && setsRow && repsRow && timeRow) {
               exerciseInput.addEventListener('change', updateFieldVisibility);
               updateFieldVisibility();
             }
