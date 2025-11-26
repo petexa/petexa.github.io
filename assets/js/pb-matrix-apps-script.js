@@ -1,11 +1,11 @@
 /**
  * Google Apps Script - Personal Bests (PB) Matrix Web App
  * 
- * This script reads workout data from a Google Sheet named "Logs" and generates
+ * This script reads workout data from a Google Sheet named "workout-log" and generates
  * a Personal Bests matrix showing the maximum weight lifted for each (Name, Exercise) combination.
  * 
- * Sheet Structure (Logs):
- * Columns: Name, Date, Exercise, Sets, Reps, Weight, Unit, Notes, PR
+ * Sheet Structure (workout-log):
+ * Columns: Date, Exercise, Sets, Reps, Weight, Unit, Notes, PR, Name
  * 
  * Deploy: Web App → Execute as Me → Access: Anyone
  * URL ends with /exec
@@ -60,7 +60,7 @@ function escapeHtml(str) {
  */
 function getPBMatrix_() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName('Logs');
+  const sheet = ss.getSheetByName('workout-log');
   
   if (!sheet) {
     return { names: [], exercises: [], rows: [] };
