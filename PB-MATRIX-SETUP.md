@@ -13,11 +13,10 @@ The PB Matrix Web App reads workout data from a Google Sheet named "Logs" and ge
 
 ## Google Sheet Structure
 
-Create a Google Sheet with a sheet named **"Logs"** containing the following columns:
+Use the existing Google Sheet named **"workout-log"** containing the following columns (in order):
 
 | Column | Description | Example |
 |--------|-------------|---------|
-| Name | Member name | "John Doe" |
 | Date | Workout date | "2024-01-15" |
 | Exercise | Exercise name | "Bench Press" |
 | Sets | Number of sets | 3 |
@@ -26,6 +25,9 @@ Create a Google Sheet with a sheet named **"Logs"** containing the following col
 | Unit | Weight unit (kg/lbs) | "kg" |
 | Notes | Optional notes | "Good form" |
 | PR | Personal Record flag | "YES" |
+| Name | Member name (unique identifier) | "John Doe" |
+
+**Important:** The `Name` column is the unique identifier. Personal Bests are displayed with each member name as a row, and their PBs for each exercise go along that row.
 
 ## Setup Instructions
 
