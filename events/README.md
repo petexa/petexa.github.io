@@ -4,7 +4,22 @@ This directory contains individual event data files that are loaded dynamically 
 
 ## Adding a New Event
 
-To add a new event, follow these steps:
+There are two ways to add new events:
+
+### Option 1: Automated (Recommended)
+
+Use the admin page form to submit events automatically:
+
+1. Navigate to `/admin.html` and enter the admin password
+2. Fill out the "Add New Event" form
+3. Click "Submit Event to Webhook"
+4. The event will be automatically enriched with AI-generated content and committed to GitHub
+
+For n8n workflow setup details, see [N8N-EVENT-WORKFLOW.md](/N8N-EVENT-WORKFLOW.md).
+
+### Option 2: Manual
+
+To add a new event manually, follow these steps:
 
 1. **Create a new JSON file** in the `events/` directory following the naming convention: `{event-name}-{YYYYMMDD}.json` (e.g., `spring-marathon-20260315.json`)
 
