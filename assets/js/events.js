@@ -39,12 +39,33 @@ function createEventCard(event, isPast) {
   card.setAttribute('role', 'listitem');
 
   // Banner
-  const img = document.createElement('img');
-  img.className = 'event-banner';
-  img.src = event.image || '';
-  img.alt = event.name;
-  img.loading = 'lazy';
-  card.appendChild(img);
+  if (event.image) {
+    const img = document.createElement('img');
+    img.className = 'event-banner';
+    img.src = event.image;
+    img.alt = event.name;
+    img.loading = 'lazy';
+    card.appendChild(img);
+  } else {
+    // Fallback placeholder for events without images
+    const placeholder = document.createElement('div');
+    placeholder.className = 'event-banner-placeholder';
+    placeholder.setAttribute('aria-label', event.name);
+    
+    // Add calendar icon
+    const icon = document.createElement('div');
+    icon.className = 'event-placeholder-icon';
+    icon.innerHTML = '📅';
+    placeholder.appendChild(icon);
+    
+    // Add event name as text
+    const text = document.createElement('div');
+    text.className = 'event-placeholder-text';
+    text.textContent = event.name;
+    placeholder.appendChild(text);
+    
+    card.appendChild(placeholder);
+  }
 
   // Content
   const content = document.createElement('div');
