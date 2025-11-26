@@ -208,8 +208,7 @@
                     <textarea id="workout-notes" rows="3" style="padding:12px;border-radius:6px;border:2px solid #fff;background:#222;color:#fff;font-size:1rem;font-family:Arial,sans-serif;resize:vertical;" placeholder="e.g., RPE 8, controlled tempo, good form" aria-label="Workout notes"></textarea>
                   </div>
                   <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,184,77,0.1);border:2px solid #ffb84d;border-radius:8px;">
-                    <input type="checkbox" id="workout-pr-checkbox" style="width:24px;height:24px;accent-color:#ffb84d;cursor:pointer;" aria-label="Mark as personal record" />
-                    <label for="workout-pr-checkbox" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;cursor:pointer;">🏆 Personal Record (PR)?</label>
+                    <!-- PR checkbox removed. PR is now detected automatically. -->
                   </div>
                   <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
                     <button type="button" class="neon-btn neon-btn-blue" id="save-workout-btn" onclick="saveWorkout()" aria-label="Save workout entry" style="flex:1;min-width:120px;">Save Entry</button>
@@ -1024,8 +1023,8 @@
       const reps = parseInt(document.getElementById('workout-reps').value);
       const weight = parseFloat(document.getElementById('workout-weight').value);
       const notes = document.getElementById('workout-notes').value;
-      const prCheckbox = document.getElementById('workout-pr-checkbox');
-      const isPRManual = prCheckbox ? prCheckbox.checked : false;
+      // PR checkbox removed. Only auto-detect PR.
+      const isPRManual = false;
       
       const submitMessage = document.getElementById('workout-submit-message');
       const saveBtn = document.getElementById('save-workout-btn');
@@ -1129,7 +1128,7 @@
       document.getElementById('workout-reps').value = '10';
       document.getElementById('workout-weight').value = '60';
       document.getElementById('workout-notes').value = '';
-      if (prCheckbox) prCheckbox.checked = false;
+      // PR checkbox removed, nothing to reset.
       document.getElementById('workout-name').value = savedName;
 
       // Update stats
