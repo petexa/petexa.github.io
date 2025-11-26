@@ -16,7 +16,7 @@
     gtag('config', 'G-WW47GEZS2M');
   </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-page">
   <!-- Skip to content link for accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -84,12 +84,18 @@
     <div class="main-content">
       <!-- Mobile Header -->
       <header class="top-header">
-        <a href="index.html" class="font-bold text-lg text-gray-900">Iron & Ale</a>
-        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
+        <a href="index.html" class="font-bold text-lg" style="color: var(--text);">Iron & Ale</a>
+        <div class="flex items-center gap-2">
+          <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
       </header>
 
       <main id="main-content" role="main">
@@ -102,7 +108,7 @@
 
           <!-- Active Projects Section -->
           <section class="mb-12" aria-labelledby="active-projects-title">
-            <h2 id="active-projects-title" class="text-xl font-bold text-gray-900 mb-6">
+            <h2 id="active-projects-title" class="text-xl font-bold mb-6" style="color: var(--text);">
               <span class="inline-flex items-center gap-2">
                 <span aria-hidden="true">🔥</span>
                 Active Projects
@@ -114,9 +120,9 @@
               <article class="card card-hover transition">
                 <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80" alt="Strength Challenge" class="w-full h-48 object-cover" loading="lazy">
                 <div class="card-body">
-                  <h3 class="font-semibold text-gray-900 mb-2">12-Week Strength Challenge</h3>
-                  <p class="text-sm text-gray-500 mb-2">Jan 2025 - Mar 2025</p>
-                  <p class="text-sm text-gray-600 mb-4">Build your foundation with our progressive strength program. Track your lifts, hit PRs, and celebrate wins with the crew.</p>
+                  <h3 class="font-semibold mb-2" style="color: var(--text);">12-Week Strength Challenge</h3>
+                  <p class="text-sm mb-2" style="color: var(--text-muted);">Jan 2025 - Mar 2025</p>
+                  <p class="text-sm mb-4" style="color: var(--text-secondary);">Build your foundation with our progressive strength program. Track your lifts, hit PRs, and celebrate wins with the crew.</p>
                   <div class="flex gap-2">
                     <a href="#" class="btn btn-outline btn-sm">Details</a>
                     <a href="#" class="btn btn-primary btn-sm">Join Project</a>
@@ -128,9 +134,9 @@
               <article class="card card-hover transition">
                 <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80" alt="Running Goals" class="w-full h-48 object-cover" loading="lazy">
                 <div class="card-body">
-                  <h3 class="font-semibold text-gray-900 mb-2">Couch to 5K</h3>
-                  <p class="text-sm text-gray-500 mb-2">Ongoing - Join anytime</p>
-                  <p class="text-sm text-gray-600 mb-4">New to running? Join our supportive group program to build up to your first 5K. Weekly check-ins and group runs available.</p>
+                  <h3 class="font-semibold mb-2" style="color: var(--text);">Couch to 5K</h3>
+                  <p class="text-sm mb-2" style="color: var(--text-muted);">Ongoing - Join anytime</p>
+                  <p class="text-sm mb-4" style="color: var(--text-secondary);">New to running? Join our supportive group program to build up to your first 5K. Weekly check-ins and group runs available.</p>
                   <div class="flex gap-2">
                     <a href="#" class="btn btn-outline btn-sm">Details</a>
                     <a href="#" class="btn btn-primary btn-sm">Join Project</a>
@@ -142,9 +148,9 @@
               <article class="card card-hover transition">
                 <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80" alt="Mobility Focus" class="w-full h-48 object-cover" loading="lazy">
                 <div class="card-body">
-                  <h3 class="font-semibold text-gray-900 mb-2">30-Day Mobility Challenge</h3>
-                  <p class="text-sm text-gray-500 mb-2">Starting Dec 1, 2025</p>
-                  <p class="text-sm text-gray-600 mb-4">Improve your flexibility and movement quality with daily mobility routines. Perfect for recovery and injury prevention.</p>
+                  <h3 class="font-semibold mb-2" style="color: var(--text);">30-Day Mobility Challenge</h3>
+                  <p class="text-sm mb-2" style="color: var(--text-muted);">Starting Dec 1, 2025</p>
+                  <p class="text-sm mb-4" style="color: var(--text-secondary);">Improve your flexibility and movement quality with daily mobility routines. Perfect for recovery and injury prevention.</p>
                   <div class="flex gap-2">
                     <a href="#" class="btn btn-outline btn-sm">Details</a>
                     <a href="#" class="btn btn-primary btn-sm">Join Project</a>
@@ -156,7 +162,7 @@
 
           <!-- Upcoming Projects Section -->
           <section class="mb-12" aria-labelledby="upcoming-projects-title">
-            <h2 id="upcoming-projects-title" class="text-xl font-bold text-gray-900 mb-6">
+            <h2 id="upcoming-projects-title" class="text-xl font-bold mb-6" style="color: var(--text);">
               <span class="inline-flex items-center gap-2">
                 <span aria-hidden="true">📅</span>
                 Upcoming Projects
@@ -168,9 +174,9 @@
               <article class="card card-hover transition">
                 <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80" alt="Summer Shred" class="w-full h-48 object-cover" loading="lazy">
                 <div class="card-body">
-                  <h3 class="font-semibold text-gray-900 mb-2">Summer Shred 2026</h3>
-                  <p class="text-sm text-gray-500 mb-2">May 2026 - Aug 2026</p>
-                  <p class="text-sm text-gray-600 mb-4">Get ready for summer with our comprehensive fitness and nutrition program. Includes weekly workouts and community support.</p>
+                  <h3 class="font-semibold mb-2" style="color: var(--text);">Summer Shred 2026</h3>
+                  <p class="text-sm mb-2" style="color: var(--text-muted);">May 2026 - Aug 2026</p>
+                  <p class="text-sm mb-4" style="color: var(--text-secondary);">Get ready for summer with our comprehensive fitness and nutrition program. Includes weekly workouts and community support.</p>
                   <div class="flex gap-2">
                     <a href="#" class="btn btn-secondary btn-sm">Notify Me</a>
                   </div>
@@ -181,7 +187,7 @@
 
           <!-- Completed Projects Section -->
           <section class="mb-12" aria-labelledby="completed-projects-title">
-            <h2 id="completed-projects-title" class="text-xl font-bold text-gray-900 mb-6">
+            <h2 id="completed-projects-title" class="text-xl font-bold mb-6" style="color: var(--text);">
               <span class="inline-flex items-center gap-2">
                 <span aria-hidden="true">✅</span>
                 Completed Projects
@@ -193,9 +199,9 @@
               <article class="card" style="opacity: 0.8;">
                 <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80" alt="Autumn Challenge" class="w-full h-48 object-cover grayscale" loading="lazy">
                 <div class="card-body">
-                  <h3 class="font-semibold text-gray-900 mb-2">Autumn Fitness Challenge 2024</h3>
-                  <p class="text-sm text-gray-500 mb-2">Sep 2024 - Nov 2024</p>
-                  <p class="text-sm text-gray-600 mb-4">Successfully completed! 25 members participated and achieved their fitness goals together.</p>
+                  <h3 class="font-semibold mb-2" style="color: var(--text);">Autumn Fitness Challenge 2024</h3>
+                  <p class="text-sm mb-2" style="color: var(--text-muted);">Sep 2024 - Nov 2024</p>
+                  <p class="text-sm mb-4" style="color: var(--text-secondary);">Successfully completed! 25 members participated and achieved their fitness goals together.</p>
                   <span class="badge badge-success">🏆 Completed</span>
                 </div>
               </article>
@@ -204,7 +210,7 @@
 
           <!-- Propose a Project Section -->
           <section aria-labelledby="propose-project-title">
-            <h2 id="propose-project-title" class="text-xl font-bold text-gray-900 mb-6">
+            <h2 id="propose-project-title" class="text-xl font-bold mb-6" style="color: var(--text);">
               <span class="inline-flex items-center gap-2">
                 <span aria-hidden="true">💡</span>
                 Got an Idea?
@@ -212,7 +218,7 @@
             </h2>
             <div class="card">
               <div class="card-body text-center">
-                <p class="text-gray-600 mb-6">Have an idea for a community project or challenge? We'd love to hear it! Whether it's a group training program, a charity event, or a friendly competition - if it gets us moving and brings the crew together, we're interested.</p>
+                <p class="mb-6" style="color: var(--text-secondary);">Have an idea for a community project or challenge? We'd love to hear it! Whether it's a group training program, a charity event, or a friendly competition - if it gets us moving and brings the crew together, we're interested.</p>
                 <a href="mailto:email@petefox.co.uk" class="btn btn-primary">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>

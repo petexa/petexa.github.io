@@ -16,7 +16,7 @@
     gtag('config', 'G-WW47GEZS2M');
   </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-page">
   <!-- Skip to content link for accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -84,12 +84,18 @@
     <div class="main-content">
       <!-- Mobile Header -->
       <header class="top-header">
-        <a href="../index.html" class="font-bold text-lg text-gray-900">Iron & Ale</a>
-        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
+        <a href="../index.html" class="font-bold text-lg" style="color: var(--text);">Iron & Ale</a>
+        <div class="flex items-center gap-2">
+          <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
       </header>
 
       <main id="main-content" role="main">
@@ -104,11 +110,11 @@
           <section class="mb-12" aria-labelledby="mission-title">
             <div class="card">
               <div class="card-body">
-                <h2 id="mission-title" class="text-xl font-bold text-gray-900 mb-4">Our Mission</h2>
-                <p class="text-gray-600 leading-relaxed mb-4">
+                <h2 id="mission-title" class="text-xl font-bold mb-4" style="color: var(--text);">Our Mission</h2>
+                <p class="leading-relaxed mb-4" style="color: var(--text-secondary);">
                   Iron & Ale is a fitness community that believes in balance. We push hard in the gym, celebrate our wins together, and support each other on our fitness journeys. Whether you're a seasoned athlete or just starting out, there's a place for you in our crew.
                 </p>
-                <p class="text-gray-600 leading-relaxed">
+                <p class="leading-relaxed" style="color: var(--text-secondary);">
                   We combine structured training plans with social accountability and community events to help you achieve your goals while having fun along the way.
                 </p>
               </div>
@@ -117,37 +123,37 @@
 
           <!-- Values Section -->
           <section class="mb-12" aria-labelledby="values-title">
-            <h2 id="values-title" class="text-xl font-bold text-gray-900 mb-6">Our Values</h2>
+            <h2 id="values-title" class="text-xl font-bold mb-6" style="color: var(--text);">Our Values</h2>
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
               <article class="card">
                 <div class="card-body">
                   <div class="tool-card-icon mb-4" aria-hidden="true">💪</div>
-                  <h3 class="font-semibold text-gray-900 mb-2">Strength</h3>
-                  <p class="text-sm text-gray-600">Physical strength builds mental resilience. We help each other get stronger in the gym and in life.</p>
+                  <h3 class="font-semibold mb-2" style="color: var(--text);">Strength</h3>
+                  <p class="text-sm" style="color: var(--text-secondary);">Physical strength builds mental resilience. We help each other get stronger in the gym and in life.</p>
                 </div>
               </article>
 
               <article class="card">
                 <div class="card-body">
                   <div class="tool-card-icon bg-secondary-100 text-secondary-600 mb-4" aria-hidden="true">🤝</div>
-                  <h3 class="font-semibold text-gray-900 mb-2">Community</h3>
-                  <p class="text-sm text-gray-600">We're better together. Our community supports, motivates, and celebrates each member's progress.</p>
+                  <h3 class="font-semibold mb-2" style="color: var(--text);">Community</h3>
+                  <p class="text-sm" style="color: var(--text-secondary);">We're better together. Our community supports, motivates, and celebrates each member's progress.</p>
                 </div>
               </article>
 
               <article class="card">
                 <div class="card-body">
                   <div class="tool-card-icon bg-success-100 text-success-600 mb-4" aria-hidden="true">⚖️</div>
-                  <h3 class="font-semibold text-gray-900 mb-2">Balance</h3>
-                  <p class="text-sm text-gray-600">Hard work deserves reward. We believe in balancing intense training with social enjoyment.</p>
+                  <h3 class="font-semibold mb-2" style="color: var(--text);">Balance</h3>
+                  <p class="text-sm" style="color: var(--text-secondary);">Hard work deserves reward. We believe in balancing intense training with social enjoyment.</p>
                 </div>
               </article>
 
               <article class="card">
                 <div class="card-body">
                   <div class="tool-card-icon bg-danger-100 text-danger-600 mb-4" aria-hidden="true">🎯</div>
-                  <h3 class="font-semibold text-gray-900 mb-2">Accountability</h3>
-                  <p class="text-sm text-gray-600">We show up for ourselves and each other. Tracking progress and staying consistent is key to results.</p>
+                  <h3 class="font-semibold mb-2" style="color: var(--text);">Accountability</h3>
+                  <p class="text-sm" style="color: var(--text-secondary);">We show up for ourselves and each other. Tracking progress and staying consistent is key to results.</p>
                 </div>
               </article>
             </div>
@@ -155,36 +161,36 @@
 
           <!-- How It Works Section -->
           <section class="mb-12" aria-labelledby="how-it-works-title">
-            <h2 id="how-it-works-title" class="text-xl font-bold text-gray-900 mb-6">How It Works</h2>
+            <h2 id="how-it-works-title" class="text-xl font-bold mb-6" style="color: var(--text);">How It Works</h2>
             <div class="card">
               <div class="card-body">
                 <ol class="space-y-6">
                   <li class="flex gap-4">
                     <span class="flex-shrink-0 w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-bold">1</span>
                     <div>
-                      <h3 class="font-semibold text-gray-900">Join the Community</h3>
-                      <p class="text-sm text-gray-600">Connect with us through our events or projects. Everyone is welcome, regardless of fitness level.</p>
+                      <h3 class="font-semibold" style="color: var(--text);">Join the Community</h3>
+                      <p class="text-sm" style="color: var(--text-secondary);">Connect with us through our events or projects. Everyone is welcome, regardless of fitness level.</p>
                     </div>
                   </li>
                   <li class="flex gap-4">
                     <span class="flex-shrink-0 w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-bold">2</span>
                     <div>
-                      <h3 class="font-semibold text-gray-900">Track Your Progress</h3>
-                      <p class="text-sm text-gray-600">Use our utilities to log workouts, calculate lifts, and monitor your improvements over time.</p>
+                      <h3 class="font-semibold" style="color: var(--text);">Track Your Progress</h3>
+                      <p class="text-sm" style="color: var(--text-secondary);">Use our utilities to log workouts, calculate lifts, and monitor your improvements over time.</p>
                     </div>
                   </li>
                   <li class="flex gap-4">
                     <span class="flex-shrink-0 w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-bold">3</span>
                     <div>
-                      <h3 class="font-semibold text-gray-900">Participate in Challenges</h3>
-                      <p class="text-sm text-gray-600">Join community challenges and projects to stay motivated and push your limits with support.</p>
+                      <h3 class="font-semibold" style="color: var(--text);">Participate in Challenges</h3>
+                      <p class="text-sm" style="color: var(--text-secondary);">Join community challenges and projects to stay motivated and push your limits with support.</p>
                     </div>
                   </li>
                   <li class="flex gap-4">
                     <span class="flex-shrink-0 w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-bold">4</span>
                     <div>
-                      <h3 class="font-semibold text-gray-900">Celebrate Together</h3>
-                      <p class="text-sm text-gray-600">Attend social events, share your wins, and enjoy the journey with your Iron & Ale crew.</p>
+                      <h3 class="font-semibold" style="color: var(--text);">Celebrate Together</h3>
+                      <p class="text-sm" style="color: var(--text-secondary);">Attend social events, share your wins, and enjoy the journey with your Iron & Ale crew.</p>
                     </div>
                   </li>
                 </ol>
@@ -194,10 +200,10 @@
 
           <!-- Contact Section -->
           <section aria-labelledby="contact-title">
-            <h2 id="contact-title" class="text-xl font-bold text-gray-900 mb-6">Get in Touch</h2>
+            <h2 id="contact-title" class="text-xl font-bold mb-6" style="color: var(--text);">Get in Touch</h2>
             <div class="card">
               <div class="card-body">
-                <p class="text-gray-600 mb-6">
+                <p class="mb-6" style="color: var(--text-secondary);">
                   Interested in joining Iron & Ale or have questions about our community? We'd love to hear from you!
                 </p>
                 <div class="flex flex-wrap gap-4">

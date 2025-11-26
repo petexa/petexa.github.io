@@ -16,7 +16,7 @@
     gtag('config', 'G-WW47GEZS2M');
   </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-page">
   <!-- Skip to content link for accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -84,12 +84,18 @@
     <div class="main-content">
       <!-- Mobile Header -->
       <header class="top-header">
-        <a href="index.html" class="font-bold text-lg text-gray-900">Iron & Ale</a>
-        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
+        <a href="index.html" class="font-bold text-lg" style="color: var(--text);">Iron & Ale</a>
+        <div class="flex items-center gap-2">
+          <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
       </header>
 
       <main id="main-content" role="main">
@@ -121,15 +127,15 @@
         <!-- Features Section -->
         <section class="py-12 px-6" aria-labelledby="features-title">
           <div class="max-w-6xl mx-auto">
-            <h2 id="features-title" class="text-2xl font-bold text-gray-900 text-center mb-8">What We Offer</h2>
+            <h2 id="features-title" class="text-2xl font-bold text-center mb-8" style="color: var(--text);">What We Offer</h2>
             
             <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
               <!-- Training Plans Card -->
               <a href="utilities/progress-chart/" class="card card-hover transition">
                 <div class="card-body text-center">
                   <div class="tool-card-icon mx-auto mb-4" aria-hidden="true">🏋️</div>
-                  <h3 class="text-lg font-semibold text-gray-900 mb-2">Training Plans</h3>
-                  <p class="text-sm text-gray-500">Track your progress with customized workout programs designed to help you reach your fitness goals.</p>
+                  <h3 class="text-lg font-semibold mb-2" style="color: var(--text);">Training Plans</h3>
+                  <p class="text-sm" style="color: var(--text-muted);">Track your progress with customized workout programs designed to help you reach your fitness goals.</p>
                 </div>
               </a>
 
@@ -137,8 +143,8 @@
               <article class="card card-hover transition">
                 <div class="card-body text-center">
                   <div class="tool-card-icon mx-auto mb-4 bg-secondary-100 text-secondary-600" aria-hidden="true">📅</div>
-                  <h3 class="text-lg font-semibold text-gray-900 mb-2">Community Challenges</h3>
-                  <p class="text-sm text-gray-500">Join monthly fitness challenges that push your limits and keep you motivated with friendly competition.</p>
+                  <h3 class="text-lg font-semibold mb-2" style="color: var(--text);">Community Challenges</h3>
+                  <p class="text-sm" style="color: var(--text-muted);">Join monthly fitness challenges that push your limits and keep you motivated with friendly competition.</p>
                 </div>
               </article>
 
@@ -146,8 +152,8 @@
               <a href="events.html" class="card card-hover transition">
                 <div class="card-body text-center">
                   <div class="tool-card-icon mx-auto mb-4 bg-success-100 text-success-600" aria-hidden="true">🍺</div>
-                  <h3 class="text-lg font-semibold text-gray-900 mb-2">Social Events</h3>
-                  <p class="text-sm text-gray-500">Connect with fellow fitness enthusiasts at our regular social gatherings, from post-workout drinks to adventure trips.</p>
+                  <h3 class="text-lg font-semibold mb-2" style="color: var(--text);">Social Events</h3>
+                  <p class="text-sm" style="color: var(--text-muted);">Connect with fellow fitness enthusiasts at our regular social gatherings, from post-workout drinks to adventure trips.</p>
                 </div>
               </a>
             </div>
@@ -155,10 +161,10 @@
         </section>
 
         <!-- Quick Access Utilities Section -->
-        <section class="py-12 px-6 bg-gray-100" aria-labelledby="utilities-title">
+        <section class="py-12 px-6" style="background: var(--bg-alt);" aria-labelledby="utilities-title">
           <div class="max-w-6xl mx-auto">
             <div class="flex items-center justify-between mb-8">
-              <h2 id="utilities-title" class="text-2xl font-bold text-gray-900">Quick Access Utilities</h2>
+              <h2 id="utilities-title" class="text-2xl font-bold" style="color: var(--text);">Quick Access Utilities</h2>
               <a href="utilities/" class="btn btn-outline text-sm">View All →</a>
             </div>
 
