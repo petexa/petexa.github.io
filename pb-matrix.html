@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Bests Matrix | Iron & Ale</title>
+  <meta name="description" content="View the maximum weight lifted for each member and exercise. Data is synced from the community workout logs.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:700&display=swap" rel="stylesheet">
+</head>
+<body class="neon-bg">
+  <div class="page-wrapper">
+    <nav class="neon-nav" role="navigation" aria-label="Main navigation">
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="nav-list">
+        <li><a href="index.html" aria-label="Home page">HOME</a></li>
+        <li><a href="events.html" aria-label="View upcoming events">EVENTS</a></li>
+        <li><a href="projects.html" aria-label="View community projects">PROJECTS</a></li>
+        <li><a href="utilities.html" aria-label="Member utilities">UTILITIES</a></li>
+        <li><a href="pb-matrix.html" class="active" aria-label="Personal Bests Matrix" aria-current="page">PB MATRIX</a></li>
+      </ul>
+    </nav>
+    <main role="main">
+      <div class="utility-card" style="margin-top:32px;max-width:900px;margin-left:auto;margin-right:auto;">
+        <h2 class="event-title" style="margin-bottom:18px;text-align:center;">Personal Bests Matrix</h2>
+        <p style="color:#888;text-align:center;margin-bottom:16px;font-size:0.9rem;">
+          View the maximum weight lifted for each member and exercise. Data is synced from the community workout logs.
+        </p>
+        <div id="pb-json-loading" style="text-align:center;padding:20px;color:#888;">
+          <span style="font-size:1.5rem;">⏳</span> Loading Personal Bests...
+        </div>
+        <div id="pb-json-table"></div>
+        <div id="pb-json-error" style="display:none;text-align:center;padding:16px;background:rgba(255,85,85,0.1);border:2px solid #ff5555;border-radius:8px;color:#ff5555;margin-top:12px;" role="alert"></div>
+      </div>
+      <div style="text-align:center;margin-top:32px;">
+        <a href="#community-leaderboard" class="neon-btn neon-btn-blue" style="font-size:1rem;">Go to Community Leaderboard</a>
+      </div>
+    </main>
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-content">
+        <nav class="footer-social" aria-label="Social media links">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #e1306c);" />
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1877f3);" />
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" style="width:28px;height:28px;vertical-align:middle;filter:drop-shadow(0 0 4px #1da1f2);" />
+          </a>
+        </nav>
+        <p class="footer-copyright">
+          &copy; <span id="current-year">2025</span> Iron & Ale. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    // Auto-load PB Matrix from new endpoint
+    document.addEventListener('DOMContentLoaded', function() {
+      const loading = document.getElementById('pb-json-loading');
+      const tableContainer = document.getElementById('pb-json-table');
+      const errorDiv = document.getElementById('pb-json-error');
+      const url = 'https://script.google.com/macros/s/AKfycbwgMZKTvpxCDs_e-ByAyr-A4NtwzWDWoP3khUtQk5OeFIP8aPF9ST3qlMYRORp-zcVaCQ/exec?format=json';
+      loading.style.display = 'block';
+      tableContainer.innerHTML = '';
+      errorDiv.style.display = 'none';
+      fetch(url)
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(data => {
+          loading.style.display = 'none';
+          renderPBMatrixTable(data);
+        })
+        .catch(error => {
+          loading.style.display = 'none';
+          errorDiv.style.display = 'block';
+          errorDiv.textContent = 'Failed to load PB data: ' + error.message;
+        });
+    });
+    function escapeHtmlForPB(str) {
+      if (str === null || str === undefined) return '';
+      const div = document.createElement('div');
+      div.textContent = String(str);
+      return div.innerHTML;
+    }
+    function renderPBMatrixTable(data) {
+      const container = document.getElementById('pb-json-table');
+      if (!data.exercises || data.exercises.length === 0 || !data.rows || data.rows.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#888;padding:20px;">No workout data found. Start logging your workouts!</p>';
+        return;
+      }
+      let html = '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.3);">';
+      html += '<table style="width:100%;border-collapse:collapse;min-width:400px;background:#222;">';
+      html += '<thead><tr>';
+      html += '<th style="padding:10px 12px;text-align:center;border:1px solid #333;background:linear-gradient(135deg,#ffb84d 0%,#cc8a00 100%);color:#fff;font-weight:600;position:sticky;left:0;z-index:20;">Name</th>';
+      data.exercises.forEach(ex => {
+        html += '<th style="padding:10px 12px;text-align:center;border:1px solid #333;background:linear-gradient(135deg,#19baff 0%,#0d7ba8 100%);color:#fff;font-weight:600;white-space:nowrap;">' + escapeHtmlForPB(ex) + '</th>';
+      });
+      html += '</tr></thead><tbody>';
+      data.rows.forEach((row, rowIdx) => {
+        const rowBg = rowIdx % 2 === 0 ? '#222' : '#2a2a3a';
+        html += '<tr>';
+        row.forEach((cell, idx) => {
+          if (idx === 0) {
+            html += '<td style="padding:10px 12px;text-align:center;border:1px solid #333;background:#2a2a4a;font-weight:600;color:#ffb84d;position:sticky;left:0;z-index:5;white-space:nowrap;">' + escapeHtmlForPB(cell) + '</td>';
+          } else {
+            if (cell !== null && cell !== undefined) {
+              html += '<td style="padding:10px 12px;text-align:center;border:1px solid #333;background:' + rowBg + ';color:#39ff14;font-weight:500;">' + escapeHtmlForPB(cell) + ' kg</td>';
+            } else {
+              html += '<td style="padding:10px 12px;text-align:center;border:1px solid #333;background:' + rowBg + ';color:#666;">—</td>';
+            }
+          }
+        });
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+      html += '<p style="text-align:center;color:#888;font-size:0.85rem;margin-top:12px;">All weights normalized to kilograms (kg)</p>';
+      html += '<div style="text-align:center;margin-top:12px;"><a href="#community-leaderboard" class="neon-btn neon-btn-yellow" style="font-size:0.85rem;">Go to Community Leaderboard</a></div>';
+      container.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
