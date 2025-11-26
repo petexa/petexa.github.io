@@ -1390,11 +1390,9 @@
         embedBtn.setAttribute('aria-pressed', 'false');
         embedView.style.display = 'none';
         jsonView.style.display = 'block';
-        // Sync URL if available
-        const savedUrl = localStorage.getItem('pbMatrixWebAppUrl');
-        if (savedUrl) {
-          document.getElementById('pb-json-webapp-url').value = savedUrl;
-        }
+        // Sync URL - use saved URL or fall back to default
+        const savedUrl = localStorage.getItem('pbMatrixWebAppUrl') || DEFAULT_PB_MATRIX_URL;
+        document.getElementById('pb-json-webapp-url').value = savedUrl;
       }
     }
 
@@ -1457,13 +1455,17 @@
       const placeholder = document.getElementById('pb-iframe-placeholder');
       const container = document.getElementById('pb-iframe-container');
       const urlInput = document.getElementById('pb-webapp-url');
+      const jsonUrlInput = document.getElementById('pb-json-webapp-url');
       const iframe = document.getElementById('pb-matrix-iframe');
 
-      iframe.src = '';
-      urlInput.value = '';
-      placeholder.style.display = 'block';
-      container.style.display = 'none';
-      showToast('URL cleared');
+      // Reset to default URL instead of clearing completely
+      iframe.src = DEFAULT_PB_MATRIX_URL;
+      urlInput.value = DEFAULT_PB_MATRIX_URL;
+      if (jsonUrlInput) jsonUrlInput.value = DEFAULT_PB_MATRIX_URL;
+      // Keep the iframe container visible since we're using the default URL
+      placeholder.style.display = 'none';
+      container.style.display = 'block';
+      showToast('URL reset to default');
     }
 
     function fetchPBMatrixJSON() {
@@ -1587,24 +1589,27 @@
       }
     }
 
+    // Default PB Matrix Web App URL (deployed Google Apps Script)
+    const DEFAULT_PB_MATRIX_URL = 'https://script.google.com/macros/s/AKfycbwHGaQOspZW-8nIrB9hdhZT-XcxZeVxt4hjqOGUFkgdpPo6V2Yy1qAOGOfpdg5H_bzSlQ/exec';
+
     // Initialize PB Matrix on page load
     document.addEventListener('DOMContentLoaded', function() {
-      const savedUrl = localStorage.getItem('pbMatrixWebAppUrl');
-      if (savedUrl) {
-        const urlInput = document.getElementById('pb-webapp-url');
-        const jsonUrlInput = document.getElementById('pb-json-webapp-url');
-        if (urlInput) urlInput.value = savedUrl;
-        if (jsonUrlInput) jsonUrlInput.value = savedUrl;
-        
-        // Auto-load the iframe if URL is saved
-        const iframe = document.getElementById('pb-matrix-iframe');
-        const placeholder = document.getElementById('pb-iframe-placeholder');
-        const container = document.getElementById('pb-iframe-container');
-        if (iframe && placeholder && container) {
-          iframe.src = savedUrl;
-          placeholder.style.display = 'none';
-          container.style.display = 'block';
-        }
+      // Use saved URL or fall back to default
+      const savedUrl = localStorage.getItem('pbMatrixWebAppUrl') || DEFAULT_PB_MATRIX_URL;
+      
+      const urlInput = document.getElementById('pb-webapp-url');
+      const jsonUrlInput = document.getElementById('pb-json-webapp-url');
+      if (urlInput) urlInput.value = savedUrl;
+      if (jsonUrlInput) jsonUrlInput.value = savedUrl;
+      
+      // Auto-load the iframe with the URL
+      const iframe = document.getElementById('pb-matrix-iframe');
+      const placeholder = document.getElementById('pb-iframe-placeholder');
+      const container = document.getElementById('pb-iframe-container');
+      if (iframe && placeholder && container) {
+        iframe.src = savedUrl;
+        placeholder.style.display = 'none';
+        container.style.display = 'block';
       }
     });
   </script>
