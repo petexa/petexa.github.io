@@ -130,6 +130,8 @@
                     <button type="button" class="neon-btn neon-btn-blue" onclick="calculateWeight()" aria-label="Calculate total weight">Calculate Total Weight</button>
                   </div>
                 </form>
+                                <!-- Workout Log Table -->
+                                <div id="workout-log-table" style="margin-top:32px;"></div>
                 <div id="plate-result" style="margin-top:18px;text-align:center;color:#fff;font-family:'Orbitron',Arial,sans-serif;"></div>
               </div>
             </div>
@@ -164,17 +166,36 @@
                     <select id="workout-exercise" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;font-family:'Orbitron',Arial,sans-serif;" aria-label="Select exercise">
                       <option value="">-- Select Exercise --</option>
                       <option value="bench-press">Bench Press</option>
+                      <option value="incline-bench-press">Incline Bench Press</option>
                       <option value="front-squat">Front Squat</option>
                       <option value="back-squat">Back Squat</option>
-                      <option value="squat">Squat</option>
+                      <option value="romanian-deadlift">Romanian Deadlift</option>
                       <option value="deadlift">Deadlift</option>
+                      <option value="clean-and-jerk">Clean & Jerk</option>
+                      <option value="snatch">Snatch</option>
                       <option value="overhead-press">Overhead Press</option>
                       <option value="barbell-row">Barbell Row</option>
+                      <option value="t-bar-row">T-Bar Row</option>
+                      <option value="cable-row">Cable Row</option>
                       <option value="pullups">Pull-ups/Chin-ups</option>
                       <option value="dips">Dips</option>
                       <option value="bicep-curl">Bicep Curl</option>
                       <option value="tricep-extension">Tricep Extension</option>
                       <option value="lunges">Lunges</option>
+                      <option value="hip-thrust">Hip Thrust</option>
+                      <option value="goblet-squat">Goblet Squat</option>
+                      <option value="push-up">Push-up</option>
+                      <option value="plank">Plank</option>
+                      <option value="farmer-walk">Farmer's Walk</option>
+                      <option value="pull-down">Pull-down</option>
+                      <option value="row">Row</option>
+                      <option value="ski-erg">Ski-Erg</option>
+                      <option value="row-erg">Row-Erg</option>
+                      <option value="murph">Murph (WOD)</option>
+                      <option value="fran">Fran (WOD)</option>
+                      <option value="grace">Grace (WOD)</option>
+                      <option value="cindy">Cindy (WOD)</option>
+                      <option value="helen">Helen (WOD)</option>
                     </select>
                   </div>
                   <div style="display:flex;flex-direction:column;gap:8px;">
@@ -206,6 +227,18 @@
                   <div style="display:flex;flex-direction:column;gap:8px;">
                     <label for="workout-notes" style="color:#fff;font-family:'Orbitron',Arial,sans-serif;">Notes (form cues, RPE, tempo):</label>
                     <textarea id="workout-notes" rows="3" style="padding:12px;border-radius:6px;border:2px solid #fff;background:#222;color:#fff;font-size:1rem;font-family:Arial,sans-serif;resize:vertical;" placeholder="e.g., RPE 8, controlled tempo, good form" aria-label="Workout notes"></textarea>
+                  </div>
+                  <!-- 1k Time field for Ski-Erg and Row-Erg -->
+                  <div id="time-row" style="display:none;flex-direction:column;gap:8px;">
+                    <label for="workout-time" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">1k Time (mm:ss):</label>
+                    <input type="text" id="workout-time" pattern="^\d{1,2}:\d{2}$" placeholder="e.g. 03:45" style="padding:12px;border-radius:6px;border:2px solid #ffb84d;background:#222;color:#fff;font-size:1rem;" aria-label="1k time in minutes and seconds" />
+                  </div>
+                  <!-- Distance/Time fields for Ski-Erg and Row-Erg (removed distance field) -->
+                  <div id="distance-time-row" style="display:none;flex-direction:column;gap:8px;">
+                    <label for="workout-distance" style="color:#19baff;font-family:'Orbitron',Arial,sans-serif;">Distance (meters):</label>
+                    <input type="number" id="workout-distance" min="0" max="10000" step="1" style="padding:12px;border-radius:6px;border:2px solid #19baff;background:#222;color:#fff;font-size:1rem;" aria-label="Distance in meters" />
+                    <label for="workout-time" style="color:#ffb84d;font-family:'Orbitron',Arial,sans-serif;">Time (mm:ss):</label>
+                    <input type="text" id="workout-time" pattern="^\d{1,2}:\d{2}$" placeholder="e.g. 07:30" style="padding:12px;border-radius:6px;border:2px solid #ffb84d;background:#222;color:#fff;font-size:1rem;" aria-label="Time in minutes and seconds" />
                   </div>
                   <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,184,77,0.1);border:2px solid #ffb84d;border-radius:8px;">
                     <!-- PR checkbox removed. PR is now detected automatically. -->
@@ -967,7 +1000,8 @@
       const reps = parseInt(document.getElementById('workout-reps').value);
       const weight = parseFloat(document.getElementById('workout-weight').value);
       const notes = document.getElementById('workout-notes').value;
-      // PR checkbox removed. Only auto-detect PR.
+      const time = document.getElementById('workout-time').value;
+      // PR checkbox removed. PR is now detected automatically.
       const isPRManual = false;
       
       const submitMessage = document.getElementById('workout-submit-message');
@@ -999,7 +1033,8 @@
         unit: workoutUnit === 'lb' ? 'lbs' : 'kg',
         notes,
         pr: isPR ? 'YES' : 'NO',
-        name
+        name,
+        time: (exercise === 'ski-erg' || exercise === 'row-erg') ? time : ''
       };
 
       // Show loading state
@@ -1082,7 +1117,57 @@
       if (document.getElementById('chart-exercise').value === exercise) {
         updateChart();
       }
+      
+        // Update workout log table
+        renderWorkoutLogTable();
     }
+
+      // Format exercise name for display
+      function formatExerciseName(name) {
+        if (!name) return '';
+        return name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      }
+
+      // Render workout log table
+      function renderWorkoutLogTable() {
+        const workouts = JSON.parse(localStorage.getItem('ironAleWorkouts') || '[]');
+        if (workouts.length === 0) {
+          document.getElementById('workout-log-table').innerHTML = '<p style="color:#aaa;text-align:center;">No workouts logged yet.</p>';
+          return;
+        }
+        let html = '<table style="width:100%;border-collapse:collapse;font-family:Orbitron,Arial,sans-serif;background:#181818;color:#fff;">';
+        html += '<thead><tr style="background:#222;color:#19baff;">'
+          + '<th style="padding:8px;border-bottom:2px solid #19baff;">Date</th>'
+          + '<th style="padding:8px;border-bottom:2px solid #19baff;">Exercise</th>'
+          + '<th style="padding:8px;border-bottom:2px solid #19baff;">Sets</th>'
+          + '<th style="padding:8px;border-bottom:2px solid #19baff;">Reps</th>'
+          + '<th style="padding:8px;border-bottom:2px solid #19baff;">Weight</th>'
+          + '<th style="padding:8px;border-bottom:2px solid #19baff;">Unit</th>'
+          + '<th style="padding:8px;border-bottom:2px solid #19baff;">1k Time</th>'
+          + '<th style="padding:8px;border-bottom:2px solid #19baff;">Notes</th>'
+          + '<th style="padding:8px;border-bottom:2px solid #19baff;">PR</th>'
+          + '</tr></thead><tbody>';
+        workouts.slice().reverse().forEach(w => {
+          html += '<tr>'
+            + `<td style="padding:8px;border-bottom:1px solid #333;">${w.date}</td>`
+            + `<td style="padding:8px;border-bottom:1px solid #333;">${formatExerciseName(w.exercise)}</td>`
+            + `<td style="padding:8px;border-bottom:1px solid #333;">${w.sets}</td>`
+            + `<td style="padding:8px;border-bottom:1px solid #333;">${w.reps}</td>`
+            + `<td style="padding:8px;border-bottom:1px solid #333;">${w.weight}</td>`
+            + `<td style="padding:8px;border-bottom:1px solid #333;">${w.unit}</td>`
+            + `<td style="padding:8px;border-bottom:1px solid #333;">${w.time || ''}</td>`
+            + `<td style="padding:8px;border-bottom:1px solid #333;">${w.notes || ''}</td>`
+            + `<td style="padding:8px;border-bottom:1px solid #333;">${w.isPR ? '🏆' : ''}</td>`
+            + '</tr>';
+        });
+        html += '</tbody></table>';
+        document.getElementById('workout-log-table').innerHTML = html;
+      }
+
+      // Render table on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        renderWorkoutLogTable();
+      });
 
     function updateChart() {
       const exercise = document.getElementById('chart-exercise').value;
