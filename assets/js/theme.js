@@ -16,6 +16,8 @@
   const THEME_KEY = 'ironale-theme';
   const DARK_CLASS = 'theme-dark';
   const LIGHT_CLASS = 'theme-light';
+  // Matches --transition-normal in variables.css (200ms)
+  const TRANSITION_DURATION = 200;
   const THEME_COLORS = {
     light: '#ffffff',
     dark: '#111827'
@@ -112,7 +114,7 @@
     // Remove transition class after animation completes
     setTimeout(function() {
       html.classList.remove('theme-transitioning');
-    }, 200);
+    }, TRANSITION_DURATION);
   }
 
   /**
