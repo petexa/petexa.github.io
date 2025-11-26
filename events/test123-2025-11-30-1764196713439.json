@@ -1,0 +1,16 @@
+{
+  "name": "test 123",
+  "date": "2025-11-30T22:38:00",
+  "link": "",
+  "image": "images/default.png",
+  "description": "",
+  "calendarDetails": {
+    "location": "Test",
+    "description": "",
+    "durationHours": 4
+  },
+  "showMoreInfo": true,
+  "showBookNow": false,
+  "showRemindMe": true,
+  "fileName": "test123-2025-11-30-1764196713439.json"
+}
