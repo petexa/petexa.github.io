@@ -639,8 +639,8 @@ IMPORTANT:
         if not self.is_available():
             return None
         
-        # Check cache first
-        cache_key = hashlib.md5(instructions[:200].encode()).hexdigest()[:12]
+        # Check cache first (using SHA-256 for consistency)
+        cache_key = hashlib.sha256(instructions[:200].encode()).hexdigest()[:12]
         cached = self.cache.get('ai', f"infer_{cache_key}")
         if cached:
             return cached
