@@ -16,28 +16,33 @@
     gtag('config', 'G-WW47GEZS2M');
   </script>
   <style>
+    /* PB Table - Matching Style Guide token-table format */
     .pb-table {
-      @apply w-full border-collapse min-w-[400px] rounded-lg shadow;
-      background: var(--card-bg);
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+      min-width: 400px;
     }
-    .pb-table th, .pb-table td {
-      @apply px-4 py-3 text-center;
-      border: 1px solid var(--border);
+    .pb-table th,
+    .pb-table td {
+      padding: var(--space-3) var(--space-4);
+      text-align: left;
+      border-bottom: 1px solid var(--border);
     }
-    .pb-table thead th {
-      background: var(--color-primary-600);
-      color: white;
+    .pb-table th {
       font-weight: 600;
+      background: var(--bg-alt);
+      color: var(--text);
       white-space: nowrap;
     }
     .pb-table thead th:first-child {
-      background: var(--color-secondary-500);
       position: sticky;
       left: 0;
       z-index: 20;
+      background: var(--bg-alt);
     }
     .pb-table tbody td:first-child {
-      background: var(--bg-alt);
+      background: var(--surface);
       font-weight: 600;
       color: var(--text);
       position: sticky;
@@ -45,11 +50,11 @@
       z-index: 5;
       white-space: nowrap;
     }
-    .pb-table tbody tr:nth-child(even) td {
-      background-color: var(--surface);
+    .pb-table tbody tr:hover td {
+      background-color: var(--bg-alt);
     }
-    .pb-table tbody tr:nth-child(even) td:first-child {
-      background-color: var(--surface-elevated);
+    .pb-table tbody tr:hover td:first-child {
+      background-color: var(--bg-alt);
     }
     .pb-value {
       color: var(--color-success-600);
