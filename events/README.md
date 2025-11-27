@@ -9,7 +9,7 @@
 1. Download [`n8n-workflow.json`](./n8n-workflow.json)
 2. In n8n, go to **Workflows** > **Import from File**
 3. Select the downloaded JSON file
-4. Update the GitHub credentials with your own (search for `REPLACE_WITH_YOUR_GITHUB_CREDENTIAL_ID`)
+4. Update the GitHub credentials with your own (search for `YOUR_GITHUB_CREDENTIAL_ID_FROM_N8N_CREDENTIALS_PAGE`)
 5. Activate the workflow!
 
 ---
