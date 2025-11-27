@@ -1,0 +1,279 @@
+{
+  "name": "Iron & Ale Events Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "events",
+        "responseMode": "onReceived",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// n8n Function node: validation + normalization for incoming webhook\n// Works when webhook payload is at items[0].json.body OR items[0].json\n\nconst filenameRegex = /^[a-z0-9-]+-\\d{8}\\.json$/; // e.g. spring-marathon-20260315.json\nconst required = ['name','date','filename'];\n\n// Helper: convert ISO datetime -> YYYY-MM-DD\nfunction toIsoDateOnly(val){\n  if (typeof val !== 'string') return null;\n  // already YYYY-MM-DD\n  if (/^\\d{4}-\\d{2}-\\d{2}$/.test(val)) return val;\n  // try full ISO or other date strings\n  const d = new Date(val);\n  if (!isNaN(d.getTime())) return d.toISOString().slice(0,10);\n  return null;\n}\n\n// Get the payload: prefer items[0].json.body if present (webhook structure), else items[0].json\nconst root = items[0].json && typeof items[0].json === 'object' ? items[0].json : {};\nconst payload = (root.body && typeof root.body === 'object' && Object.keys(root.body).length > 0) ? root.body : root;\n\n// Basic required-field check\nconst missing = required.filter(f => payload[f] === undefined || payload[f] === null || (typeof payload[f] === 'string' && payload[f].trim() === ''));\nif (missing.length > 0) {\n  throw new Error(`Missing required field(s): ${missing.join(', ')}`);\n}\n\n// Normalise filename\nif (typeof payload.filename === 'string') {\n  payload.filename = payload.filename.trim().toLowerCase();\n  // reject path traversal characters just in case\n  if (payload.filename.includes('..') || payload.filename.includes('/') || payload.filename.includes('\\\\')) {\n    throw new Error('Invalid filename: path traversal characters are not allowed.');\n  }\n} else {\n  throw new Error('filename must be a string.');\n}\n\n// Validate filename format\nif (!filenameRegex.test(payload.filename)) {\n  throw new Error('Invalid filename format. Expect lower-case, hyphens, date YYYYMMDD. Example: event-name-20260315.json');\n}\n\n// Normalize date to YYYY-MM-DD\nconst isoDate = toIsoDateOnly(payload.date);\nif (!isoDate) {\n  throw new Error('Invalid date format. Use ISO date or ISO datetime (e.g. 2026-03-15 or 2026-03-15T09:00:00).');\n}\npayload.date = isoDate;\n\n// calendarDetails.location required\nif (!payload.calendarDetails || !payload.calendarDetails.location || String(payload.calendarDetails.location).trim() === '') {\n  throw new Error('Missing required field: calendarDetails.location');\n}\n\n// Optionally coerce booleans/ints, trim strings you care about\nif (typeof payload.name === 'string') payload.name = payload.name.trim();\n\n// Replace the item's json with the validated payload so downstream nodes use direct keys\nitems[0].json = payload;\n\n// Return items so the workflow continues\nreturn items;"
+      },
+      "id": "validate-normalize",
+      "name": "Validate & Normalize Input",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "boolean": [
+            {
+              "name": "showMoreInfo",
+              "value": "={{ $json.showMoreInfo !== undefined ? $json.showMoreInfo : true }}"
+            },
+            {
+              "name": "showBookNow",
+              "value": "={{ $json.showBookNow !== undefined ? $json.showBookNow : false }}"
+            },
+            {
+              "name": "showRemindMe",
+              "value": "={{ $json.showRemindMe !== undefined ? $json.showRemindMe : true }}"
+            }
+          ],
+          "string": [
+            {
+              "name": "filename",
+              "value": "={{ $json.filename }}"
+            },
+            {
+              "name": "name",
+              "value": "={{ $json.name }}"
+            },
+            {
+              "name": "date",
+              "value": "={{ $json.date }}"
+            },
+            {
+              "name": "link",
+              "value": "={{ $json.link || '' }}"
+            },
+            {
+              "name": "image",
+              "value": "={{ $json.image || '' }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description || '' }}"
+            }
+          ]
+        },
+        "options": {
+          "dotNotation": true
+        }
+      },
+      "id": "prepare-event-data",
+      "name": "Prepare Event Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [690, 300],
+      "notesInFlow": true,
+      "notes": "Sets default values for optional fields"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "owner": "={{ $credentials.github.owner || 'petexa' }}",
+        "repository": "petexa.github.io",
+        "filePath": "=events/{{ $json.filename }}",
+        "fileContent": "={{ JSON.stringify($json, null, 2) }}",
+        "commitMessage": "=Add new event: {{ $json.name }}"
+      },
+      "id": "create-event-file",
+      "name": "Create Event File",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [910, 300],
+      "credentials": {
+        "githubApi": {
+          "id": "REPLACE_WITH_YOUR_GITHUB_CREDENTIAL_ID",
+          "name": "GitHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "owner": "={{ $credentials.github.owner || 'petexa' }}",
+        "repository": "petexa.github.io",
+        "filePath": "events/events-list.json"
+      },
+      "id": "get-events-list",
+      "name": "Get Events List",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [1130, 300],
+      "credentials": {
+        "githubApi": {
+          "id": "REPLACE_WITH_YOUR_GITHUB_CREDENTIAL_ID",
+          "name": "GitHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse the current events list\nconst content = items[0].json.content;\nconst currentList = JSON.parse(Buffer.from(content, 'base64').toString('utf8'));\n\n// Get the filename from the previous validated data\n// We need to access the data from the 'Prepare Event Data' node\nconst eventData = $('Prepare Event Data').first().json;\nconst newFilename = `events/${eventData.filename}`;\n\n// Add the new filename if it doesn't already exist\nif (!currentList.includes(newFilename)) {\n  currentList.push(newFilename);\n}\n\n// Store the updated list and SHA for the next node\nitems[0].json.updatedList = JSON.stringify(currentList, null, 2);\nitems[0].json.eventFilename = eventData.filename;\nitems[0].json.eventName = eventData.name;\n\nreturn items;"
+      },
+      "id": "add-event-to-list",
+      "name": "Add Event to List",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1350, 300]
+    },
+    {
+      "parameters": {
+        "operation": "edit",
+        "owner": "={{ $credentials.github.owner || 'petexa' }}",
+        "repository": "petexa.github.io",
+        "filePath": "events/events-list.json",
+        "fileContent": "={{ $json.updatedList }}",
+        "commitMessage": "=Update events list with {{ $json.eventName }}",
+        "additionalParameters": {
+          "sha": "={{ $('Get Events List').first().json.sha }}"
+        }
+      },
+      "id": "update-events-list",
+      "name": "Update Events List",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [1570, 300],
+      "credentials": {
+        "githubApi": {
+          "id": "REPLACE_WITH_YOUR_GITHUB_CREDENTIAL_ID",
+          "name": "GitHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, filename: $json.eventFilename, message: 'Event created successfully' }) }}"
+      },
+      "id": "send-response",
+      "name": "Send Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1790, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Validate & Normalize Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate & Normalize Input": {
+      "main": [
+        [
+          {
+            "node": "Prepare Event Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Event Data": {
+      "main": [
+        [
+          {
+            "node": "Create Event File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Event File": {
+      "main": [
+        [
+          {
+            "node": "Get Events List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events List": {
+      "main": [
+        [
+          {
+            "node": "Add Event to List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Event to List": {
+      "main": [
+        [
+          {
+            "node": "Update Events List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Events List": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "events",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}
