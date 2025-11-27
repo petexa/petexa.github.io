@@ -1,4 +1,16 @@
-# Beginner’s Tutorial: Setting Up the Iron & Ale Events n8n Workflow
+# Beginner's Tutorial: Setting Up the Iron & Ale Events n8n Workflow
+
+---
+
+## 🚀 Quick Start: Import the Workflow
+
+**Want to skip the manual setup?** Import the pre-built workflow directly into n8n:
+
+1. Download [`n8n-workflow.json`](./n8n-workflow.json)
+2. In n8n, go to **Workflows** > **Import from File**
+3. Select the downloaded JSON file
+4. Update the GitHub credentials with your own (search for `YOUR_GITHUB_CREDENTIAL_ID_FROM_N8N_CREDENTIALS_PAGE`)
+5. Activate the workflow!
 
 ---
 
@@ -16,70 +28,210 @@
 ### 3. Create a New Workflow
 - Click **Workflows** > **New Workflow**.
 
-### 4. Add a Webhook Trigger
+### 4. Add a Webhook Trigger Node
 - Drag in a **Webhook** node.
 - Set **HTTP Method** to `POST`.
 - Set **Path** to `events` (your webhook will be `/webhook/events`).
 - Enable **Response Mode**: `onReceived`.
-- Set **CORS Headers** (see README for recommended settings).
+- Set **CORS Headers** (see recommended settings below).
 
-### 5. Add a Validation Node
+The webhook will receive a JSON body like this:
+```json
+{
+  "filename": "spring-marathon-20260315.json",
+  "name": "Spring Marathon",
+  "date": "2026-03-15T09:00:00",
+  "link": "https://springmarathon.com",
+  "image": "images/spring-marathon.jpg",
+  "description": "🏃 Join us for the annual Spring Marathon! A challenging but rewarding run through scenic countryside.",
+  "calendarDetails": {
+    "location": "Central Park, London",
+    "description": "Spring Marathon 2026 - 26.2 miles of adventure",
+    "durationHours": 6
+  },
+  "showMoreInfo": true
+}
+```
+
+### 5. Add a Validation and Normalization Function Node
 - Drag in a **Function** node after the webhook.
-- Paste the validation code from the README:
+- Name it "Validate & Normalize Input".
+- This node validates required fields, normalizes the filename and date, and prepares the payload for downstream nodes.
+- Paste the validation code:
   ```javascript
-  const required = ['name', 'date', 'filename'];
-  const missing = required.filter(field => !items[0].json[field]);
-  if (missing.length > 0) throw new Error(`Missing required fields: ${missing.join(', ')}`);
-  if (!items[0].json.calendarDetails?.location) throw new Error('Missing required field: calendarDetails.location');
-  const filenameRegex = /^[a-z0-9-]+-\d{8}\.json$/;
-  if (!filenameRegex.test(items[0].json.filename)) throw new Error('Invalid filename format.');
+  // n8n Function node: validation + normalization for incoming webhook
+  // Works when webhook payload is at items[0].json.body OR items[0].json
+
+  const filenameRegex = /^[a-z0-9-]+-\d{8}\.json$/; // e.g. spring-marathon-20260315.json
+  const required = ['name','date','filename'];
+
+  // Helper: convert ISO datetime -> YYYY-MM-DD
+  function toIsoDateOnly(val){
+    if (typeof val !== 'string') return null;
+    // already YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}$/.test(val)) return val;
+    // try full ISO or other date strings
+    const d = new Date(val);
+    if (!isNaN(d.getTime())) return d.toISOString().slice(0,10);
+    return null;
+  }
+
+  // Get the payload: prefer items[0].json.body if present (webhook structure), else items[0].json
+  const root = items[0].json && typeof items[0].json === 'object' ? items[0].json : {};
+  const payload = (root.body && typeof root.body === 'object' && Object.keys(root.body).length > 0) ? root.body : root;
+
+  // Basic required-field check
+  const missing = required.filter(f => payload[f] === undefined || payload[f] === null || (typeof payload[f] === 'string' && payload[f].trim() === ''));
+  if (missing.length > 0) {
+    throw new Error(`Missing required field(s): ${missing.join(', ')}`);
+  }
+
+  // Normalise filename
+  if (typeof payload.filename === 'string') {
+    payload.filename = payload.filename.trim().toLowerCase();
+    // reject path traversal characters just in case
+    if (payload.filename.includes('..') || payload.filename.includes('/') || payload.filename.includes('\\')) {
+      throw new Error('Invalid filename: path traversal characters are not allowed.');
+    }
+  } else {
+    throw new Error('filename must be a string.');
+  }
+
+  // Validate filename format
+  if (!filenameRegex.test(payload.filename)) {
+    throw new Error('Invalid filename format. Expect lower-case, hyphens, date YYYYMMDD. Example: event-name-20260315.json');
+  }
+
+  // Normalize date to YYYY-MM-DD
+  const isoDate = toIsoDateOnly(payload.date);
+  if (!isoDate) {
+    throw new Error('Invalid date format. Use ISO date or ISO datetime (e.g. 2026-03-15 or 2026-03-15T09:00:00).');
+  }
+  payload.date = isoDate;
+
+  // calendarDetails.location required
+  if (!payload.calendarDetails || !payload.calendarDetails.location || String(payload.calendarDetails.location).trim() === '') {
+    throw new Error('Missing required field: calendarDetails.location');
+  }
+
+  // Optionally coerce booleans/ints, trim strings you care about
+  if (typeof payload.name === 'string') payload.name = payload.name.trim();
+
+  // Replace the item's json with the validated payload so downstream nodes use direct keys
+  items[0].json = payload;
+
+  // Return items so the workflow continues
   return items;
   ```
 
-### 6. (Optional) Add AI Enrichment
+### 6. (Optional) Add an OpenAI Enrichment Node
 - Drag in an **OpenAI** node (if you want to auto-generate descriptions).
+- Name it "AI Enrichment".
 - Use the event name and details as input.
 - Set output fields for `description` and `calendarDetails.description`.
 - Connect this node after validation.
 
-### 7. Add a GitHub Node to Create the Event File
+### 7. Add a Set Node for Event Data Preparation
+- Drag in a **Set** node after validation (or after AI Enrichment if used).
+- Name it "Prepare Event Data".
+- Configure it to structure the event JSON with all required fields.
+- Set default values for optional fields (`showMoreInfo: true`, `showBookNow: false`, `showRemindMe: true`).
+
+### 8. Add a GitHub Node to Create the Event File
 - Drag in a **GitHub** node.
+- Name it "Create Event File".
 - Set **Operation** to `Create or Update File`.
-- Set **Repository** to your repo (e.g., `petexa.github.io`).
+- Set **Repository Owner** to your GitHub username (e.g., `petexa`).
+- Set **Repository Name** to your repo (e.g., `petexa.github.io`).
 - Set **File Path** to `events/{{ $json.filename }}`.
-- Set **File Content** to the event JSON (use n8n’s expression editor).
-- Set **Commit Message** (e.g., `Add new event: {{$json.name}}`).
+- Set **File Content** to the event JSON (use n8n's expression editor).
+- Set **Commit Message** (e.g., `Add new event: {{ $json.name }}`).
 
-### 8. Update `events-list.json`
-- Add another **GitHub** node.
-- Set **Operation** to `Get File` (to fetch the current list and SHA).
-- Use a **Function** node to add the new filename to the array.
-- Add a **GitHub** node to **Update File** (include the SHA from the previous step).
+### 9. Add a GitHub Node to Get events-list.json
+- Drag in another **GitHub** node.
+- Name it "Get Events List".
+- Set **Operation** to `Get File`.
+- Set **Repository Owner** to your GitHub username.
+- Set **Repository Name** to your repo.
+- Set **File Path** to `events/events-list.json`.
+- This fetches the current list and provides the SHA needed for updates.
 
-### 9. Set Up Error Handling
-- Add an **IF** node after validation and GitHub nodes.
-- On error, send a notification (Slack, Email, etc.) or return a clear error response.
+### 10. Add a Function Node to Update the Events Array
+- Drag in a **Function** node.
+- Name it "Add Event to List".
+- Add the new event filename to the array:
+  ```javascript
+  // Parse the current events list (GitHub returns base64 encoded content)
+  const content = items[0].json.content;
+  const currentList = JSON.parse(Buffer.from(content, 'base64').toString('utf8'));
+  
+  // Get the filename from the previous validated data
+  const eventData = $('Prepare Event Data').first().json;
+  const newFilename = `events/${eventData.filename}`;
+  
+  // Add the new filename if it doesn't already exist
+  if (!currentList.includes(newFilename)) {
+    currentList.push(newFilename);
+  }
+  
+  // Store the updated list and SHA for the next node
+  items[0].json.updatedList = JSON.stringify(currentList, null, 2);
+  items[0].json.eventFilename = eventData.filename;
+  items[0].json.eventName = eventData.name;
+  
+  return items;
+  ```
 
-### 10. Test Your Workflow
+### 11. Add a GitHub Node to Update events-list.json
+- Drag in another **GitHub** node.
+- Name it "Update Events List".
+- Set **Operation** to `Update File`.
+- Set **Repository Owner** to your GitHub username.
+- Set **Repository Name** to your repo.
+- Set **File Path** to `events/events-list.json`.
+- Set **File Content** to `{{ $json.updatedList }}`.
+- Set **SHA** to `{{ $('Get Events List').first().json.sha }}` (from step 9).
+- Set **Commit Message** (e.g., `Update events list with {{ $json.eventName }}`).
+
+### 12. Add an IF Node for Error Handling
+- Drag in an **IF** node.
+- Name it "Check for Errors".
+- Configure conditions to check if any previous steps failed.
+- Connect success path to the response node.
+- Connect error path to notification node.
+
+### 13. (Optional) Add a Notification Node for Errors
+- Drag in a **Slack**, **Email**, or other notification node on the error branch.
+- Name it "Send Error Notification".
+- Configure it to alert you when event creation fails.
+
+### 14. Add a Respond to Webhook Node
+- Drag in a **Respond to Webhook** node.
+- Name it "Send Response".
+- Configure it to return success status and created filename.
+- Example response: `{ "success": true, "filename": "{{ $json.filename }}" }`.
+
+### 15. Test Your Workflow
 - Click **Execute Workflow**.
 - Use the admin page or cURL to POST a test event.
 - Check the `/events/` directory and `events-list.json` for updates.
 
-### 11. Deploy and Enable
+### 16. Deploy and Enable
 - Save and activate your workflow.
-- Your webhook is now live at:  `https://<your-n8n-domain>/webhook/events`
+- Your webhook is now live at: `https://<your-n8n-domain>/webhook/events`
 
 ---
 
 ## 📝 Tips
 - Use the n8n **expression editor** (`{{ }}`) to reference fields dynamically.
 - Always validate your JSON before committing.
-- Check n8n’s **execution logs** for troubleshooting.
+- Check n8n's **execution logs** for troubleshooting.
 
 ---
 
-**You’re done!**
+**You're done!**
 Your Iron & Ale events workflow is now automated and ready for use.
+
 # Events Guide
 
 Welcome! This guide explains how events work on the Iron & Ale website, from start to finish. Whether you're adding an event manually or using our automated system, this document has everything you need.
@@ -254,7 +406,7 @@ Admin Form → n8n Webhook → Validation → AI Enrichment → GitHub Commit
 ```
 
 1. **Webhook receives** the form data (including pre-generated `filename`) from the admin page
-2. **Validation** checks required fields and sanitizes input
+2. **Validation** checks required fields, normalizes filename and date, and sanitizes input
 3. **AI enrichment** (if needed) generates descriptions using OpenAI
 4. **GitHub commit** uses the `filename` field directly for the file path
 
@@ -328,25 +480,69 @@ To bulletproof your n8n workflow, consider these optimizations:
 ### Example Validation Node
 
 ```javascript
-// Validation check for required fields
-const required = ['name', 'date', 'filename'];
-const missing = required.filter(field => !input[field]);
+// n8n Function node: validation + normalization for incoming webhook
+// Works when webhook payload is at items[0].json.body OR items[0].json
 
-if (missing.length > 0) {
-  throw new Error(`Missing required fields: ${missing.join(', ')}`);
+const filenameRegex = /^[a-z0-9-]+-\d{8}\.json$/; // e.g. spring-marathon-20260315.json
+const required = ['name','date','filename'];
+
+// Helper: convert ISO datetime -> YYYY-MM-DD
+function toIsoDateOnly(val){
+  if (typeof val !== 'string') return null;
+  // already YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}$/.test(val)) return val;
+  // try full ISO or other date strings
+  const d = new Date(val);
+  if (!isNaN(d.getTime())) return d.toISOString().slice(0,10);
+  return null;
 }
 
-if (!input.calendarDetails?.location) {
+// Get the payload: prefer items[0].json.body if present (webhook structure), else items[0].json
+const root = items[0].json && typeof items[0].json === 'object' ? items[0].json : {};
+const payload = (root.body && typeof root.body === 'object' && Object.keys(root.body).length > 0) ? root.body : root;
+
+// Basic required-field check
+const missing = required.filter(f => payload[f] === undefined || payload[f] === null || (typeof payload[f] === 'string' && payload[f].trim() === ''));
+if (missing.length > 0) {
+  throw new Error(`Missing required field(s): ${missing.join(', ')}`);
+}
+
+// Normalise filename
+if (typeof payload.filename === 'string') {
+  payload.filename = payload.filename.trim().toLowerCase();
+  // reject path traversal characters just in case
+  if (payload.filename.includes('..') || payload.filename.includes('/') || payload.filename.includes('\\')) {
+    throw new Error('Invalid filename: path traversal characters are not allowed.');
+  }
+} else {
+  throw new Error('filename must be a string.');
+}
+
+// Validate filename format
+if (!filenameRegex.test(payload.filename)) {
+  throw new Error('Invalid filename format. Expect lower-case, hyphens, date YYYYMMDD. Example: event-name-20260315.json');
+}
+
+// Normalize date to YYYY-MM-DD
+const isoDate = toIsoDateOnly(payload.date);
+if (!isoDate) {
+  throw new Error('Invalid date format. Use ISO date or ISO datetime (e.g. 2026-03-15 or 2026-03-15T09:00:00).');
+}
+payload.date = isoDate;
+
+// calendarDetails.location required
+if (!payload.calendarDetails || !payload.calendarDetails.location || String(payload.calendarDetails.location).trim() === '') {
   throw new Error('Missing required field: calendarDetails.location');
 }
 
-// Validate filename format (lowercase letters, numbers, hyphens, and 8-digit date)
-const filenameRegex = /^[a-z0-9-]+-\d{8}\.json$/;
-if (!filenameRegex.test(input.filename)) {
-  throw new Error('Invalid filename format. Expected: {event-name}-{YYYYMMDD}.json (lowercase, hyphens only)');
-}
+// Optionally coerce booleans/ints, trim strings you care about
+if (typeof payload.name === 'string') payload.name = payload.name.trim();
 
-return input;
+// Replace the item's json with the validated payload so downstream nodes use direct keys
+items[0].json = payload;
+
+// Return items so the workflow continues
+return items;
 ```
 
 ---
