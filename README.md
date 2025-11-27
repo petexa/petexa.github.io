@@ -184,6 +184,25 @@ The site follows WCAG guidelines:
 
 This is a static site with no build step required. Just edit HTML, CSS, and JavaScript files directly.
 
+### GitHub Actions Workflows
+
+#### Running clean_workouts.py Manually
+
+The `run-clean_workouts` workflow can be triggered manually via GitHub's `workflow_dispatch` feature:
+
+1. Go to the **Actions** tab in the repository
+2. Select **"Run clean_workouts"** from the workflow list on the left
+3. Click the **"Run workflow"** button (dropdown on the right side)
+4. Optionally enter arguments in the `args` input field (e.g., `--dry-run --verbose`)
+5. Click the green **"Run workflow"** button to start
+
+**Available Arguments:**
+- `--dry-run` - Run without saving output files
+- `--verbose` or `-v` - Enable verbose logging
+- `--input <path>` - Specify input CSV file path
+- `--out <path>` - Specify output file path
+- `--help` - Show all available options
+
 ### CSS Modifications
 
 To modify the Tailwind-style utilities:
