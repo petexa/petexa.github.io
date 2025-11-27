@@ -6,3 +6,8 @@
 
 # Audit and report files (generated, can be committed if needed)
 workouts_table_audit.csv
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
