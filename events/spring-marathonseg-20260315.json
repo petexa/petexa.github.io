@@ -1,0 +1,45 @@
+{
+  "headers": {
+    "host": "n8n.petefox.co.uk",
+    "x-forwarded-scheme": "https",
+    "x-forwarded-proto": "https",
+    "x-forwarded-for": "192.168.1.1",
+    "x-real-ip": "192.168.1.1",
+    "connection": "close",
+    "content-length": "493",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+    "sec-ch-ua": "\"Chromium\";v=\"142\", \"Google Chrome\";v=\"142\", \"Not_A Brand\";v=\"99\"",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0",
+    "accept": "*/*",
+    "origin": "https://gym.petefox.co.uk",
+    "sec-fetch-site": "same-site",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-dest": "empty",
+    "referer": "https://gym.petefox.co.uk/",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+    "priority": "u=1, i"
+  },
+  "params": {},
+  "query": {},
+  "body": {
+    "filename": "spring-marathonseg-20260315.json",
+    "name": "Spring Marathonseg",
+    "date": "2026-03-15T09:00:00.000Z",
+    "link": "https://springmarathon.com",
+    "image": "images/spring-marathon.jpg",
+    "description": "🏃 Join us for the annual Spring Marathon! A challenging but rewarding run through scenic countryside.",
+    "calendarDetails": {
+      "location": "Central Park, London",
+      "description": "Spring Marathon 2026 - 26.2 miles of adventure",
+      "durationHours": 6
+    },
+    "showMoreInfo": true,
+    "showBookNow": false,
+    "showRemindMe": true
+  },
+  "webhookUrl": "https://n8n.petefox.co.uk/webhook/events",
+  "executionMode": "production"
+}
