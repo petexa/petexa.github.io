@@ -110,7 +110,7 @@
             <ol class="flex items-center gap-2 text-sm text-gray-500">
               <li><a href="../../utilities/" class="hover:text-primary-600">Utilities</a></li>
               <li aria-hidden="true">/</li>
-              <li class="text-gray-900 font-medium">Workout Tracker</li>
+              <li class="font-medium" style="color: var(--text);">Workout Tracker</li>
             </ol>
           </nav>
 
@@ -124,7 +124,7 @@
           <div class="card mb-6">
             <div class="card-body flex items-center gap-3">
               <span class="text-gray-600">Logging as:</span>
-              <span id="user-name-display" class="font-semibold text-gray-900"></span>
+              <span id="user-name-display" class="font-semibold" style="color: var(--text);"></span>
               <button type="button" id="edit-name-btn" class="text-primary-600 hover:text-primary-700" aria-label="Edit name" title="Edit name">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
@@ -136,7 +136,7 @@
           <!-- Workout Form -->
           <div class="card mb-8">
             <div class="card-header">
-              <h2 class="font-semibold text-gray-900">Log New Workout</h2>
+              <h2 class="font-semibold" style="color: var(--text);">Log New Workout</h2>
             </div>
             <div class="card-body">
               <form id="workout-form" onsubmit="event.preventDefault(); saveWorkout();">
@@ -236,7 +236,7 @@
           <!-- Workout History -->
           <div class="card">
             <div class="card-header flex items-center justify-between">
-              <h2 class="font-semibold text-gray-900">Workout History</h2>
+              <h2 class="font-semibold" style="color: var(--text);">Workout History</h2>
               <span id="workout-count" class="badge badge-primary">0 entries</span>
             </div>
             <div class="card-body">
@@ -248,7 +248,7 @@
 
           <!-- Related Tools -->
           <div class="mt-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">Related Tools</h2>
+            <h2 class="text-xl font-bold mb-4" style="color: var(--text);">Related Tools</h2>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <a href="../progress-chart/" class="tool-card">
                 <div class="tool-card-icon bg-success-100 text-success-600" aria-hidden="true">📊</div>
@@ -593,12 +593,12 @@
           details = w.sets + ' sets × ' + w.reps + ' reps' + (w.weight > 0 ? ' @ ' + w.weight + 'kg' : '');
         }
         
-        html += '<div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">' +
+        html += '<div class="flex items-center justify-between p-4 rounded-lg" style="background: var(--bg-alt);">' +
           '<div class="flex-1">' +
-          '<div class="font-medium text-gray-900">' + (w.exerciseName || w.exercise) + 
+          '<div class="font-medium" style="color: var(--text);">' + (w.exerciseName || w.exercise) + 
           (w.pr === 'YES' ? ' <span class="text-yellow-500">🏆 PB</span>' : '') + '</div>' +
-          '<div class="text-sm text-gray-500">' + w.date + ' • ' + details + '</div>' +
-          (w.notes ? '<div class="text-xs text-gray-400 mt-1">' + w.notes + '</div>' : '') +
+          '<div class="text-sm" style="color: var(--text-muted);">' + w.date + ' • ' + details + '</div>' +
+          (w.notes ? '<div class="text-xs mt-1" style="color: var(--text-muted);">' + w.notes + '</div>' : '') +
           '</div>' +
           '<button class="btn btn-sm btn-danger ml-4" onclick="deleteWorkout(\'' + w.id + '\')" aria-label="Delete workout">×</button>' +
           '</div>';
