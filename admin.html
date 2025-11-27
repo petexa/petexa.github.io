@@ -139,10 +139,10 @@
                 <h3 class="tool-card-title">Utilities</h3>
                 <p class="tool-card-desc">Access calculators, timers, and tracking tools.</p>
               </a>
-              <a href="N8N-EVENT-WORKFLOW.md" class="tool-card" target="_blank">
-                <div class="tool-card-icon bg-primary-100 text-primary-600" aria-hidden="true">⚡</div>
-                <h3 class="tool-card-title">n8n Workflow Docs</h3>
-                <p class="tool-card-desc">Setup guide for the event automation workflow with AI enrichment.</p>
+              <a href="events/README.md" class="tool-card" target="_blank">
+                <div class="tool-card-icon bg-primary-100 text-primary-600" aria-hidden="true">📅</div>
+                <h3 class="tool-card-title">Events Guide</h3>
+                <p class="tool-card-desc">Complete guide for adding events manually or via n8n automation.</p>
               </a>
             </div>
           </section>
@@ -304,11 +304,16 @@
                   </div>
                   <div>
                     <label for="event-name" class="form-label">Event Name *</label>
-                    <input type="text" id="event-name" class="form-input" placeholder="e.g., Nuclear Fit Summer" required>
+                    <input type="text" id="event-name" class="form-input" placeholder="e.g., Nuclear Fit Summer" required oninput="updateEventFilename()">
                   </div>
                   <div>
                     <label for="event-date" class="form-label">Date & Time *</label>
-                    <input type="datetime-local" id="event-date" class="form-input" required>
+                    <input type="datetime-local" id="event-date" class="form-input" required oninput="updateEventFilename()">
+                  </div>
+                  <div class="md:col-span-2">
+                    <label for="event-filename" class="form-label">Generated Filename</label>
+                    <input type="text" id="event-filename" class="form-input" placeholder="Auto-generated from name and date" readonly style="background: var(--bg-alt); color: var(--text-muted);">
+                    <p class="text-sm mt-1" style="color: var(--text-muted);">This filename is auto-generated and will be used by n8n.</p>
                   </div>
                   <div>
                     <label for="event-link" class="form-label">Event Link (URL)</label>
@@ -454,6 +459,31 @@
       } else {
         exerciseSelect.value = 'bench-press';
       }
+    }
+
+    // Generate event filename from name and date
+    function generateEventFilename(name, dateValue) {
+      if (!name || !dateValue) return '';
+      
+      // Convert name to lowercase, replace non-alphanumeric chars with hyphens, trim leading/trailing hyphens
+      const eventName = name.toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+      
+      // Extract YYYYMMDD from datetime-local format (YYYY-MM-DDTHH:mm)
+      const eventDate = dateValue.substring(0, 10).replace(/-/g, '');
+      
+      return `${eventName}-${eventDate}.json`;
+    }
+
+    // Update filename field when name or date changes
+    function updateEventFilename() {
+      const name = document.getElementById('event-name').value.trim();
+      const dateValue = document.getElementById('event-date').value;
+      const filenameInput = document.getElementById('event-filename');
+      
+      const filename = generateEventFilename(name, dateValue);
+      filenameInput.value = filename;
     }
 
     // Password protection
@@ -603,13 +633,22 @@
         return;
       }
       
+      // Generate filename for n8n
+      const filename = generateEventFilename(name, dateValue);
+      if (!filename) {
+        result.textContent = '❌ Could not generate filename. Please check name and date.';
+        result.className = 'mt-4 text-center font-semibold text-danger-600';
+        return;
+      }
+      
       // Format date to ISO 8601 local time (YYYY-MM-DDTHH:mm:ss)
-      // Note: Matches existing event JSON schema - no timezone suffix
+      // Remove milliseconds and Z suffix to match existing event JSON schema
       const dateObj = new Date(dateValue);
       const isoDate = dateObj.toISOString().replace(/\.\d{3}Z$/, '');
       
-      // Build event data
+      // Build event data with filename for n8n
       const eventData = {
+        filename: filename,
         name: name,
         date: isoDate,
         link: document.getElementById('event-link').value.trim() || null,
