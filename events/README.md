@@ -50,6 +50,7 @@ Every event file uses this structure:
 
 ```json
 {
+  "filename": "spring-marathon-20260315.json",
   "name": "Event Name",
   "date": "YYYY-MM-DDTHH:mm:ss",
   "link": "https://event-website.com",
@@ -70,6 +71,7 @@ Every event file uses this structure:
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
+| `filename` | string | Yes | Filename for the event file (format: `{event-name}-{YYYYMMDD}.json`) |
 | `name` | string | Yes | Display name of the event |
 | `date` | string | Yes | ISO 8601 datetime (e.g., `2026-03-15T10:00:00`) |
 | `link` | string | No | URL to event's official page or registration |
@@ -81,6 +83,8 @@ Every event file uses this structure:
 | `showMoreInfo` | boolean | No | Show/hide "More Info" button (default: true) |
 | `showBookNow` | boolean | No | Show/hide "Book Now" button (default: false) |
 | `showRemindMe` | boolean | No | Show/hide "Remind Me" button (default: true) |
+
+> 💡 **n8n Optimization:** The `filename` field is included in the JSON so n8n can directly use it for the GitHub commit path without recalculating it.
 
 ---
 
@@ -115,6 +119,7 @@ Use the JSON template from the [JSON Structure](#json-structure) section. Here's
 
 ```json
 {
+  "filename": "spring-marathon-20260315.json",
   "name": "Spring Marathon",
   "date": "2026-03-15T09:00:00",
   "link": "https://springmarathon.com",
@@ -163,13 +168,13 @@ The automated event system uses [n8n](https://n8n.io) to process submissions fro
 ### How It Works
 
 ```
-Admin Form → n8n Webhook → AI Enrichment → GitHub Commit
+Admin Form → n8n Webhook → Validation → AI Enrichment → GitHub Commit
 ```
 
-1. **Webhook receives** the form data from the admin page
-2. **Data transformation** creates the proper filename and validates fields
+1. **Webhook receives** the form data (including pre-generated `filename`) from the admin page
+2. **Validation** checks required fields and sanitizes input
 3. **AI enrichment** (if needed) generates descriptions using OpenAI
-4. **GitHub commit** saves the event file to the repository
+4. **GitHub commit** uses the `filename` field directly for the file path
 
 ### Prerequisites for Setup
 
@@ -196,18 +201,19 @@ The webhook receives POST requests at: `https://n8n.petefox.co.uk/webhook/events
 }
 ```
 
-### Data Transformation
+### Data Transformation (Simplified)
 
-The workflow transforms incoming data and generates the filename:
+Since the admin form now sends the `filename` field, n8n can use it directly:
 
 ```javascript
-// Generate filename from event name and date
-const eventName = input.name.toLowerCase()
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-|-$/g, '');
-const eventDate = input.date.substring(0, 10).replace(/-/g, '');
-const filename = `${eventName}-${eventDate}.json`;
+// The filename is already provided in the input
+const filename = input.filename;  // e.g., "spring-marathon-20260315.json"
+const filePath = `events/${filename}`;
+
+// Use directly for GitHub commit - no transformation needed!
 ```
+
+> 💡 **Optimization:** By including `filename` in the JSON payload, you eliminate the need for string manipulation in n8n, reducing complexity and potential errors.
 
 ### AI Enrichment
 
@@ -220,8 +226,46 @@ If AI enrichment fails, sensible defaults are used automatically.
 ### GitHub Integration
 
 The workflow commits directly to the repository:
-- Creates the event JSON file in `/events/`
+- Creates the event JSON file in `/events/` using the provided `filename`
 - Updates `events-list.json` with the new entry
+
+### Recommended n8n Optimizations
+
+To bulletproof your n8n workflow, consider these optimizations:
+
+| Optimization | Description |
+|--------------|-------------|
+| **Input validation** | Add an IF node to check required fields (`name`, `date`, `filename`, `calendarDetails.location`) before processing |
+| **Duplicate detection** | Use HTTP Request to check if `events/{filename}` already exists before creating |
+| **Error notifications** | Add a Slack/Email node on the error branch to alert on failures |
+| **Idempotency key** | Use `filename` as an idempotency key to prevent duplicate submissions |
+| **Rate limiting** | Configure webhook to reject rapid successive calls (e.g., 1 per 5 seconds) |
+| **Fallback defaults** | Set default values for optional fields (`showMoreInfo: true`, `showBookNow: false`, etc.) |
+| **Response feedback** | Return the created filename and status in the webhook response for admin page confirmation |
+
+### Example Validation Node
+
+```javascript
+// Validation check for required fields
+const required = ['name', 'date', 'filename'];
+const missing = required.filter(field => !input[field]);
+
+if (missing.length > 0) {
+  throw new Error(`Missing required fields: ${missing.join(', ')}`);
+}
+
+if (!input.calendarDetails?.location) {
+  throw new Error('Missing required field: calendarDetails.location');
+}
+
+// Validate filename format (lowercase letters, numbers, hyphens, and 8-digit date)
+const filenameRegex = /^[a-z0-9-]+-\d{8}\.json$/;
+if (!filenameRegex.test(input.filename)) {
+  throw new Error('Invalid filename format. Expected: {event-name}-{YYYYMMDD}.json (lowercase, hyphens only)');
+}
+
+return input;
+```
 
 ---
 
@@ -240,6 +284,7 @@ The workflow commits directly to the repository:
 curl -X POST https://n8n.petefox.co.uk/webhook/events \
   -H "Content-Type: application/json" \
   -d '{
+    "filename": "test-event-20251225.json",
     "name": "Test Event",
     "date": "2025-12-25T10:00:00",
     "link": "https://example.com",
