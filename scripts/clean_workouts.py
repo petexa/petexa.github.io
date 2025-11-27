@@ -229,8 +229,13 @@ class CacheManager:
         logger.info(f"Cache directory: {self.cache_dir.absolute()}")
     
     def _get_cache_key(self, prefix: str, query: str) -> str:
-        """Generate a cache key from prefix and query."""
-        hash_val = hashlib.md5(query.encode()).hexdigest()[:12]
+        """Generate a cache key from prefix and query.
+        
+        Note: SHA-256 is used for cache key generation. While this is not
+        a security-sensitive application (just caching), we use SHA-256
+        for better collision resistance.
+        """
+        hash_val = hashlib.sha256(query.encode()).hexdigest()[:12]
         return f"{prefix}_{hash_val}"
     
     def _get_cache_path(self, key: str) -> Path:
@@ -977,13 +982,19 @@ class WorkoutDataCleaner:
             if pd.isna(row.get('Time Domain')) or str(row.get('Time Domain', '')).lower() == 'unknown':
                 if ai_result.get('typical_time_minutes'):
                     try:
-                        time_str = ai_result['typical_time_minutes']
+                        time_str = str(ai_result['typical_time_minutes']).strip()
                         # Parse range like "3-6"
-                        if '-' in str(time_str):
-                            parts = str(time_str).split('-')
-                            avg_minutes = (float(parts[0]) + float(parts[1])) / 2
-                        else:
+                        if '-' in time_str:
+                            parts = time_str.split('-')
+                            # Validate both parts are numeric before conversion
+                            if len(parts) == 2 and parts[0].strip().replace('.', '').isdigit() and parts[1].strip().replace('.', '').isdigit():
+                                avg_minutes = (float(parts[0].strip()) + float(parts[1].strip())) / 2
+                            else:
+                                raise ValueError(f"Invalid time range format: {time_str}")
+                        elif time_str.replace('.', '').isdigit():
                             avg_minutes = float(time_str)
+                        else:
+                            raise ValueError(f"Invalid time format: {time_str}")
                         
                         updates['Time Domain'] = classify_time_domain(avg_minutes)
                         sources.append({
