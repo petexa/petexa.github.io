@@ -1,12 +1,17 @@
 /**
  * Iron & Ale - Workouts Page JavaScript
- * Handles WOD selection, pinning, and random workout display
+ * Handles WOD selection, pinning, modal display, and random workout display
  * 
  * WOD Selection Method:
  * The Workout of the Day is determined using a deterministic algorithm:
  * - Take the current UTC date as YYYYMMDD integer
  * - Calculate: index = (dateInt) % totalWorkouts
  * - This ensures the same workout shows all day and changes at midnight UTC
+ * 
+ * Card Structure:
+ * - Card Preview: Name, Category, Difficulty, Format & Duration, Training Goals, Description (truncated)
+ * - Modal Essentials: Instructions, Equipment, Movement Types, Stimulus, Scaling, Score Type
+ * - Expandable Section: Warmup, Coaching Cues, Estimated Times, Environment, Flavor Text
  */
 
 (function() {
@@ -19,6 +24,11 @@
   var MAX_PINS = 3;
   var RANDOM_COUNT = 6;
   var DATA_URL = '../data/workouts_table.json';
+  var DESC_TRUNCATE_LENGTH = 120;
+  // Animation timing - matches CSS --transition-slow (300ms)
+  var ANIMATION_DURATION_MS = 300;
+  // Delay for DOM rendering before scroll/focus operations
+  var DOM_RENDER_DELAY_MS = 100;
 
   // ========================================
   // State
@@ -26,7 +36,7 @@
   var workouts = [];
   var pinnedIds = [];
   var wodId = null;
-  var expandedTileId = null;
+  var currentModalWorkoutId = null;
 
   // ========================================
   // Utility Functions
@@ -138,10 +148,6 @@
     }
   }
 
-  // ========================================
-  // Workout Rendering
-  // ========================================
-
   /**
    * Get display value for a field, or fallback
    * @param {*} value - Field value
@@ -157,27 +163,134 @@
   }
 
   /**
-   * Create a workout tile HTML
-   * @param {Object} workout - Workout object
-   * @param {string} badgeType - Badge type: 'wod', 'pinned', or 'random'
-   * @param {boolean} isExpanded - Whether tile is expanded
+   * Format text as bullet list by splitting on semicolons and commas
+   * @param {string} text - Text to format
+   * @returns {string} HTML string with bullet list
+   */
+  function formatAsBulletList(text) {
+    if (!text || text === '—') return text;
+    // Split by semicolons first, then by commas if no semicolons
+    var items = text.indexOf(';') !== -1 
+      ? text.split(/\s*;\s*/)
+      : text.split(/\s*,\s*/);
+    // Filter empty items
+    items = items.filter(function(item) { return item.trim(); });
+    if (items.length <= 1) return escapeHtml(text);
+    
+    var html = '<ul class="modal-bullet-list">';
+    for (var i = 0; i < items.length; i++) {
+      html += '<li>' + escapeHtml(items[i].trim()) + '</li>';
+    }
+    html += '</ul>';
+    return html;
+  }
+
+  /**
+   * Parse JSON-formatted scaling tiers into structured HTML
+   * @param {string} scalingData - JSON string or plain text
    * @returns {string} HTML string
    */
-  function createWorkoutTile(workout, badgeType, isExpanded) {
+  function parseScalingTiers(scalingData) {
+    if (!scalingData || scalingData === '—') return scalingData;
+    
+    // Try to parse as JSON-like object (handling the pseudo-JSON format in the data)
+    try {
+      // The data format is like: {Beginner: ..., Intermediate: ..., Advanced: ...}
+      // It's not valid JSON, so we parse it manually
+      var tierRegex = /(Beginner|Intermediate|Advanced|Limited Equipment):\s*([^,}]+(?:,\s*[^:}]+)?)/gi;
+      var match;
+      var tiers = [];
+      
+      while ((match = tierRegex.exec(scalingData)) !== null) {
+        tiers.push({
+          level: match[1],
+          description: match[2].trim().replace(/\.$/, '')
+        });
+      }
+      
+      if (tiers.length > 0) {
+        var html = '<div class="scaling-tiers">';
+        for (var i = 0; i < tiers.length; i++) {
+          var tierClass = tiers[i].level.toLowerCase().replace(/\s+/g, '-');
+          html += '<div class="scaling-tier scaling-tier-' + tierClass + '">' +
+            '<span class="scaling-tier-label">' + escapeHtml(tiers[i].level) + ':</span> ' +
+            '<span class="scaling-tier-desc">' + escapeHtml(tiers[i].description) + '</span>' +
+          '</div>';
+        }
+        html += '</div>';
+        return html;
+      }
+    } catch (e) {
+      console.warn('Error parsing scaling tiers:', e);
+    }
+    
+    // Fallback to plain text
+    return escapeHtml(scalingData);
+  }
+
+  /**
+   * Parse estimated times JSON into human-readable format
+   * @param {string} timesData - JSON string or plain text
+   * @returns {string} HTML string
+   */
+  function parseEstimatedTimes(timesData) {
+    if (!timesData || timesData === '—') return timesData;
+    
+    try {
+      // Format: {RX: 420, Intermediate: 588, Beginner: 840}
+      var timeRegex = /(RX|Intermediate|Beginner):\s*(\d+)/gi;
+      var match;
+      var times = [];
+      
+      while ((match = timeRegex.exec(timesData)) !== null) {
+        var seconds = parseInt(match[2], 10);
+        var minutes = Math.floor(seconds / 60);
+        var secs = seconds % 60;
+        var timeStr = minutes + 'm ' + secs + 's';
+        times.push({
+          level: match[1],
+          time: timeStr
+        });
+      }
+      
+      if (times.length > 0) {
+        var html = '<div class="estimated-times">';
+        for (var i = 0; i < times.length; i++) {
+          html += '<span class="est-time-item">' +
+            '<span class="est-time-label">' + escapeHtml(times[i].level) + ':</span> ' +
+            '<span class="est-time-value">' + times[i].time + '</span>' +
+          '</span>';
+          if (i < times.length - 1) html += ' • ';
+        }
+        html += '</div>';
+        return html;
+      }
+    } catch (e) {
+      console.warn('Error parsing estimated times:', e);
+    }
+    
+    return escapeHtml(timesData);
+  }
+
+  // ========================================
+  // Workout Card Rendering
+  // ========================================
+
+  /**
+   * Create a workout card HTML (preview only - no inline expansion)
+   * Card Preview: Name, Category, Difficulty, Format & Duration, Training Goals, Description
+   * @param {Object} workout - Workout object
+   * @param {string} badgeType - Badge type: 'wod', 'pinned', or 'random'
+   * @returns {string} HTML string
+   */
+  function createWorkoutCard(workout, badgeType) {
     var id = workout.id;
     var name = displayValue(workout.Name, 'Unnamed Workout');
     var category = displayValue(workout.Category);
-    var format = displayValue(workout.FormatDuration);
-    var instructions = displayValue(workout.Instructions_Clean || workout.Instructions);
-    var description = displayValue(workout.Description || workout.Flavor_Text);
-    var equipment = displayValue(workout.EquipmentNeeded);
-    var muscleGroups = displayValue(workout.MuscleGroups);
     var level = displayValue(workout.Level || workout.DifficultyTier);
-    var estimatedTime = displayValue(workout.Estimated_Times_Human);
-    var scoreType = displayValue(workout.ScoreType);
-    var scalingOptions = displayValue(workout.ScalingOptions);
-    var coachNotes = displayValue(workout.CoachNotes || workout.Coaching_Cues);
-    var warmup = displayValue(workout.Warmup);
+    var format = displayValue(workout.FormatDuration);
+    var goals = displayValue(workout.TrainingGoals);
+    var description = displayValue(workout.Description || workout.Flavor_Text);
     var isPinned = pinnedIds.indexOf(id) !== -1;
 
     var badgeHtml = '';
@@ -187,24 +300,18 @@
       badgeHtml = '<span class="workout-badge badge-pinned">Pinned</span>';
     }
 
-    // Determine short description for tile preview
-    var shortDesc = truncate(instructions || description, 140);
+    // Truncate description at 120 characters
+    var shortDesc = truncate(description, DESC_TRUNCATE_LENGTH);
 
-    var html = '<article class="workout-tile" ' +
-      'role="button" ' +
+    var html = '<article class="workout-card" ' +
       'tabindex="0" ' +
-      'aria-expanded="' + (isExpanded ? 'true' : 'false') + '" ' +
-      'aria-controls="workout-details-' + id + '" ' +
-      'data-workout-id="' + id + '">' +
-      '<div class="workout-tile-header">' +
-        '<div>' +
+      'data-workout-id="' + id + '" ' +
+      'role="button" ' +
+      'aria-label="View details for ' + name + '">' +
+      '<div class="workout-card-header">' +
+        '<div class="workout-card-title-area">' +
           badgeHtml +
-          '<h3 class="workout-tile-title">' + name + '</h3>' +
-          '<div class="workout-tile-meta">' +
-            '<span>' + category + '</span>' +
-            (format !== '—' ? ' • <span>' + format + '</span>' : '') +
-            (level !== '—' ? ' • <span>' + level + '</span>' : '') +
-          '</div>' +
+          '<h3 class="workout-card-title">' + name + '</h3>' +
         '</div>' +
         '<button type="button" class="pin-btn" ' +
           'aria-pressed="' + (isPinned ? 'true' : 'false') + '" ' +
@@ -216,22 +323,243 @@
           '</svg>' +
         '</button>' +
       '</div>' +
-      '<p class="workout-tile-desc">' + shortDesc + '</p>' +
-      '<div class="workout-tile-details" id="workout-details-' + id + '"' + (isExpanded ? '' : ' hidden') + '>' +
-        (instructions !== '—' ? '<div class="workout-detail-row"><span class="workout-detail-label">Instructions:</span><span class="workout-detail-value">' + instructions + '</span></div>' : '') +
-        (description !== '—' ? '<div class="workout-detail-row"><span class="workout-detail-label">Description:</span><span class="workout-detail-value">' + description + '</span></div>' : '') +
-        (equipment !== '—' ? '<div class="workout-detail-row"><span class="workout-detail-label">Equipment:</span><span class="workout-detail-value">' + equipment + '</span></div>' : '') +
-        (muscleGroups !== '—' ? '<div class="workout-detail-row"><span class="workout-detail-label">Muscle Groups:</span><span class="workout-detail-value">' + muscleGroups + '</span></div>' : '') +
-        (estimatedTime !== '—' ? '<div class="workout-detail-row"><span class="workout-detail-label">Est. Time:</span><span class="workout-detail-value">' + estimatedTime + '</span></div>' : '') +
-        (scoreType !== '—' ? '<div class="workout-detail-row"><span class="workout-detail-label">Score Type:</span><span class="workout-detail-value">' + scoreType + '</span></div>' : '') +
-        (scalingOptions !== '—' ? '<div class="workout-detail-row"><span class="workout-detail-label">Scaling:</span><span class="workout-detail-value">' + scalingOptions + '</span></div>' : '') +
-        (warmup !== '—' ? '<div class="workout-detail-row"><span class="workout-detail-label">Warm-up:</span><span class="workout-detail-value">' + warmup + '</span></div>' : '') +
-        (coachNotes !== '—' ? '<div class="workout-detail-row"><span class="workout-detail-label">Coach Notes:</span><span class="workout-detail-value">' + coachNotes + '</span></div>' : '') +
+      '<div class="workout-card-meta">' +
+        '<span class="workout-meta-item" title="Category">🏷️ ' + category + '</span>' +
+        (level !== '—' ? '<span class="workout-meta-item" title="Difficulty">🔥 ' + level + '</span>' : '') +
+      '</div>' +
+      '<div class="workout-card-meta">' +
+        (format !== '—' ? '<span class="workout-meta-item" title="Format & Duration">⏱️ ' + format + '</span>' : '') +
+      '</div>' +
+      (goals !== '—' ? '<div class="workout-card-meta"><span class="workout-meta-item" title="Training Goals">🎯 ' + goals + '</span></div>' : '') +
+      '<p class="workout-card-desc" title="Description">💪 ' + shortDesc + '</p>' +
+      '<div class="workout-card-footer">' +
+        '<span class="view-details-hint">Click to view details</span>' +
       '</div>' +
     '</article>';
 
     return html;
   }
+
+  // ========================================
+  // Modal Rendering
+  // ========================================
+
+  /**
+   * Create workout modal HTML
+   * Modal Essentials: Instructions, Equipment, Movement Types, Stimulus, Scaling, Score Type
+   * Expandable: Warmup, Coaching Cues, Estimated Times, Environment, Flavor Text
+   * @param {Object} workout - Workout object
+   * @returns {string} HTML string
+   */
+  function createWorkoutModal(workout) {
+    var id = workout.id;
+    var name = displayValue(workout.Name, 'Unnamed Workout');
+    var category = displayValue(workout.Category);
+    var level = displayValue(workout.Level || workout.DifficultyTier);
+    var format = displayValue(workout.FormatDuration);
+    var isPinned = pinnedIds.indexOf(id) !== -1;
+
+    // Modal Essentials fields
+    var instructions = displayValue(workout.Instructions_Clean || workout.Instructions);
+    var equipment = displayValue(workout.EquipmentNeeded);
+    var movementTypes = displayValue(workout.MovementTypes);
+    var stimulus = displayValue(workout.Stimulus || workout.TargetStimulus);
+    var scaling = workout.Scaling_Tiers || workout.ScalingOptions;
+    var scoreType = displayValue(workout.ScoreType);
+
+    // Expandable Additional Info fields
+    var warmup = displayValue(workout.Warmup);
+    var coachingCues = displayValue(workout.Coaching_Cues || workout.CoachNotes);
+    var estimatedTimes = workout.Estimated_Times || workout.Estimated_Times_Human;
+    var environment = displayValue(workout.Environment);
+    var flavorText = displayValue(workout.Flavor_Text);
+
+    var html = '<div class="workout-modal-overlay" id="workout-modal-overlay">' +
+      '<div class="workout-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-' + id + '">' +
+        '<div class="workout-modal-header">' +
+          '<div class="workout-modal-title-area">' +
+            '<h2 id="modal-title-' + id + '" class="workout-modal-title">' + name + '</h2>' +
+            '<div class="workout-modal-badges">' +
+              '<span class="workout-meta-item">🏷️ ' + category + '</span>' +
+              (level !== '—' ? '<span class="workout-meta-item">🔥 ' + level + '</span>' : '') +
+              (format !== '—' ? '<span class="workout-meta-item">⏱️ ' + format + '</span>' : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="workout-modal-actions">' +
+            '<button type="button" class="pin-btn modal-pin-btn" ' +
+              'aria-pressed="' + (isPinned ? 'true' : 'false') + '" ' +
+              'aria-label="' + (isPinned ? 'Unpin' : 'Pin') + ' ' + name + '" ' +
+              'data-pin-id="' + id + '" ' +
+              'title="' + (isPinned ? 'Unpin workout' : 'Pin workout (max 3)') + '">' +
+              '<svg class="w-5 h-5" fill="' + (isPinned ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/>' +
+              '</svg>' +
+            '</button>' +
+            '<button type="button" class="modal-close-btn" aria-label="Close modal">' +
+              '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>' +
+              '</svg>' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="workout-modal-body">' +
+          // Workout Essentials Section
+          '<section class="modal-section modal-essentials">' +
+            '<h3 class="modal-section-title">Workout Essentials</h3>' +
+            (instructions !== '—' ? '<div class="modal-row"><span class="modal-icon">📋</span><span class="modal-label">Instructions</span><div class="modal-value">' + formatAsBulletList(instructions) + '</div></div>' : '') +
+            (equipment !== '—' ? '<div class="modal-row"><span class="modal-icon">🧰</span><span class="modal-label">Equipment</span><div class="modal-value">' + formatAsBulletList(equipment) + '</div></div>' : '') +
+            (movementTypes !== '—' ? '<div class="modal-row"><span class="modal-icon">🧠</span><span class="modal-label">Movements</span><div class="modal-value">' + escapeHtml(movementTypes) + '</div></div>' : '') +
+            (stimulus !== '—' ? '<div class="modal-row"><span class="modal-icon">⚡</span><span class="modal-label">Stimulus</span><div class="modal-value">' + escapeHtml(stimulus) + '</div></div>' : '') +
+            (scaling ? '<div class="modal-row"><span class="modal-icon">🔧</span><span class="modal-label">Scaling</span><div class="modal-value">' + parseScalingTiers(scaling) + '</div></div>' : '') +
+            (scoreType !== '—' ? '<div class="modal-row"><span class="modal-icon">🧮</span><span class="modal-label">Score Type</span><div class="modal-value">' + escapeHtml(scoreType) + '</div></div>' : '') +
+          '</section>' +
+          // Expandable Additional Info Section
+          '<section class="modal-section modal-additional">' +
+            '<button type="button" class="modal-expand-btn" aria-expanded="false" aria-controls="additional-info-' + id + '">' +
+              '<span class="expand-icon">▶</span>' +
+              '<span>Additional Info</span>' +
+            '</button>' +
+            '<div class="modal-expandable-content" id="additional-info-' + id + '" hidden>' +
+              (warmup !== '—' ? '<div class="modal-row"><span class="modal-icon">🔥</span><span class="modal-label">Warmup</span><div class="modal-value">' + formatAsBulletList(warmup) + '</div></div>' : '') +
+              (coachingCues !== '—' ? '<div class="modal-row"><span class="modal-icon">🎓</span><span class="modal-label">Coaching Cues</span><div class="modal-value">' + escapeHtml(coachingCues) + '</div></div>' : '') +
+              (estimatedTimes ? '<div class="modal-row"><span class="modal-icon">⏳</span><span class="modal-label">Estimated Times</span><div class="modal-value">' + parseEstimatedTimes(estimatedTimes) + '</div></div>' : '') +
+              (environment !== '—' ? '<div class="modal-row"><span class="modal-icon">🏟️</span><span class="modal-label">Environment</span><div class="modal-value">' + escapeHtml(environment) + '</div></div>' : '') +
+              (flavorText !== '—' ? '<div class="modal-row"><span class="modal-icon">🧠</span><span class="modal-label">Flavor</span><div class="modal-value flavor-text">' + escapeHtml(flavorText) + '</div></div>' : '') +
+            '</div>' +
+          '</section>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+    return html;
+  }
+
+  /**
+   * Open workout modal
+   * @param {number} workoutId - Workout ID
+   */
+  function openModal(workoutId) {
+    var workout = findWorkoutById(workoutId);
+    if (!workout) return;
+
+    // Remove any existing modal
+    closeModal();
+
+    currentModalWorkoutId = workoutId;
+    var modalHtml = createWorkoutModal(workout);
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+
+    // Add event listeners
+    var overlay = document.getElementById('workout-modal-overlay');
+    if (overlay) {
+      // Close on overlay click
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          closeModal();
+        }
+      });
+
+      // Close button
+      var closeBtn = overlay.querySelector('.modal-close-btn');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+      }
+
+      // Pin button in modal
+      var pinBtn = overlay.querySelector('.modal-pin-btn');
+      if (pinBtn) {
+        pinBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          handlePinClick(pinBtn);
+          // Update pin button state in modal
+          var isPinned = pinnedIds.indexOf(workoutId) !== -1;
+          pinBtn.setAttribute('aria-pressed', isPinned ? 'true' : 'false');
+          pinBtn.querySelector('svg').setAttribute('fill', isPinned ? 'currentColor' : 'none');
+        });
+      }
+
+      // Expand button for additional info
+      var expandBtn = overlay.querySelector('.modal-expand-btn');
+      if (expandBtn) {
+        expandBtn.addEventListener('click', function() {
+          var isExpanded = expandBtn.getAttribute('aria-expanded') === 'true';
+          var content = overlay.querySelector('.modal-expandable-content');
+          var icon = expandBtn.querySelector('.expand-icon');
+          
+          if (isExpanded) {
+            expandBtn.setAttribute('aria-expanded', 'false');
+            if (content) {
+              content.style.maxHeight = '0';
+              setTimeout(function() { content.hidden = true; }, ANIMATION_DURATION_MS);
+            }
+            if (icon) icon.textContent = '▶';
+          } else {
+            expandBtn.setAttribute('aria-expanded', 'true');
+            if (content) {
+              content.hidden = false;
+              content.style.maxHeight = content.scrollHeight + 'px';
+            }
+            if (icon) icon.textContent = '▼';
+          }
+        });
+      }
+
+      // Focus trap and escape key
+      document.addEventListener('keydown', handleModalKeydown);
+
+      // Focus the close button
+      if (closeBtn) closeBtn.focus();
+
+      // Animate in
+      requestAnimationFrame(function() {
+        overlay.classList.add('is-open');
+      });
+    }
+
+    // Update URL
+    updateUrl(workoutId);
+    announce('Opened workout details for ' + workout.Name);
+  }
+
+  /**
+   * Close workout modal
+   */
+  function closeModal() {
+    var overlay = document.getElementById('workout-modal-overlay');
+    if (overlay) {
+      overlay.classList.remove('is-open');
+      setTimeout(function() {
+        overlay.remove();
+      }, 200);
+    }
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', handleModalKeydown);
+    currentModalWorkoutId = null;
+
+    // Clear URL parameter
+    if (window.history && window.history.replaceState) {
+      var url = new URL(window.location);
+      url.searchParams.delete('workout');
+      window.history.replaceState({}, '', url);
+    }
+  }
+
+  /**
+   * Handle keydown in modal
+   * @param {KeyboardEvent} e - Keyboard event
+   */
+  function handleModalKeydown(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  }
+
+  // ========================================
+  // Section Rendering
+  // ========================================
 
   /**
    * Render WOD section
@@ -245,9 +573,8 @@
     if (!workout) return;
 
     wodId = workout.id;
-    var isExpanded = expandedTileId === wodId;
-    container.innerHTML = createWorkoutTile(workout, 'wod', isExpanded);
-    attachTileEvents(container);
+    container.innerHTML = createWorkoutCard(workout, 'wod');
+    attachCardEvents(container);
   }
 
   /**
@@ -279,8 +606,7 @@
       var pinId = pinnedIds[i];
       var workout = findWorkoutById(pinId);
       if (workout && workout.id !== wodId) {
-        var isExpanded = expandedTileId === pinId;
-        html += createWorkoutTile(workout, 'pinned', isExpanded);
+        html += createWorkoutCard(workout, 'pinned');
       }
     }
 
@@ -288,7 +614,7 @@
       section.style.display = 'none';
     } else {
       container.innerHTML = html;
-      attachTileEvents(container);
+      attachCardEvents(container);
     }
   }
 
@@ -325,12 +651,11 @@
     var html = '';
     for (var j = 0; j < randomWorkouts.length; j++) {
       var workout = randomWorkouts[j];
-      var isExpanded = expandedTileId === workout.id;
-      html += createWorkoutTile(workout, 'random', isExpanded);
+      html += createWorkoutCard(workout, 'random');
     }
 
     container.innerHTML = html;
-    attachTileEvents(container);
+    attachCardEvents(container);
   }
 
   /**
@@ -352,25 +677,27 @@
   // ========================================
 
   /**
-   * Attach event handlers to tiles in a container
+   * Attach event handlers to cards in a container
    * @param {Element} container - Container element
    */
-  function attachTileEvents(container) {
-    // Tile expand/collapse
-    var tiles = container.querySelectorAll('.workout-tile');
-    tiles.forEach(function(tile) {
-      tile.addEventListener('click', function(e) {
-        // Don't toggle if clicking pin button
+  function attachCardEvents(container) {
+    // Card click to open modal
+    var cards = container.querySelectorAll('.workout-card');
+    cards.forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        // Don't open modal if clicking pin button
         if (e.target.closest('.pin-btn')) return;
-        toggleTileExpanded(tile);
+        var workoutId = parseInt(card.dataset.workoutId, 10);
+        openModal(workoutId);
       });
 
-      tile.addEventListener('keydown', function(e) {
+      card.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
-          // Don't toggle if focus is on pin button
+          // Don't open modal if focus is on pin button
           if (e.target.closest('.pin-btn')) return;
           e.preventDefault();
-          toggleTileExpanded(tile);
+          var workoutId = parseInt(card.dataset.workoutId, 10);
+          openModal(workoutId);
         }
       });
     });
@@ -391,39 +718,6 @@
         }
       });
     });
-  }
-
-  /**
-   * Toggle tile expanded state
-   * @param {Element} tile - Tile element
-   */
-  function toggleTileExpanded(tile) {
-    var id = parseInt(tile.dataset.workoutId, 10);
-    var isExpanded = tile.getAttribute('aria-expanded') === 'true';
-    var details = tile.querySelector('.workout-tile-details');
-
-    if (isExpanded) {
-      tile.setAttribute('aria-expanded', 'false');
-      if (details) details.hidden = true;
-      expandedTileId = null;
-    } else {
-      // Collapse previously expanded
-      if (expandedTileId !== null) {
-        var prevTile = document.querySelector('[data-workout-id="' + expandedTileId + '"]');
-        if (prevTile) {
-          prevTile.setAttribute('aria-expanded', 'false');
-          var prevDetails = prevTile.querySelector('.workout-tile-details');
-          if (prevDetails) prevDetails.hidden = true;
-        }
-      }
-
-      tile.setAttribute('aria-expanded', 'true');
-      if (details) details.hidden = false;
-      expandedTileId = id;
-      
-      // Update URL for permalink
-      updateUrl(id);
-    }
   }
 
   /**
@@ -506,7 +800,7 @@
   }
 
   /**
-   * Check URL for workout parameter and expand that workout
+   * Check URL for workout parameter and open modal for that workout
    */
   function checkUrlForWorkout() {
     var params = new URLSearchParams(window.location.search);
@@ -514,14 +808,9 @@
     if (workoutParam) {
       var id = parseInt(workoutParam, 10);
       if (!isNaN(id)) {
-        expandedTileId = id;
-        // Scroll to the workout after rendering
+        // Open modal after a short delay to ensure cards are rendered
         setTimeout(function() {
-          var tile = document.querySelector('[data-workout-id="' + id + '"]');
-          if (tile) {
-            tile.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            tile.focus();
-          }
+          openModal(id);
         }, 100);
       }
     }
@@ -544,13 +833,6 @@
    * Fetch and initialize workouts data
    */
   function init() {
-    // Check URL for workout parameter first
-    var params = new URLSearchParams(window.location.search);
-    var workoutParam = params.get('workout');
-    if (workoutParam) {
-      expandedTileId = parseInt(workoutParam, 10);
-    }
-
     // Load pinned IDs
     pinnedIds = getPinnedIds();
 
