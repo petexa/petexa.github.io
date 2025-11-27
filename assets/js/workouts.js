@@ -25,6 +25,10 @@
   var RANDOM_COUNT = 6;
   var DATA_URL = '../data/workouts_table.json';
   var DESC_TRUNCATE_LENGTH = 120;
+  // Animation timing - matches CSS --transition-slow (300ms)
+  var ANIMATION_DURATION_MS = 300;
+  // Delay for DOM rendering before scroll/focus operations
+  var DOM_RENDER_DELAY_MS = 100;
 
   // ========================================
   // State
@@ -489,7 +493,7 @@
             expandBtn.setAttribute('aria-expanded', 'false');
             if (content) {
               content.style.maxHeight = '0';
-              setTimeout(function() { content.hidden = true; }, 300);
+              setTimeout(function() { content.hidden = true; }, ANIMATION_DURATION_MS);
             }
             if (icon) icon.textContent = '▶';
           } else {
