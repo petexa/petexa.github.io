@@ -1,0 +1,18 @@
+{
+  "body": {
+    "filename": "spring-marathon-20260322.json",
+    "name": "Spring Marathon",
+    "date": "2026-03-22T09:00:00.000Z",
+    "link": "https://springmarathon.com",
+    "image": "images/spring-marathon.jpg",
+    "description": "🏃 Join us for the annual Spring Marathon! A challenging but rewarding run through scenic countryside.",
+    "calendarDetails": {
+      "location": "Central Park, London",
+      "description": "Spring Marathon 2026 - 26.2 miles of adventure",
+      "durationHours": 6
+    },
+    "showMoreInfo": true,
+    "showBookNow": false,
+    "showRemindMe": true
+  }
+}
