@@ -131,11 +131,35 @@ The webhook will receive a JSON body like this:
 - Set output fields for `description` and `calendarDetails.description`.
 - Connect this node after validation.
 
-### 7. Add a Set Node for Event Data Preparation
-- Drag in a **Set** node after validation (or after AI Enrichment if used).
+### 7. Add a Function Node for Event Data Preparation
+- Drag in a **Function** node after validation (or after AI Enrichment if used).
 - Name it "Prepare Event Data".
-- Configure it to structure the event JSON with all required fields.
+- Configure it to structure the event JSON with all required fields, including `calendarDetails`.
 - Set default values for optional fields (`showMoreInfo: true`, `showBookNow: false`, `showRemindMe: true`).
+- Use this code:
+  ```javascript
+  // Prepare event data with defaults for optional fields
+  const input = items[0].json;
+
+  // Build the event object with all fields
+  const eventData = {
+    filename: input.filename,
+    name: input.name,
+    date: input.date,
+    link: input.link || '',
+    image: input.image || '',
+    description: input.description || '',
+    calendarDetails: input.calendarDetails || {},
+    showMoreInfo: input.showMoreInfo !== undefined ? input.showMoreInfo : true,
+    showBookNow: input.showBookNow !== undefined ? input.showBookNow : false,
+    showRemindMe: input.showRemindMe !== undefined ? input.showRemindMe : true
+  };
+
+  // Replace the item's json with the prepared event data
+  items[0].json = eventData;
+
+  return items;
+  ```
 
 ### 8. Add a GitHub Node to Create the Event File
 - Drag in a **GitHub** node.

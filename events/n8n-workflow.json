@@ -43,59 +43,15 @@
     },
     {
       "parameters": {
-        "values": {
-          "boolean": [
-            {
-              "name": "showMoreInfo",
-              "value": "={{ $json.showMoreInfo !== undefined ? $json.showMoreInfo : true }}"
-            },
-            {
-              "name": "showBookNow",
-              "value": "={{ $json.showBookNow !== undefined ? $json.showBookNow : false }}"
-            },
-            {
-              "name": "showRemindMe",
-              "value": "={{ $json.showRemindMe !== undefined ? $json.showRemindMe : true }}"
-            }
-          ],
-          "string": [
-            {
-              "name": "filename",
-              "value": "={{ $json.filename }}"
-            },
-            {
-              "name": "name",
-              "value": "={{ $json.name }}"
-            },
-            {
-              "name": "date",
-              "value": "={{ $json.date }}"
-            },
-            {
-              "name": "link",
-              "value": "={{ $json.link || '' }}"
-            },
-            {
-              "name": "image",
-              "value": "={{ $json.image || '' }}"
-            },
-            {
-              "name": "description",
-              "value": "={{ $json.description || '' }}"
-            }
-          ]
-        },
-        "options": {
-          "dotNotation": true
-        }
+        "functionCode": "// Prepare event data with defaults for optional fields\nconst input = items[0].json;\n\n// Build the event object with all fields\nconst eventData = {\n  filename: input.filename,\n  name: input.name,\n  date: input.date,\n  link: input.link || '',\n  image: input.image || '',\n  description: input.description || '',\n  calendarDetails: input.calendarDetails || {},\n  showMoreInfo: input.showMoreInfo !== undefined ? input.showMoreInfo : true,\n  showBookNow: input.showBookNow !== undefined ? input.showBookNow : false,\n  showRemindMe: input.showRemindMe !== undefined ? input.showRemindMe : true\n};\n\n// Replace the item's json with the prepared event data\nitems[0].json = eventData;\n\nreturn items;"
       },
       "id": "prepare-event-data",
       "name": "Prepare Event Data",
-      "type": "n8n-nodes-base.set",
+      "type": "n8n-nodes-base.function",
       "typeVersion": 1,
       "position": [690, 300],
       "notesInFlow": true,
-      "notes": "Sets default values for optional fields"
+      "notes": "Prepares event data with defaults for optional fields, including calendarDetails"
     },
     {
       "parameters": {
