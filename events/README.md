@@ -161,12 +161,24 @@ The webhook will receive a JSON body like this:
 - Name it "Add Event to List".
 - Add the new event filename to the array:
   ```javascript
-  const currentList = JSON.parse(items[0].json.content);
-  const newFilename = `events/${items[0].json.filename}`;
+  // Parse the current events list (GitHub returns base64 encoded content)
+  const content = items[0].json.content;
+  const currentList = JSON.parse(Buffer.from(content, 'base64').toString('utf8'));
+  
+  // Get the filename from the previous validated data
+  const eventData = $('Prepare Event Data').first().json;
+  const newFilename = `events/${eventData.filename}`;
+  
+  // Add the new filename if it doesn't already exist
   if (!currentList.includes(newFilename)) {
     currentList.push(newFilename);
   }
+  
+  // Store the updated list and SHA for the next node
   items[0].json.updatedList = JSON.stringify(currentList, null, 2);
+  items[0].json.eventFilename = eventData.filename;
+  items[0].json.eventName = eventData.name;
+  
   return items;
   ```
 
@@ -178,8 +190,8 @@ The webhook will receive a JSON body like this:
 - Set **Repository Name** to your repo.
 - Set **File Path** to `events/events-list.json`.
 - Set **File Content** to `{{ $json.updatedList }}`.
-- Set **SHA** to `{{ $('Get Events List').item.json.sha }}` (from step 9).
-- Set **Commit Message** (e.g., `Update events list with {{ $json.name }}`).
+- Set **SHA** to `{{ $('Get Events List').first().json.sha }}` (from step 9).
+- Set **Commit Message** (e.g., `Update events list with {{ $json.eventName }}`).
 
 ### 12. Add an IF Node for Error Handling
 - Drag in an **IF** node.
