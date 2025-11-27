@@ -326,6 +326,7 @@
                   <div class="md:col-span-2">
                     <label for="event-description" class="form-label">Description</label>
                     <textarea id="event-description" class="form-input" placeholder="Short description (leave blank for AI-generated)" rows="2"></textarea>
+                    <button type="button" class="btn btn-secondary mt-4 w-full" onclick="loadTestEventData()">Load Test Event Data</button>
                   </div>
                   
                   <!-- Calendar Details -->
@@ -412,6 +413,21 @@
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
+        // Prepopulate Add New Event form for testing
+        function loadTestEventData() {
+          document.getElementById('event-name').value = 'Spring Marathon';
+          document.getElementById('event-date').value = '2026-03-15T09:00';
+          document.getElementById('event-link').value = 'https://springmarathon.com';
+          document.getElementById('event-image').value = 'images/spring-marathon.jpg';
+          document.getElementById('event-description').value = '🏃 Join us for the annual Spring Marathon! A challenging but rewarding run through scenic countryside.';
+          document.getElementById('calendar-location').value = 'Central Park, London';
+          document.getElementById('calendar-description').value = 'Spring Marathon 2026 - 26.2 miles of adventure';
+          document.getElementById('calendar-duration').value = '6';
+          document.getElementById('show-more-info').checked = true;
+          document.getElementById('show-book-now').checked = true;
+          document.getElementById('show-remind-me').checked = true;
+          updateEventFilename();
+        }
     // Set current year
     const currentYear = new Date().getFullYear();
     document.getElementById('footer-year').textContent = currentYear;

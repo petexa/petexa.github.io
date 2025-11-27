@@ -1,3 +1,85 @@
+# Beginner’s Tutorial: Setting Up the Iron & Ale Events n8n Workflow
+
+---
+
+## 🛠️ Step-by-Step: Setting Up the Iron & Ale Events n8n Workflow
+
+### 1. Create Your n8n Instance
+- Use [n8n cloud](https://n8n.io/cloud) or self-host (Docker, desktop app, or server)
+- Follow the official [n8n installation guide](https://docs.n8n.io/hosting/installation/).
+
+### 2. Set Up Credentials
+- Go to **Credentials** in n8n.
+- Add a **GitHub** credential (Personal Access Token with `repo` scope).
+- Add an **OpenAI** credential (API key, if you want AI enrichment).
+
+### 3. Create a New Workflow
+- Click **Workflows** > **New Workflow**.
+
+### 4. Add a Webhook Trigger
+- Drag in a **Webhook** node.
+- Set **HTTP Method** to `POST`.
+- Set **Path** to `events` (your webhook will be `/webhook/events`).
+- Enable **Response Mode**: `onReceived`.
+- Set **CORS Headers** (see README for recommended settings).
+
+### 5. Add a Validation Node
+- Drag in a **Function** node after the webhook.
+- Paste the validation code from the README:
+  ```javascript
+  const required = ['name', 'date', 'filename'];
+  const missing = required.filter(field => !items[0].json[field]);
+  if (missing.length > 0) throw new Error(`Missing required fields: ${missing.join(', ')}`);
+  if (!items[0].json.calendarDetails?.location) throw new Error('Missing required field: calendarDetails.location');
+  const filenameRegex = /^[a-z0-9-]+-\d{8}\.json$/;
+  if (!filenameRegex.test(items[0].json.filename)) throw new Error('Invalid filename format.');
+  return items;
+  ```
+
+### 6. (Optional) Add AI Enrichment
+- Drag in an **OpenAI** node (if you want to auto-generate descriptions).
+- Use the event name and details as input.
+- Set output fields for `description` and `calendarDetails.description`.
+- Connect this node after validation.
+
+### 7. Add a GitHub Node to Create the Event File
+- Drag in a **GitHub** node.
+- Set **Operation** to `Create or Update File`.
+- Set **Repository** to your repo (e.g., `petexa.github.io`).
+- Set **File Path** to `events/{{ $json.filename }}`.
+- Set **File Content** to the event JSON (use n8n’s expression editor).
+- Set **Commit Message** (e.g., `Add new event: {{$json.name}}`).
+
+### 8. Update `events-list.json`
+- Add another **GitHub** node.
+- Set **Operation** to `Get File` (to fetch the current list and SHA).
+- Use a **Function** node to add the new filename to the array.
+- Add a **GitHub** node to **Update File** (include the SHA from the previous step).
+
+### 9. Set Up Error Handling
+- Add an **IF** node after validation and GitHub nodes.
+- On error, send a notification (Slack, Email, etc.) or return a clear error response.
+
+### 10. Test Your Workflow
+- Click **Execute Workflow**.
+- Use the admin page or cURL to POST a test event.
+- Check the `/events/` directory and `events-list.json` for updates.
+
+### 11. Deploy and Enable
+- Save and activate your workflow.
+- Your webhook is now live at:  `https://<your-n8n-domain>/webhook/events`
+
+---
+
+## 📝 Tips
+- Use the n8n **expression editor** (`{{ }}`) to reference fields dynamically.
+- Always validate your JSON before committing.
+- Check n8n’s **execution logs** for troubleshooting.
+
+---
+
+**You’re done!**
+Your Iron & Ale events workflow is now automated and ready for use.
 # Events Guide
 
 Welcome! This guide explains how events work on the Iron & Ale website, from start to finish. Whether you're adding an event manually or using our automated system, this document has everything you need.
