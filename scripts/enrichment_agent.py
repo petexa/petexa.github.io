@@ -10,7 +10,8 @@ Merges AI results back into the workouts.
 Usage:
     python scripts/enrichment_agent.py \
         --input data/reports/workouts_needing_enrichment.json \
-        --output data/reports/workouts_enriched.json
+        --output data/reports/workouts_enriched.json \
+        [--force]
 """
 
 import argparse
@@ -74,7 +75,7 @@ def batch_for_ai(workouts, batch_size=20):
     batches = [to_enrich[i:i+batch_size] for i in range(0, len(to_enrich), batch_size)]
     return batches
 
-def run_agent(input_path: Path, output_path: Path):
+def run_agent(input_path: Path, output_path: Path, force: bool):
     workouts = json.load(open(input_path, "r", encoding="utf-8"))
     enriched = []
 
@@ -87,9 +88,9 @@ def run_agent(input_path: Path, output_path: Path):
     batches = batch_for_ai(enriched)
     logger.info(f"Prepared {len(batches)} batches for AI enrichment")
 
-    # Step 3: Stub AI enrichment + merge
+    # Step 3: AI enrichment + merge
     for i, batch in enumerate(batches, 1):
-        payload = prepare_ai_payload(batch)
+        payload = prepare_ai_payload(batch, force=force)
         enriched_results = call_ai_service(payload)  # stub or real AI
         updated_batch = merge_enriched_results(batch, enriched_results)
 
@@ -125,11 +126,13 @@ def parse_args():
                         help="Input JSON file of workouts needing enrichment")
     parser.add_argument("--output", "-o", default="data/reports/workouts_enriched.json",
                         help="Output JSON file for enriched workouts")
+    parser.add_argument("--force", action="store_true",
+                        help="Force re-enrichment of stub placeholders")
     return parser.parse_args()
 
 def main():
     args = parse_args()
-    run_agent(Path(args.input), Path(args.output))
+    run_agent(Path(args.input), Path(args.output), force=args.force)
 
 if __name__ == "__main__":
     main()
