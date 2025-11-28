@@ -1,0 +1,24 @@
+{
+  "name": "petexa.github.io",
+  "version": "1.0.0",
+  "description": "> **\"Sets and Reps. Cheers and Beers. That's the Program.\"**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petexa/petexa.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/petexa/petexa.github.io/issues"
+  },
+  "homepage": "https://github.com/petexa/petexa.github.io#readme",
+  "dependencies": {
+    "csv-parser": "^3.2.0"
+  }
+}
