@@ -658,13 +658,44 @@ return items;
 | **Node Type** | Function (`n8n-nodes-base.function`) |
 | **Function Code** | See below |
 
-```javascript
-// Parse the current events list
-const content = items[0].json.content;
-const currentList = JSON.parse(Buffer.from(content, 'base64').toString('utf8'));
+> **IMPORTANT**: This function must preserve the `sha` from the "Get Events List" node output. The SHA is required by GitHub's API to update the file without overwriting it incorrectly.
 
-// Get the filename from the previous validated data
-// We need to access the data from the 'Prepare Event Data' node
+```javascript
+// Add Event to List - preserves SHA for GitHub edit operation
+// IMPORTANT: Must preserve items[0].json.sha for the Update Events List node
+
+const gh = items[0].json || {};
+const fileSha = gh.sha; // CRITICAL: Save SHA before any modifications
+
+let currentList = [];
+
+// If file content exists, parse it
+if (gh.content) {
+  let raw = gh.content;
+  const encoding = gh.encoding || 'base64';
+  
+  let decoded;
+  try {
+    if (encoding === 'base64') {
+      decoded = Buffer.from(raw, 'base64').toString('utf8');
+    } else {
+      decoded = typeof raw === 'string' ? raw : JSON.stringify(raw);
+    }
+  } catch (err) {
+    decoded = typeof raw === 'string' ? raw : JSON.stringify(raw);
+  }
+  
+  try {
+    currentList = JSON.parse(decoded);
+    if (!Array.isArray(currentList)) currentList = [];
+  } catch (e) {
+    currentList = [];
+  }
+} else {
+  currentList = [];
+}
+
+// Get the filename from the Prepare Event Data node
 const eventData = $('Prepare Event Data').first().json;
 const newFilename = `events/${eventData.filename}`;
 
@@ -673,10 +704,14 @@ if (!currentList.includes(newFilename)) {
   currentList.push(newFilename);
 }
 
-// Store the updated list and SHA for the next node
-items[0].json.updatedList = JSON.stringify(currentList, null, 2);
-items[0].json.eventFilename = eventData.filename;
-items[0].json.eventName = eventData.name;
+// Store the updated list, SHA, and metadata for the next node
+// IMPORTANT: We preserve sha so the Update Events List node can use it
+items[0].json = {
+  updatedList: JSON.stringify(currentList, null, 2),
+  sha: fileSha,
+  eventFilename: eventData.filename,
+  eventName: eventData.name
+};
 
 return items;
 ```
@@ -694,7 +729,9 @@ return items;
 | **File Path** | `events/events-list.json` |
 | **File Content** | `={{ $json.updatedList }}` |
 | **Commit Message** | `=Update events list with {{ $json.eventName }}` |
-| **SHA** | `={{ $('Get Events List').first().json.sha }}` |
+| **SHA** | `={{ $json.sha }}` |
+
+> **Note**: The SHA comes from the "Add Event to List" node output, which preserves it from the "Get Events List" response. |
 
 ### Node 8: Send Response
 
