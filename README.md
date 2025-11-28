@@ -6,6 +6,17 @@ A fitness community website built with a Tailwind-inspired technical theme. Clea
 
 ---
 
+## 📚 Documentation & Guides
+
+| Guide | Description |
+|-------|-------------|
+| [Events n8n Workflow](./events/README.md) | How to add events via n8n automation with optional AI descriptions |
+| [PB Matrix Setup](./PB-MATRIX-SETUP.md) | Setting up the Personal Bests leaderboard with Google Apps Script |
+| [Workout Data Cleaning](./README_fix_workouts.md) | Running the workout data cleaning and validation script |
+| [Style Guide](/style-guide/) | Live examples of buttons, cards, forms, and components |
+
+---
+
 ## 📁 Folder Structure
 
 ```
@@ -226,6 +237,9 @@ To modify the Tailwind-style utilities:
 
 - **Live Site**: [petexa.github.io](https://petexa.github.io)
 - **Style Guide**: [/style-guide/](https://petexa.github.io/style-guide/)
+- **Admin Panel**: [/admin.html](https://petexa.github.io/admin.html)
+- **Events**: [/events.html](https://petexa.github.io/events.html)
+- **PB Matrix**: [/pb-matrix.html](https://petexa.github.io/pb-matrix.html)
 
 ---
 

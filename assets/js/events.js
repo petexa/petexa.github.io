@@ -1,29 +1,12 @@
 // Iron & Ale Events Page Logic
-// Loads all event JSON files, sorts, and renders neon event cards
+// Loads events from a single events.json file
 
-const EVENTS_PATH = 'events/';
-const EVENT_FILES = [
-  '24-hour-work-out-20251122.json',
-  'christmas-drinks-20251128.json',
-  'deadly-dozen-20260425.json',
-  'epping-wildwood-trail-10k-20251025.json',
-  'gymrace-20260321.json',
-  'lee-valley-half-marathon-20250621.json',
-  'northstowe-running-festival-20250830.json',
-  'nuclear-fit-20250725.json',
-  'nuclear-fit-20250920.json',
-  'nuclear-fit-20260718.json',
-  'nuclear-races-20250511.json',
-  'nuclear-races-20260510.json',
-  'richmond-20250914.json',
-  'thai-night-20251003.json',
-  'white-water-rafting-20251018.json'
-];
+const EVENTS_FILE = 'events/events.json';
 
-function fetchEvent(file) {
-  return fetch(EVENTS_PATH + file)
+function fetchEvents() {
+  return fetch(EVENTS_FILE)
     .then(res => res.json())
-    .catch(() => null);
+    .catch(() => []);
 }
 
 function daysUntil(dateStr) {
@@ -214,7 +197,7 @@ async function renderEvents() {
   
   try {
     const now = new Date();
-    const events = (await Promise.all(EVENT_FILES.map(fetchEvent))).filter(e => e && e.date);
+    const events = (await fetchEvents()).filter(e => e && e.date);
     events.sort((a, b) => new Date(a.date) - new Date(b.date));
     const upcoming = events.filter(e => new Date(e.date) >= now);
     const past = events.filter(e => new Date(e.date) < now).reverse(); // Most recent first for past
