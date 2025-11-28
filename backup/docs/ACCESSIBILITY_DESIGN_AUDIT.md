@@ -1,4 +1,3 @@
-# Comprehensive Accessibility & Design Audit Report
 **Website:** petexa.github.io  
 **Date:** November 21, 2025  
 **WCAG Target:** 2.1 AA/AAA

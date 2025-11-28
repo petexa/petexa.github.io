@@ -1,4 +1,3 @@
-# Iron & Ale Events - n8n Workflow Guide
 
 ---
 

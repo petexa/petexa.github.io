@@ -1,4 +1,3 @@
-# Changelog
 
 All notable changes to the Bootcamp Events website will be documented in this file.
 
