@@ -59,6 +59,27 @@ OPTIONAL_FIELDS = [
 # Fields that can be enriched
 ENRICHABLE_FIELDS = ['Description', 'Flavor_Text', 'CoachNotes']
 
+# Placeholder values that indicate missing content
+PLACEHOLDER_VALUES = [
+    'no description available',
+    'web search performed',
+    'unknown',
+    'tbd',
+    'n/a'
+]
+
+# Known benchmark workout names
+BENCHMARK_WORKOUT_NAMES = [
+    'fran', 'grace', 'helen', 'cindy', 'karen', 'diane', 'elizabeth',
+    'isabel', 'jackie', 'nancy', 'annie', 'eva', 'kelly', 'lynne',
+    'mary', 'nicole', 'barbara', 'chelsea', 'amanda', 'angie',
+    'murph', 'filthy fifty', 'fight gone bad', 'dt', 'randy'
+]
+
+# Strength workout category indicators
+STRENGTH_CATEGORIES = ['strength', 'weightlifting', 'barbell']
+STRENGTH_FORMAT_INDICATORS = ['sets', 'reps', 'rm', '1rm', '3rm', '5rm']
+
 # CSV to JSON field mapping
 FIELD_MAPPING = {
     'Name': 'Name',
@@ -106,7 +127,8 @@ def convert_lbs_to_kg(value: str, precision: float = 0.5) -> str:
     
     Args:
         value: Input string potentially containing lb/lbs values
-        precision: Rounding precision (default 0.5 for 61.5 kgs style)
+        precision: Rounding precision in kg - values are rounded to the nearest
+                   multiple of this value (e.g., 0.5 means 61.0, 61.5, 62.0)
     
     Returns:
         String with converted values
@@ -367,23 +389,24 @@ def validate_workout(workout: Dict[str, Any]) -> Tuple[bool, List[str]]:
     return len(errors) == 0, errors
 
 
-def enforce_schema(workout: Dict[str, Any]) -> Dict[str, Any]:
+def enforce_schema(workout: Dict[str, Any], index: int = 0) -> Dict[str, Any]:
     """
     Enforce schema on a workout, normalizing malformed fields.
     
     Args:
         workout: Workout dictionary
+        index: Index of the workout for fallback ID generation
     
     Returns:
         Schema-compliant workout dictionary with validationErrors if needed
     """
-    # Ensure id exists
+    # Ensure id exists - use WorkoutID, or fallback to index-based ID
     if 'id' not in workout or workout['id'] is None:
-        # Generate id from WorkoutID or index
-        if 'WorkoutID' in workout:
+        if 'WorkoutID' in workout and workout['WorkoutID']:
             workout['id'] = str(workout['WorkoutID'])
         else:
-            workout['id'] = None
+            # Use index + 1 to create a unique fallback ID
+            workout['id'] = f"workout_{index + 1}"
     else:
         workout['id'] = str(workout['id'])
     
@@ -455,13 +478,7 @@ def identify_enrichment_needs(workout: Dict[str, Any]) -> List[str]:
         elif isinstance(value, str):
             lower_val = value.lower()
             # Check for placeholder/empty content
-            if any(placeholder in lower_val for placeholder in [
-                'no description available',
-                'web search performed',
-                'unknown',
-                'tbd',
-                'n/a'
-            ]):
+            if any(placeholder in lower_val for placeholder in PLACEHOLDER_VALUES):
                 needs.append(field)
     
     return needs
@@ -503,12 +520,7 @@ def apply_archetype_template(workout: Dict[str, Any]) -> Optional[str]:
     name = str(workout.get('Name', '')).lower()
     
     # Check for benchmark workouts
-    if 'benchmark' in category or any(bench in name for bench in [
-        'fran', 'grace', 'helen', 'cindy', 'karen', 'diane', 'elizabeth',
-        'isabel', 'jackie', 'nancy', 'annie', 'eva', 'kelly', 'lynne',
-        'mary', 'nicole', 'barbara', 'chelsea', 'amanda', 'angie',
-        'murph', 'filthy fifty', 'fight gone bad', 'dt', 'randy'
-    ]):
+    if 'benchmark' in category or any(bench in name for bench in BENCHMARK_WORKOUT_NAMES):
         return ARCHETYPE_TEMPLATES['benchmark']
     
     # Check for AMRAP
@@ -520,8 +532,8 @@ def apply_archetype_template(workout: Dict[str, Any]) -> Optional[str]:
         return ARCHETYPE_TEMPLATES['emom']
     
     # Check for strength workouts
-    if any(s in category for s in ['strength', 'weightlifting', 'barbell']):
-        if any(s in format_duration for s in ['sets', 'reps', 'rm', '1rm', '3rm', '5rm']):
+    if any(s in category for s in STRENGTH_CATEGORIES):
+        if any(s in format_duration for s in STRENGTH_FORMAT_INDICATORS):
             return ARCHETYPE_TEMPLATES['strength']
     
     return None
@@ -711,16 +723,20 @@ def run_pipeline(
             cleaned = clean_workout(raw_workout, timestamp)
             pipeline_logger.stats['cleaned'] += 1
             
-            # Track unit conversions
+            # Track unit conversions by checking for lb -> kg pattern changes
             for key in ['Instructions', 'Instructions_Clean', 'EquipmentNeeded', 'Description']:
                 if key in cleaned and key in raw_workout:
                     old_val = str(raw_workout.get(key, ''))
                     new_val = str(cleaned.get(key, ''))
-                    if old_val != new_val and ('kg' in new_val and 'lb' in old_val.lower()):
-                        pipeline_logger.stats['unit_conversions'] += 1
+                    # Check for actual weight conversion pattern (e.g., "135 lbs" -> "61.5 kgs")
+                    if old_val != new_val:
+                        # Count the lb/lbs patterns replaced with kg/kgs
+                        lb_matches = len(re.findall(r'\d+(?:\.\d+)?\s*(?:lbs?|pounds?)\b', old_val, re.IGNORECASE))
+                        if lb_matches > 0:
+                            pipeline_logger.stats['unit_conversions'] += lb_matches
             
             # Step 2: Enforce schema
-            validated = enforce_schema(cleaned)
+            validated = enforce_schema(cleaned, index=i)
             
             if 'validationErrors' in validated:
                 pipeline_logger.stats['schema_errors'] += 1
@@ -746,7 +762,11 @@ def run_pipeline(
             pipeline_logger.log_conversion(f"Error processing '{workout_name}': {str(e)}")
             logger.error(f"Error processing '{workout_name}': {str(e)}")
             # Still include the workout with minimal processing
-            raw_workout['id'] = str(raw_workout.get('WorkoutID', i + 1))
+            # Use WorkoutID if available, otherwise create a unique fallback ID
+            if 'WorkoutID' in raw_workout and raw_workout['WorkoutID']:
+                raw_workout['id'] = str(raw_workout['WorkoutID'])
+            else:
+                raw_workout['id'] = f"error_workout_{i + 1}"
             raw_workout['lastCleaned'] = timestamp
             raw_workout['validationErrors'] = [str(e)]
             processed_workouts.append(raw_workout)
