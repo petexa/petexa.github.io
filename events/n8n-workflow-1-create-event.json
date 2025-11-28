@@ -1,5 +1,5 @@
 {
-  "name": "Iron & Ale Events Workflow",
+  "name": "Iron & Ale Events - 1. Create Event",
   "nodes": [
     {
       "parameters": {
@@ -77,69 +77,14 @@
     },
     {
       "parameters": {
-        "resource": "file",
-        "operation": "get",
-        "owner": "petexa",
-        "repository": "petexa.github.io",
-        "filePath": "events/events-list.json"
-      },
-      "id": "get-events-list",
-      "name": "Get Events List",
-      "type": "n8n-nodes-base.github",
-      "typeVersion": 1,
-      "position": [1130, 300],
-      "credentials": {
-        "githubApi": {
-          "id": "YOUR_GITHUB_CREDENTIAL_ID_FROM_N8N_CREDENTIALS_PAGE",
-          "name": "GitHub"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "functionCode": "// Add Event to List - preserves SHA for GitHub edit operation\n// IMPORTANT: Must preserve items[0].json.sha for the Update Events List node\n\nconst gh = items[0].json || {};\nconst fileSha = gh.sha; // CRITICAL: Save SHA before any modifications\n\nlet currentList = [];\n\n// If file content exists, parse it\nif (gh.content) {\n  let raw = gh.content;\n  const encoding = gh.encoding || 'base64';\n  \n  let decoded;\n  try {\n    if (encoding === 'base64') {\n      decoded = Buffer.from(raw, 'base64').toString('utf8');\n    } else {\n      decoded = typeof raw === 'string' ? raw : JSON.stringify(raw);\n    }\n  } catch (err) {\n    decoded = typeof raw === 'string' ? raw : JSON.stringify(raw);\n  }\n  \n  try {\n    currentList = JSON.parse(decoded);\n    if (!Array.isArray(currentList)) currentList = [];\n  } catch (e) {\n    currentList = [];\n  }\n} else {\n  currentList = [];\n}\n\n// Get the filename from the Prepare Event Data node\nconst eventData = $('Prepare Event Data').first().json;\nconst newFilename = `events/${eventData.filename}`;\n\n// Add the new filename if it doesn't already exist\nif (!currentList.includes(newFilename)) {\n  currentList.push(newFilename);\n}\n\n// Store the updated list, SHA, and metadata for the next node\n// IMPORTANT: We preserve sha so the Update Events List node can use it\nitems[0].json = {\n  updatedList: JSON.stringify(currentList, null, 2),\n  sha: fileSha,\n  eventFilename: eventData.filename,\n  eventName: eventData.name\n};\n\nreturn items;"
-      },
-      "id": "add-event-to-list",
-      "name": "Add Event to List",
-      "type": "n8n-nodes-base.function",
-      "typeVersion": 1,
-      "position": [1350, 300]
-    },
-    {
-      "parameters": {
-        "resource": "file",
-        "operation": "edit",
-        "owner": "petexa",
-        "repository": "petexa.github.io",
-        "filePath": "events/events-list.json",
-        "fileContent": "={{ $json.updatedList }}",
-        "commitMessage": "=Update events list with {{ $json.eventName }}",
-        "additionalParameters": {
-          "sha": "={{ $json.sha }}"
-        }
-      },
-      "id": "update-events-list",
-      "name": "Update Events List",
-      "type": "n8n-nodes-base.github",
-      "typeVersion": 1,
-      "position": [1570, 300],
-      "credentials": {
-        "githubApi": {
-          "id": "YOUR_GITHUB_CREDENTIAL_ID_FROM_N8N_CREDENTIALS_PAGE",
-          "name": "GitHub"
-        }
-      }
-    },
-    {
-      "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ JSON.stringify({ success: true, filename: $json.eventFilename, message: 'Event created successfully' }) }}"
+        "responseBody": "={{ JSON.stringify({ success: true, filename: $json.filename, message: 'Event created successfully. The events list will be updated automatically.' }) }}"
       },
       "id": "send-response",
       "name": "Send Response",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [1790, 300]
+      "position": [1130, 300]
     }
   ],
   "connections": {
@@ -177,39 +122,6 @@
       ]
     },
     "Create Event File": {
-      "main": [
-        [
-          {
-            "node": "Get Events List",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Events List": {
-      "main": [
-        [
-          {
-            "node": "Add Event to List",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Add Event to List": {
-      "main": [
-        [
-          {
-            "node": "Update Events List",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update Events List": {
       "main": [
         [
           {

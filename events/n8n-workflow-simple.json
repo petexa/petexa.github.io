@@ -1,0 +1,331 @@
+{
+  "name": "Iron & Ale - Add Event (with AI)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "events",
+        "responseMode": "onReceived",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Validate and prepare new event data\nconst input = items[0].json;\nconst payload = input.body || input;\n\n// Required fields\nconst required = ['name', 'date'];\nconst missing = required.filter(f => !payload[f]);\nif (missing.length > 0) {\n  throw new Error(`Missing required field(s): ${missing.join(', ')}`);\n}\n\n// Validate calendarDetails.location\nif (!payload.calendarDetails || !payload.calendarDetails.location) {\n  throw new Error('Missing required field: calendarDetails.location');\n}\n\n// Generate ID from name and date (for deduplication)\nconst eventName = payload.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');\nconst eventDate = payload.date.substring(0, 10).replace(/-/g, '');\nconst eventId = `${eventName}-${eventDate}`;\n\n// Check if AI should generate description\nconst needsAI = !payload.description || payload.description.trim() === '' || payload.useAI === true;\n\n// Build clean event object\nconst newEvent = {\n  id: eventId,\n  name: payload.name.trim(),\n  date: payload.date,\n  link: payload.link || '',\n  image: payload.image || '',\n  description: payload.description || '',\n  calendarDetails: {\n    location: payload.calendarDetails.location,\n    description: payload.calendarDetails.description || '',\n    durationHours: payload.calendarDetails.durationHours || 4\n  },\n  showMoreInfo: payload.showMoreInfo !== undefined ? payload.showMoreInfo : true,\n  showBookNow: payload.showBookNow !== undefined ? payload.showBookNow : false,\n  showRemindMe: payload.showRemindMe !== undefined ? payload.showRemindMe : true\n};\n\nitems[0].json = { newEvent, needsAI };\nreturn items;"
+      },
+      "id": "validate-event",
+      "name": "Validate Event",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [470, 300],
+      "notesInFlow": true,
+      "notes": "Validates required fields and checks if AI description is needed"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.needsAI }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-needs-ai",
+      "name": "Needs AI?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [690, 300],
+      "notesInFlow": true,
+      "notes": "Routes to AI if description is empty or useAI=true"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a helpful assistant that writes short, engaging event descriptions for a fitness community called Iron & Ale. Write a 1-2 sentence description with an emoji at the start. Keep it motivational and fun.\n\nEvent: {{ $json.newEvent.name }}\nDate: {{ $json.newEvent.date }}\nLocation: {{ $json.newEvent.calendarDetails.location }}\nDuration: {{ $json.newEvent.calendarDetails.durationHours }} hours\n\nWrite only the description, nothing else."
+            }
+          ]
+        },
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "ai-generate",
+      "name": "AI Generate Description",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1,
+      "position": [910, 200],
+      "credentials": {
+        "openAiApi": {
+          "id": "YOUR_OPENAI_CREDENTIAL_ID",
+          "name": "OpenAI"
+        }
+      },
+      "notesInFlow": true,
+      "notes": "Generates engaging description using OpenAI"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Add AI-generated description to the event\nconst aiResponse = items[0].json;\nconst newEvent = $('Validate Event').first().json.newEvent;\n\n// Get the AI-generated text\nlet aiDescription = '';\nif (aiResponse.message && aiResponse.message.content) {\n  aiDescription = aiResponse.message.content.trim();\n} else if (aiResponse.text) {\n  aiDescription = aiResponse.text.trim();\n} else if (typeof aiResponse === 'string') {\n  aiDescription = aiResponse.trim();\n}\n\n// Update the event with AI description\nnewEvent.description = aiDescription || newEvent.description;\n\n// Also generate calendar description if empty\nif (!newEvent.calendarDetails.description) {\n  newEvent.calendarDetails.description = newEvent.description.replace(/^[^\\w]+/, '').substring(0, 100);\n}\n\nitems[0].json = { newEvent };\nreturn items;"
+      },
+      "id": "apply-ai-description",
+      "name": "Apply AI Description",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1130, 200],
+      "notesInFlow": true,
+      "notes": "Applies AI-generated description to the event"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Pass through without AI - keep original event\nconst newEvent = $('Validate Event').first().json.newEvent;\nitems[0].json = { newEvent };\nreturn items;"
+      },
+      "id": "skip-ai",
+      "name": "Skip AI",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [910, 400],
+      "notesInFlow": true,
+      "notes": "Passes through event unchanged when AI not needed"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "merge-paths",
+      "name": "Merge Paths",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [1350, 300]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": "petexa",
+        "repository": "petexa.github.io",
+        "filePath": "events/events.json"
+      },
+      "id": "get-events",
+      "name": "Get Events File",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [1570, 300],
+      "credentials": {
+        "githubApi": {
+          "id": "YOUR_GITHUB_CREDENTIAL_ID",
+          "name": "GitHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// Merge new event into existing events array\nconst gh = items[0].json;\nconst fileSha = gh.sha; // Required for updating the file\n\n// Decode existing events\nlet events = [];\nif (gh.content) {\n  const decoded = Buffer.from(gh.content, 'base64').toString('utf8');\n  try {\n    events = JSON.parse(decoded);\n    if (!Array.isArray(events)) events = [];\n  } catch (e) {\n    events = [];\n  }\n}\n\n// Get the new event from the merge node (could be from AI or Skip path)\nconst newEvent = $('Merge Paths').first().json.newEvent;\n\n// Check if event already exists (by ID)\nconst existingIndex = events.findIndex(e => e.id === newEvent.id);\nif (existingIndex >= 0) {\n  // Update existing event\n  events[existingIndex] = newEvent;\n} else {\n  // Add new event\n  events.push(newEvent);\n}\n\n// Sort events by date\nevents.sort((a, b) => new Date(a.date) - new Date(b.date));\n\nitems[0].json = {\n  updatedEvents: JSON.stringify(events, null, 2),\n  sha: fileSha,\n  eventName: newEvent.name,\n  eventId: newEvent.id,\n  isUpdate: existingIndex >= 0,\n  usedAI: newEvent.description && newEvent.description.length > 0\n};\n\nreturn items;"
+      },
+      "id": "merge-events",
+      "name": "Merge Event",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1790, 300],
+      "notesInFlow": true,
+      "notes": "Adds new event to array or updates existing. Preserves SHA for edit."
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "edit",
+        "owner": "petexa",
+        "repository": "petexa.github.io",
+        "filePath": "events/events.json",
+        "fileContent": "={{ $json.updatedEvents }}",
+        "commitMessage": "={{ $json.isUpdate ? 'Update' : 'Add' }} event: {{ $json.eventName }}",
+        "additionalParameters": {
+          "sha": "={{ $json.sha }}"
+        }
+      },
+      "id": "save-events",
+      "name": "Save Events File",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [2010, 300],
+      "credentials": {
+        "githubApi": {
+          "id": "YOUR_GITHUB_CREDENTIAL_ID",
+          "name": "GitHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, eventId: $json.eventId, eventName: $json.eventName, message: $json.isUpdate ? 'Event updated successfully' : 'Event added successfully', usedAI: $json.usedAI }) }}"
+      },
+      "id": "send-response",
+      "name": "Send Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [2230, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Validate Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Event": {
+      "main": [
+        [
+          {
+            "node": "Needs AI?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs AI?": {
+      "main": [
+        [
+          {
+            "node": "AI Generate Description",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Skip AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Generate Description": {
+      "main": [
+        [
+          {
+            "node": "Apply AI Description",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply AI Description": {
+      "main": [
+        [
+          {
+            "node": "Merge Paths",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skip AI": {
+      "main": [
+        [
+          {
+            "node": "Merge Paths",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Paths": {
+      "main": [
+        [
+          {
+            "node": "Get Events File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events File": {
+      "main": [
+        [
+          {
+            "node": "Merge Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Event": {
+      "main": [
+        [
+          {
+            "node": "Save Events File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Events File": {
+      "main": [
+        [
+          {
+            "node": "Send Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "events",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}

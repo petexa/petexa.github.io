@@ -1,0 +1,154 @@
+{
+  "name": "Iron & Ale Events - 2. Update Events List",
+  "nodes": [
+    {
+      "parameters": {
+        "owner": "petexa",
+        "repository": "petexa.github.io",
+        "events": ["push"],
+        "options": {}
+      },
+      "id": "github-trigger",
+      "name": "GitHub Trigger",
+      "type": "n8n-nodes-base.githubTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "github-push-trigger",
+      "credentials": {
+        "githubApi": {
+          "id": "YOUR_GITHUB_CREDENTIAL_ID_FROM_N8N_CREDENTIALS_PAGE",
+          "name": "GitHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// Filter for new event files in the events/ folder\n// Only process if new .json files were added (not events-list.json)\n\nconst payload = items[0].json;\nconst commits = payload.commits || [];\n\n// Collect all newly added event files from all commits\nconst newEventFiles = [];\n\nfor (const commit of commits) {\n  const added = commit.added || [];\n  for (const file of added) {\n    // Check if file is in events/ folder, ends with .json, and is NOT events-list.json\n    if (file.startsWith('events/') && \n        file.endsWith('.json') && \n        !file.includes('events-list.json') &&\n        !file.includes('n8n-workflow')) {\n      if (!newEventFiles.includes(file)) {\n        newEventFiles.push(file);\n      }\n    }\n  }\n}\n\n// If no new event files, stop the workflow\nif (newEventFiles.length === 0) {\n  // Return empty to stop workflow - no new events to add\n  return [];\n}\n\n// Pass the new files to the next node\nitems[0].json = {\n  newEventFiles: newEventFiles\n};\n\nreturn items;"
+      },
+      "id": "filter-event-files",
+      "name": "Filter New Event Files",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [470, 300],
+      "notesInFlow": true,
+      "notes": "Filters push events to only process new .json files in events/ folder"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": "petexa",
+        "repository": "petexa.github.io",
+        "filePath": "events/events-list.json"
+      },
+      "id": "get-events-list",
+      "name": "Get Events List",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [690, 300],
+      "credentials": {
+        "githubApi": {
+          "id": "YOUR_GITHUB_CREDENTIAL_ID_FROM_N8N_CREDENTIALS_PAGE",
+          "name": "GitHub"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// Add new event files to the events list\n// Preserves SHA for GitHub edit operation\n\nconst gh = items[0].json || {};\nconst fileSha = gh.sha; // CRITICAL: Save SHA for the edit operation\n\n// Get the new event files from the filter node\nconst filterData = $('Filter New Event Files').first().json;\nconst newEventFiles = filterData.newEventFiles || [];\n\nlet currentList = [];\n\n// Parse existing events list\nif (gh.content) {\n  let raw = gh.content;\n  const encoding = gh.encoding || 'base64';\n  \n  let decoded;\n  try {\n    if (encoding === 'base64') {\n      decoded = Buffer.from(raw, 'base64').toString('utf8');\n    } else {\n      decoded = typeof raw === 'string' ? raw : JSON.stringify(raw);\n    }\n  } catch (err) {\n    decoded = typeof raw === 'string' ? raw : JSON.stringify(raw);\n  }\n  \n  try {\n    currentList = JSON.parse(decoded);\n    if (!Array.isArray(currentList)) currentList = [];\n  } catch (e) {\n    currentList = [];\n  }\n} else {\n  currentList = [];\n}\n\n// Track what was actually added\nconst addedFiles = [];\n\n// Add each new file if it doesn't already exist\nfor (const file of newEventFiles) {\n  if (!currentList.includes(file)) {\n    currentList.push(file);\n    addedFiles.push(file);\n  }\n}\n\n// If nothing was added, stop the workflow\nif (addedFiles.length === 0) {\n  return [];\n}\n\n// Store the updated list, SHA, and metadata for the next node\nitems[0].json = {\n  updatedList: JSON.stringify(currentList, null, 2),\n  sha: fileSha,\n  addedFiles: addedFiles,\n  addedCount: addedFiles.length\n};\n\nreturn items;"
+      },
+      "id": "add-to-list",
+      "name": "Add Files to List",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [910, 300],
+      "notesInFlow": true,
+      "notes": "Adds new event filenames to the list and preserves SHA"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "edit",
+        "owner": "petexa",
+        "repository": "petexa.github.io",
+        "filePath": "events/events-list.json",
+        "fileContent": "={{ $json.updatedList }}",
+        "commitMessage": "=Update events list: added {{ $json.addedCount }} event(s)",
+        "additionalParameters": {
+          "sha": "={{ $json.sha }}"
+        }
+      },
+      "id": "update-events-list",
+      "name": "Update Events List",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [1130, 300],
+      "credentials": {
+        "githubApi": {
+          "id": "YOUR_GITHUB_CREDENTIAL_ID_FROM_N8N_CREDENTIALS_PAGE",
+          "name": "GitHub"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "GitHub Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filter New Event Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter New Event Files": {
+      "main": [
+        [
+          {
+            "node": "Get Events List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events List": {
+      "main": [
+        [
+          {
+            "node": "Add Files to List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Files to List": {
+      "main": [
+        [
+          {
+            "node": "Update Events List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "events",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "versionId": "1"
+}
