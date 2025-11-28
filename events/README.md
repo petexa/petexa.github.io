@@ -1,20 +1,42 @@
-# Beginner's Tutorial: Setting Up the Iron & Ale Events n8n Workflow
+# Beginner's Tutorial: Setting Up the Iron & Ale Events n8n Workflows
 
 ---
 
-## 🚀 Quick Start: Import the Workflow
+## 🚀 Quick Start: Import the Workflows
 
-**Want to skip the manual setup?** Import the pre-built workflow directly into n8n:
+**Want to skip the manual setup?** Import the pre-built workflows directly into n8n:
 
-1. Download [`n8n-workflow.json`](./n8n-workflow.json)
+### Two-Workflow Architecture (Recommended)
+
+We now use **two separate workflows** for better reliability:
+
+1. **Workflow 1: Create Event** ([`n8n-workflow-1-create-event.json`](./n8n-workflow-1-create-event.json))
+   - Receives event JSON via webhook
+   - Validates and normalizes the data
+   - Creates the event file in GitHub
+
+2. **Workflow 2: Update Events List** ([`n8n-workflow-2-update-list.json`](./n8n-workflow-2-update-list.json))
+   - Triggered automatically when a new file is pushed to GitHub
+   - Detects new event files in the `events/` folder
+   - Updates `events-list.json` with the new filename
+
+### Import Steps
+
+1. Download both workflow JSON files
 2. In n8n, go to **Workflows** > **Import from File**
-3. Select the downloaded JSON file
-4. Update the GitHub credentials with your own (search for `YOUR_GITHUB_CREDENTIAL_ID_FROM_N8N_CREDENTIALS_PAGE`)
-5. Activate the workflow!
+3. Import `n8n-workflow-1-create-event.json` first
+4. Import `n8n-workflow-2-update-list.json` second
+5. Update the GitHub credentials in both workflows (search for `YOUR_GITHUB_CREDENTIAL_ID_FROM_N8N_CREDENTIALS_PAGE`)
+6. For Workflow 2, configure the GitHub Trigger webhook in your GitHub repository settings
+7. Activate both workflows!
+
+### Legacy Single Workflow
+
+The original combined workflow is still available at [`n8n-workflow.json`](./n8n-workflow.json), but the two-workflow approach is recommended for better reliability.
 
 ---
 
-## 🛠️ Step-by-Step: Setting Up the Iron & Ale Events n8n Workflow
+## 🛠️ Step-by-Step: Setting Up the Iron & Ale Events n8n Workflows
 
 ### 1. Create Your n8n Instance
 - Use [n8n cloud](https://n8n.io/cloud) or self-host (Docker, desktop app, or server)
@@ -745,6 +767,174 @@ return items;
 
 ```
 Webhook Trigger → Validate & Normalize Input → Prepare Event Data → Create Event File → Get Events List → Add Event to List → Update Events List → Send Response
+```
+
+---
+
+## Two-Workflow Architecture (Recommended)
+
+The two-workflow approach separates concerns for better reliability:
+
+### Workflow 1: Create Event
+
+**File:** `n8n-workflow-1-create-event.json`
+
+**Purpose:** Receives event data via webhook, validates it, and creates the event file in GitHub.
+
+**Flow:**
+```
+Webhook Trigger → Validate & Normalize Input → Prepare Event Data → Create Event File → Send Response
+```
+
+**Nodes:**
+
+| Node | Type | Purpose |
+|------|------|---------|
+| Webhook Trigger | `n8n-nodes-base.webhook` | Receives POST requests at `/webhook/events` |
+| Validate & Normalize Input | `n8n-nodes-base.function` | Validates required fields, normalizes filename/date |
+| Prepare Event Data | `n8n-nodes-base.function` | Sets default values for optional fields |
+| Create Event File | `n8n-nodes-base.github` | Creates `events/{filename}` in GitHub |
+| Send Response | `n8n-nodes-base.respondToWebhook` | Returns success/failure response |
+
+### Workflow 2: Update Events List
+
+**File:** `n8n-workflow-2-update-list.json`
+
+**Purpose:** Triggered by GitHub push events, detects new event files, and updates `events-list.json`.
+
+**Flow:**
+```
+GitHub Trigger → Filter New Event Files → Get Events List → Add Files to List → Update Events List
+```
+
+**Nodes:**
+
+| Node | Type | Purpose |
+|------|------|---------|
+| GitHub Trigger | `n8n-nodes-base.githubTrigger` | Listens for push events on the repository |
+| Filter New Event Files | `n8n-nodes-base.function` | Filters for new .json files in events/ folder |
+| Get Events List | `n8n-nodes-base.github` | Fetches current `events-list.json` with SHA |
+| Add Files to List | `n8n-nodes-base.function` | Adds new filenames to list, preserves SHA |
+| Update Events List | `n8n-nodes-base.github` | Updates `events-list.json` with new entries |
+
+### Setting Up the GitHub Trigger
+
+To use Workflow 2, you need to configure a webhook in your GitHub repository:
+
+1. Go to your GitHub repository settings
+2. Click **Webhooks** > **Add webhook**
+3. Set the **Payload URL** to your n8n webhook URL (found in the GitHub Trigger node)
+4. Set **Content type** to `application/json`
+5. Select **Just the push event**
+6. Ensure **Active** is checked
+7. Click **Add webhook**
+
+### Filter New Event Files Code
+
+```javascript
+// Filter for new event files in the events/ folder
+// Only process if new .json files were added (not events-list.json)
+
+const payload = items[0].json;
+const commits = payload.commits || [];
+
+// Collect all newly added event files from all commits
+const newEventFiles = [];
+
+for (const commit of commits) {
+  const added = commit.added || [];
+  for (const file of added) {
+    // Check if file is in events/ folder, ends with .json, and is NOT events-list.json
+    if (file.startsWith('events/') && 
+        file.endsWith('.json') && 
+        !file.includes('events-list.json') &&
+        !file.includes('n8n-workflow')) {
+      if (!newEventFiles.includes(file)) {
+        newEventFiles.push(file);
+      }
+    }
+  }
+}
+
+// If no new event files, stop the workflow
+if (newEventFiles.length === 0) {
+  return [];
+}
+
+// Pass the new files to the next node
+items[0].json = {
+  newEventFiles: newEventFiles
+};
+
+return items;
+```
+
+### Add Files to List Code
+
+```javascript
+// Add new event files to the events list
+// Preserves SHA for GitHub edit operation
+
+const gh = items[0].json || {};
+const fileSha = gh.sha; // CRITICAL: Save SHA for the edit operation
+
+// Get the new event files from the filter node
+const filterData = $('Filter New Event Files').first().json;
+const newEventFiles = filterData.newEventFiles || [];
+
+let currentList = [];
+
+// Parse existing events list
+if (gh.content) {
+  let raw = gh.content;
+  const encoding = gh.encoding || 'base64';
+  
+  let decoded;
+  try {
+    if (encoding === 'base64') {
+      decoded = Buffer.from(raw, 'base64').toString('utf8');
+    } else {
+      decoded = typeof raw === 'string' ? raw : JSON.stringify(raw);
+    }
+  } catch (err) {
+    decoded = typeof raw === 'string' ? raw : JSON.stringify(raw);
+  }
+  
+  try {
+    currentList = JSON.parse(decoded);
+    if (!Array.isArray(currentList)) currentList = [];
+  } catch (e) {
+    currentList = [];
+  }
+} else {
+  currentList = [];
+}
+
+// Track what was actually added
+const addedFiles = [];
+
+// Add each new file if it doesn't already exist
+for (const file of newEventFiles) {
+  if (!currentList.includes(file)) {
+    currentList.push(file);
+    addedFiles.push(file);
+  }
+}
+
+// If nothing was added, stop the workflow
+if (addedFiles.length === 0) {
+  return [];
+}
+
+// Store the updated list, SHA, and metadata for the next node
+items[0].json = {
+  updatedList: JSON.stringify(currentList, null, 2),
+  sha: fileSha,
+  addedFiles: addedFiles,
+  addedCount: addedFiles.length
+};
+
+return items;
 ```
 
 ---
