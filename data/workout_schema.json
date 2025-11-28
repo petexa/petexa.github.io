@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Workout Schema",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "Name": { "type": "string" },
+    "Category": { "type": "string" },
+    "FormatDuration": { "type": "string" },
+    "ScoreType": { "type": "string" },
+    "lastCleaned": { "type": "string", "format": "date-time" },
+
+    "Description": { "type": ["string", "null"] },
+    "Flavor_Text": { "type": ["string", "null"] },
+    "CoachNotes": { "type": ["string", "null"] },
+    "Warmup": { "type": ["string", "null"] },
+
+    "Scaling_Tiers": { "type": ["object", "null"] },
+    "Estimated_Times": { "type": ["object", "null"] },
+    "Estimated_Times_Human": { "type": ["string", "null"] },
+
+    "EquipmentNeeded": { "type": ["string", "null"] },
+    "MovementTypes": { "type": ["string", "null"] },
+    "Stimulus": { "type": ["string", "null"] },
+    "TargetStimulus": { "type": ["string", "null"] },
+
+    "needsEnrichment": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "needsRevalidation": { "type": "boolean" },
+    "source": { "type": "string" }
+  },
+  "required": [
+    "id",
+    "Name",
+    "Category",
+    "FormatDuration",
+    "ScoreType",
+    "lastCleaned"
+  ],
+  "additionalProperties": true
+}
