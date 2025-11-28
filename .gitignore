@@ -11,3 +11,9 @@ workouts_table_audit.csv
 __pycache__/
 *.pyc
 *.pyo
+
+# Workout pipeline logs (can be committed for audit trail)
+data/logs/
+
+# Workout pipeline snapshots (historical, can be committed selectively)
+data/snapshots/
