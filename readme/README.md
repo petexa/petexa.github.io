@@ -1,11 +1,11 @@
-# Iron & Ale Main README
+# Iron & Ale Documentation Index
 
-This is the main README for the Iron & Ale project. All documentation has been moved to the `readme/` folder for better organization.
+This is the documentation index for the Iron & Ale project. All guides are stored in the `readme/` folder for better organization.
 
 Refer to the following files for specific guides:
-- `readme/events.md` — Events system and n8n workflow
-- `readme/PB-MATRIX-SETUP.md` — Personal Bests Matrix setup
-- `readme/N8N-EVENT-WORKFLOW.md` — n8n event workflow details
+- [Events & n8n Workflow Guide](events.md)
+- [Personal Bests Matrix Setup Guide](PB-MATRIX-SETUP.md)
+- [n8n Event Workflow Guide](N8N-EVENT-WORKFLOW.md)
 
 ---
 

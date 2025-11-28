@@ -1,4 +1,4 @@
-# n8n Event Workflow
+# n8n Event Workflow Guide
 
 (Moved from `N8N-EVENT-WORKFLOW.md`)
 

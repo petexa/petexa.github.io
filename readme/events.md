@@ -1,5 +1,5 @@
 
-# Iron & Ale Events - n8n Workflow Guide
+# Events & n8n Workflow Guide
 
 ---
 

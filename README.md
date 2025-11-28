@@ -6,14 +6,36 @@ A fitness community website built with a Tailwind-inspired technical theme. Clea
 
 ---
 
+
 ## 📚 Documentation & Guides
+
+All documentation is now stored in the [`readme/`](./readme/) folder for better organization.
+**See below for guides:**
 
 | Guide | Description |
 |-------|-------------|
-| [Events n8n Workflow](./events/README.md) | How to add events via n8n automation with optional AI descriptions |
-| [PB Matrix Setup](./PB-MATRIX-SETUP.md) | Setting up the Personal Bests leaderboard with Google Apps Script |
-| [Workout Data Cleaning](./README_fix_workouts.md) | Running the workout data cleaning and validation script |
-| [Style Guide](/style-guide/) | Live examples of buttons, cards, forms, and components |
+| [Events n8n Workflow](readme/events.md) | How to add events via n8n automation with optional AI descriptions |
+| [PB Matrix Setup](readme/PB-MATRIX-SETUP.md) | Setting up the Personal Bests leaderboard with Google Apps Script |
+| [n8n Event Workflow](readme/N8N-EVENT-WORKFLOW.md) | n8n event workflow details |
+
+
+---
+
+
+## 📄 Additional Documentation
+
+- [Accessibility & Design Audit Report](readme/ACCESSIBILITY_DESIGN_AUDIT.md)
+- [Asset Cleanup Summary](readme/ASSET_CLEANUP_SUMMARY.md)
+- [Complete System Audit Report](readme/AUDIT_REPORT.md)
+- [Changelog](readme/CHANGELOG.md)
+- [Contributing Guide](readme/CONTRIBUTING.md)
+- [Workout Data Cleaning Script](readme/WORKOUT_DATA_CLEANING.md)
+- [Workout Data Validation Report](readme/WORKOUT_DATA_VALIDATION_REPORT.md)
+- [Personal Bests Matrix Setup (legacy)](readme/PB_MATRIX_SETUP_LEGACY.md)
+- [Events & n8n Workflow Guide (legacy)](readme/EVENTS_N8N_WORKFLOW_LEGACY.md)
+- [Archived CSS Files](readme/ARCHIVED_CSS_FILES.md)
+
+For more, see individual docs in the [`readme/`](./readme/) folder.
 
 ---
 

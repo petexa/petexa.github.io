@@ -1,4 +1,4 @@
-# Personal Bests Matrix Setup
+# Personal Bests Matrix Setup Guide
 
 (Moved from `PB-MATRIX-SETUP.md`)
 
