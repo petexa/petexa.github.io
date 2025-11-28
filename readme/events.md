@@ -1,3 +1,4 @@
+
 # Iron & Ale Events - n8n Workflow Guide
 
 ---
@@ -14,12 +15,12 @@ The simplest way to manage events is using a **single `events.json` file** that 
 
 ### Setup Steps
 
-1. Download [`n8n-workflow-simple.json`](./n8n-workflow-simple.json)
+1. Download [`n8n-workflow-simple.json`](../events/n8n-workflow-simple.json)
 2. In n8n, go to **Workflows** > **Import from File**
 3. Select the downloaded JSON file
 4. Update credentials:
-   - **GitHub**: Click on "Get Events File" and "Save Events File" nodes → Edit credentials
-   - **OpenAI** (optional): Click on "AI Generate Description" node → Edit credentials
+	 - **GitHub**: Click on "Get Events File" and "Save Events File" nodes → Edit credentials
+	 - **OpenAI** (optional): Click on "AI Generate Description" node → Edit credentials
 5. Activate the workflow!
 
 ### Workflow Nodes
@@ -85,20 +86,20 @@ Each event in `events.json` has this structure:
 
 ```json
 {
-  "id": "event-name-20260315",
-  "name": "Event Name",
-  "date": "2026-03-15T09:00:00",
-  "link": "https://event-website.com",
-  "image": "images/event.jpg",
-  "description": "Brief description of the event",
-  "calendarDetails": {
-    "location": "Event Location",
-    "description": "Calendar description",
-    "durationHours": 4
-  },
-  "showMoreInfo": true,
-  "showBookNow": false,
-  "showRemindMe": true
+	"id": "event-name-20260315",
+	"name": "Event Name",
+	"date": "2026-03-15T09:00:00",
+	"link": "https://event-website.com",
+	"image": "images/event.jpg",
+	"description": "Brief description of the event",
+	"calendarDetails": {
+		"location": "Event Location",
+		"description": "Calendar description",
+		"durationHours": 4
+	},
+	"showMoreInfo": true,
+	"showBookNow": false,
+	"showRemindMe": true
 }
 ```
 
@@ -135,33 +136,33 @@ Each event in `events.json` has this structure:
 
 ```bash
 curl -X POST https://n8n.petefox.co.uk/webhook/events \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Test Event",
-    "date": "2026-06-15T10:00:00",
-    "link": "https://example.com",
-    "calendarDetails": {
-      "location": "London, UK",
-      "durationHours": 4
-    }
-  }'
+	-H "Content-Type: application/json" \
+	-d '{
+		"name": "Test Event",
+		"date": "2026-06-15T10:00:00",
+		"link": "https://example.com",
+		"calendarDetails": {
+			"location": "London, UK",
+			"durationHours": 4
+		}
+	}'
 ```
 
 ### Via cURL (without AI)
 
 ```bash
 curl -X POST https://n8n.petefox.co.uk/webhook/events \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Test Event",
-    "date": "2026-06-15T10:00:00",
-    "description": "My custom description",
-    "link": "https://example.com",
-    "calendarDetails": {
-      "location": "London, UK",
-      "durationHours": 4
-    }
-  }'
+	-H "Content-Type: application/json" \
+	-d '{
+		"name": "Test Event",
+		"date": "2026-06-15T10:00:00",
+		"description": "My custom description",
+		"link": "https://example.com",
+		"calendarDetails": {
+			"location": "London, UK",
+			"durationHours": 4
+		}
+	}'
 ```
 
 ---
