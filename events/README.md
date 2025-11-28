@@ -571,6 +571,147 @@ return items;
 
 ---
 
+## Complete Node Settings Reference
+
+This section provides the exact settings for each node in the workflow. Use these to manually create the workflow or troubleshoot import issues.
+
+### Node 1: Webhook Trigger
+
+| Setting | Value |
+|---------|-------|
+| **Node Type** | Webhook (`n8n-nodes-base.webhook`) |
+| **HTTP Method** | `POST` |
+| **Path** | `events` |
+| **Response Mode** | `onReceived` |
+| **CORS Header 1** | `Access-Control-Allow-Origin: *` |
+| **CORS Header 2** | `Access-Control-Allow-Methods: POST, OPTIONS` |
+| **CORS Header 3** | `Access-Control-Allow-Headers: Content-Type` |
+
+### Node 2: Validate & Normalize Input
+
+| Setting | Value |
+|---------|-------|
+| **Node Type** | Function (`n8n-nodes-base.function`) |
+| **Function Code** | See "Example Validation Node" section above |
+
+### Node 3: Prepare Event Data
+
+| Setting | Value |
+|---------|-------|
+| **Node Type** | Function (`n8n-nodes-base.function`) |
+| **Function Code** | See below |
+
+```javascript
+// Prepare event data with defaults for optional fields
+const input = items[0].json;
+
+// Build the event object with all fields
+const eventData = {
+  filename: input.filename,
+  name: input.name,
+  date: input.date,
+  link: input.link || '',
+  image: input.image || '',
+  description: input.description || '',
+  calendarDetails: input.calendarDetails || {},
+  showMoreInfo: input.showMoreInfo !== undefined ? input.showMoreInfo : true,
+  showBookNow: input.showBookNow !== undefined ? input.showBookNow : false,
+  showRemindMe: input.showRemindMe !== undefined ? input.showRemindMe : true
+};
+
+// Replace the item's json with the prepared event data
+items[0].json = eventData;
+
+return items;
+```
+
+### Node 4: Create Event File (GitHub)
+
+| Setting | Value |
+|---------|-------|
+| **Node Type** | GitHub (`n8n-nodes-base.github`) |
+| **Credential** | GitHub API (with `repo` scope) |
+| **Resource** | `File` |
+| **Operation** | `Create` |
+| **Owner** | `petexa` |
+| **Repository** | `petexa.github.io` |
+| **File Path** | `=events/{{ $json.filename }}` |
+| **File Content** | `={{ JSON.stringify($json, null, 2) }}` |
+| **Commit Message** | `=Add new event: {{ $json.name }}` |
+
+### Node 5: Get Events List (GitHub)
+
+| Setting | Value |
+|---------|-------|
+| **Node Type** | GitHub (`n8n-nodes-base.github`) |
+| **Credential** | GitHub API (with `repo` scope) |
+| **Resource** | `File` |
+| **Operation** | `Get` |
+| **Owner** | `petexa` |
+| **Repository** | `petexa.github.io` |
+| **File Path** | `events/events-list.json` |
+
+### Node 6: Add Event to List
+
+| Setting | Value |
+|---------|-------|
+| **Node Type** | Function (`n8n-nodes-base.function`) |
+| **Function Code** | See below |
+
+```javascript
+// Parse the current events list
+const content = items[0].json.content;
+const currentList = JSON.parse(Buffer.from(content, 'base64').toString('utf8'));
+
+// Get the filename from the previous validated data
+// We need to access the data from the 'Prepare Event Data' node
+const eventData = $('Prepare Event Data').first().json;
+const newFilename = `events/${eventData.filename}`;
+
+// Add the new filename if it doesn't already exist
+if (!currentList.includes(newFilename)) {
+  currentList.push(newFilename);
+}
+
+// Store the updated list and SHA for the next node
+items[0].json.updatedList = JSON.stringify(currentList, null, 2);
+items[0].json.eventFilename = eventData.filename;
+items[0].json.eventName = eventData.name;
+
+return items;
+```
+
+### Node 7: Update Events List (GitHub)
+
+| Setting | Value |
+|---------|-------|
+| **Node Type** | GitHub (`n8n-nodes-base.github`) |
+| **Credential** | GitHub API (with `repo` scope) |
+| **Resource** | `File` |
+| **Operation** | `Edit` |
+| **Owner** | `petexa` |
+| **Repository** | `petexa.github.io` |
+| **File Path** | `events/events-list.json` |
+| **File Content** | `={{ $json.updatedList }}` |
+| **Commit Message** | `=Update events list with {{ $json.eventName }}` |
+| **SHA** | `={{ $('Get Events List').first().json.sha }}` |
+
+### Node 8: Send Response
+
+| Setting | Value |
+|---------|-------|
+| **Node Type** | Respond to Webhook (`n8n-nodes-base.respondToWebhook`) |
+| **Respond With** | `JSON` |
+| **Response Body** | `={{ JSON.stringify({ success: true, filename: $json.eventFilename, message: 'Event created successfully' }) }}` |
+
+### Node Connections (Flow Order)
+
+```
+Webhook Trigger → Validate & Normalize Input → Prepare Event Data → Create Event File → Get Events List → Add Event to List → Update Events List → Send Response
+```
+
+---
+
 ## Testing & Troubleshooting
 
 ### Testing via Admin Page
