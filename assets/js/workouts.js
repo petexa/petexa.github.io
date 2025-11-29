@@ -23,7 +23,7 @@
   var STORAGE_KEY = 'pfx:pinnedWorkouts';
   var MAX_PINS = 3;
   var RANDOM_COUNT = 6;
-  var DATA_URL = '../data/workouts_table.json';
+  var DATA_URL = '../data/reports/workouts_final.json';
   var DESC_TRUNCATE_LENGTH = 120;
   // Animation timing - matches CSS --transition-slow (300ms)
   var ANIMATION_DURATION_MS = 300;

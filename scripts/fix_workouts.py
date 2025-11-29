@@ -1,8 +1,26 @@
+"""
+Fix Workouts Script
+==================
+
+Cleans and enriches workouts using AI:
+- Removes SVG garbage from instructions
+- Fills placeholder fields via OpenAI
+- Normalizes needsEnrichment arrays
+
+Environment:
+    OPENAI_API_KEY must be set for AI enrichment.
+    Without it, the script will skip AI calls.
+
+Usage:
+    python scripts/fix_workouts.py
+"""
+
 import json
+import os
 import re
+import sys
 from copy import deepcopy
 from typing import List, Dict, Any
-from openai import OpenAI
 
 # ---------------- CONFIG ----------------
 
@@ -17,7 +35,21 @@ MAX_AI_CALLS = 105
 
 OPENAI_MODEL = "gpt-4.1-mini"
 
-client = OpenAI()  # uses env var OPENAI_API_KEY
+# Initialize OpenAI client only if API key is available
+client = None
+HAS_OPENAI = False
+
+try:
+    from openai import OpenAI
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if api_key:
+        client = OpenAI(api_key=api_key)
+        HAS_OPENAI = True
+        print("✅ OpenAI client initialized")
+    else:
+        print("⚠️ OPENAI_API_KEY not set - AI enrichment disabled")
+except ImportError:
+    print("⚠️ openai package not installed - AI enrichment disabled")
 
 # ---------------- HELPERS ----------------
 
