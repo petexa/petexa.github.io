@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handstand Plan | Iron & Ale</title>
+  <meta name="description" content="12-Month Handstand Walk Plan - Track progress toward handstand walking by December 2026 with structured workouts and exercises.">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WW47GEZS2M');
+  </script>
+  <style>
+    /* Next Workout Card Styles */
+    .next-workout-card {
+      background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-800) 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      color: white;
+      margin-bottom: 2rem;
+    }
+    .next-workout-card h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .next-workout-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .workout-detail-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+    }
+    .workout-detail-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.8;
+      margin-bottom: 0.25rem;
+    }
+    .workout-detail-value {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    /* Responsive YouTube embed */
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      margin-top: 1rem;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    /* Work Workout Cards */
+    .workout-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      transition: all var(--transition-normal);
+    }
+    .workout-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+    .workout-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .workout-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+    }
+    .workout-meta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .workout-meta-item {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+    }
+    .workout-exercises {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .workout-exercises li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.25rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .workout-exercises li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--color-primary-500);
+    }
+    /* Ad-hoc Exercises Grid */
+    .adhoc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .adhoc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+    }
+    .adhoc-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .adhoc-location {
+      font-size: 0.75rem;
+      color: var(--color-primary-500);
+      margin-bottom: 0.5rem;
+    }
+    .adhoc-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    /* Phase Cards for 12-Month Plan */
+    .phase-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .phase-header {
+      background: var(--bg-alt);
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .phase-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .phase-theme {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .phase-body {
+      padding: 1.5rem;
+    }
+    .phase-section {
+      margin-bottom: 1.5rem;
+    }
+    .phase-section:last-child {
+      margin-bottom: 0;
+    }
+    .phase-section h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.75rem 0;
+    }
+    .phase-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .phase-section li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.25rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .phase-section li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--color-success-500);
+    }
+    .session-block {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .session-block h5 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .session-block ul {
+      list-style: disc;
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+    .session-block li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.125rem 0;
+    }
+    .session-block li::before {
+      content: none;
+    }
+    .targets-box {
+      background: linear-gradient(135deg, var(--color-success-100) 0%, var(--color-success-50) 100%);
+      border: 1px solid var(--color-success-200);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+    }
+    .theme-dark .targets-box {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+    .targets-box h5 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-success-700);
+      margin: 0 0 0.5rem 0;
+    }
+    .theme-dark .targets-box h5 {
+      color: var(--color-success-400);
+    }
+    .targets-box li::before {
+      content: "🎯";
+    }
+    /* Table of Contents */
+    .toc {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .toc h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.75rem 0;
+    }
+    .toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc li {
+      padding: 0.25rem 0;
+    }
+    .toc a {
+      font-size: 0.875rem;
+      color: var(--color-primary-500);
+      text-decoration: none;
+    }
+    .toc a:hover {
+      text-decoration: underline;
+    }
+    /* Plan intro */
+    .plan-intro {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .plan-intro h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .plan-intro .goal {
+      font-size: 1rem;
+      color: var(--color-primary-500);
+      margin-bottom: 1rem;
+    }
+    .assumptions-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .assumptions-list li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.25rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .assumptions-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0.25rem;
+      color: var(--text-muted);
+    }
+    /* Quick Navigation - Full Page */
+    .quick-nav {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      position: sticky;
+      top: 1rem;
+      z-index: 10;
+    }
+    .quick-nav h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1rem 0;
+    }
+    .quick-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .quick-nav-link {
+      font-size: 0.75rem;
+      padding: 0.375rem 0.75rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .quick-nav-link:hover {
+      background: var(--color-primary-100);
+      color: var(--color-primary-600);
+    }
+    .theme-dark .quick-nav-link:hover {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--color-primary-400);
+    }
+    /* Progress Tracker */
+    .progress-tracker {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .progress-tracker h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1rem 0;
+    }
+    .progress-phases {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    @media (min-width: 768px) {
+      .progress-phases {
+        flex-direction: row;
+        gap: 1rem;
+      }
+    }
+    .progress-phase {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      border: 2px solid transparent;
+      transition: all var(--transition-normal);
+    }
+    .progress-phase.current {
+      border-color: var(--color-primary-500);
+      background: var(--color-primary-50);
+    }
+    .theme-dark .progress-phase.current {
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .progress-phase.completed {
+      border-color: var(--color-success-500);
+      background: var(--color-success-50);
+    }
+    .theme-dark .progress-phase.completed {
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .progress-checkbox {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      border: 2px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+    }
+    .progress-phase.completed .progress-checkbox {
+      background: var(--color-success-500);
+      border-color: var(--color-success-500);
+      color: white;
+    }
+    .progress-phase.current .progress-checkbox {
+      background: var(--color-primary-500);
+      border-color: var(--color-primary-500);
+      color: white;
+    }
+    .progress-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .progress-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .progress-dates {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    /* Current Phase Badge */
+    .current-phase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      background: var(--color-primary-500);
+      color: white;
+      font-size: 0.625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: var(--radius-md);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    /* Phase Card Current State */
+    .phase-card.current-phase {
+      border: 2px solid var(--color-primary-500);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+    .phase-card.current-phase .phase-header {
+      background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-primary-100) 100%);
+    }
+    .theme-dark .phase-card.current-phase .phase-header {
+      background: rgba(59, 130, 246, 0.15);
+    }
+    /* Exercise Video Link */
+    .exercise-video-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-left: 0.5rem;
+      padding: 0.125rem 0.375rem;
+      background: var(--color-danger-100);
+      color: var(--color-danger-600);
+      font-size: 0.625rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .exercise-video-link:hover {
+      background: var(--color-danger-500);
+      color: white;
+    }
+    .theme-dark .exercise-video-link {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--color-danger-400);
+    }
+    .theme-dark .exercise-video-link:hover {
+      background: var(--color-danger-500);
+      color: white;
+    }
+    /* Ad-hoc card video link */
+    .adhoc-card .exercise-video-link {
+      display: block;
+      margin: 0.5rem 0 0 0;
+      width: fit-content;
+    }
+  </style>
+</head>
+<body class="bg-page">
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Password Modal -->
+  <div id="password-modal" style="position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9999;display:flex;align-items:center;justify-content:center;">
+    <div class="card" style="max-width:400px;width:90%;margin:1rem;">
+      <div class="card-body text-center">
+        <div class="tool-card-icon mx-auto mb-4 bg-primary-100 text-primary-600" aria-hidden="true">🤸</div>
+        <h2 class="text-xl font-bold mb-4" style="color: var(--text);">Handstand Plan Access</h2>
+        <p class="mb-6" style="color: var(--text-muted);">Please enter the password to view this training plan.</p>
+        <form id="password-form" onsubmit="checkPassword(event)">
+          <input type="password" id="page-password" class="form-input mb-4" placeholder="Enter password" required aria-label="Page password">
+          <button type="submit" class="btn btn-primary w-full">Access Plan</button>
+        </form>
+        <p id="password-error" class="text-danger-500 text-sm mt-4" style="display:none;">Incorrect password. Please try again.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-wrapper" id="page-content" style="display:none;">
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <svg class="sidebar-nav-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+          <span>Iron & Ale</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="../about/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>About</span>
+        </a>
+        <a href="../workouts/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span>Workouts</span>
+        </a>
+        <a href="../utilities/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Utilities</span>
+        </a>
+        <a href="../events.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Events</span>
+        </a>
+        <a href="../projects.html" class="sidebar-nav-item active" aria-current="page">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span>Projects</span>
+        </a>
+        <a href="../admin.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+          <span>Admin</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="text-sm text-gray-400">&copy; <span id="sidebar-year">2024</span> Iron & Ale</p>
+      </div>
+    </aside>
+
+    <!-- Overlay for mobile sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Mobile Header -->
+      <header class="top-header">
+        <a href="../index.html" class="font-bold text-lg" style="color: var(--text);">Iron & Ale</a>
+        <div class="flex items-center gap-2">
+          <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main id="main-content" role="main">
+        <div class="page-container">
+          <!-- Page Header -->
+          <header class="page-header">
+            <h1 class="page-title">🤸 Handstand Walk Plan</h1>
+            <p class="page-subtitle">Goal: Walk on my hands across the gym by December 2026</p>
+          </header>
+
+          <!-- Quick Navigation -->
+          <nav class="quick-nav" aria-label="Quick page navigation">
+            <h3>🧭 Quick Navigation</h3>
+            <div class="quick-nav-links">
+              <a href="#next-workout" class="quick-nav-link">📅 Next Workout</a>
+              <a href="#work-workouts" class="quick-nav-link">🏢 Work Workouts</a>
+              <a href="#training-locations" class="quick-nav-link">📍 Training Locations</a>
+              <a href="#adhoc-exercises" class="quick-nav-link">⚡ Ad-hoc Exercises</a>
+              <a href="#twelve-month-plan" class="quick-nav-link">📋 12-Month Plan</a>
+              <a href="#phase-1" class="quick-nav-link">Phase 1</a>
+              <a href="#phase-2" class="quick-nav-link">Phase 2</a>
+              <a href="#phase-3" class="quick-nav-link">Phase 3</a>
+              <a href="#phase-4" class="quick-nav-link">Phase 4</a>
+            </div>
+          </nav>
+
+          <!-- Progress Tracker -->
+          <div class="progress-tracker" id="progress-tracker">
+            <h3>📊 Progress Tracker <span id="current-phase-label" class="current-phase-badge">Loading...</span></h3>
+            <div class="progress-phases">
+              <div class="progress-phase" id="progress-phase-1" data-phase="1">
+                <div class="progress-checkbox">1</div>
+                <div class="progress-info">
+                  <div class="progress-name">Foundations</div>
+                  <div class="progress-dates">Dec – Feb</div>
+                </div>
+              </div>
+              <div class="progress-phase" id="progress-phase-2" data-phase="2">
+                <div class="progress-checkbox">2</div>
+                <div class="progress-info">
+                  <div class="progress-name">Inversion Comfort</div>
+                  <div class="progress-dates">Mar – May</div>
+                </div>
+              </div>
+              <div class="progress-phase" id="progress-phase-3" data-phase="3">
+                <div class="progress-checkbox">3</div>
+                <div class="progress-info">
+                  <div class="progress-name">Static Handstand</div>
+                  <div class="progress-dates">Jun – Aug</div>
+                </div>
+              </div>
+              <div class="progress-phase" id="progress-phase-4" data-phase="4">
+                <div class="progress-checkbox">4</div>
+                <div class="progress-info">
+                  <div class="progress-name">Walking Mechanics</div>
+                  <div class="progress-dates">Sep – Nov</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1: Next Scheduled Workout -->
+          <section id="next-workout" class="mb-12" aria-labelledby="next-workout-title">
+            <div class="next-workout-card">
+              <h2 id="next-workout-title">📅 Next Scheduled Workout</h2>
+              
+              <!-- EDIT THESE VALUES TO UPDATE YOUR NEXT WORKOUT -->
+              <div class="next-workout-details">
+                <div class="workout-detail-item">
+                  <div class="workout-detail-label">Workout</div>
+                  <div class="workout-detail-value" id="workout-name">Foundations Session 1</div>
+                </div>
+                <div class="workout-detail-item">
+                  <div class="workout-detail-label">Date & Time</div>
+                  <div class="workout-detail-value" id="workout-datetime">Saturday, Nov 30, 2025 @ 8:00 AM</div>
+                </div>
+                <div class="workout-detail-item">
+                  <div class="workout-detail-label">Location</div>
+                  <div class="workout-detail-value" id="workout-location">Gym</div>
+                </div>
+                <div class="workout-detail-item">
+                  <div class="workout-detail-label">Focus</div>
+                  <div class="workout-detail-value" id="workout-focus">Wrist prep + box pike holds</div>
+                </div>
+                <div class="workout-detail-item">
+                  <div class="workout-detail-label">Duration</div>
+                  <div class="workout-detail-value" id="workout-duration">10 minutes</div>
+                </div>
+                <div class="workout-detail-item">
+                  <div class="workout-detail-label">Equipment</div>
+                  <div class="workout-detail-value" id="workout-equipment">Floor space, wall, yoga mat</div>
+                </div>
+              </div>
+
+              <!-- YouTube Video Embed - Change the VIDEO_ID to update the video -->
+              <div class="video-container">
+                <!-- Replace dQw4w9WgXcQ with your actual video ID -->
+                <iframe 
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                  title="Handstand workout video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen>
+                </iframe>
+              </div>
+            </div>
+
+            <!-- Weekly Schedule -->
+            <div class="card" style="margin-top: 1rem;">
+              <div class="card-body">
+                <h3 class="font-semibold mb-3" style="color: var(--text);">📆 My Weekly Gym Schedule</h3>
+                <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                    <div style="font-weight: 600; color: var(--text);">Saturday</div>
+                    <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                    <div style="font-weight: 600; color: var(--text);">Sunday</div>
+                    <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                    <div style="font-weight: 600; color: var(--text);">Monday</div>
+                    <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                    <div style="font-weight: 600; color: var(--text);">Thursday</div>
+                    <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 2: Workouts I Can Do at Work -->
+          <section id="work-workouts" class="mb-12" aria-labelledby="work-workouts-title">
+            <h2 id="work-workouts-title" class="text-xl font-bold mb-4" style="color: var(--text);">
+              <span class="inline-flex items-center gap-2">
+                <span aria-hidden="true">🏢</span>
+                Workouts I Can Do at Work
+              </span>
+            </h2>
+            <p class="mb-6" style="color: var(--text-muted);">
+              These are office-friendly 10-minute sessions that require no floor work, no rolling around, and no inversions. They are designed to build wrist resilience, shoulder stability, and core control while looking completely normal in a workplace environment.
+            </p>
+
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <!-- Work Workout 1 -->
+              <article class="workout-card">
+                <div class="workout-card-header">
+                  <h3>Desk Wrist & Forearm Prep</h3>
+                </div>
+                <div class="workout-meta">
+                  <span class="workout-meta-item">⏱️ 10 minutes</span>
+                  <span class="workout-meta-item">🖥️ Desk edge</span>
+                </div>
+                <p class="text-sm mb-2" style="color: var(--text-muted);">Build wrist tolerance needed for handstands</p>
+                <ul class="workout-exercises">
+                  <li>Desk wrist leans — 3×12</li>
+                  <li>Desk palm lifts — 3×12</li>
+                  <li>Desk fingertip holds — 3×10s</li>
+                  <li>Forearm flexor extensions against desk — 2×10</li>
+                </ul>
+              </article>
+
+              <!-- Work Workout 2 -->
+              <article class="workout-card">
+                <div class="workout-card-header">
+                  <h3>Standing Scapular Strength</h3>
+                </div>
+                <div class="workout-meta">
+                  <span class="workout-meta-item">⏱️ 10 minutes</span>
+                  <span class="workout-meta-item">🧱 Wall</span>
+                </div>
+                <p class="text-sm mb-2" style="color: var(--text-muted);">Shoulder stability without using the floor</p>
+                <ul class="workout-exercises">
+                  <li>Standing scap push-ups (against wall) — 3×12</li>
+                  <li>Wall slides ("Y" overhead motions) — 3×10</li>
+                  <li>Serratus punches — 3×12</li>
+                  <li>Band external rotations (optional) — 2×12 each arm</li>
+                </ul>
+              </article>
+
+              <!-- Work Workout 3 -->
+              <article class="workout-card">
+                <div class="workout-card-header">
+                  <h3>Desk "Handstand Muscles" Strength</h3>
+                </div>
+                <div class="workout-meta">
+                  <span class="workout-meta-item">⏱️ 10 minutes</span>
+                  <span class="workout-meta-item">🖥️ Desk + optional band</span>
+                </div>
+                <p class="text-sm mb-2" style="color: var(--text-muted);">Train handstand muscles while standing</p>
+                <ul class="workout-exercises">
+                  <li>Desk lean hold (standing incline plank) — 3×20s</li>
+                  <li>Straight-arm desk shrugs — 3×12</li>
+                  <li>High-angle push-ups on desk — 2×10</li>
+                  <li>Band overhead pull-aparts — 2×12</li>
+                </ul>
+              </article>
+
+              <!-- Work Workout 4 -->
+              <article class="workout-card">
+                <div class="workout-card-header">
+                  <h3>Standing Core Activation</h3>
+                </div>
+                <div class="workout-meta">
+                  <span class="workout-meta-item">⏱️ 10 minutes</span>
+                  <span class="workout-meta-item">✋ No equipment</span>
+                </div>
+                <p class="text-sm mb-2" style="color: var(--text-muted);">Build hollow-body control without lying on the floor</p>
+                <ul class="workout-exercises">
+                  <li>Standing "ribs down" hold — 5×10s</li>
+                  <li>Standing pelvic tilt pulses — 3×10</li>
+                  <li>Standing oblique brace — 3×10s per side</li>
+                  <li>Standing controlled knee lifts — 2×12</li>
+                </ul>
+              </article>
+
+              <!-- Work Workout 5 -->
+              <article class="workout-card">
+                <div class="workout-card-header">
+                  <h3>Shoulder Maintenance Micro-Session</h3>
+                </div>
+                <div class="workout-meta">
+                  <span class="workout-meta-item">⏱️ 5–10 minutes</span>
+                  <span class="workout-meta-item">✋ No equipment</span>
+                </div>
+                <p class="text-sm mb-2" style="color: var(--text-muted);">Keep shoulders healthy for overhead work</p>
+                <ul class="workout-exercises">
+                  <li>Arm circles — 2×20</li>
+                  <li>Scap elevation/depression — 2×12</li>
+                  <li>Shoulder CARs — 2×5 each direction</li>
+                  <li>Chest openers — 2×10</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="card mt-6">
+              <div class="card-body">
+                <p style="color: var(--text-muted); font-size: 0.875rem;">
+                  <strong>Note:</strong> All movements appear discreet and normal in an office environment. No floor, no kneeling, no inversion, no awkward positions. Session duration remains 10 minutes or less.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 2.5: Where I Train Each Part of the Plan -->
+          <section id="training-locations" class="mb-12" aria-labelledby="training-locations-title">
+            <h2 id="training-locations-title" class="text-xl font-bold mb-4" style="color: var(--text);">
+              <span class="inline-flex items-center gap-2">
+                <span aria-hidden="true">📍</span>
+                Where I Train Each Part of the Plan
+              </span>
+            </h2>
+            <p class="mb-6" style="color: var(--text-muted);">
+              My weekly gym schedule gives me access to much better equipment on these days:
+            </p>
+
+            <!-- Gym Schedule Reminder -->
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4 mb-8">
+              <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                <div style="font-weight: 600; color: var(--text);">Saturday</div>
+                <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
+              </div>
+              <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                <div style="font-weight: 600; color: var(--text);">Sunday</div>
+                <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
+              </div>
+              <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                <div style="font-weight: 600; color: var(--text);">Monday</div>
+                <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
+              </div>
+              <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                <div style="font-weight: 600; color: var(--text);">Thursday</div>
+                <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
+              </div>
+            </div>
+
+            <p class="mb-6" style="color: var(--text-muted);">
+              Because of this, the handstand plan is split into three environments:
+            </p>
+
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+              <!-- Environment 1: Gym -->
+              <article class="phase-card">
+                <div class="phase-header">
+                  <h3>🏋️ 1. Gym Sessions – Skill Training</h3>
+                  <p class="phase-theme">Heavy Progressions</p>
+                </div>
+                <div class="phase-body">
+                  <p class="text-sm mb-4" style="color: var(--text-muted);">
+                    These sessions are where I do the serious handstand progressions that need walls, boxes, space, and safe surfaces.
+                  </p>
+                  
+                  <h4 class="font-semibold mb-2" style="color: var(--text);">These include:</h4>
+                  <ul class="workout-exercises mb-4">
+                    <li>Box pike holds</li>
+                    <li>Box pike shoulder taps</li>
+                    <li>Wall walks (¾ height → full height)</li>
+                    <li>Chest-to-wall holds</li>
+                    <li>Toe pulls & heel pulls</li>
+                    <li>Kick-up practice (controlled entry to wall)</li>
+                    <li>Handstand step-outs</li>
+                    <li>Short-distance handstand walks</li>
+                  </ul>
+
+                  <h4 class="font-semibold mb-2" style="color: var(--text);">Recommended timing:</h4>
+                  <div class="session-block">
+                    <h5>Saturday AM (Before class, 10 min)</h5>
+                    <p class="text-sm" style="color: var(--text-secondary);">Box pike → wall plank → wall walks</p>
+                  </div>
+                  <div class="session-block">
+                    <h5>Sunday AM (After class, 10 min)</h5>
+                    <p class="text-sm" style="color: var(--text-secondary);">Chest-to-wall holds → toe pulls → heel pulls</p>
+                  </div>
+                  <div class="session-block">
+                    <h5>Monday PM (Before class, 10 min)</h5>
+                    <p class="text-sm" style="color: var(--text-secondary);">Kick-up practice → wall "kiss and come away"</p>
+                  </div>
+                  <div class="session-block">
+                    <h5>Thursday PM (After class, 10 min)</h5>
+                    <p class="text-sm" style="color: var(--text-secondary);">Walking drills → step-outs → control drills</p>
+                  </div>
+                  <p class="text-sm mt-4" style="color: var(--color-primary-500); font-weight: 500;">
+                    This 4-day structure drives all major skill progression.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Environment 2: Work -->
+              <article class="phase-card">
+                <div class="phase-header">
+                  <h3>🏢 2. Work Sessions – Support Training</h3>
+                  <p class="phase-theme">Discreet, No Floor Work</p>
+                </div>
+                <div class="phase-body">
+                  <p class="text-sm mb-4" style="color: var(--text-muted);">
+                    These sessions build the joint strength and shoulder stability required for handstands without lying on the floor or being upside-down.
+                  </p>
+                  
+                  <h4 class="font-semibold mb-2" style="color: var(--text);">These include:</h4>
+                  <ul class="workout-exercises mb-4">
+                    <li>Desk wrist leans</li>
+                    <li>Desk palm lifts</li>
+                    <li>Fingertip holds</li>
+                    <li>Standing scap push-ups</li>
+                    <li>Wall slides</li>
+                    <li>Desk-lean straight-arm holds</li>
+                    <li>Band external rotations</li>
+                    <li>Standing core activation</li>
+                  </ul>
+
+                  <p class="text-sm mt-4" style="color: var(--color-secondary-500); font-weight: 500;">
+                    These make the gym drills easier, safer, and more consistent.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Environment 3: Home -->
+              <article class="phase-card">
+                <div class="phase-header">
+                  <h3>🏠 3. Home Sessions – Optional Micro Sessions</h3>
+                  <p class="phase-theme">Optional Boosters</p>
+                </div>
+                <div class="phase-body">
+                  <p class="text-sm mb-4" style="color: var(--text-muted);">
+                    These are not required but help accelerate progress:
+                  </p>
+                  
+                  <ul class="workout-exercises mb-4">
+                    <li>Wrist conditioning</li>
+                    <li>Band shoulder work</li>
+                    <li>Standing core control</li>
+                    <li>Light desk-lean holds</li>
+                  </ul>
+
+                  <p class="text-sm mt-4" style="color: var(--text-muted);">
+                    Even 5 minutes helps, but these are optional.
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="card mt-6">
+              <div class="card-body">
+                <h4 class="font-semibold mb-3" style="color: var(--text);">📋 Summary</h4>
+                <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg);">
+                    <strong style="color: var(--color-primary-500);">Gym</strong>
+                    <span style="color: var(--text-muted);"> = Skill work (inversion, balance, walking)</span>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg);">
+                    <strong style="color: var(--color-secondary-500);">Work</strong>
+                    <span style="color: var(--text-muted);"> = Support work (wrist, shoulder, scapula)</span>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg);">
+                    <strong style="color: var(--color-success-500);">Home</strong>
+                    <span style="color: var(--text-muted);"> = Optional booster</span>
+                  </div>
+                </div>
+                <p class="text-sm mt-4" style="color: var(--text-muted);">
+                  This structure fits perfectly into my existing weekly routine and maximises progress toward my December 2026 handstand walk goal.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 3: Ad-hoc Exercises -->
+          <section id="adhoc-exercises" class="mb-12" aria-labelledby="adhoc-exercises-title">
+            <h2 id="adhoc-exercises-title" class="text-xl font-bold mb-4" style="color: var(--text);">
+              <span class="inline-flex items-center gap-2">
+                <span aria-hidden="true">⚡</span>
+                Ad-hoc Exercises
+              </span>
+            </h2>
+            <p class="mb-6" style="color: var(--text-muted);">
+              Quick, plug-and-play drills you can drop into warm-ups or random spare moments.
+            </p>
+
+            <div class="adhoc-grid">
+              <div class="adhoc-card">
+                <h4>Wrist Rocks</h4>
+                <p class="adhoc-location">📍 Anywhere with floor space</p>
+                <p class="adhoc-desc">Shift weight forward/back to build wrist tolerance.</p>
+                <a href="https://www.youtube.com/results?search_query=wrist+rocks+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+              </div>
+
+              <div class="adhoc-card">
+                <h4>Palm Lifts</h4>
+                <p class="adhoc-location">📍 At desk or on floor</p>
+                <p class="adhoc-desc">Strengthens finger flexors and wrist stability.</p>
+                <a href="https://www.youtube.com/results?search_query=palm+lifts+wrist+exercise" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+              </div>
+
+              <div class="adhoc-card">
+                <h4>Scap Push-ups</h4>
+                <p class="adhoc-location">📍 Home or gym</p>
+                <p class="adhoc-desc">Keeps shoulders strong and stable for overhead work.</p>
+                <a href="https://www.youtube.com/results?search_query=scapular+push+ups+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+              </div>
+
+              <div class="adhoc-card">
+                <h4>Box Pike Hold</h4>
+                <p class="adhoc-location">📍 Bench/box/sofa</p>
+                <p class="adhoc-desc">Practice inverted loading safely with hips over shoulders.</p>
+                <a href="https://www.youtube.com/results?search_query=pike+hold+box+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+              </div>
+
+              <div class="adhoc-card">
+                <h4>Wall Plank</h4>
+                <p class="adhoc-location">📍 Near a wall</p>
+                <p class="adhoc-desc">Beginner inversion confidence and core stiffness.</p>
+                <a href="https://www.youtube.com/results?search_query=wall+plank+handstand+progression" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+              </div>
+
+              <div class="adhoc-card">
+                <h4>Fingertip Holds</h4>
+                <p class="adhoc-location">📍 Desk edge or floor</p>
+                <p class="adhoc-desc">Trains balance corrections through the hands.</p>
+                <a href="https://www.youtube.com/results?search_query=fingertip+holds+handstand+balance" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 4: Full 12-Month Plan -->
+          <section id="twelve-month-plan" aria-labelledby="twelve-month-plan-title">
+            <h2 id="twelve-month-plan-title" class="text-xl font-bold mb-4" style="color: var(--text);">
+              <span class="inline-flex items-center gap-2">
+                <span aria-hidden="true">📋</span>
+                Full 12-Month Handstand Plan
+              </span>
+            </h2>
+
+            <!-- Table of Contents -->
+            <nav class="toc" aria-label="Plan sections">
+              <h3>Quick Navigation</h3>
+              <ul>
+                <li><a href="#phase-1">Phase 1: Foundations (Months 1–3)</a></li>
+                <li><a href="#phase-2">Phase 2: Inversion Comfort (Months 4–6)</a></li>
+                <li><a href="#phase-3">Phase 3: Static Handstand (Months 7–9)</a></li>
+                <li><a href="#phase-4">Phase 4: Walking Mechanics (Months 10–12)</a></li>
+              </ul>
+            </nav>
+
+            <!-- Plan Intro -->
+            <div class="plan-intro">
+              <h2>12-Month Handstand Walk Plan (Dec 2025 → Dec 2026)</h2>
+              <p class="goal">🎯 Goal: By December 2026, be able to handstand walk across the gym.</p>
+              <h4 style="color: var(--text); font-weight: 600; margin-bottom: 0.5rem;">Assumptions:</h4>
+              <ul class="assumptions-list">
+                <li>3× per week, ~10 minutes per session</li>
+                <li>I already train 4×/week bootcamp-style (CrossFit/Hyrox style)</li>
+                <li>Focus is on wrists, shoulders, balance, and inversion confidence</li>
+              </ul>
+            </div>
+
+            <!-- Phase 1 -->
+            <article id="phase-1" class="phase-card">
+              <div class="phase-header">
+                <h3>Phase 1 – Foundations (Months 1–3: Dec–Feb)</h3>
+                <p class="phase-theme"><strong>Theme:</strong> Build joint tolerance and basic overhead structure.</p>
+              </div>
+              <div class="phase-body">
+                <div class="phase-section">
+                  <h4>Goals</h4>
+                  <ul>
+                    <li>Stronger, pain-free wrists under load</li>
+                    <li>Scapular strength and endurance for overhead positions</li>
+                    <li>Comfort with early inversion (planks, partial wall walks)</li>
+                  </ul>
+                </div>
+
+                <div class="phase-section">
+                  <h4>Session Template (3×/week, 10 minutes)</h4>
+                  
+                  <div class="session-block">
+                    <h5>1. Wrist Conditioning (~3 min)</h5>
+                    <ul>
+                      <li>Wrist rocks — 2×12 <a href="https://www.youtube.com/results?search_query=wrist+rocks+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Palm lifts — 2×12 <a href="https://www.youtube.com/results?search_query=palm+lifts+wrist+exercise" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Fingertip holds — 2×10–15s <a href="https://www.youtube.com/results?search_query=fingertip+holds+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>2. Scapular Strength (~3 min)</h5>
+                    <ul>
+                      <li>Scap push-ups — 2×10 <a href="https://www.youtube.com/results?search_query=scapular+push+ups+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Box pike hold — 2×20–25s <a href="https://www.youtube.com/results?search_query=pike+hold+box+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>3. Early Inversion (~4 min)</h5>
+                    <ul>
+                      <li>Wall plank — 2×30s <a href="https://www.youtube.com/results?search_query=wall+plank+handstand+progression" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Wall walk to halfway — 2 slow reps <a href="https://www.youtube.com/results?search_query=wall+walks+handstand+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="phase-section">
+                  <div class="targets-box">
+                    <h5>End-of-Phase Targets (by end of Month 3)</h5>
+                    <ul>
+                      <li>Box pike hold: <strong>30–40 seconds</strong> with control</li>
+                      <li>Wall walk: comfortable to ~¾ height</li>
+                      <li>Wrist discomfort much reduced under load</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Phase 2 -->
+            <article id="phase-2" class="phase-card">
+              <div class="phase-header">
+                <h3>Phase 2 – Inversion Comfort (Months 4–6: Mar–May)</h3>
+                <p class="phase-theme"><strong>Theme:</strong> Become genuinely comfortable upside-down.</p>
+              </div>
+              <div class="phase-body">
+                <div class="phase-section">
+                  <h4>Goals</h4>
+                  <ul>
+                    <li>Confident, repeatable wall walks</li>
+                    <li>Short but solid chest-to-wall holds</li>
+                    <li>Better straight-arm shoulder strength</li>
+                  </ul>
+                </div>
+
+                <div class="phase-section">
+                  <h4>Session Template (3×/week, 10 minutes)</h4>
+                  
+                  <div class="session-block">
+                    <h5>1. Wrist Loading – Level 2 (~2 min)</h5>
+                    <ul>
+                      <li>Leaning wrist rocks — 2×10 <a href="https://www.youtube.com/results?search_query=wrist+rocks+handstand+advanced" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Wrist weight-shifts — 2×10s each direction <a href="https://www.youtube.com/results?search_query=wrist+weight+shifts+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>2. Wall Walks & Holds (~5 min)</h5>
+                    <ul>
+                      <li>Wall walks to ¾ height — 2×1 <a href="https://www.youtube.com/results?search_query=wall+walks+handstand+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Chest-to-wall hold — 3×6–10s <a href="https://www.youtube.com/results?search_query=chest+to+wall+handstand+hold" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>3. Box Control (~3 min)</h5>
+                    <ul>
+                      <li>Box pike shoulder taps — 2×6 per side <a href="https://www.youtube.com/results?search_query=pike+shoulder+taps+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Tuck plank on box — 1×20–30s <a href="https://www.youtube.com/results?search_query=tuck+plank+box+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="phase-section">
+                  <div class="targets-box">
+                    <h5>End-of-Phase Targets (by end of Month 6)</h5>
+                    <ul>
+                      <li>Chest-to-wall holds: <strong>15 seconds</strong> with good form</li>
+                      <li>Wall walks feel controlled (not panicky)</li>
+                      <li>Shoulder taps on box feel stable</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Phase 3 -->
+            <article id="phase-3" class="phase-card">
+              <div class="phase-header">
+                <h3>Phase 3 – Static Handstand (Months 7–9: Jun–Aug)</h3>
+                <p class="phase-theme"><strong>Theme:</strong> Learn to balance on the hands.</p>
+              </div>
+              <div class="phase-body">
+                <div class="phase-section">
+                  <h4>Goals</h4>
+                  <ul>
+                    <li>Consistent kick-up entries</li>
+                    <li>3–5 second freestanding holds</li>
+                    <li>Better control via wrist pressure (important because of my single-sided deafness / balance limitation)</li>
+                  </ul>
+                </div>
+
+                <div class="phase-section">
+                  <h4>Session Template (3×/week, 10 minutes)</h4>
+                  
+                  <div class="session-block">
+                    <h5>1. Wall Balance Mechanics (~4 min)</h5>
+                    <ul>
+                      <li>Toe pulls from wall — 2×8 <a href="https://www.youtube.com/results?search_query=toe+pulls+handstand+balance" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Heel pulls from wall — 2×8 <a href="https://www.youtube.com/results?search_query=heel+pulls+handstand+balance" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>2. Kick-Up Practice (~3 min)</h5>
+                    <ul>
+                      <li>Kick-up to wall "kiss and come away" — 3×3 reps <a href="https://www.youtube.com/results?search_query=handstand+kickup+tutorial+wall" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>3. Freestanding Attempts (~3 min)</h5>
+                    <ul>
+                      <li>6–8 controlled attempts, focusing on consistency, not max hold time <a href="https://www.youtube.com/results?search_query=freestanding+handstand+practice" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="phase-section">
+                  <div class="targets-box">
+                    <h5>End-of-Phase Targets (by end of Month 9)</h5>
+                    <ul>
+                      <li>3–5 second unassisted freestanding handstand</li>
+                      <li>Kick-ups are predictable (not slamming into the wall)</li>
+                      <li>Able to leave the wall and return smoothly</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Phase 4 -->
+            <article id="phase-4" class="phase-card">
+              <div class="phase-header">
+                <h3>Phase 4 – Walking Mechanics (Months 10–12: Sep–Nov)</h3>
+                <p class="phase-theme"><strong>Theme:</strong> Turn static balance into controlled movement.</p>
+              </div>
+              <div class="phase-body">
+                <div class="phase-section">
+                  <h4>Goals</h4>
+                  <ul>
+                    <li>Initiate and control steps while in handstand</li>
+                    <li>Walk 3–5 metres under control</li>
+                    <li>Confident entry, walk, and exit pattern</li>
+                  </ul>
+                </div>
+
+                <div class="phase-section">
+                  <h4>Session Template (3×/week, 10 minutes)</h4>
+                  
+                  <div class="session-block">
+                    <h5>1. Activation Hold (~2 min)</h5>
+                    <ul>
+                      <li>Chest-to-wall hold — 1×10–15s to "prime" the shoulders <a href="https://www.youtube.com/results?search_query=chest+to+wall+handstand+hold" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>2. Walking Technique (~5 min)</h5>
+                    <ul>
+                      <li>Wall walks with step-outs — 2×4 steps <a href="https://www.youtube.com/results?search_query=handstand+step+outs+wall" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Small distance free walks (1–2m) — 4 attempts <a href="https://www.youtube.com/results?search_query=handstand+walk+tutorial+beginner" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Optional line walking between two floor markers — 2 attempts <a href="https://www.youtube.com/results?search_query=handstand+walk+straight+line" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>3. Freestanding Control (~3 min)</h5>
+                    <ul>
+                      <li>4–6 freestanding attempts with a focus on <em>controlled exits</em> <a href="https://www.youtube.com/results?search_query=handstand+bail+controlled+exit" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="phase-section">
+                  <div class="targets-box">
+                    <h5>End-of-Phase Targets (by December 2026)</h5>
+                    <ul>
+                      <li>Kick into a stable handstand with confidence</li>
+                      <li>Walk 3–5m across the gym</li>
+                      <li>Use wrist pressure and small steps to correct balance</li>
+                      <li>Exit safely and consistently</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 px-6 mt-12" role="contentinfo">
+          <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+              <div class="flex items-center gap-3">
+                <svg class="sidebar-nav-icon text-primary-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+                </svg>
+                <span class="font-semibold">Iron & Ale</span>
+              </div>
+              
+              <p class="text-sm text-gray-400">
+                &copy; <span id="footer-year">2024</span> Iron & Ale. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    // Set current year
+    const currentYear = new Date().getFullYear();
+    document.getElementById('footer-year').textContent = currentYear;
+    document.getElementById('sidebar-year').textContent = currentYear;
+
+    // Password protection
+    const PAGE_PASSWORD = 'Handstand2026';
+    
+    function checkPassword(event) {
+      event.preventDefault();
+      const password = document.getElementById('page-password').value;
+      const errorMsg = document.getElementById('password-error');
+      
+      if (password === PAGE_PASSWORD) {
+        document.getElementById('password-modal').style.display = 'none';
+        document.getElementById('page-content').style.display = '';
+        sessionStorage.setItem('handstandPlanAuth', 'true');
+      } else {
+        errorMsg.style.display = 'block';
+        document.getElementById('page-password').value = '';
+        document.getElementById('page-password').focus();
+      }
+    }
+    
+    // Check if already authenticated in this session
+    if (sessionStorage.getItem('handstandPlanAuth') === 'true') {
+      document.getElementById('password-modal').style.display = 'none';
+      document.getElementById('page-content').style.display = '';
+    }
+
+    /* ============================================
+       NEXT WORKOUT DATA - Edit these values to update your next workout
+       ============================================ */
+    const nextWorkout = {
+      name: "Foundations Session 1",
+      datetime: "Saturday, Nov 30, 2025 @ 8:00 AM",
+      location: "Gym",
+      focus: "Wrist prep + box pike holds",
+      duration: "10 minutes",
+      equipment: "Floor space, wall, yoga mat",
+      // Change this to your actual YouTube video ID
+      videoId: "dQw4w9WgXcQ"
+    };
+
+    /* ============================================
+       YOUR GYM SCHEDULE
+       - Saturday AM (morning)
+       - Sunday AM (morning)  
+       - Monday PM (evening)
+       - Thursday PM (evening)
+       ============================================ */
+
+    // Update the page with next workout data
+    function updateNextWorkout() {
+      document.getElementById('workout-name').textContent = nextWorkout.name;
+      document.getElementById('workout-datetime').textContent = nextWorkout.datetime;
+      document.getElementById('workout-location').textContent = nextWorkout.location;
+      document.getElementById('workout-focus').textContent = nextWorkout.focus;
+      document.getElementById('workout-duration').textContent = nextWorkout.duration;
+      document.getElementById('workout-equipment').textContent = nextWorkout.equipment;
+      
+      // Update YouTube embed
+      const iframe = document.querySelector('.video-container iframe');
+      if (iframe) {
+        iframe.src = `https://www.youtube.com/embed/${nextWorkout.videoId}`;
+      }
+    }
+
+    /* ============================================
+       PHASE PROGRESS TRACKER
+       Auto-detects current phase based on date
+       ============================================ */
+    const phases = [
+      { id: 1, name: 'Foundations', startMonth: 12, startYear: 2025, endMonth: 2, endYear: 2026 },
+      { id: 2, name: 'Inversion Comfort', startMonth: 3, startYear: 2026, endMonth: 5, endYear: 2026 },
+      { id: 3, name: 'Static Handstand', startMonth: 6, startYear: 2026, endMonth: 8, endYear: 2026 },
+      { id: 4, name: 'Walking Mechanics', startMonth: 9, startYear: 2026, endMonth: 11, endYear: 2026 }
+    ];
+
+    function getCurrentPhase() {
+      const now = new Date();
+      const currentMonth = now.getMonth() + 1; // 1-12
+      const currentYear = now.getFullYear();
+
+      for (let i = 0; i < phases.length; i++) {
+        const phase = phases[i];
+        const startDate = new Date(phase.startYear, phase.startMonth - 1, 1);
+        const endDate = new Date(phase.endYear, phase.endMonth, 0); // Last day of end month
+
+        if (now >= startDate && now <= endDate) {
+          return { current: i + 1, completed: i };
+        }
+      }
+
+      // Before Phase 1
+      if (currentYear < 2025 || (currentYear === 2025 && currentMonth < 12)) {
+        return { current: 1, completed: 0, preStart: true };
+      }
+
+      // After Phase 4
+      return { current: 4, completed: 4, complete: true };
+    }
+
+    function updateProgressTracker() {
+      const { current, completed, preStart, complete } = getCurrentPhase();
+      const label = document.getElementById('current-phase-label');
+
+      // Update progress tracker UI
+      for (let i = 1; i <= 4; i++) {
+        const phaseEl = document.getElementById(`progress-phase-${i}`);
+        const checkbox = phaseEl.querySelector('.progress-checkbox');
+
+        if (i < current || (complete && i <= completed)) {
+          phaseEl.classList.add('completed');
+          phaseEl.classList.remove('current');
+          checkbox.innerHTML = '✓';
+        } else if (i === current && !complete) {
+          phaseEl.classList.add('current');
+          phaseEl.classList.remove('completed');
+          checkbox.innerHTML = '●';
+        } else {
+          phaseEl.classList.remove('completed', 'current');
+          checkbox.innerHTML = i;
+        }
+      }
+
+      // Update current phase badge
+      if (complete) {
+        label.textContent = '🎉 Complete!';
+        label.style.background = 'var(--color-success-500)';
+      } else if (preStart) {
+        label.textContent = `Starting Soon: Phase ${current}`;
+      } else {
+        label.textContent = `Current: Phase ${current}`;
+      }
+
+      // Highlight the current phase card in the 12-month plan
+      document.querySelectorAll('.phase-card').forEach((card, index) => {
+        if (index + 1 === current && !complete) {
+          card.classList.add('current-phase');
+        } else {
+          card.classList.remove('current-phase');
+        }
+      });
+    }
+
+    // Initialize
+    updateNextWorkout();
+    updateProgressTracker();
+  </script>
+</body>
+</html>
