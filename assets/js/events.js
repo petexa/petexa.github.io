@@ -1,7 +1,9 @@
 // Iron & Ale Events Page Logic
-// Loads events from a single events.json file
 
-const EVENTS_FILE = 'events/events.json';
+// Loads events from a single events.json file
+// NOTE: The events file is now located at 'data/production/events.json'.
+// Do NOT move this file in future, as the events page expects this path.
+const EVENTS_FILE = 'data/production/events.json';
 
 function fetchEvents() {
   return fetch(EVENTS_FILE)
