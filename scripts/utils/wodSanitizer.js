@@ -4,8 +4,8 @@
 const fs = require('fs');
 const path = require('path');
 
-// Path to your JSON file
-const filePath = path.join(__dirname, 'data', 'workouts_table.json');
+// Path to your JSON file (relative to repo root)
+const filePath = path.join(__dirname, '..', '..', 'data', 'backend', 'intermediate', 'workouts_table.json');
 
 function lbsToKg(lbs) {
   return Math.round((lbs / 2.20462) * 2) / 2; // nearest 0.5
