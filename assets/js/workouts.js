@@ -23,7 +23,9 @@
   var STORAGE_KEY = 'pfx:pinnedWorkouts';
   var MAX_PINS = 3;
   var RANDOM_COUNT = 6;
-  var DATA_URL = '../data/reports/workouts_final.json';
+  // NOTE: The workouts file is now located at 'data/production/workouts.json'.
+  // Do NOT move this file in future, as the workouts page expects this path.
+  var DATA_URL = 'data/production/workouts.json';
   var DESC_TRUNCATE_LENGTH = 120;
   // Animation timing - matches CSS --transition-slow (300ms)
   var ANIMATION_DURATION_MS = 300;
