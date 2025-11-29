@@ -448,11 +448,11 @@
                 </div>
                 <div class="workout-detail-item">
                   <div class="workout-detail-label">Date & Time</div>
-                  <div class="workout-detail-value" id="workout-datetime">Monday, Dec 2, 2025 @ 7:00 AM</div>
+                  <div class="workout-detail-value" id="workout-datetime">Saturday, Nov 30, 2025 @ 8:00 AM</div>
                 </div>
                 <div class="workout-detail-item">
                   <div class="workout-detail-label">Location</div>
-                  <div class="workout-detail-value" id="workout-location">Home</div>
+                  <div class="workout-detail-value" id="workout-location">Gym</div>
                 </div>
                 <div class="workout-detail-item">
                   <div class="workout-detail-label">Focus</div>
@@ -477,6 +477,31 @@
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                   allowfullscreen>
                 </iframe>
+              </div>
+            </div>
+
+            <!-- Weekly Schedule -->
+            <div class="card" style="margin-top: 1rem;">
+              <div class="card-body">
+                <h3 class="font-semibold mb-3" style="color: var(--text);">📆 My Weekly Gym Schedule</h3>
+                <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                    <div style="font-weight: 600; color: var(--text);">Saturday</div>
+                    <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                    <div style="font-weight: 600; color: var(--text);">Sunday</div>
+                    <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                    <div style="font-weight: 600; color: var(--text);">Monday</div>
+                    <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                    <div style="font-weight: 600; color: var(--text);">Thursday</div>
+                    <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -917,14 +942,22 @@
        ============================================ */
     const nextWorkout = {
       name: "Foundations Session 1",
-      datetime: "Monday, Dec 2, 2025 @ 7:00 AM",
-      location: "Home",
+      datetime: "Saturday, Nov 30, 2025 @ 8:00 AM",
+      location: "Gym",
       focus: "Wrist prep + box pike holds",
       duration: "10 minutes",
       equipment: "Floor space, wall, yoga mat",
       // Change this to your actual YouTube video ID
       videoId: "dQw4w9WgXcQ"
     };
+
+    /* ============================================
+       YOUR GYM SCHEDULE
+       - Saturday AM (morning)
+       - Sunday AM (morning)  
+       - Monday PM (evening)
+       - Thursday PM (evening)
+       ============================================ */
 
     // Update the page with next workout data
     function updateNextWorkout() {
