@@ -75,13 +75,13 @@
     var html = 
       '<div class="wod-widget-card">' +
         '<div class="wod-widget-header">' +
-          '<span class="wod-badge">⭐ WOD</span>' +
+          '<span class="wod-badge" title="Workout of the Day">⭐ WOD</span>' +
           '<h3 class="wod-widget-title">' + name + '</h3>' +
         '</div>' +
         '<div class="wod-widget-meta">' +
-          '<span class="wod-meta-item">🏷️ ' + category + '</span>' +
-          (level !== '—' ? '<span class="wod-meta-item">🔥 ' + level + '</span>' : '') +
-          (format !== '—' ? '<span class="wod-meta-item">⏱️ ' + format + '</span>' : '') +
+          '<span class="wod-meta-item" title="Category">🏷️ ' + category + '</span>' +
+          (level !== '—' ? '<span class="wod-meta-item" title="Difficulty">🔥 ' + level + '</span>' : '') +
+          (format !== '—' ? '<span class="wod-meta-item" title="Format">⏱️ ' + format + '</span>' : '') +
         '</div>' +
         '<p class="wod-widget-desc">' + shortDesc + '</p>' +
         '<a href="workouts/?workout=' + workout.id + '" class="btn btn-primary btn-sm mt-4">' +
