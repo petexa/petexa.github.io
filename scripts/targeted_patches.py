@@ -1,7 +1,22 @@
+"""
+Targeted Patches + Final Quality Gate
+======================================
+
+This script is the final step in the workout data pipeline:
+1. Applies targeted manual overrides for specific benchmark/hero workouts
+2. Enforces data quality constraints (removes placeholders, cleans flags)
+3. Produces the canonical production file: workouts_final.json
+
+Usage:
+    python scripts/targeted_patches.py
+    python scripts/targeted_patches.py --dry-run
+"""
+
 import json
 import os
+import re
 from copy import deepcopy
-from typing import Dict, Any
+from typing import Dict, Any, List, Tuple
 
 # -------- CONFIG --------
 
@@ -9,6 +24,30 @@ INPUT_PATH = os.path.join("data", "reports", "workouts_flavor_enhanced.json")
 OUTPUT_PATH = os.path.join("data", "reports", "workouts_final.json")
 
 DRY_RUN = False  # set to False once you're happy
+
+# Placeholder patterns that indicate incomplete data
+# Using character class for various dash types (em-dash, en-dash, hyphen)
+PLACEHOLDER_PATTERNS = [
+    r"unknown\s*[\u2014\u2013\-]\s*needs\s*manual\s*review",
+    r"no description available",
+    r"web search performed",
+    r"\[ai generated",
+    r"placeholder",
+    r"tbd\b",
+]
+
+# Critical fields that should not be empty in final output
+CRITICAL_FIELDS = [
+    "Name", "Category", "FormatDuration", "ScoreType"
+]
+
+# Fields where empty string should be converted to None
+OPTIONAL_TEXT_FIELDS = [
+    "Description", "CoachNotes", "Flavor_Text",
+    "Instructions", "Instructions_Clean",
+    "MovementTypes", "DifficultyTier", "ScalingOptions",
+    "Warmup", "Coaching_Cues", "Stimulus", "TargetStimulus"
+]
 
 
 # -------- TARGETED OVERRIDES --------
@@ -140,7 +179,79 @@ TARGET_OVERRIDES: Dict[str, Dict[str, Any]] = {
 
 # -------- CORE LOGIC --------
 
-def apply_overrides(w: Dict[str, Any]) -> (Dict[str, Any], bool):
+def is_placeholder(value: str) -> bool:
+    """Check if a string contains placeholder text."""
+    if not isinstance(value, str):
+        return False
+    value_lower = value.lower().strip()
+    for pattern in PLACEHOLDER_PATTERNS:
+        if re.search(pattern, value_lower, re.IGNORECASE):
+            return True
+    return False
+
+
+def clean_text_field(value: Any) -> Any:
+    """Clean a text field - remove placeholders and normalize empty strings."""
+    if not isinstance(value, str):
+        return value
+    
+    # Strip whitespace
+    cleaned = value.strip()
+    
+    # Check for placeholder content
+    if is_placeholder(cleaned):
+        return None
+    
+    # Return None for empty strings
+    if not cleaned:
+        return None
+    
+    return cleaned
+
+
+def apply_quality_gate(w: Dict[str, Any]) -> Tuple[Dict[str, Any], List[str]]:
+    """
+    Apply final quality constraints to a workout.
+    Returns (cleaned workout, list of issues found).
+    """
+    w = deepcopy(w)
+    issues = []
+    
+    # 1. Clean optional text fields (remove placeholders, normalize empty)
+    for field in OPTIONAL_TEXT_FIELDS:
+        if field in w:
+            old_val = w[field]
+            new_val = clean_text_field(old_val)
+            if new_val != old_val:
+                w[field] = new_val
+                if old_val and is_placeholder(str(old_val)):
+                    issues.append(f"Removed placeholder from {field}")
+    
+    # 2. Clear enrichment flags for production
+    if w.get("needsEnrichment"):
+        if isinstance(w["needsEnrichment"], list) and len(w["needsEnrichment"]) > 0:
+            issues.append(f"Cleared needsEnrichment: {w['needsEnrichment']}")
+        w["needsEnrichment"] = []
+    
+    if w.get("needsRevalidation") is True:
+        issues.append("Cleared needsRevalidation flag")
+        w["needsRevalidation"] = False
+    
+    # 3. Remove internal tracking fields from production output
+    internal_fields = ["changes", "enrichedFields", "source", "validationErrors"]
+    for field in internal_fields:
+        if field in w:
+            del w[field]
+    
+    # 4. Ensure critical fields have values
+    for field in CRITICAL_FIELDS:
+        if not w.get(field):
+            issues.append(f"Missing critical field: {field}")
+    
+    return w, issues
+
+
+def apply_overrides(w: Dict[str, Any]) -> Tuple[Dict[str, Any], bool]:
     """Apply TARGET_OVERRIDES for this workout (by Name) if present."""
     name = w.get("Name")
     if not name or name not in TARGET_OVERRIDES:
@@ -175,32 +286,57 @@ def main():
     print(f"Loaded {total} workouts from {INPUT_PATH}")
 
     cleaned = []
-    modified = 0
-    examples = []
+    overrides_applied = 0
+    quality_issues_count = 0
+    override_examples = []
+    quality_examples = []
 
     for w in workouts:
-        new_w, changed = apply_overrides(w)
-        cleaned.append(new_w)
-        if changed:
-            modified += 1
-            if len(examples) < 20:
-                examples.append({"id": new_w.get("id"), "Name": new_w.get("Name")})
+        # Step 1: Apply targeted overrides
+        new_w, override_changed = apply_overrides(w)
+        if override_changed:
+            overrides_applied += 1
+            if len(override_examples) < 10:
+                override_examples.append({"id": new_w.get("id"), "Name": new_w.get("Name")})
+        
+        # Step 2: Apply quality gate (final cleanup)
+        final_w, quality_issues = apply_quality_gate(new_w)
+        if quality_issues:
+            quality_issues_count += 1
+            if len(quality_examples) < 10:
+                quality_examples.append({
+                    "id": final_w.get("id"),
+                    "Name": final_w.get("Name"),
+                    "issues": quality_issues
+                })
+        
+        cleaned.append(final_w)
 
-    print(f"Workouts modified by targeted patches: {modified}")
-    if examples:
-        print("Examples:")
-        for ex in examples:
-            print(f" - id={ex['id']}, name={ex['Name']}")
+    print(f"\n=== Pipeline Summary ===")
+    print(f"Total workouts processed: {total}")
+    print(f"Targeted overrides applied: {overrides_applied}")
+    print(f"Workouts with quality issues cleaned: {quality_issues_count}")
+    
+    if override_examples:
+        print("\nOverride examples:")
+        for ex in override_examples:
+            print(f"  - id={ex['id']}, name={ex['Name']}")
+    
+    if quality_examples:
+        print("\nQuality cleanup examples:")
+        for ex in quality_examples[:5]:
+            print(f"  - id={ex['id']}, name={ex['Name']}: {', '.join(ex['issues'][:3])}")
 
     if DRY_RUN:
-        print("DRY_RUN is True: no output file written.")
+        print("\nDRY_RUN is True: no output file written.")
         return
 
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(cleaned, f, ensure_ascii=False, indent=2)
 
-    print(f"Wrote final workouts file to: {OUTPUT_PATH}")
+    print(f"\n✅ Wrote final workouts file to: {OUTPUT_PATH}")
+    print(f"   This is the canonical production file for the frontend.")
 
 
 if __name__ == "__main__":
