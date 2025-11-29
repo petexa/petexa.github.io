@@ -668,8 +668,9 @@
    * @returns {Object|null} Workout object or null
    */
   function findWorkoutById(id) {
+    var strId = String(id);
     for (var i = 0; i < workouts.length; i++) {
-      if (workouts[i].id === id) {
+      if (String(workouts[i].id) === strId) {
         return workouts[i];
       }
     }
@@ -691,7 +692,7 @@
       card.addEventListener('click', function(e) {
         // Don't open modal if clicking pin button
         if (e.target.closest('.pin-btn')) return;
-        var workoutId = parseInt(card.dataset.workoutId, 10);
+        var workoutId = card.dataset.workoutId;
         openModal(workoutId);
       });
 
@@ -700,7 +701,7 @@
           // Don't open modal if focus is on pin button
           if (e.target.closest('.pin-btn')) return;
           e.preventDefault();
-          var workoutId = parseInt(card.dataset.workoutId, 10);
+          var workoutId = card.dataset.workoutId;
           openModal(workoutId);
         }
       });
@@ -729,7 +730,7 @@
    * @param {Element} btn - Pin button element
    */
   function handlePinClick(btn) {
-    var id = parseInt(btn.dataset.pinId, 10);
+    var id = btn.dataset.pinId;
     var isPinned = btn.getAttribute('aria-pressed') === 'true';
     var workout = findWorkoutById(id);
     var workoutName = workout ? workout.Name : 'workout';
@@ -810,13 +811,10 @@
     var params = new URLSearchParams(window.location.search);
     var workoutParam = params.get('workout');
     if (workoutParam) {
-      var id = parseInt(workoutParam, 10);
-      if (!isNaN(id)) {
-        // Open modal after a short delay to ensure cards are rendered
-        setTimeout(function() {
-          openModal(id);
-        }, 100);
-      }
+      // Keep as string to match workout IDs
+      setTimeout(function() {
+        openModal(workoutParam);
+      }, 100);
     }
   }
 
