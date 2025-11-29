@@ -321,6 +321,195 @@
       left: 0.25rem;
       color: var(--text-muted);
     }
+    /* Quick Navigation - Full Page */
+    .quick-nav {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      position: sticky;
+      top: 1rem;
+      z-index: 10;
+    }
+    .quick-nav h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1rem 0;
+    }
+    .quick-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .quick-nav-link {
+      font-size: 0.75rem;
+      padding: 0.375rem 0.75rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .quick-nav-link:hover {
+      background: var(--color-primary-100);
+      color: var(--color-primary-600);
+    }
+    .theme-dark .quick-nav-link:hover {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--color-primary-400);
+    }
+    /* Progress Tracker */
+    .progress-tracker {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .progress-tracker h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1rem 0;
+    }
+    .progress-phases {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    @media (min-width: 768px) {
+      .progress-phases {
+        flex-direction: row;
+        gap: 1rem;
+      }
+    }
+    .progress-phase {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      border: 2px solid transparent;
+      transition: all var(--transition-normal);
+    }
+    .progress-phase.current {
+      border-color: var(--color-primary-500);
+      background: var(--color-primary-50);
+    }
+    .theme-dark .progress-phase.current {
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .progress-phase.completed {
+      border-color: var(--color-success-500);
+      background: var(--color-success-50);
+    }
+    .theme-dark .progress-phase.completed {
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .progress-checkbox {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      border: 2px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+    }
+    .progress-phase.completed .progress-checkbox {
+      background: var(--color-success-500);
+      border-color: var(--color-success-500);
+      color: white;
+    }
+    .progress-phase.current .progress-checkbox {
+      background: var(--color-primary-500);
+      border-color: var(--color-primary-500);
+      color: white;
+    }
+    .progress-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .progress-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .progress-dates {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    /* Current Phase Badge */
+    .current-phase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      background: var(--color-primary-500);
+      color: white;
+      font-size: 0.625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: var(--radius-md);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    /* Phase Card Current State */
+    .phase-card.current-phase {
+      border: 2px solid var(--color-primary-500);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+    .phase-card.current-phase .phase-header {
+      background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-primary-100) 100%);
+    }
+    .theme-dark .phase-card.current-phase .phase-header {
+      background: rgba(59, 130, 246, 0.15);
+    }
+    /* Exercise Video Link */
+    .exercise-video-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-left: 0.5rem;
+      padding: 0.125rem 0.375rem;
+      background: var(--color-danger-100);
+      color: var(--color-danger-600);
+      font-size: 0.625rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .exercise-video-link:hover {
+      background: var(--color-danger-500);
+      color: white;
+    }
+    .theme-dark .exercise-video-link {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--color-danger-400);
+    }
+    .theme-dark .exercise-video-link:hover {
+      background: var(--color-danger-500);
+      color: white;
+    }
+    /* Ad-hoc card video link */
+    .adhoc-card .exercise-video-link {
+      display: block;
+      margin: 0.5rem 0 0 0;
+      width: fit-content;
+    }
   </style>
 </head>
 <body class="bg-page">
@@ -434,6 +623,57 @@
             <h1 class="page-title">🤸 Handstand Walk Plan</h1>
             <p class="page-subtitle">Goal: Walk on my hands across the gym by December 2026</p>
           </header>
+
+          <!-- Quick Navigation -->
+          <nav class="quick-nav" aria-label="Quick page navigation">
+            <h3>🧭 Quick Navigation</h3>
+            <div class="quick-nav-links">
+              <a href="#next-workout" class="quick-nav-link">📅 Next Workout</a>
+              <a href="#work-workouts" class="quick-nav-link">🏢 Work Workouts</a>
+              <a href="#training-locations" class="quick-nav-link">📍 Training Locations</a>
+              <a href="#adhoc-exercises" class="quick-nav-link">⚡ Ad-hoc Exercises</a>
+              <a href="#twelve-month-plan" class="quick-nav-link">📋 12-Month Plan</a>
+              <a href="#phase-1" class="quick-nav-link">Phase 1</a>
+              <a href="#phase-2" class="quick-nav-link">Phase 2</a>
+              <a href="#phase-3" class="quick-nav-link">Phase 3</a>
+              <a href="#phase-4" class="quick-nav-link">Phase 4</a>
+            </div>
+          </nav>
+
+          <!-- Progress Tracker -->
+          <div class="progress-tracker" id="progress-tracker">
+            <h3>📊 Progress Tracker <span id="current-phase-label" class="current-phase-badge">Loading...</span></h3>
+            <div class="progress-phases">
+              <div class="progress-phase" id="progress-phase-1" data-phase="1">
+                <div class="progress-checkbox">1</div>
+                <div class="progress-info">
+                  <div class="progress-name">Foundations</div>
+                  <div class="progress-dates">Dec – Feb</div>
+                </div>
+              </div>
+              <div class="progress-phase" id="progress-phase-2" data-phase="2">
+                <div class="progress-checkbox">2</div>
+                <div class="progress-info">
+                  <div class="progress-name">Inversion Comfort</div>
+                  <div class="progress-dates">Mar – May</div>
+                </div>
+              </div>
+              <div class="progress-phase" id="progress-phase-3" data-phase="3">
+                <div class="progress-checkbox">3</div>
+                <div class="progress-info">
+                  <div class="progress-name">Static Handstand</div>
+                  <div class="progress-dates">Jun – Aug</div>
+                </div>
+              </div>
+              <div class="progress-phase" id="progress-phase-4" data-phase="4">
+                <div class="progress-checkbox">4</div>
+                <div class="progress-info">
+                  <div class="progress-name">Walking Mechanics</div>
+                  <div class="progress-dates">Sep – Nov</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Section 1: Next Scheduled Workout -->
           <section id="next-workout" class="mb-12" aria-labelledby="next-workout-title">
@@ -798,36 +1038,42 @@
                 <h4>Wrist Rocks</h4>
                 <p class="adhoc-location">📍 Anywhere with floor space</p>
                 <p class="adhoc-desc">Shift weight forward/back to build wrist tolerance.</p>
+                <a href="https://www.youtube.com/results?search_query=wrist+rocks+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
               </div>
 
               <div class="adhoc-card">
                 <h4>Palm Lifts</h4>
                 <p class="adhoc-location">📍 At desk or on floor</p>
                 <p class="adhoc-desc">Strengthens finger flexors and wrist stability.</p>
+                <a href="https://www.youtube.com/results?search_query=palm+lifts+wrist+exercise" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
               </div>
 
               <div class="adhoc-card">
                 <h4>Scap Push-ups</h4>
                 <p class="adhoc-location">📍 Home or gym</p>
                 <p class="adhoc-desc">Keeps shoulders strong and stable for overhead work.</p>
+                <a href="https://www.youtube.com/results?search_query=scapular+push+ups+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
               </div>
 
               <div class="adhoc-card">
                 <h4>Box Pike Hold</h4>
                 <p class="adhoc-location">📍 Bench/box/sofa</p>
                 <p class="adhoc-desc">Practice inverted loading safely with hips over shoulders.</p>
+                <a href="https://www.youtube.com/results?search_query=pike+hold+box+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
               </div>
 
               <div class="adhoc-card">
                 <h4>Wall Plank</h4>
                 <p class="adhoc-location">📍 Near a wall</p>
                 <p class="adhoc-desc">Beginner inversion confidence and core stiffness.</p>
+                <a href="https://www.youtube.com/results?search_query=wall+plank+handstand+progression" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
               </div>
 
               <div class="adhoc-card">
                 <h4>Fingertip Holds</h4>
                 <p class="adhoc-location">📍 Desk edge or floor</p>
                 <p class="adhoc-desc">Trains balance corrections through the hands.</p>
+                <a href="https://www.youtube.com/results?search_query=fingertip+holds+handstand+balance" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
               </div>
             </div>
           </section>
@@ -886,25 +1132,25 @@
                   <div class="session-block">
                     <h5>1. Wrist Conditioning (~3 min)</h5>
                     <ul>
-                      <li>Wrist rocks — 2×12</li>
-                      <li>Palm lifts — 2×12</li>
-                      <li>Fingertip holds — 2×10–15s</li>
+                      <li>Wrist rocks — 2×12 <a href="https://www.youtube.com/results?search_query=wrist+rocks+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Palm lifts — 2×12 <a href="https://www.youtube.com/results?search_query=palm+lifts+wrist+exercise" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Fingertip holds — 2×10–15s <a href="https://www.youtube.com/results?search_query=fingertip+holds+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
 
                   <div class="session-block">
                     <h5>2. Scapular Strength (~3 min)</h5>
                     <ul>
-                      <li>Scap push-ups — 2×10</li>
-                      <li>Box pike hold — 2×20–25s</li>
+                      <li>Scap push-ups — 2×10 <a href="https://www.youtube.com/results?search_query=scapular+push+ups+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Box pike hold — 2×20–25s <a href="https://www.youtube.com/results?search_query=pike+hold+box+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
 
                   <div class="session-block">
                     <h5>3. Early Inversion (~4 min)</h5>
                     <ul>
-                      <li>Wall plank — 2×30s</li>
-                      <li>Wall walk to halfway — 2 slow reps</li>
+                      <li>Wall plank — 2×30s <a href="https://www.youtube.com/results?search_query=wall+plank+handstand+progression" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Wall walk to halfway — 2 slow reps <a href="https://www.youtube.com/results?search_query=wall+walks+handstand+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
                 </div>
@@ -944,24 +1190,24 @@
                   <div class="session-block">
                     <h5>1. Wrist Loading – Level 2 (~2 min)</h5>
                     <ul>
-                      <li>Leaning wrist rocks — 2×10</li>
-                      <li>Wrist weight-shifts — 2×10s each direction</li>
+                      <li>Leaning wrist rocks — 2×10 <a href="https://www.youtube.com/results?search_query=wrist+rocks+handstand+advanced" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Wrist weight-shifts — 2×10s each direction <a href="https://www.youtube.com/results?search_query=wrist+weight+shifts+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
 
                   <div class="session-block">
                     <h5>2. Wall Walks & Holds (~5 min)</h5>
                     <ul>
-                      <li>Wall walks to ¾ height — 2×1</li>
-                      <li>Chest-to-wall hold — 3×6–10s</li>
+                      <li>Wall walks to ¾ height — 2×1 <a href="https://www.youtube.com/results?search_query=wall+walks+handstand+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Chest-to-wall hold — 3×6–10s <a href="https://www.youtube.com/results?search_query=chest+to+wall+handstand+hold" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
 
                   <div class="session-block">
                     <h5>3. Box Control (~3 min)</h5>
                     <ul>
-                      <li>Box pike shoulder taps — 2×6 per side</li>
-                      <li>Tuck plank on box — 1×20–30s</li>
+                      <li>Box pike shoulder taps — 2×6 per side <a href="https://www.youtube.com/results?search_query=pike+shoulder+taps+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Tuck plank on box — 1×20–30s <a href="https://www.youtube.com/results?search_query=tuck+plank+box+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
                 </div>
@@ -1001,22 +1247,22 @@
                   <div class="session-block">
                     <h5>1. Wall Balance Mechanics (~4 min)</h5>
                     <ul>
-                      <li>Toe pulls from wall — 2×8</li>
-                      <li>Heel pulls from wall — 2×8</li>
+                      <li>Toe pulls from wall — 2×8 <a href="https://www.youtube.com/results?search_query=toe+pulls+handstand+balance" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Heel pulls from wall — 2×8 <a href="https://www.youtube.com/results?search_query=heel+pulls+handstand+balance" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
 
                   <div class="session-block">
                     <h5>2. Kick-Up Practice (~3 min)</h5>
                     <ul>
-                      <li>Kick-up to wall "kiss and come away" — 3×3 reps</li>
+                      <li>Kick-up to wall "kiss and come away" — 3×3 reps <a href="https://www.youtube.com/results?search_query=handstand+kickup+tutorial+wall" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
 
                   <div class="session-block">
                     <h5>3. Freestanding Attempts (~3 min)</h5>
                     <ul>
-                      <li>6–8 controlled attempts, focusing on consistency, not max hold time</li>
+                      <li>6–8 controlled attempts, focusing on consistency, not max hold time <a href="https://www.youtube.com/results?search_query=freestanding+handstand+practice" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
                 </div>
@@ -1056,23 +1302,23 @@
                   <div class="session-block">
                     <h5>1. Activation Hold (~2 min)</h5>
                     <ul>
-                      <li>Chest-to-wall hold — 1×10–15s to "prime" the shoulders</li>
+                      <li>Chest-to-wall hold — 1×10–15s to "prime" the shoulders <a href="https://www.youtube.com/results?search_query=chest+to+wall+handstand+hold" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
 
                   <div class="session-block">
                     <h5>2. Walking Technique (~5 min)</h5>
                     <ul>
-                      <li>Wall walks with step-outs — 2×4 steps</li>
-                      <li>Small distance free walks (1–2m) — 4 attempts</li>
-                      <li>Optional line walking between two floor markers — 2 attempts</li>
+                      <li>Wall walks with step-outs — 2×4 steps <a href="https://www.youtube.com/results?search_query=handstand+step+outs+wall" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Small distance free walks (1–2m) — 4 attempts <a href="https://www.youtube.com/results?search_query=handstand+walk+tutorial+beginner" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
+                      <li>Optional line walking between two floor markers — 2 attempts <a href="https://www.youtube.com/results?search_query=handstand+walk+straight+line" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
 
                   <div class="session-block">
                     <h5>3. Freestanding Control (~3 min)</h5>
                     <ul>
-                      <li>4–6 freestanding attempts with a focus on <em>controlled exits</em></li>
+                      <li>4–6 freestanding attempts with a focus on <em>controlled exits</em> <a href="https://www.youtube.com/results?search_query=handstand+bail+controlled+exit" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a></li>
                     </ul>
                   </div>
                 </div>
@@ -1186,8 +1432,87 @@
       }
     }
 
+    /* ============================================
+       PHASE PROGRESS TRACKER
+       Auto-detects current phase based on date
+       ============================================ */
+    const phases = [
+      { id: 1, name: 'Foundations', startMonth: 12, startYear: 2025, endMonth: 2, endYear: 2026 },
+      { id: 2, name: 'Inversion Comfort', startMonth: 3, startYear: 2026, endMonth: 5, endYear: 2026 },
+      { id: 3, name: 'Static Handstand', startMonth: 6, startYear: 2026, endMonth: 8, endYear: 2026 },
+      { id: 4, name: 'Walking Mechanics', startMonth: 9, startYear: 2026, endMonth: 11, endYear: 2026 }
+    ];
+
+    function getCurrentPhase() {
+      const now = new Date();
+      const currentMonth = now.getMonth() + 1; // 1-12
+      const currentYear = now.getFullYear();
+
+      for (let i = 0; i < phases.length; i++) {
+        const phase = phases[i];
+        const startDate = new Date(phase.startYear, phase.startMonth - 1, 1);
+        const endDate = new Date(phase.endYear, phase.endMonth, 0); // Last day of end month
+
+        if (now >= startDate && now <= endDate) {
+          return { current: i + 1, completed: i };
+        }
+      }
+
+      // Before Phase 1
+      if (currentYear < 2025 || (currentYear === 2025 && currentMonth < 12)) {
+        return { current: 1, completed: 0, preStart: true };
+      }
+
+      // After Phase 4
+      return { current: 4, completed: 4, complete: true };
+    }
+
+    function updateProgressTracker() {
+      const { current, completed, preStart, complete } = getCurrentPhase();
+      const label = document.getElementById('current-phase-label');
+
+      // Update progress tracker UI
+      for (let i = 1; i <= 4; i++) {
+        const phaseEl = document.getElementById(`progress-phase-${i}`);
+        const checkbox = phaseEl.querySelector('.progress-checkbox');
+
+        if (i < current || (complete && i <= completed)) {
+          phaseEl.classList.add('completed');
+          phaseEl.classList.remove('current');
+          checkbox.innerHTML = '✓';
+        } else if (i === current && !complete) {
+          phaseEl.classList.add('current');
+          phaseEl.classList.remove('completed');
+          checkbox.innerHTML = '●';
+        } else {
+          phaseEl.classList.remove('completed', 'current');
+          checkbox.innerHTML = i;
+        }
+      }
+
+      // Update current phase badge
+      if (complete) {
+        label.textContent = '🎉 Complete!';
+        label.style.background = 'var(--color-success-500)';
+      } else if (preStart) {
+        label.textContent = `Starting Soon: Phase ${current}`;
+      } else {
+        label.textContent = `Current: Phase ${current}`;
+      }
+
+      // Highlight the current phase card in the 12-month plan
+      document.querySelectorAll('.phase-card').forEach((card, index) => {
+        if (index + 1 === current && !complete) {
+          card.classList.add('current-phase');
+        } else {
+          card.classList.remove('current-phase');
+        }
+      });
+    }
+
     // Initialize
     updateNextWorkout();
+    updateProgressTracker();
   </script>
 </body>
 </html>
