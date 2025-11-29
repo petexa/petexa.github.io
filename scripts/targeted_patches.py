@@ -26,8 +26,9 @@ OUTPUT_PATH = os.path.join("data", "reports", "workouts_final.json")
 DRY_RUN = False  # set to False once you're happy
 
 # Placeholder patterns that indicate incomplete data
+# Using character class for various dash types (em-dash, en-dash, hyphen)
 PLACEHOLDER_PATTERNS = [
-    r"unknown\s*[—–-]\s*needs\s*manual\s*review",
+    r"unknown\s*[\u2014\u2013\-]\s*needs\s*manual\s*review",
     r"no description available",
     r"web search performed",
     r"\[ai generated",
