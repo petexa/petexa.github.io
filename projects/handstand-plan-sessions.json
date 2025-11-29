@@ -8,10 +8,26 @@
   },
   "schedule": {
     "gymDays": [
-      { "day": "Saturday", "time": "AM", "label": "Morning" },
-      { "day": "Sunday", "time": "AM", "label": "Morning" },
-      { "day": "Monday", "time": "PM", "label": "Evening" },
-      { "day": "Thursday", "time": "PM", "label": "Evening" }
+      {
+        "day": "Saturday",
+        "time": "AM",
+        "label": "Morning"
+      },
+      {
+        "day": "Sunday",
+        "time": "AM",
+        "label": "Morning"
+      },
+      {
+        "day": "Monday",
+        "time": "PM",
+        "label": "Evening"
+      },
+      {
+        "day": "Thursday",
+        "time": "PM",
+        "label": "Evening"
+      }
     ]
   },
   "gymSessions": {
@@ -24,7 +40,11 @@
         "timing": "Before class",
         "duration": "10 min",
         "focus": "Box pike → wall plank → wall walks",
-        "exercises": ["Box pike holds", "Wall plank", "Wall walks"]
+        "exercises": [
+          "Box pike holds",
+          "Wall plank",
+          "Wall walks"
+        ]
       },
       {
         "day": "Sunday",
@@ -32,7 +52,11 @@
         "timing": "After class",
         "duration": "10 min",
         "focus": "Chest-to-wall holds → toe pulls → heel pulls",
-        "exercises": ["Chest-to-wall holds", "Toe pulls", "Heel pulls"]
+        "exercises": [
+          "Chest-to-wall holds",
+          "Toe pulls",
+          "Heel pulls"
+        ]
       },
       {
         "day": "Monday",
@@ -40,7 +64,10 @@
         "timing": "Before class",
         "duration": "10 min",
         "focus": "Kick-up practice → wall kiss and come away",
-        "exercises": ["Kick-up practice", "Wall kiss and come away"]
+        "exercises": [
+          "Kick-up practice",
+          "Wall kiss and come away"
+        ]
       },
       {
         "day": "Thursday",
@@ -48,7 +75,11 @@
         "timing": "After class",
         "duration": "10 min",
         "focus": "Walking drills → step-outs → control drills",
-        "exercises": ["Walking drills", "Step-outs", "Control drills"]
+        "exercises": [
+          "Walking drills",
+          "Step-outs",
+          "Control drills"
+        ]
       }
     ],
     "allExercises": [
@@ -73,10 +104,26 @@
         "equipment": "Desk edge",
         "purpose": "Build wrist tolerance needed for handstands",
         "exercises": [
-          { "name": "Desk wrist leans", "sets": 3, "reps": 12 },
-          { "name": "Desk palm lifts", "sets": 3, "reps": 12 },
-          { "name": "Desk fingertip holds", "sets": 3, "duration": "10s" },
-          { "name": "Forearm flexor extensions against desk", "sets": 2, "reps": 10 }
+          {
+            "name": "Desk wrist leans",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "name": "Desk palm lifts",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "name": "Desk fingertip holds",
+            "sets": 3,
+            "duration": "10s"
+          },
+          {
+            "name": "Forearm flexor extensions against desk",
+            "sets": 2,
+            "reps": 10
+          }
         ]
       },
       {
@@ -85,10 +132,27 @@
         "equipment": "Wall",
         "purpose": "Shoulder stability without using the floor",
         "exercises": [
-          { "name": "Standing scap push-ups (against wall)", "sets": 3, "reps": 12 },
-          { "name": "Wall slides (Y overhead motions)", "sets": 3, "reps": 10 },
-          { "name": "Serratus punches", "sets": 3, "reps": 12 },
-          { "name": "Band external rotations (optional)", "sets": 2, "reps": 12, "note": "each arm" }
+          {
+            "name": "Standing scap push-ups (against wall)",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "name": "Wall slides (Y overhead motions)",
+            "sets": 3,
+            "reps": 10
+          },
+          {
+            "name": "Serratus punches",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "name": "Band external rotations (optional)",
+            "sets": 2,
+            "reps": 12,
+            "note": "each arm"
+          }
         ]
       },
       {
@@ -97,10 +161,26 @@
         "equipment": "Desk, optional resistance band",
         "purpose": "Train handstand muscles while standing",
         "exercises": [
-          { "name": "Desk lean hold (standing incline plank)", "sets": 3, "duration": "20s" },
-          { "name": "Straight-arm desk shrugs", "sets": 3, "reps": 12 },
-          { "name": "High-angle push-ups on desk", "sets": 2, "reps": 10 },
-          { "name": "Band overhead pull-aparts", "sets": 2, "reps": 12 }
+          {
+            "name": "Desk lean hold (standing incline plank)",
+            "sets": 3,
+            "duration": "20s"
+          },
+          {
+            "name": "Straight-arm desk shrugs",
+            "sets": 3,
+            "reps": 12
+          },
+          {
+            "name": "High-angle push-ups on desk",
+            "sets": 2,
+            "reps": 10
+          },
+          {
+            "name": "Band overhead pull-aparts",
+            "sets": 2,
+            "reps": 12
+          }
         ]
       },
       {
@@ -109,10 +189,27 @@
         "equipment": "None",
         "purpose": "Build hollow-body control without lying on the floor",
         "exercises": [
-          { "name": "Standing ribs down hold", "sets": 5, "duration": "10s" },
-          { "name": "Standing pelvic tilt pulses", "sets": 3, "reps": 10 },
-          { "name": "Standing oblique brace", "sets": 3, "duration": "10s", "note": "per side" },
-          { "name": "Standing controlled knee lifts", "sets": 2, "reps": 12 }
+          {
+            "name": "Standing ribs down hold",
+            "sets": 5,
+            "duration": "10s"
+          },
+          {
+            "name": "Standing pelvic tilt pulses",
+            "sets": 3,
+            "reps": 10
+          },
+          {
+            "name": "Standing oblique brace",
+            "sets": 3,
+            "duration": "10s",
+            "note": "per side"
+          },
+          {
+            "name": "Standing controlled knee lifts",
+            "sets": 2,
+            "reps": 12
+          }
         ]
       },
       {
@@ -121,10 +218,27 @@
         "equipment": "None",
         "purpose": "Keep shoulders healthy for overhead work",
         "exercises": [
-          { "name": "Arm circles", "sets": 2, "reps": 20 },
-          { "name": "Scap elevation/depression", "sets": 2, "reps": 12 },
-          { "name": "Shoulder CARs", "sets": 2, "reps": 5, "note": "each direction" },
-          { "name": "Chest openers", "sets": 2, "reps": 10 }
+          {
+            "name": "Arm circles",
+            "sets": 2,
+            "reps": 20
+          },
+          {
+            "name": "Scap elevation/depression",
+            "sets": 2,
+            "reps": 12
+          },
+          {
+            "name": "Shoulder CARs",
+            "sets": 2,
+            "reps": 5,
+            "note": "each direction"
+          },
+          {
+            "name": "Chest openers",
+            "sets": 2,
+            "reps": 10
+          }
         ]
       }
     ]
@@ -193,34 +307,78 @@
             "name": "Wrist Conditioning",
             "duration": "~3 min",
             "exercises": [
-              { "name": "Wrist rocks", "sets": 2, "reps": 12 },
-              { "name": "Palm lifts", "sets": 2, "reps": 12 },
-              { "name": "Fingertip holds", "sets": 2, "duration": "10-15s" }
+              {
+                "name": "Wrist rocks",
+                "sets": 2,
+                "reps": 12
+              },
+              {
+                "name": "Palm lifts",
+                "sets": 2,
+                "reps": 12
+              },
+              {
+                "name": "Fingertip holds",
+                "sets": 2,
+                "duration": "10-15s"
+              }
             ]
           },
           {
             "name": "Scapular Strength",
             "duration": "~3 min",
             "exercises": [
-              { "name": "Scap push-ups", "sets": 2, "reps": 10 },
-              { "name": "Box pike hold", "sets": 2, "duration": "20-25s" }
+              {
+                "name": "Scap push-ups",
+                "sets": 2,
+                "reps": 10
+              },
+              {
+                "name": "Box pike hold",
+                "sets": 2,
+                "duration": "20-25s"
+              }
             ]
           },
           {
             "name": "Early Inversion",
             "duration": "~4 min",
             "exercises": [
-              { "name": "Wall plank", "sets": 2, "duration": "30s" },
-              { "name": "Wall walk to halfway", "sets": 2, "note": "slow reps" }
+              {
+                "name": "Wall plank",
+                "sets": 2,
+                "duration": "30s"
+              },
+              {
+                "name": "Wall walk to halfway",
+                "sets": 2,
+                "note": "slow reps"
+              }
             ]
           }
         ]
       },
       "targets": [
-        { "exercise": "Box pike hold", "target": "30-40 seconds with control" },
-        { "exercise": "Wall walk", "target": "comfortable to ~¾ height" },
-        { "metric": "Wrist discomfort", "target": "much reduced under load" }
-      ]
+        {
+          "exercise": "Box pike hold",
+          "target": "30-40 seconds with control"
+        },
+        {
+          "exercise": "Wall walk",
+          "target": "comfortable to ~¾ height"
+        },
+        {
+          "metric": "Wrist discomfort",
+          "target": "much reduced under load"
+        }
+      ],
+      "instructions": "Wrist rocks 2×12, palm lifts 2×12, fingertip holds 2×10–15s; then scap push-ups 2×10 and box pike hold 2×20–25s; finish with wall plank 2×30s and wall walks to halfway for 2 slow reps.",
+      "equipment": "Floor space, wall, yoga mat, box or bench",
+      "scaling": "Reduce hold times if wrists fatigue. Use a higher box for pike holds. Skip wall walks if you’re not comfortable inverted yet.",
+      "scoreType": "Quality",
+      "additionalInfo": "Short, focused strength and skill session building early handstand fundamentals and joint tolerance.",
+      "coachingCues": "Keep elbows locked in all straight-arm drills; push the floor away in scap push-ups and pike holds; maintain ribs-down position in pike holds; in wall walks, move slowly with small, deliberate steps.",
+      "youtubeId": "VIDEO_ID_HERE"
     },
     {
       "phase": 2,
@@ -241,32 +399,66 @@
             "name": "Wrist Loading – Level 2",
             "duration": "~2 min",
             "exercises": [
-              { "name": "Leaning wrist rocks", "sets": 2, "reps": 10 },
-              { "name": "Wrist weight-shifts", "sets": 2, "duration": "10s each direction" }
+              {
+                "name": "Leaning wrist rocks",
+                "sets": 2,
+                "reps": 10
+              },
+              {
+                "name": "Wrist weight-shifts",
+                "sets": 2,
+                "duration": "10s each direction"
+              }
             ]
           },
           {
             "name": "Wall Walks & Holds",
             "duration": "~5 min",
             "exercises": [
-              { "name": "Wall walks to ¾ height", "sets": 2, "reps": 1 },
-              { "name": "Chest-to-wall hold", "sets": 3, "duration": "6-10s" }
+              {
+                "name": "Wall walks to ¾ height",
+                "sets": 2,
+                "reps": 1
+              },
+              {
+                "name": "Chest-to-wall hold",
+                "sets": 3,
+                "duration": "6-10s"
+              }
             ]
           },
           {
             "name": "Box Control",
             "duration": "~3 min",
             "exercises": [
-              { "name": "Box pike shoulder taps", "sets": 2, "reps": 6, "note": "per side" },
-              { "name": "Tuck plank on box", "sets": 1, "duration": "20-30s" }
+              {
+                "name": "Box pike shoulder taps",
+                "sets": 2,
+                "reps": 6,
+                "note": "per side"
+              },
+              {
+                "name": "Tuck plank on box",
+                "sets": 1,
+                "duration": "20-30s"
+              }
             ]
           }
         ]
       },
       "targets": [
-        { "exercise": "Chest-to-wall holds", "target": "15 seconds with good form" },
-        { "metric": "Wall walks", "target": "feel controlled (not panicky)" },
-        { "metric": "Shoulder taps on box", "target": "feel stable" }
+        {
+          "exercise": "Chest-to-wall holds",
+          "target": "15 seconds with good form"
+        },
+        {
+          "metric": "Wall walks",
+          "target": "feel controlled (not panicky)"
+        },
+        {
+          "metric": "Shoulder taps on box",
+          "target": "feel stable"
+        }
       ]
     },
     {
@@ -288,30 +480,55 @@
             "name": "Wall Balance Mechanics",
             "duration": "~4 min",
             "exercises": [
-              { "name": "Toe pulls from wall", "sets": 2, "reps": 8 },
-              { "name": "Heel pulls from wall", "sets": 2, "reps": 8 }
+              {
+                "name": "Toe pulls from wall",
+                "sets": 2,
+                "reps": 8
+              },
+              {
+                "name": "Heel pulls from wall",
+                "sets": 2,
+                "reps": 8
+              }
             ]
           },
           {
             "name": "Kick-Up Practice",
             "duration": "~3 min",
             "exercises": [
-              { "name": "Kick-up to wall (kiss and come away)", "sets": 3, "reps": 3 }
+              {
+                "name": "Kick-up to wall (kiss and come away)",
+                "sets": 3,
+                "reps": 3
+              }
             ]
           },
           {
             "name": "Freestanding Attempts",
             "duration": "~3 min",
             "exercises": [
-              { "name": "Controlled attempts", "reps": "6-8", "note": "focus on consistency, not max hold time" }
+              {
+                "name": "Controlled attempts",
+                "reps": "6-8",
+                "note": "focus on consistency, not max hold time"
+              }
             ]
           }
         ]
       },
       "targets": [
-        { "exercise": "Freestanding handstand", "target": "3-5 seconds unassisted" },
-        { "metric": "Kick-ups", "target": "predictable (not slamming into wall)" },
-        { "metric": "Wall control", "target": "able to leave and return smoothly" }
+        {
+          "exercise": "Freestanding handstand",
+          "target": "3-5 seconds unassisted"
+        },
+        {
+          "metric": "Kick-ups",
+          "target": "predictable (not slamming into wall)"
+        },
+        {
+          "metric": "Wall control",
+          "target": "able to leave and return smoothly"
+        }
       ]
     },
     {
@@ -333,41 +550,73 @@
             "name": "Activation Hold",
             "duration": "~2 min",
             "exercises": [
-              { "name": "Chest-to-wall hold", "sets": 1, "duration": "10-15s", "note": "prime the shoulders" }
+              {
+                "name": "Chest-to-wall hold",
+                "sets": 1,
+                "duration": "10-15s",
+                "note": "prime the shoulders"
+              }
             ]
           },
           {
             "name": "Walking Technique",
             "duration": "~5 min",
             "exercises": [
-              { "name": "Wall walks with step-outs", "sets": 2, "reps": 4, "note": "steps" },
-              { "name": "Small distance free walks (1-2m)", "attempts": 4 },
-              { "name": "Line walking between floor markers (optional)", "attempts": 2 }
+              {
+                "name": "Wall walks with step-outs",
+                "sets": 2,
+                "reps": 4,
+                "note": "steps"
+              },
+              {
+                "name": "Small distance free walks (1-2m)",
+                "attempts": 4
+              },
+              {
+                "name": "Line walking between floor markers (optional)",
+                "attempts": 2
+              }
             ]
           },
           {
             "name": "Freestanding Control",
             "duration": "~3 min",
             "exercises": [
-              { "name": "Freestanding attempts", "reps": "4-6", "note": "focus on controlled exits" }
+              {
+                "name": "Freestanding attempts",
+                "reps": "4-6",
+                "note": "focus on controlled exits"
+              }
             ]
           }
         ]
       },
       "targets": [
-        { "metric": "Entry", "target": "kick into stable handstand with confidence" },
-        { "metric": "Walking", "target": "walk 3-5m across the gym" },
-        { "metric": "Balance", "target": "use wrist pressure and small steps to correct" },
-        { "metric": "Exit", "target": "safely and consistently" }
+        {
+          "metric": "Entry",
+          "target": "kick into stable handstand with confidence"
+        },
+        {
+          "metric": "Walking",
+          "target": "walk 3-5m across the gym"
+        },
+        {
+          "metric": "Balance",
+          "target": "use wrist pressure and small steps to correct"
+        },
+        {
+          "metric": "Exit",
+          "target": "safely and consistently"
+        }
       ]
     }
   ],
   "notifications": {
     "templates": {
-      "gymReminder": "🏋️ *Handstand Training Today*\n📅 {day} {time}\n⏰ {timing}\n\n*Focus:* {focus}\n\n*Exercises:*\n{exercises}\n\n💪 10 minutes of skill work!",
-      "workReminder": "🏢 *Office Workout Available*\n\n*{workoutName}*\n⏱️ {duration}\n🎯 {purpose}\n\n{exercises}",
-      "weeklyProgress": "📊 *Weekly Handstand Progress*\n\n🏋️ Gym sessions: {gymCount}/4\n🏢 Work sessions: {workCount}\n🏠 Home sessions: {homeCount}\n\n*Current Phase:* {phase}\n*Target:* {target}",
-      "phaseTransition": "🎉 *Phase Complete!*\n\nYou've completed *Phase {oldPhase}: {oldPhaseName}*\n\nStarting *Phase {newPhase}: {newPhaseName}*\n\n*New Focus:* {theme}\n\n*Goals:*\n{goals}"
+      "gymReminder": "🏋️ *Handstand Training Today*\\n📅 {day} {time}\\n⏰ {timing}\\n\\n*Focus:* {focus}\\n\\n*Exercises:*\\n{exercises}\\n\\n💪 10 minutes of skill work!",
+      "workReminder": "🏢 *Office Workout Available*\\n\\n*{workoutName}*\\n⏱️ {duration}\\n🎯 {purpose}\\n\\n{exercises}",
+      "weeklyProgress": "📊 *Weekly Handstand Progress*\\n\\n🏋️ Gym sessions: {gymCount}/4\\n🏢 Work sessions: {workCount}\\n🏠 Home sessions: {homeCount}\\n\\n*Current Phase:* {phase}\\n*Target:* {target}",
+      "phaseTransition": "🎉 *Phase Complete!*\\n\\nYou've completed *Phase {oldPhase}: {oldPhaseName}*\\n\\nStarting *Phase {newPhase}: {newPhaseName}*\\n\\n*New Focus:* {theme}\\n\\n*Goals:*\\n{goals}"
     }
   }
 }
