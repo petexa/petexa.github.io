@@ -165,12 +165,6 @@
       left: 0;
       color: var(--color-primary-500);
     }
-    /* Ad-hoc Exercises Grid */
-    .adhoc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem;
-    }
     .adhoc-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -551,6 +545,83 @@
       margin: 0.5rem 0 0 0;
       width: fit-content;
     }
+    /* Expandable Section Styles */
+    .expandable-section {
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .expandable-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background: var(--bg-alt);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .expandable-header:hover {
+      background: var(--card-bg);
+    }
+    .expandable-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .expandable-icon {
+      font-size: 1.25rem;
+      transition: transform 0.3s;
+      color: var(--text-muted);
+    }
+    .expandable-section.is-open .expandable-icon {
+      transform: rotate(180deg);
+    }
+    .expandable-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+    .expandable-section.is-open .expandable-content {
+      max-height: none;
+    }
+    .expandable-body {
+      padding: 1.5rem;
+    }
+    /* Work Workouts Grid - 3 columns */
+    .work-workouts-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .work-workouts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .work-workouts-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    /* Ad-hoc Grid - 4 columns */
+    .adhoc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .adhoc-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .adhoc-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
   </style>
 </head>
 <body class="bg-page">
@@ -670,15 +741,10 @@
             <h3>🧭 Quick Navigation</h3>
             <div class="quick-nav-links">
               <a href="#next-workout" class="quick-nav-link">📅 Next Workout</a>
-              <a href="#work-workouts" class="quick-nav-link">🏢 Work Workouts</a>
-              <a href="#home-sessions" class="quick-nav-link">🏠 Home Sessions</a>
               <a href="#training-locations" class="quick-nav-link">📍 Training Locations</a>
+              <a href="#work-workouts" class="quick-nav-link">🏢 Work Workouts</a>
               <a href="#adhoc-exercises" class="quick-nav-link">⚡ Ad-hoc Exercises</a>
               <a href="#twelve-month-plan" class="quick-nav-link">📋 12-Month Plan</a>
-              <a href="#phase-1" class="quick-nav-link">Phase 1</a>
-              <a href="#phase-2" class="quick-nav-link">Phase 2</a>
-              <a href="#phase-3" class="quick-nav-link">Phase 3</a>
-              <a href="#phase-4" class="quick-nav-link">Phase 4</a>
             </div>
           </nav>
 
@@ -822,459 +888,7 @@
                 </iframe>
               </div>
             </div>
-
-            <!-- Weekly Schedule -->
-            <div class="card" style="margin-top: 1rem;">
-              <div class="card-body">
-                <h3 class="font-semibold mb-3" style="color: var(--text);">📆 My Weekly Gym Schedule</h3>
-                <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
-                    <div style="font-weight: 600; color: var(--text);">Saturday</div>
-                    <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
-                  </div>
-                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
-                    <div style="font-weight: 600; color: var(--text);">Sunday</div>
-                    <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
-                  </div>
-                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
-                    <div style="font-weight: 600; color: var(--text);">Monday</div>
-                    <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
-                  </div>
-                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
-                    <div style="font-weight: 600; color: var(--text);">Thursday</div>
-                    <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </section>
-
-          <!-- Section 2: Workouts I Can Do at Work -->
-          <section id="work-workouts" class="mb-12" aria-labelledby="work-workouts-title">
-            <h2 id="work-workouts-title" class="text-xl font-bold mb-4" style="color: var(--text);">
-              <span class="inline-flex items-center gap-2">
-                <span aria-hidden="true">🏢</span>
-                Workouts I Can Do at Work
-              </span>
-            </h2>
-            <p class="mb-6" style="color: var(--text-muted);">
-              These are office-friendly 10-minute sessions that require no floor work, no rolling around, and no inversions. They are designed to build wrist resilience, shoulder stability, and core control while looking completely normal in a workplace environment.
-            </p>
-
-            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <!-- Work Workout 1 -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Desk Wrist & Forearm Prep</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 10 minutes</span>
-                  <span class="workout-meta-item">🖥️ Desk edge</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Build wrist tolerance needed for handstands</p>
-                <ul class="workout-exercises">
-                  <li>Desk wrist leans — 3×12</li>
-                  <li>Desk palm lifts — 3×12</li>
-                  <li>Desk fingertip holds — 3×10s</li>
-                  <li>Forearm flexor extensions against desk — 2×10</li>
-                </ul>
-              </article>
-
-              <!-- Work Workout 2 -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Standing Scapular Strength</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 10 minutes</span>
-                  <span class="workout-meta-item">🧱 Wall</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Shoulder stability without using the floor</p>
-                <ul class="workout-exercises">
-                  <li>Standing scap push-ups (against wall) — 3×12</li>
-                  <li>Wall slides ("Y" overhead motions) — 3×10</li>
-                  <li>Serratus punches — 3×12</li>
-                  <li>Band external rotations (optional) — 2×12 each arm</li>
-                </ul>
-              </article>
-
-              <!-- Work Workout 3 -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Desk "Handstand Muscles" Strength</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 10 minutes</span>
-                  <span class="workout-meta-item">🖥️ Desk + optional band</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Train handstand muscles while standing</p>
-                <ul class="workout-exercises">
-                  <li>Desk lean hold (standing incline plank) — 3×20s</li>
-                  <li>Straight-arm desk shrugs — 3×12</li>
-                  <li>High-angle push-ups on desk — 2×10</li>
-                  <li>Band overhead pull-aparts — 2×12</li>
-                </ul>
-              </article>
-
-              <!-- Work Workout 4 -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Standing Core Activation</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 10 minutes</span>
-                  <span class="workout-meta-item">✋ No equipment</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Build hollow-body control without lying on the floor</p>
-                <ul class="workout-exercises">
-                  <li>Standing "ribs down" hold — 5×10s</li>
-                  <li>Standing pelvic tilt pulses — 3×10</li>
-                  <li>Standing oblique brace — 3×10s per side</li>
-                  <li>Standing controlled knee lifts — 2×12</li>
-                </ul>
-              </article>
-
-              <!-- Work Workout 5 -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Shoulder Maintenance Micro-Session</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 5–10 minutes</span>
-                  <span class="workout-meta-item">✋ No equipment</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Keep shoulders healthy for overhead work</p>
-                <ul class="workout-exercises">
-                  <li>Arm circles — 2×20</li>
-                  <li>Scap elevation/depression — 2×12</li>
-                  <li>Shoulder CARs — 2×5 each direction</li>
-                  <li>Chest openers — 2×10</li>
-                </ul>
-              </article>
-            </div>
-
-            <div class="card mt-6">
-              <div class="card-body">
-                <p style="color: var(--text-muted); font-size: 0.875rem;">
-                  <strong>Note:</strong> All movements appear discreet and normal in an office environment. No floor, no kneeling, no inversion, no awkward positions. Session duration remains 10 minutes or less.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <!-- Section 2.5: Home Sessions -->
-          <section id="home-sessions" class="mb-12" aria-labelledby="home-sessions-title">
-            <h2 id="home-sessions-title" class="text-xl font-bold mb-4" style="color: var(--text);">
-              <span class="inline-flex items-center gap-2">
-                <span aria-hidden="true">🏠</span>
-                Home Sessions
-              </span>
-            </h2>
-            <p class="mb-6" style="color: var(--text-muted);">
-              Optional micro sessions (5–10 minutes) to maintain consistency at home. These boost progress but are not required.
-            </p>
-
-            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <!-- Home Session 1: Wrist Conditioning Flow -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Wrist Conditioning Flow</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 5 min</span>
-                  <span class="workout-meta-item">🧰 Floor space or yoga mat</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Build wrist tolerance at home</p>
-                <div class="workout-info-row" style="margin-bottom: 0.5rem;">
-                  <span class="workout-info-icon">📋</span>
-                  <span class="workout-info-label">Instructions</span>
-                </div>
-                <ul class="workout-exercises">
-                  <li>Wrist rocks — 2×12</li>
-                  <li>Palm lifts — 2×12</li>
-                  <li>Fingertip holds — 2×10–15s</li>
-                </ul>
-                <div class="workout-info-row" style="margin-top: 0.75rem;">
-                  <span class="workout-info-icon">🔧</span>
-                  <span class="workout-info-label">Scaling</span>
-                  <div class="workout-info-value">• Reduce hold times if fatigued</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🧮</span>
-                  <span class="workout-info-label">Score</span>
-                  <div class="workout-info-value">Quality</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🎓</span>
-                  <span class="workout-info-label">Coaching Cues</span>
-                </div>
-                <ul class="workout-exercises" style="margin-top: 0.25rem;">
-                  <li>Keep elbows locked</li>
-                  <li>Move slowly through each rep</li>
-                  <li>Stop if sharp pain occurs</li>
-                </ul>
-                <div class="video-container" style="margin-top: 1rem;">
-                  <iframe 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                    title="Wrist Conditioning Flow video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                  </iframe>
-                </div>
-              </article>
-
-              <!-- Home Session 2: Band Shoulder Mobility -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Band Shoulder Mobility</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 5–10 min</span>
-                  <span class="workout-meta-item">🧰 Resistance band</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Maintain shoulder health for overhead work</p>
-                <div class="workout-info-row" style="margin-bottom: 0.5rem;">
-                  <span class="workout-info-icon">📋</span>
-                  <span class="workout-info-label">Instructions</span>
-                </div>
-                <ul class="workout-exercises">
-                  <li>Band pull-aparts — 2×15</li>
-                  <li>Band dislocates — 2×10</li>
-                  <li>External rotations — 2×12 each arm</li>
-                </ul>
-                <div class="workout-info-row" style="margin-top: 0.75rem;">
-                  <span class="workout-info-icon">🔧</span>
-                  <span class="workout-info-label">Scaling</span>
-                  <div class="workout-info-value">• Use lighter band if needed</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🧮</span>
-                  <span class="workout-info-label">Score</span>
-                  <div class="workout-info-value">Quality</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🎓</span>
-                  <span class="workout-info-label">Coaching Cues</span>
-                </div>
-                <ul class="workout-exercises" style="margin-top: 0.25rem;">
-                  <li>Control the movement</li>
-                  <li>Keep core braced</li>
-                  <li>No bouncing</li>
-                </ul>
-                <div class="video-container" style="margin-top: 1rem;">
-                  <iframe 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                    title="Band Shoulder Mobility video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                  </iframe>
-                </div>
-              </article>
-
-              <!-- Home Session 3: Standing Core Control -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Standing Core Control</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 5 min</span>
-                  <span class="workout-meta-item">🧰 No equipment needed</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Build hollow-body control standing up</p>
-                <div class="workout-info-row" style="margin-bottom: 0.5rem;">
-                  <span class="workout-info-icon">📋</span>
-                  <span class="workout-info-label">Instructions</span>
-                </div>
-                <ul class="workout-exercises">
-                  <li>Standing ribs-down hold — 3×10s</li>
-                  <li>Pelvic tilt pulses — 2×10</li>
-                  <li>Oblique brace — 2×10s per side</li>
-                </ul>
-                <div class="workout-info-row" style="margin-top: 0.75rem;">
-                  <span class="workout-info-icon">🔧</span>
-                  <span class="workout-info-label">Scaling</span>
-                  <div class="workout-info-value">• Shorten holds if fatigued</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🧮</span>
-                  <span class="workout-info-label">Score</span>
-                  <div class="workout-info-value">Quality</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🎓</span>
-                  <span class="workout-info-label">Coaching Cues</span>
-                </div>
-                <ul class="workout-exercises" style="margin-top: 0.25rem;">
-                  <li>Brace ribs down throughout</li>
-                  <li>Keep breathing steady</li>
-                  <li>Focus on tension</li>
-                </ul>
-                <div class="video-container" style="margin-top: 1rem;">
-                  <iframe 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                    title="Standing Core Control video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                  </iframe>
-                </div>
-              </article>
-
-              <!-- Home Session 4: Desk Lean Holds -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Desk Lean Holds</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 5 min</span>
-                  <span class="workout-meta-item">🧰 Desk edge or sturdy table</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Train straight-arm strength at home</p>
-                <div class="workout-info-row" style="margin-bottom: 0.5rem;">
-                  <span class="workout-info-icon">📋</span>
-                  <span class="workout-info-label">Instructions</span>
-                </div>
-                <ul class="workout-exercises">
-                  <li>Desk lean hold — 3×20s</li>
-                  <li>Straight-arm shrugs — 2×10</li>
-                  <li>Incline push-ups — 2×8</li>
-                </ul>
-                <div class="workout-info-row" style="margin-top: 0.75rem;">
-                  <span class="workout-info-icon">🔧</span>
-                  <span class="workout-info-label">Scaling</span>
-                  <div class="workout-info-value">• Move closer to desk to reduce intensity</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🧮</span>
-                  <span class="workout-info-label">Score</span>
-                  <div class="workout-info-value">Quality</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🎓</span>
-                  <span class="workout-info-label">Coaching Cues</span>
-                </div>
-                <ul class="workout-exercises" style="margin-top: 0.25rem;">
-                  <li>Lock elbows fully</li>
-                  <li>Push floor away</li>
-                  <li>Keep body in line</li>
-                </ul>
-                <div class="video-container" style="margin-top: 1rem;">
-                  <iframe 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                    title="Desk Lean Holds video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                  </iframe>
-                </div>
-              </article>
-
-              <!-- Home Session 5: Quick Wrist + Shoulder Combo -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Quick Wrist + Shoulder Combo</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 5 min</span>
-                  <span class="workout-meta-item">🧰 Floor space</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Combined wrist and shoulder maintenance</p>
-                <div class="workout-info-row" style="margin-bottom: 0.5rem;">
-                  <span class="workout-info-icon">📋</span>
-                  <span class="workout-info-label">Instructions</span>
-                </div>
-                <ul class="workout-exercises">
-                  <li>Wrist rocks — 2×10</li>
-                  <li>Scap push-ups — 2×8</li>
-                  <li>Arm circles — 2×15 each direction</li>
-                </ul>
-                <div class="workout-info-row" style="margin-top: 0.75rem;">
-                  <span class="workout-info-icon">🔧</span>
-                  <span class="workout-info-label">Scaling</span>
-                  <div class="workout-info-value">• Reduce reps if short on time</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🧮</span>
-                  <span class="workout-info-label">Score</span>
-                  <div class="workout-info-value">Quality</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🎓</span>
-                  <span class="workout-info-label">Coaching Cues</span>
-                </div>
-                <ul class="workout-exercises" style="margin-top: 0.25rem;">
-                  <li>Move with control</li>
-                  <li>Full range of motion</li>
-                  <li>Quality over speed</li>
-                </ul>
-                <div class="video-container" style="margin-top: 1rem;">
-                  <iframe 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                    title="Quick Wrist + Shoulder Combo video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                  </iframe>
-                </div>
-              </article>
-
-              <!-- Home Session 6: Wrist + Core Micro Flow -->
-              <article class="workout-card">
-                <div class="workout-card-header">
-                  <h3>Wrist + Core Micro Flow</h3>
-                </div>
-                <div class="workout-meta">
-                  <span class="workout-meta-item">⏱️ 5 min</span>
-                  <span class="workout-meta-item">🧰 Desk edge or table</span>
-                </div>
-                <p class="text-sm mb-2" style="color: var(--text-muted);">Quick 5-minute sequence to maintain consistency at home</p>
-                <div class="workout-info-row" style="margin-bottom: 0.5rem;">
-                  <span class="workout-info-icon">📋</span>
-                  <span class="workout-info-label">Instructions</span>
-                </div>
-                <ul class="workout-exercises">
-                  <li>Wrist rocks — 2×12</li>
-                  <li>Palm lifts — 2×12</li>
-                  <li>Standing ribs-down hold — 3×10s</li>
-                  <li>Desk lean hold — 2×20s</li>
-                </ul>
-                <div class="workout-info-row" style="margin-top: 0.75rem;">
-                  <span class="workout-info-icon">🔧</span>
-                  <span class="workout-info-label">Scaling</span>
-                  <div class="workout-info-value">• Shorten holds if fatigued</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🧮</span>
-                  <span class="workout-info-label">Score</span>
-                  <div class="workout-info-value">Quality</div>
-                </div>
-                <div class="workout-info-row">
-                  <span class="workout-info-icon">🎓</span>
-                  <span class="workout-info-label">Coaching Cues</span>
-                </div>
-                <ul class="workout-exercises" style="margin-top: 0.25rem;">
-                  <li>Keep elbows locked</li>
-                  <li>Brace ribs down</li>
-                  <li>Move with control</li>
-                  <li>Quality over speed</li>
-                </ul>
-                <div class="video-container" style="margin-top: 1rem;">
-                  <iframe 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                    title="Wrist + Core Micro Flow video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                  </iframe>
-                </div>
-              </article>
-            </div>
-
-            <div class="card mt-6">
-              <div class="card-body">
-                <p style="color: var(--text-muted); font-size: 0.875rem;">
-                  <strong>Note:</strong> These home sessions are optional boosters. Even 5 minutes helps, but they are not required for the plan. Focus on consistency rather than perfection.
-                </p>
-              </div>
-            </div>
-          </section>
-
           <!-- Section 2.6: Where I Train Each Part of the Plan -->
           <section id="training-locations" class="mb-12" aria-labelledby="training-locations-title">
             <h2 id="training-locations-title" class="text-xl font-bold mb-4" style="color: var(--text);">
@@ -1437,64 +1051,223 @@
             </div>
           </section>
 
-          <!-- Section 3: Ad-hoc Exercises -->
-          <section id="adhoc-exercises" class="mb-12" aria-labelledby="adhoc-exercises-title">
-            <h2 id="adhoc-exercises-title" class="text-xl font-bold mb-4" style="color: var(--text);">
-              <span class="inline-flex items-center gap-2">
-                <span aria-hidden="true">⚡</span>
-                Ad-hoc Exercises
-              </span>
-            </h2>
-            <p class="mb-6" style="color: var(--text-muted);">
-              Quick, plug-and-play drills you can drop into warm-ups or random spare moments.
-            </p>
+          <!-- Section 3: Workouts I Can Do at Work (Expandable) -->
+          <div class="expandable-section is-open" id="work-workouts">
+            <div class="expandable-header" onclick="toggleSection('work-workouts')">
+              <h2>
+                <span class="inline-flex items-center gap-2">
+                  <span aria-hidden="true">🏢</span>
+                  Workouts I Can Do at Work
+                </span>
+              </h2>
+              <span class="expandable-icon">▼</span>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-body">
+                <p class="mb-6" style="color: var(--text-muted);">
+                  These are office-friendly 10-minute sessions that require no floor work, no rolling around, and no inversions. They are designed to build wrist resilience, shoulder stability, and core control while looking completely normal in a workplace environment.
+                </p>
 
-            <div class="adhoc-grid">
-              <div class="adhoc-card">
-                <h4>Wrist Rocks</h4>
-                <p class="adhoc-location">📍 Anywhere with floor space</p>
-                <p class="adhoc-desc">Shift weight forward/back to build wrist tolerance.</p>
-                <a href="https://www.youtube.com/results?search_query=wrist+rocks+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
-              </div>
+                <div class="work-workouts-grid">
+                  <!-- Work Workout 1 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Desk Wrist & Forearm Prep</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 10 minutes</span>
+                      <span class="workout-meta-item">🖥️ Desk edge</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Build wrist tolerance needed for handstands</p>
+                    <ul class="workout-exercises">
+                      <li>Desk wrist leans — 3×12</li>
+                      <li>Desk palm lifts — 3×12</li>
+                      <li>Desk fingertip holds — 3×10s</li>
+                      <li>Forearm flexor extensions against desk — 2×10</li>
+                    </ul>
+                  </article>
 
-              <div class="adhoc-card">
-                <h4>Palm Lifts</h4>
-                <p class="adhoc-location">📍 At desk or on floor</p>
-                <p class="adhoc-desc">Strengthens finger flexors and wrist stability.</p>
-                <a href="https://www.youtube.com/results?search_query=palm+lifts+wrist+exercise" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
-              </div>
+                  <!-- Work Workout 2 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Standing Scapular Strength</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 10 minutes</span>
+                      <span class="workout-meta-item">🧱 Wall</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Shoulder stability without using the floor</p>
+                    <ul class="workout-exercises">
+                      <li>Standing scap push-ups (against wall) — 3×12</li>
+                      <li>Wall slides ("Y" overhead motions) — 3×10</li>
+                      <li>Serratus punches — 3×12</li>
+                      <li>Band external rotations (optional) — 2×12 each arm</li>
+                    </ul>
+                  </article>
 
-              <div class="adhoc-card">
-                <h4>Scap Push-ups</h4>
-                <p class="adhoc-location">📍 Home or gym</p>
-                <p class="adhoc-desc">Keeps shoulders strong and stable for overhead work.</p>
-                <a href="https://www.youtube.com/results?search_query=scapular+push+ups+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
-              </div>
+                  <!-- Work Workout 3 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Desk "Handstand Muscles" Strength</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 10 minutes</span>
+                      <span class="workout-meta-item">🖥️ Desk + optional band</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Train handstand muscles while standing</p>
+                    <ul class="workout-exercises">
+                      <li>Desk lean hold (standing incline plank) — 3×20s</li>
+                      <li>Straight-arm desk shrugs — 3×12</li>
+                      <li>High-angle push-ups on desk — 2×10</li>
+                      <li>Band overhead pull-aparts — 2×12</li>
+                    </ul>
+                  </article>
 
-              <div class="adhoc-card">
-                <h4>Box Pike Hold</h4>
-                <p class="adhoc-location">📍 Bench/box/sofa</p>
-                <p class="adhoc-desc">Practice inverted loading safely with hips over shoulders.</p>
-                <a href="https://www.youtube.com/results?search_query=pike+hold+box+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
-              </div>
+                  <!-- Work Workout 4 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Standing Core Activation</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 10 minutes</span>
+                      <span class="workout-meta-item">✋ No equipment</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Build hollow-body control without lying on the floor</p>
+                    <ul class="workout-exercises">
+                      <li>Standing "ribs down" hold — 5×10s</li>
+                      <li>Standing pelvic tilt pulses — 3×10</li>
+                      <li>Standing oblique brace — 3×10s per side</li>
+                      <li>Standing controlled knee lifts — 2×12</li>
+                    </ul>
+                  </article>
 
-              <div class="adhoc-card">
-                <h4>Desk Lean Holds</h4>
-                <p class="adhoc-location">📍 Home or office</p>
-                <p class="adhoc-desc">Incline hold against desk to train straight-arm strength.</p>
-                <a href="https://www.youtube.com/results?search_query=desk+lean+holds+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
-              </div>
+                  <!-- Work Workout 5 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Shoulder Maintenance Micro-Session</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 5–10 minutes</span>
+                      <span class="workout-meta-item">✋ No equipment</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Keep shoulders healthy for overhead work</p>
+                    <ul class="workout-exercises">
+                      <li>Arm circles — 2×20</li>
+                      <li>Scap elevation/depression — 2×12</li>
+                      <li>Shoulder CARs — 2×5 each direction</li>
+                      <li>Chest openers — 2×10</li>
+                    </ul>
+                  </article>
 
-              <div class="adhoc-card">
-                <h4>Wall Serratus Reach</h4>
-                <p class="adhoc-location">📍 Any wall</p>
-                <p class="adhoc-desc">Press forearms lightly into wall and reach upward to train serratus control.</p>
-                <a href="https://www.youtube.com/results?search_query=wall+serratus+reach+exercise" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+                  <!-- Work Workout 6 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Quick Wrist Reset</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 5 minutes</span>
+                      <span class="workout-meta-item">🖥️ Desk or wall</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Fast wrist recovery between desk work</p>
+                    <ul class="workout-exercises">
+                      <li>Wrist circles — 2×10 each direction</li>
+                      <li>Prayer stretches — 2×15s</li>
+                      <li>Reverse prayer stretches — 2×15s</li>
+                      <li>Fist clenches with finger extensions — 2×10</li>
+                    </ul>
+                  </article>
+                </div>
+
+                <div class="card mt-6">
+                  <div class="card-body">
+                    <p style="color: var(--text-muted); font-size: 0.875rem;">
+                      <strong>Note:</strong> All movements appear discreet and normal in an office environment. No floor, no kneeling, no inversion, no awkward positions. Session duration remains 10 minutes or less.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </section>
+          </div>
 
-          <!-- Section 4: Full 12-Month Plan -->
+          <!-- Section 4: Ad-hoc Exercises (Expandable) -->
+          <div class="expandable-section is-open" id="adhoc-exercises">
+            <div class="expandable-header" onclick="toggleSection('adhoc-exercises')">
+              <h2>
+                <span class="inline-flex items-center gap-2">
+                  <span aria-hidden="true">⚡</span>
+                  Ad-hoc Exercises
+                </span>
+              </h2>
+              <span class="expandable-icon">▼</span>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-body">
+                <p class="mb-6" style="color: var(--text-muted);">
+                  Quick, plug-and-play drills you can drop into warm-ups or random spare moments.
+                </p>
+
+                <div class="adhoc-grid">
+                  <div class="adhoc-card">
+                    <h4>Wrist Rocks</h4>
+                    <p class="adhoc-location">📍 Anywhere with floor space</p>
+                    <p class="adhoc-desc">Shift weight forward/back to build wrist tolerance.</p>
+                    <a href="https://www.youtube.com/results?search_query=wrist+rocks+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Palm Lifts</h4>
+                    <p class="adhoc-location">📍 At desk or on floor</p>
+                    <p class="adhoc-desc">Strengthens finger flexors and wrist stability.</p>
+                    <a href="https://www.youtube.com/results?search_query=palm+lifts+wrist+exercise" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Scap Push-ups</h4>
+                    <p class="adhoc-location">📍 Home or gym</p>
+                    <p class="adhoc-desc">Keeps shoulders strong and stable for overhead work.</p>
+                    <a href="https://www.youtube.com/results?search_query=scapular+push+ups+tutorial" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Box Pike Hold</h4>
+                    <p class="adhoc-location">📍 Bench/box/sofa</p>
+                    <p class="adhoc-desc">Practice inverted loading safely with hips over shoulders.</p>
+                    <a href="https://www.youtube.com/results?search_query=pike+hold+box+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Desk Lean Holds</h4>
+                    <p class="adhoc-location">📍 Home or office</p>
+                    <p class="adhoc-desc">Incline hold against desk to train straight-arm strength.</p>
+                    <a href="https://www.youtube.com/results?search_query=desk+lean+holds+handstand" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Wall Serratus Reach</h4>
+                    <p class="adhoc-location">📍 Any wall</p>
+                    <p class="adhoc-desc">Press forearms lightly into wall and reach upward to train serratus control.</p>
+                    <a href="https://www.youtube.com/results?search_query=wall+serratus+reach+exercise" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Wall Plank</h4>
+                    <p class="adhoc-location">📍 Near a wall</p>
+                    <p class="adhoc-desc">Beginner inversion confidence and core stiffness.</p>
+                    <a href="https://www.youtube.com/results?search_query=wall+plank+handstand+progression" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Fingertip Holds</h4>
+                    <p class="adhoc-location">📍 Desk edge or floor</p>
+                    <p class="adhoc-desc">Trains balance corrections through the hands.</p>
+                    <a href="https://www.youtube.com/results?search_query=fingertip+holds+handstand+balance" target="_blank" rel="noopener" class="exercise-video-link">▶️ Video</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Full 12-Month Plan (Expandable) -->
           <section id="twelve-month-plan" aria-labelledby="twelve-month-plan-title">
             <h2 id="twelve-month-plan-title" class="text-xl font-bold mb-4" style="color: var(--text);">
               <span class="inline-flex items-center gap-2">
