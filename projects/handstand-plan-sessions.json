@@ -253,7 +253,75 @@
       "Standing core control",
       "Light desk-lean holds"
     ],
-    "note": "Even 5 minutes helps, but these are optional"
+    "note": "Even 5 minutes helps, but these are optional",
+    "workouts": [
+      {
+        "name": "Wrist Conditioning Flow",
+        "duration": "5 min",
+        "equipment": "• Floor space or yoga mat",
+        "purpose": "Build wrist tolerance at home",
+        "instructions": "• Wrist rocks — 2×12\n• Palm lifts — 2×12\n• Fingertip holds — 2×10–15s",
+        "scaling": "• Reduce hold times if fatigued",
+        "scoreType": "Quality",
+        "coachingCues": "• Keep elbows locked\n• Move slowly through each rep\n• Stop if sharp pain occurs",
+        "youtubeId": "dQw4w9WgXcQ"
+      },
+      {
+        "name": "Band Shoulder Mobility",
+        "duration": "5–10 min",
+        "equipment": "• Resistance band",
+        "purpose": "Maintain shoulder health for overhead work",
+        "instructions": "• Band pull-aparts — 2×15\n• Band dislocates — 2×10\n• External rotations — 2×12 each arm",
+        "scaling": "• Use lighter band if needed",
+        "scoreType": "Quality",
+        "coachingCues": "• Control the movement\n• Keep core braced\n• No bouncing",
+        "youtubeId": "dQw4w9WgXcQ"
+      },
+      {
+        "name": "Standing Core Control",
+        "duration": "5 min",
+        "equipment": "• No equipment needed",
+        "purpose": "Build hollow-body control standing up",
+        "instructions": "• Standing ribs-down hold — 3×10s\n• Pelvic tilt pulses — 2×10\n• Oblique brace — 2×10s per side",
+        "scaling": "• Shorten holds if fatigued",
+        "scoreType": "Quality",
+        "coachingCues": "• Brace ribs down throughout\n• Keep breathing steady\n• Focus on tension",
+        "youtubeId": "dQw4w9WgXcQ"
+      },
+      {
+        "name": "Desk Lean Holds",
+        "duration": "5 min",
+        "equipment": "• Desk edge or sturdy table",
+        "purpose": "Train straight-arm strength at home",
+        "instructions": "• Desk lean hold — 3×20s\n• Straight-arm shrugs — 2×10\n• Incline push-ups — 2×8",
+        "scaling": "• Move closer to desk to reduce intensity",
+        "scoreType": "Quality",
+        "coachingCues": "• Lock elbows fully\n• Push floor away\n• Keep body in line",
+        "youtubeId": "dQw4w9WgXcQ"
+      },
+      {
+        "name": "Quick Wrist + Shoulder Combo",
+        "duration": "5 min",
+        "equipment": "• Floor space",
+        "purpose": "Combined wrist and shoulder maintenance",
+        "instructions": "• Wrist rocks — 2×10\n• Scap push-ups — 2×8\n• Arm circles — 2×15 each direction",
+        "scaling": "• Reduce reps if short on time",
+        "scoreType": "Quality",
+        "coachingCues": "• Move with control\n• Full range of motion\n• Quality over speed",
+        "youtubeId": "dQw4w9WgXcQ"
+      },
+      {
+        "name": "Wrist + Core Micro Flow",
+        "duration": "5 min",
+        "equipment": "• Desk edge or table",
+        "purpose": "Quick 5-minute sequence to maintain consistency at home",
+        "instructions": "• Wrist rocks — 2×12\n• Palm lifts — 2×12\n• Standing ribs-down hold — 3×10s\n• Desk lean hold — 2×20s",
+        "scaling": "• Shorten holds if fatigued",
+        "scoreType": "Quality",
+        "coachingCues": "• Keep elbows locked\n• Brace ribs down\n• Move with control\n• Quality over speed",
+        "youtubeId": "dQw4w9WgXcQ"
+      }
+    ]
   },
   "adhocExercises": [
     {
@@ -277,14 +345,14 @@
       "description": "Practice inverted loading safely with hips over shoulders"
     },
     {
-      "name": "Wall Plank",
-      "location": "Near a wall",
-      "description": "Beginner inversion confidence and core stiffness"
+      "name": "Desk Lean Holds",
+      "location": "Home or office",
+      "description": "Incline hold against desk to train straight-arm strength"
     },
     {
-      "name": "Fingertip Holds",
-      "location": "Desk edge or floor",
-      "description": "Trains balance corrections through the hands"
+      "name": "Wall Serratus Reach",
+      "location": "Any wall",
+      "description": "Press forearms lightly into wall and reach upward to train serratus control"
     }
   ],
   "phases": [
@@ -372,12 +440,12 @@
           "target": "much reduced under load"
         }
       ],
-      "instructions": "Wrist rocks 2×12, palm lifts 2×12, fingertip holds 2×10–15s; then scap push-ups 2×10 and box pike hold 2×20–25s; finish with wall plank 2×30s and wall walks to halfway for 2 slow reps.",
-      "equipment": "Floor space, wall, yoga mat, box or bench",
-      "scaling": "Reduce hold times if wrists fatigue. Use a higher box for pike holds. Skip wall walks if you’re not comfortable inverted yet.",
+      "instructions": "• Wrist rocks 2×12\n• Palm lifts 2×12\n• Fingertip holds 2×10–15s\n• Scap push-ups 2×10\n• Box pike hold 2×20–25s\n• Wall plank 2×30s\n• Wall walks to halfway 2 slow reps",
+      "equipment": "• Floor space\n• Wall\n• Yoga mat\n• Box or bench",
+      "scaling": "• Reduce hold times if wrists fatigue\n• Use a higher box for pike holds\n• Skip wall walks if not comfortable inverted yet",
       "scoreType": "Quality",
       "additionalInfo": "Short, focused strength and skill session building early handstand fundamentals and joint tolerance.",
-      "coachingCues": "Keep elbows locked in all straight-arm drills; push the floor away in scap push-ups and pike holds; maintain ribs-down position in pike holds; in wall walks, move slowly with small, deliberate steps.",
+      "coachingCues": "• Keep elbows locked in all straight-arm drills\n• Push the floor away in scap push-ups and pike holds\n• Maintain ribs-down position in pike holds\n• In wall walks, move slowly with small, deliberate steps",
       "youtubeId": "VIDEO_ID_HERE"
     },
     {

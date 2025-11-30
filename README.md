@@ -54,6 +54,9 @@ petexa.github.io/
 │   ├── workout-tracker/      # Workout Tracker
 │   ├── progress-chart/       # Progress Chart visualization
 │   └── community-tools/      # Community resources
+├── projects/
+│   ├── handstand-plan.html   # 12-Month Handstand Walk Plan page
+│   └── handstand-plan-sessions.json  # Workout data for Handstand Plan
 ├── style-guide/
 │   └── index.html            # Typography, buttons, cards documentation
 ├── events.html               # Events calendar
@@ -262,6 +265,7 @@ To modify the Tailwind-style utilities:
 - **Admin Panel**: [/admin.html](https://petexa.github.io/admin.html)
 - **Events**: [/events.html](https://petexa.github.io/events.html)
 - **PB Matrix**: [/pb-matrix.html](https://petexa.github.io/pb-matrix.html)
+- **Handstand Plan**: [/projects/handstand-plan.html](https://petexa.github.io/projects/handstand-plan.html)
 
 ---
 
