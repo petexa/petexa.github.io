@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 Dashboard · The 2026 Strength & Skill Framework</title>
+  <meta name="description" content="Live view of The 2026 Strength & Skill Framework: micro-sessions, phase, time left, and goal progress.">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <style>
+    .content-section {
+      margin-top: 2.5rem;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .summary-card .phase-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .text-lg {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .goal-card .phase-body {
+      padding-top: 0.75rem;
+    }
+
+    .goal-meta {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 0.5rem;
+      border-radius: 999px;
+      background: var(--card-border);
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: var(--color-primary-500);
+      transition: width var(--transition-fast);
+    }
+
+    .theme-dark .progress-bar {
+      background: rgba(148, 163, 184, 0.3);
+    }
+
+    .page-header {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body class="bg-page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="site-wrapper">
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <svg class="sidebar-nav-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+          <span>Iron & Ale</span>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="../about/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>About</span>
+        </a>
+        <a href="../workouts/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span>Workouts</span>
+        </a>
+        <a href="../utilities/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Utilities</span>
+        </a>
+        <a href="../events.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Events</span>
+        </a>
+        <a href="../projects.html" class="sidebar-nav-item active" aria-current="page">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span>Projects</span>
+        </a>
+        <a href="../admin.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+          <span>Admin</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <p class="text-sm text-gray-400">&copy; <span id="sidebar-year">2024</span> Iron & Ale</p>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <div class="main-content">
+      <header class="top-header">
+        <a href="../index.html" class="font-bold text-lg" style="color: var(--text);">Iron & Ale</a>
+        <div class="flex items-center gap-2">
+          <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main id="main-content" role="main">
+        <div class="page-container">
+          <header class="page-header">
+            <div class="page-header-main">
+              <h1 class="page-title">2026 Dashboard</h1>
+              <p class="page-subtitle">
+                Live view of The 2026 Strength &amp; Skill Framework.
+              </p>
+              <p class="text-sm" style="color: var(--text-muted); margin-top:0.25rem;">
+                Micro-sessions, current phase, time remaining, and progress towards strength and handstand goals.
+              </p>
+            </div>
+          </header>
+
+          <section class="content-section">
+            <div class="summary-grid">
+              <article class="phase-card summary-card" id="summary-micros">
+                <div class="phase-header">
+                  <h3>Micro-Sessions</h3>
+                </div>
+                <div class="phase-body">
+                  <p class="text-lg"><span id="micro-completed">0</span> / <span id="micro-goal">300</span></p>
+                  <div class="progress-bar">
+                    <div class="progress-bar-fill" id="micro-progress-fill"></div>
+                  </div>
+                  <p class="text-sm" style="color: var(--text-muted); margin-top:0.25rem;">
+                    10-minute focused blocks tracked in 2026.
+                  </p>
+                </div>
+              </article>
+
+              <article class="phase-card summary-card" id="summary-phase">
+                <div class="phase-header">
+                  <h3>Current Phase</h3>
+                </div>
+                <div class="phase-body">
+                  <p class="text-lg" id="current-phase-name">Loading…</p>
+                  <p class="text-sm" style="color: var(--text-secondary);" id="current-phase-theme"></p>
+                </div>
+              </article>
+
+              <article class="phase-card summary-card" id="summary-time">
+                <div class="phase-header">
+                  <h3>Time Left</h3>
+                </div>
+                <div class="phase-body">
+                  <p class="text-lg"><span id="days-remaining">0</span> days</p>
+                  <p class="text-sm" style="color: var(--text-secondary);" id="timeline-label"></p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="content-section">
+            <article class="phase-card">
+              <div class="phase-header">
+                <h3>Handstand &amp; Skill Goals</h3>
+                <p class="phase-theme">Primary &amp; supporting goals for 2026.</p>
+              </div>
+              <div class="phase-body">
+                <div id="skill-goals-grid" class="goals-grid"></div>
+                <p id="skill-progress-note" class="text-sm" style="color: var(--text-muted); display:none; margin-top:0.5rem;">No progress data yet.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="content-section">
+            <article class="phase-card">
+              <div class="phase-header">
+                <h3>Strength Goals</h3>
+                <p class="phase-theme">Upper-body strength to support the framework.</p>
+              </div>
+              <div class="phase-body">
+                <div id="strength-goals-grid" class="goals-grid"></div>
+                <p id="strength-progress-note" class="text-sm" style="color: var(--text-muted); display:none; margin-top:0.5rem;">No progress data yet.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="content-section" id="error-section" style="display:none;">
+            <article class="phase-card">
+              <div class="phase-header">
+                <h3>Dashboard unavailable</h3>
+              </div>
+              <div class="phase-body">
+                <p style="color: var(--text-muted);">We couldn't load the plan data right now.</p>
+              </div>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    const MS_PER_DAY = 1000 * 60 * 60 * 24;
+    let planData = null;
+    let progressData = null;
+    let progressLoaded = true;
+
+    function parseDate(dateStr) {
+      return new Date(dateStr + 'T00:00:00');
+    }
+
+    function updateSidebarYear() {
+      const currentYear = new Date().getFullYear();
+      document.getElementById('sidebar-year').textContent = currentYear;
+    }
+
+    function setMicroSessions(progress) {
+      const completed = progress?.microSessions?.completed ?? 0;
+      const goal = progress?.microSessions?.goal ?? 300;
+      const percent = goal > 0 ? Math.min(100, (completed / goal) * 100) : 0;
+      document.getElementById('micro-completed').textContent = completed;
+      document.getElementById('micro-goal').textContent = goal;
+      document.getElementById('micro-progress-fill').style.width = `${percent}%`;
+    }
+
+    function findCurrentPhase(phases, today) {
+      if (!Array.isArray(phases)) return null;
+      return phases.find((phase) => {
+        if (!phase.dateRange) return false;
+        const [startStr, endStr] = phase.dateRange.split(' to ').map((s) => s.trim());
+        const start = parseDate(startStr);
+        const end = parseDate(endStr);
+        return today >= start && today <= end;
+      }) || null;
+    }
+
+    function updateCurrentPhase(phases) {
+      const today = new Date();
+      const currentPhase = findCurrentPhase(phases, today);
+      const nameEl = document.getElementById('current-phase-name');
+      const themeEl = document.getElementById('current-phase-theme');
+      if (currentPhase) {
+        nameEl.textContent = currentPhase.name;
+        themeEl.textContent = currentPhase.theme || '';
+      } else {
+        nameEl.textContent = 'Not in plan window';
+        themeEl.textContent = '';
+      }
+    }
+
+    function updateTimeLeft(plan) {
+      if (!plan?.startDate || !plan?.endDate) return;
+      const start = parseDate(plan.startDate);
+      const end = parseDate(plan.endDate);
+      const today = new Date();
+      const totalDays = Math.max(0, Math.ceil((end - start) / MS_PER_DAY));
+      const elapsedRaw = Math.floor((today - start) / MS_PER_DAY);
+      const elapsed = Math.min(Math.max(0, elapsedRaw), totalDays);
+      const remaining = Math.max(0, totalDays - elapsed);
+      document.getElementById('days-remaining').textContent = remaining;
+
+      let timelineLabel = '';
+      if (today < start) {
+        timelineLabel = `Plan starts ${plan.startDate}`;
+      } else if (today > end) {
+        timelineLabel = 'Completed';
+      } else {
+        timelineLabel = `Day ${elapsed + 1} of ${totalDays}`;
+      }
+      document.getElementById('timeline-label').textContent = timelineLabel;
+    }
+
+    function buildGoalCard(goal, progressMap) {
+      const progressEntry = progressMap?.[goal.id] || {};
+      const current = progressEntry.current ?? 0;
+      const target = progressEntry.target ?? goal.goalValue ?? 0;
+      const percent = target > 0 ? Math.min(100, (current / target) * 100) : 0;
+      const unit = progressEntry.unit || goal.unit || '';
+      return `
+        <div class="phase-card goal-card">
+          <div class="phase-header">
+            <h3>${goal.name}</h3>
+          </div>
+          <div class="phase-body">
+            <div class="goal-meta">
+              <span>${current} / ${target} ${unit}</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="width: ${percent}%;"></div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGoals(sectionGoals, gridId, progressMap) {
+      const grid = document.getElementById(gridId);
+      if (!Array.isArray(sectionGoals) || !sectionGoals.length) {
+        grid.innerHTML = '<p style="color: var(--text-muted);">No goals defined.</p>';
+        return;
+      }
+      grid.innerHTML = sectionGoals.map((goal) => buildGoalCard(goal, progressMap)).join('');
+    }
+
+    async function loadData() {
+      try {
+        const planResponse = await fetch('../data/handstand-plan-sessions.json');
+        if (!planResponse.ok) throw new Error('Plan load failed');
+        planData = await planResponse.json();
+      } catch (error) {
+        document.getElementById('error-section').style.display = 'block';
+        console.error(error);
+        return;
+      }
+
+      try {
+        const progressResponse = await fetch('../data/progress-2026.json');
+        if (!progressResponse.ok) throw new Error('Progress load failed');
+        progressData = await progressResponse.json();
+      } catch (error) {
+        progressLoaded = false;
+        progressData = null;
+        console.warn('Progress data unavailable', error);
+      }
+
+      setMicroSessions(progressData);
+      updateCurrentPhase(planData.phases);
+      updateTimeLeft(planData.plan);
+
+      const challenges = planData.challenges2026 || {};
+      const progressMap = progressData?.challenges || {};
+      renderGoals([...(challenges.primary || []), ...(challenges.supporting || [])], 'skill-goals-grid', progressMap);
+      renderGoals(challenges.strength || [], 'strength-goals-grid', progressMap);
+
+      if (!progressLoaded) {
+        document.getElementById('skill-progress-note').style.display = 'block';
+        document.getElementById('strength-progress-note').style.display = 'block';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateSidebarYear();
+      loadData();
+    });
+  </script>
+</body>
+</html>
