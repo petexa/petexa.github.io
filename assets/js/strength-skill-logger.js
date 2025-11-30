@@ -27,7 +27,10 @@ const StrengthSkillLogger = (function () {
       throw new Error(`Logger HTTP ${res.status}`);
     }
 
-    return res.json().catch(() => ({}));
+    return res.json().catch((err) => {
+      console.warn("Framework logger: could not parse JSON response", err);
+      return {};
+    });
   }
 
   function attachClickLogger(selector, challengeId, value, meta = {}) {
