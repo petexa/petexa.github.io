@@ -9,6 +9,36 @@
       "context": null,
       "note": "",
       "source": "unknown"
+    },
+    {
+      "timestamp": "2025-11-30T21:31:10.474Z",
+      "challengeId": "",
+      "value": 0,
+      "unit": "",
+      "phase": null,
+      "context": null,
+      "note": "",
+      "source": "unknown"
+    },
+    {
+      "timestamp": "2025-11-30T21:35:38.651Z",
+      "challengeId": "",
+      "value": 0,
+      "unit": "",
+      "phase": null,
+      "context": null,
+      "note": "",
+      "source": "unknown"
+    },
+    {
+      "timestamp": "2025-11-30T21:42:28.288Z",
+      "challengeId": "micro_300",
+      "value": 1,
+      "unit": "session",
+      "phase": 1,
+      "context": "gym",
+      "note": "Test micro-session from webhook",
+      "source": "manual-test"
     }
   ]
 }

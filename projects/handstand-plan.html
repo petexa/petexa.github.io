@@ -842,6 +842,106 @@
     html {
       scroll-behavior: smooth;
     }
+
+    /* 2026 Dashboard Styles */
+    #dashboard-2026 {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .dashboard-header {
+      margin-bottom: 1.5rem;
+    }
+    .dashboard-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.25rem 0;
+    }
+    .dashboard-subtitle {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .dashboard-row {
+      margin-bottom: 1.5rem;
+    }
+    .dashboard-block {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+    .dashboard-block h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .dashboard-metric {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-primary-600);
+      margin: 0 0 1rem 0;
+    }
+    .theme-dark .dashboard-metric {
+      color: var(--color-primary-400);
+    }
+    .dashboard-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 0.5rem 0 0 0;
+    }
+    .dashboard-challenges {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .dashboard-challenges {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .dashboard-challenges {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .dashboard-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      border: 1px solid var(--card-border);
+      transition: box-shadow var(--transition-fast);
+    }
+    .dashboard-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .dashboard-card h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .dashboard-card .dashboard-metric {
+      font-size: 1.25rem;
+      margin: 0 0 0.75rem 0;
+    }
+    .dashboard-card .btn {
+      width: 100%;
+    }
+    .dashboard-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 0;
+      font-style: italic;
+    }
+    .dashboard-footer {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--card-border);
+    }
   </style>
 </head>
 <body class="bg-page">
@@ -1016,10 +1116,102 @@
             </article>
           </section>
 
+          <!-- 2026 Dashboard Section -->
+          <section id="dashboard-2026" aria-labelledby="dashboard-2026-title">
+            <header class="dashboard-header">
+              <h2 id="dashboard-2026-title">📊 2026 Strength &amp; Skill Dashboard</h2>
+              <p class="dashboard-subtitle">Track micro-sessions and key strength/skill goals.</p>
+            </header>
+
+            <!-- Micro-sessions summary -->
+            <div class="dashboard-row">
+              <div class="dashboard-block">
+                <h3>Micro-sessions</h3>
+                <p class="dashboard-metric">
+                  <span id="micro-completed">0</span> / <span id="micro-goal">300</span>
+                </p>
+                <button class="btn btn-primary btn-log-micro-session">
+                  +1 Micro-session
+                </button>
+                <p class="dashboard-hint">Each click = one 10-minute focused session.</p>
+              </div>
+            </div>
+
+            <!-- Challenge cards -->
+            <div class="dashboard-row dashboard-challenges">
+              <article class="dashboard-card" data-challenge-id="hs_walk_gym">
+                <h3>Handstand Walk</h3>
+                <p class="dashboard-metric">
+                  <span class="challenge-current">0</span> / <span class="challenge-target">3</span> metres
+                </p>
+                <button class="btn btn-outline btn-log-challenge">
+                  +1 metre
+                </button>
+              </article>
+
+              <article class="dashboard-card" data-challenge-id="freestand_10s">
+                <h3>Freestanding Handstand</h3>
+                <p class="dashboard-metric">
+                  <span class="challenge-current">0</span> / <span class="challenge-target">10</span> seconds
+                </p>
+                <button class="btn btn-outline btn-log-challenge">
+                  +1 second
+                </button>
+              </article>
+
+              <article class="dashboard-card" data-challenge-id="ctw_60s">
+                <h3>Chest-to-wall Hold</h3>
+                <p class="dashboard-metric">
+                  <span class="challenge-current">0</span> / <span class="challenge-target">60</span> seconds
+                </p>
+                <button class="btn btn-outline btn-log-challenge">
+                  +5 seconds
+                </button>
+              </article>
+
+              <article class="dashboard-card" data-challenge-id="pullups_5">
+                <h3>Strict Pull-ups</h3>
+                <p class="dashboard-metric">
+                  <span class="challenge-current">0</span> / <span class="challenge-target">5</span> reps
+                </p>
+                <button class="btn btn-outline btn-log-challenge">
+                  +1 rep
+                </button>
+              </article>
+
+              <article class="dashboard-card" data-challenge-id="pressups_10">
+                <h3>Strict Press-ups</h3>
+                <p class="dashboard-metric">
+                  <span class="challenge-current">0</span> / <span class="challenge-target">10</span> reps
+                </p>
+                <button class="btn btn-outline btn-log-challenge">
+                  +1 rep
+                </button>
+              </article>
+
+              <article class="dashboard-card" data-challenge-id="dips_5">
+                <h3>Strict Dips</h3>
+                <p class="dashboard-metric">
+                  <span class="challenge-current">0</span> / <span class="challenge-target">5</span> reps
+                </p>
+                <button class="btn btn-outline btn-log-challenge">
+                  +1 rep
+                </button>
+              </article>
+            </div>
+
+            <footer class="dashboard-footer">
+              <p class="dashboard-note">
+                Note: values update optimistically in the browser when you click log. A future n8n read-only endpoint will keep this in sync with stored progress.
+              </p>
+            </footer>
+          </section>
+
           <!-- Quick Navigation -->
           <nav class="quick-nav" aria-label="Quick page navigation">
             <h3>🧭 Quick Navigation</h3>
             <div class="quick-nav-links">
+              <a href="#dashboard-2026" class="quick-nav-link">📊 2026 Dashboard</a>
               <a href="#next-workout" class="quick-nav-link">📅 Today's Workout</a>
               <a href="#training-locations" class="quick-nav-link">📍 Training Locations</a>
               <a href="#work-workouts" class="quick-nav-link">🏢 Work Workouts</a>
@@ -1848,6 +2040,7 @@
 
   <script src="../assets/js/theme.js"></script>
   <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/strength-skill-logger.js"></script>
   <script>
     // Set current year
     const currentYear = new Date().getFullYear();
@@ -2119,6 +2312,99 @@
     updateProgressTracker();
     loadMovementLibrary();
     setupDeepSessionControls();
+
+    /* ============================================
+       2026 DASHBOARD INITIALIZATION
+       Future enhancement: Call a read-only n8n endpoint
+       to populate micro-completed, micro-goal, and each
+       .challenge-current / .challenge-target on page load.
+       ============================================ */
+    (function initDashboard2026() {
+      // Challenge configuration: maps challengeId to increment value
+      const challengeConfig = {
+        'hs_walk_gym': { increment: 1, unit: 'metres' },
+        'freestand_10s': { increment: 1, unit: 'seconds' },
+        'ctw_60s': { increment: 5, unit: 'seconds' },
+        'pullups_5': { increment: 1, unit: 'reps' },
+        'pressups_10': { increment: 1, unit: 'reps' },
+        'dips_5': { increment: 1, unit: 'reps' }
+      };
+
+      // Micro-sessions handling
+      const microCompletedEl = document.getElementById('micro-completed');
+      const microGoalEl = document.getElementById('micro-goal');
+      const microBtn = document.querySelector('.btn-log-micro-session');
+
+      if (microBtn && microCompletedEl) {
+        microBtn.addEventListener('click', async () => {
+          microBtn.disabled = true;
+          const originalText = microBtn.innerText;
+          microBtn.innerText = 'Logging...';
+
+          try {
+            await StrengthSkillLogger.logFrameworkProgress('micro_300', 1, {
+              unit: 'session',
+              context: 'micro-session',
+              source: 'framework-dashboard'
+            });
+            // Optimistic UI update
+            const current = parseInt(microCompletedEl.textContent || '0', 10);
+            microCompletedEl.textContent = String(current + 1);
+            microBtn.innerText = 'Logged ✅';
+            setTimeout(() => {
+              microBtn.innerText = originalText;
+              microBtn.disabled = false;
+            }, 1200);
+          } catch (err) {
+            microBtn.innerText = 'Error ❌';
+            setTimeout(() => {
+              microBtn.innerText = originalText;
+              microBtn.disabled = false;
+            }, 1500);
+          }
+        });
+      }
+
+      // Challenge cards handling
+      const challengeCards = document.querySelectorAll('.dashboard-card[data-challenge-id]');
+      challengeCards.forEach(card => {
+        const challengeId = card.dataset.challengeId;
+        const config = challengeConfig[challengeId];
+        if (!config) return;
+
+        const currentEl = card.querySelector('.challenge-current');
+        const btn = card.querySelector('.btn-log-challenge');
+        if (!btn || !currentEl) return;
+
+        btn.addEventListener('click', async () => {
+          btn.disabled = true;
+          const originalText = btn.innerText;
+          btn.innerText = 'Logging...';
+
+          try {
+            await StrengthSkillLogger.logFrameworkProgress(challengeId, config.increment, {
+              unit: config.unit,
+              context: 'challenge',
+              source: 'framework-dashboard'
+            });
+            // Optimistic UI update
+            const current = parseInt(currentEl.textContent || '0', 10);
+            currentEl.textContent = String(current + config.increment);
+            btn.innerText = 'Logged ✅';
+            setTimeout(() => {
+              btn.innerText = originalText;
+              btn.disabled = false;
+            }, 1200);
+          } catch (err) {
+            btn.innerText = 'Error ❌';
+            setTimeout(() => {
+              btn.innerText = originalText;
+              btn.disabled = false;
+            }, 1500);
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>

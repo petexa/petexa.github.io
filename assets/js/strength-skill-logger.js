@@ -1,12 +1,7 @@
 // assets/js/strength-skill-logger.js
-
 const StrengthSkillLogger = (function () {
-  // 🔗 Your n8n production webhook URL (NOT the -test one)
   const WEBHOOK_URL = "https://n8n.petefox.co.uk/webhook/strength-skill-progress";
-
-  // ⚠️ This is not truly secret once in the frontend,
-  // it just matches the IF check in n8n to block random noise
-  const SHARED_SECRET = "SS-2026-Progress-Secret";
+  const SHARED_SECRET = "SS-2026-Progress-Secret"; // Must match n8n IF node
 
   async function logFrameworkProgress(challengeId, value, meta = {}) {
     const payload = {
@@ -17,34 +12,27 @@ const StrengthSkillLogger = (function () {
       phase: meta.phase ?? null,
       context: meta.context || "unknown",
       note: meta.note || "",
-      source: meta.source || "frontend"
+      source: meta.source || "framework-dashboard"
     };
 
-    try {
-      const res = await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
+    const res = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-      if (!res.ok) {
-        const text = await res.text().catch(() => "");
-        console.error("Framework logger error:", res.status, text);
-        throw new Error(`Logger HTTP ${res.status}`);
-      }
-
-      const data = await res.json().catch(() => ({}));
-      console.log("Framework progress logged:", data);
-      return data;
-    } catch (err) {
-      console.error("Error logging framework progress:", err);
-      throw err;
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      console.error("Framework logger error:", res.status, text);
+      throw new Error(`Logger HTTP ${res.status}`);
     }
+
+    return res.json().catch((err) => {
+      console.warn("Framework logger: could not parse JSON response", err);
+      return {};
+    });
   }
 
-  // Helper: attach click handlers to buttons by selector
   function attachClickLogger(selector, challengeId, value, meta = {}) {
     const elements = document.querySelectorAll(selector);
     elements.forEach((el) => {
@@ -56,6 +44,7 @@ const StrengthSkillLogger = (function () {
         try {
           await logFrameworkProgress(challengeId, value, meta);
           el.innerText = "Logged ✅";
+          el.dataset.logged = "true";
           setTimeout(() => {
             el.innerText = originalText;
             el.disabled = false;
@@ -71,8 +60,5 @@ const StrengthSkillLogger = (function () {
     });
   }
 
-  return {
-    logFrameworkProgress,
-    attachClickLogger
-  };
+  return { logFrameworkProgress, attachClickLogger };
 })();
