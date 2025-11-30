@@ -1,274 +1,458 @@
 {
   "movements": [
     {
-      "id": "wrist-rocks",
-      "name": "Wrist Rocks",
+      "id": "arm-circles",
+      "name": "Arm circles",
+      "category": "mobility",
+      "description": "Dynamic shoulder warm-up using large arm circles.",
+      "youtube": ""
+    },
+    {
+      "id": "band-external-rotations-optional",
+      "name": "Band external rotations (optional)",
+      "category": "scapular",
+      "description": "Shoulder and scapular control drill: Band external rotations (optional).",
+      "youtube": ""
+    },
+    {
+      "id": "band-overhead-pull-aparts",
+      "name": "Band overhead pull-aparts",
+      "category": "strength",
+      "description": "Band drill for upper back and rear delts to support overhead work.",
+      "youtube": ""
+    },
+    {
+      "id": "band-shoulder-work",
+      "name": "Band shoulder work",
+      "category": "strength",
+      "description": "General band shoulder activation work used in warm-ups.",
+      "youtube": ""
+    },
+    {
+      "id": "box-pike-hold",
+      "name": "Box Pike Hold",
+      "category": "handstand",
+      "description": "Handstand or inversion-related movement: Box Pike Hold.",
+      "youtube": ""
+    },
+    {
+      "id": "box-pike-hold-1",
+      "name": "Box pike hold",
+      "category": "inversion-strength",
+      "description": "Inverted position with feet elevated and hips stacked over shoulders.",
+      "youtube": ""
+    },
+    {
+      "id": "box-pike-holds",
+      "name": "Box pike holds",
+      "category": "handstand",
+      "description": "Handstand or inversion-related movement: Box pike holds.",
+      "youtube": ""
+    },
+    {
+      "id": "box-pike-shoulder-taps",
+      "name": "Box pike shoulder taps",
+      "category": "handstand",
+      "description": "Handstand or inversion-related movement: Box pike shoulder taps.",
+      "youtube": ""
+    },
+    {
+      "id": "chest-openers",
+      "name": "Chest openers",
+      "category": "mobility",
+      "description": "Dynamic chest stretch opening the front of the shoulders.",
+      "youtube": ""
+    },
+    {
+      "id": "chest-to-wall-hold",
+      "name": "Chest-to-wall hold",
+      "category": "handstand",
+      "description": "Full body handstand position facing the wall to train the straight line.",
+      "youtube": ""
+    },
+    {
+      "id": "chest-to-wall-holds",
+      "name": "Chest-to-wall holds",
+      "category": "handstand",
+      "description": "Repeat sets of chest-to-wall handstand holds for time.",
+      "youtube": ""
+    },
+    {
+      "id": "control-drills",
+      "name": "Control drills",
+      "category": "handstand",
+      "description": "Handstand or inversion-related movement: Control drills.",
+      "youtube": ""
+    },
+    {
+      "id": "controlled-attempts",
+      "name": "Controlled attempts",
+      "category": "handstand",
+      "description": "Handstand or inversion-related movement: Controlled attempts.",
+      "youtube": ""
+    },
+    {
+      "id": "desk-fingertip-holds",
+      "name": "Desk fingertip holds",
       "category": "wrist",
-      "description": "Shift weight forward/back over your palms to build wrist strength and tolerance.",
+      "description": "Wrist preparation drill: Desk fingertip holds.",
+      "youtube": ""
+    },
+    {
+      "id": "desk-lean-hold-standing-incline-plank",
+      "name": "Desk lean hold (standing incline plank)",
+      "category": "strength",
+      "description": "Strength or activation drill using simple equipment: Desk lean hold (standing incline plank).",
+      "youtube": ""
+    },
+    {
+      "id": "desk-palm-lifts",
+      "name": "Desk palm lifts",
+      "category": "wrist",
+      "description": "Wrist preparation drill: Desk palm lifts.",
+      "youtube": ""
+    },
+    {
+      "id": "forearm-finger-stretch-on-desk",
+      "name": "Forearm finger stretch (on desk)",
+      "category": "wrist",
+      "description": "Wrist preparation drill: Forearm finger stretch (on desk).",
+      "youtube": ""
+    },
+    {
+      "id": "fingertip-holds",
+      "name": "Fingertip holds",
+      "category": "wrist",
+      "description": "Support bodyweight through the fingertips to train handstand balance corrections.",
+      "youtube": ""
+    },
+    {
+      "id": "freestanding-attempts",
+      "name": "Freestanding attempts",
+      "category": "handstand",
+      "description": "Attempts to balance in the middle of the floor without wall support.",
+      "youtube": ""
+    },
+    {
+      "id": "handstand-step-outs",
+      "name": "Handstand step-outs",
+      "category": "handstand-walking",
+      "description": "Take one or two steps out of a static handstand.",
+      "youtube": ""
+    },
+    {
+      "id": "heel-pulls-from-wall",
+      "name": "Heel pulls from wall",
+      "category": "handstand",
+      "description": "Lean back to tap heels on the wall and return to balance.",
+      "youtube": ""
+    },
+    {
+      "id": "high-angle-push-ups-on-desk",
+      "name": "High-angle push-ups on desk",
+      "category": "strength",
+      "description": "Strength or activation drill using simple equipment: High-angle push-ups on desk.",
+      "youtube": ""
+    },
+    {
+      "id": "kick-up-practice",
+      "name": "Kick-up practice",
+      "category": "handstand-entry",
+      "description": "Handstand or inversion-related movement: Kick-up practice.",
+      "youtube": ""
+    },
+    {
+      "id": "kick-up-practice-controlled-entry-to-wall",
+      "name": "Kick-up practice (controlled entry to wall)",
+      "category": "handstand-entry",
+      "description": "Handstand or inversion-related movement: Kick-up practice (controlled entry to wall).",
+      "youtube": ""
+    },
+    {
+      "id": "kick-up-to-wall-kiss-and-come-away",
+      "name": "Kick-up to wall (kiss and come away)",
+      "category": "handstand-entry",
+      "description": "Kick up softly to the wall, touch lightly, and return to standing.",
       "youtube": ""
     },
     {
       "id": "leaning-wrist-rocks",
-      "name": "Leaning Wrist Rocks",
+      "name": "Leaning wrist rocks",
       "category": "wrist",
-      "description": "Increased angle wrist rocks to build more load tolerance before inversion.",
+      "description": "Wrist preparation drill: Leaning wrist rocks.",
       "youtube": ""
     },
     {
-      "id": "wrist-weight-shifts",
-      "name": "Wrist Weight-Shifts",
-      "category": "wrist",
-      "description": "Shift weight side to side to build balance corrections through the wrist.",
+      "id": "light-desk-lean-holds",
+      "name": "Light desk-lean holds",
+      "category": "strength",
+      "description": "Strength or activation drill using simple equipment: Light desk-lean holds.",
+      "youtube": ""
+    },
+    {
+      "id": "line-walking-between-floor-markers-optional",
+      "name": "Line walking between floor markers (optional)",
+      "category": "handstand-walking",
+      "description": "Handstand or inversion-related movement: Line walking between floor markers (optional).",
       "youtube": ""
     },
     {
       "id": "palm-lifts",
       "name": "Palm Lifts",
       "category": "wrist",
-      "description": "Lift palms while keeping fingers on ground to train finger flexors.",
+      "description": "Lift the palm while keeping fingers on the floor to strengthen the fingers and wrists.",
       "youtube": ""
     },
     {
-      "id": "fingertip-holds",
-      "name": "Fingertip Holds",
+      "id": "palm-lifts-1",
+      "name": "Palm lifts",
       "category": "wrist",
-      "description": "Support weight through fingertips to develop handstand balance corrections.",
+      "description": "Lift the palm while keeping fingers on the floor to strengthen the fingers and wrists.",
       "youtube": ""
     },
     {
-      "id": "scap-pushups",
+      "id": "scap-push-ups",
       "name": "Scap Push-ups",
       "category": "scapular",
-      "description": "Straight-arm protraction/retraction for shoulder stability.",
+      "description": "Shoulder and scapular control drill: Scap Push-ups.",
       "youtube": ""
     },
     {
-      "id": "wall-scap-pushups",
-      "name": "Standing Scap Push-ups",
+      "id": "scap-elevation-depression",
+      "name": "Scap elevation/depression",
+      "category": "scapular",
+      "description": "Shoulder and scapular control drill: Scap elevation/depression.",
+      "youtube": ""
+    },
+    {
+      "id": "scap-push-ups-1",
+      "name": "Scap push-ups",
+      "category": "scapular",
+      "description": "Straight-arm protraction and retraction to train shoulder blade control.",
+      "youtube": ""
+    },
+    {
+      "id": "serratus-punches",
+      "name": "Serratus punches",
+      "category": "scapular",
+      "description": "Shoulder and scapular control drill: Serratus punches.",
+      "youtube": ""
+    },
+    {
+      "id": "short-distance-handstand-walks",
+      "name": "Short-distance handstand walks",
+      "category": "handstand-walking",
+      "description": "Controlled handstand walks over 1–3 metres.",
+      "youtube": ""
+    },
+    {
+      "id": "shoulder-cars",
+      "name": "Shoulder CARs",
+      "category": "mobility",
+      "description": "Mobility or dynamic warm-up drill: Shoulder CARs.",
+      "youtube": ""
+    },
+    {
+      "id": "small-distance-free-walks-1-2m",
+      "name": "Small distance free walks (1-2m)",
+      "category": "handstand-walking",
+      "description": "Short handstand walk efforts focusing on control.",
+      "youtube": ""
+    },
+    {
+      "id": "standing-oblique-brace",
+      "name": "Standing oblique brace",
+      "category": "core",
+      "description": "Core control movement: Standing oblique brace.",
+      "youtube": ""
+    },
+    {
+      "id": "standing-ribs-down-hold",
+      "name": "Standing ribs down hold",
+      "category": "core",
+      "description": "Standing bracing drill teaching hollow-body rib position.",
+      "youtube": ""
+    },
+    {
+      "id": "standing-scap-push-ups-against-wall",
+      "name": "Standing scap push-ups (against wall)",
       "category": "scapular",
       "description": "Wall variation of scap push-ups for lighter loading.",
       "youtube": ""
     },
     {
-      "id": "scap-elev-depress",
-      "name": "Scap Elevation/Depression",
-      "category": "scapular",
-      "description": "Shrug up and down while keeping arms straight to build overhead stability.",
+      "id": "standing-knee-lifts",
+      "name": "Standing knee lifts",
+      "category": "core",
+      "description": "Core control movement: Standing knee lifts.",
       "youtube": ""
     },
     {
-      "id": "serratus-punches",
-      "name": "Serratus Punches",
-      "category": "scapular",
-      "description": "Train serratus with forward pressing motions.",
+      "id": "step-outs",
+      "name": "Step-outs",
+      "category": "handstand-walking",
+      "description": "Handstand or inversion-related movement: Step-outs.",
       "youtube": ""
     },
     {
-      "id": "box-pike-hold",
-      "name": "Box Pike Hold",
-      "category": "inversion-strength",
-      "description": "Inverted position loading shoulders with hips stacked over hands.",
+      "id": "toe-pulls",
+      "name": "Toe pulls",
+      "category": "handstand",
+      "description": "Handstand or inversion-related movement: Toe pulls.",
       "youtube": ""
     },
     {
-      "id": "box-pike-taps",
-      "name": "Box Pike Shoulder Taps",
-      "category": "inversion-strength",
-      "description": "Alternating shoulder taps while inverted on a box.",
+      "id": "toe-pulls-from-wall",
+      "name": "Toe pulls from wall",
+      "category": "handstand",
+      "description": "Gently pull toes away from the wall to find balance.",
+      "youtube": ""
+    },
+    {
+      "id": "tuck-plank-on-box",
+      "name": "Tuck plank on box",
+      "category": "core",
+      "description": "Plank variation with knees tucked to emphasise core compression.",
+      "youtube": ""
+    },
+    {
+      "id": "walking-drills",
+      "name": "Walking drills",
+      "category": "handstand-walking",
+      "description": "Handstand or inversion-related movement: Walking drills.",
       "youtube": ""
     },
     {
       "id": "wall-plank",
       "name": "Wall Plank",
       "category": "inversion-basics",
-      "description": "Feet on wall, hands on floor, training early inversion control.",
+      "description": "Handstand or inversion-related movement: Wall Plank.",
       "youtube": ""
     },
     {
-      "id": "wall-walk-half",
-      "name": "Wall Walk to Halfway",
+      "id": "wall-kiss-and-come-away",
+      "name": "Wall kiss and come away",
+      "category": "handstand-entry",
+      "description": "Handstand or inversion-related movement: Wall kiss and come away.",
+      "youtube": ""
+    },
+    {
+      "id": "wall-plank-1",
+      "name": "Wall plank",
       "category": "inversion-basics",
-      "description": "Walk feet up the wall until halfway inverted.",
+      "description": "Plank position with feet on the wall and hands on the floor.",
       "youtube": ""
     },
     {
-      "id": "wall-walk-threequarter",
-      "name": "Wall Walk to ¾ Height",
-      "category": "inversion-strength",
-      "description": "More advanced wall walk with greater shoulder loading.",
-      "youtube": ""
-    },
-    {
-      "id": "chest-to-wall-hold",
-      "name": "Chest-to-Wall Hold",
-      "category": "handstand",
-      "description": "True handstand line drill facing the wall.",
-      "youtube": ""
-    },
-    {
-      "id": "toe-pulls",
-      "name": "Toe Pulls",
-      "category": "handstand",
-      "description": "Pull toes away from wall to find balance.",
-      "youtube": ""
-    },
-    {
-      "id": "heel-pulls",
-      "name": "Heel Pulls",
-      "category": "handstand",
-      "description": "Lean back to tap heels lightly on wall.",
-      "youtube": ""
-    },
-    {
-      "id": "kickup-entries",
-      "name": "Kick-Up Practice",
-      "category": "handstand-entry",
-      "description": "Practise safe and consistent entry into handstand.",
-      "youtube": ""
-    },
-    {
-      "id": "wall-kiss",
-      "name": "Wall Kiss and Come Away",
-      "category": "handstand-entry",
-      "description": "Lightly tap wall and return to balance.",
-      "youtube": ""
-    },
-    {
-      "id": "handstand-stepouts",
-      "name": "Handstand Step-Outs",
-      "category": "handstand-walking",
-      "description": "Take small controlled steps in handstand.",
-      "youtube": ""
-    },
-    {
-      "id": "hs-short-walks",
-      "name": "Short-Distance Handstand Walks",
-      "category": "handstand-walking",
-      "description": "Walk 1–3 metres maintaining form.",
-      "youtube": ""
-    },
-    {
-      "id": "line-walking",
-      "name": "Line Walking",
-      "category": "handstand-walking",
-      "description": "Walk along a marked path or chalk line.",
-      "youtube": ""
-    },
-    {
-      "id": "desk-lean",
-      "name": "Desk Lean Holds",
-      "category": "strength",
-      "description": "Straight-arm bodyweight lean to simulate overhead pressing pattern.",
-      "youtube": ""
-    },
-    {
-      "id": "band-pullaparts",
-      "name": "Band Pull-Aparts",
-      "category": "strength",
-      "description": "Posterior shoulder strengthening drill.",
-      "youtube": ""
-    },
-    {
-      "id": "band-dislocates",
-      "name": "Band Dislocates",
+      "id": "wall-slides-y-overhead-motions",
+      "name": "Wall slides (Y overhead motions)",
       "category": "mobility",
-      "description": "Shoulder mobility drill improving overhead position.",
+      "description": "Mobility or dynamic warm-up drill: Wall slides (Y overhead motions).",
       "youtube": ""
     },
     {
-      "id": "tuck-plank",
-      "name": "Tuck Plank on Box",
-      "category": "core",
-      "description": "Core compression drill with shoulders loaded over hands.",
+      "id": "wall-walk-to-halfway",
+      "name": "Wall walk to halfway",
+      "category": "inversion-basics",
+      "description": "Walk feet up the wall to a partial inverted position.",
       "youtube": ""
     },
     {
-      "id": "ribs-down",
-      "name": "Standing Ribs-Down Brace",
-      "category": "core",
-      "description": "Teach hollow-body mechanics while standing.",
+      "id": "wall-walks",
+      "name": "Wall walks",
+      "category": "inversion-strength",
+      "description": "Walk up and down the wall from plank into a near-vertical position.",
       "youtube": ""
     },
     {
-      "id": "pelvic-tilts",
-      "name": "Standing Pelvic Tilt Pulses",
-      "category": "core",
-      "description": "Control lumbar position for handstand neutrality.",
+      "id": "wall-walks-3-4-height-full-height",
+      "name": "Wall walks (¾ height → full height)",
+      "category": "inversion-strength",
+      "description": "Wall walks stopping before fully vertical to reduce intensity.",
       "youtube": ""
     },
     {
-      "id": "oblique-brace",
-      "name": "Standing Oblique Brace",
-      "category": "core",
-      "description": "Train lateral stability and bracing.",
+      "id": "wall-walks-to-3-4-height",
+      "name": "Wall walks to ¾ height",
+      "category": "inversion-strength",
+      "description": "Wall walks stopping before fully vertical to reduce intensity.",
       "youtube": ""
     },
     {
-      "id": "knee-lifts",
-      "name": "Standing Controlled Knee Lifts",
-      "category": "core",
-      "description": "Train active hip flexion and balance.",
+      "id": "wall-walks-with-step-outs",
+      "name": "Wall walks with step-outs",
+      "category": "handstand-walking",
+      "description": "Wall walks plus small hand steps to introduce walking mechanics.",
       "youtube": ""
     },
     {
-      "id": "wall-serratus",
-      "name": "Wall Serratus Reach",
-      "category": "scapular",
-      "description": "Serratus activation while leaning on the wall.",
+      "id": "wrist-rocks",
+      "name": "Wrist Rocks",
+      "category": "wrist",
+      "description": "Shift weight forward and back over the hands to build wrist strength and tolerance.",
       "youtube": ""
     },
-
-    /* ---------------------------
-       NEW: STRENGTH-BASED MOVES
-       --------------------------- */
-
     {
-      "id": "pike-pushup",
-      "name": "Pike Push-up",
+      "id": "wrist-conditioning",
+      "name": "Wrist conditioning",
+      "category": "wrist",
+      "description": "Wrist preparation drill: Wrist conditioning.",
+      "youtube": ""
+    },
+    {
+      "id": "wrist-rocks-1",
+      "name": "Wrist rocks",
+      "category": "wrist",
+      "description": "Shift weight forward and back over the hands to build wrist strength and tolerance.",
+      "youtube": ""
+    },
+    {
+      "id": "wrist-weight-shifts",
+      "name": "Wrist weight-shifts",
+      "category": "wrist",
+      "description": "Wrist preparation drill: Wrist weight-shifts.",
+      "youtube": ""
+    },
+    {
+      "id": "strict-press-ups",
+      "name": "Strict press-ups",
       "category": "strength",
-      "description": "Bodyweight vertical pressing drill to build handstand pushing strength.",
+      "description": "Full-range strict press-ups from floor with tight body line.",
       "youtube": ""
     },
     {
-      "id": "elevated-pike-pushup",
-      "name": "Feet-Elevated Pike Push-up",
+      "id": "incline-press-ups",
+      "name": "Incline press-ups",
       "category": "strength",
-      "description": "Higher loading version that mimics handstand strength.",
+      "description": "Hands-elevated press-ups used as a regression towards full press-ups.",
       "youtube": ""
     },
     {
-      "id": "dumbbell-strict-press",
-      "name": "Dumbbell Strict Press",
+      "id": "bench-dips",
+      "name": "Bench dips",
       "category": "strength",
-      "description": "Builds overhead pressing strength directly transferable to handstand.",
+      "description": "Dip variation with hands on a bench to build tricep and shoulder strength.",
       "youtube": ""
     },
     {
-      "id": "dumbbell-z-press",
-      "name": "Dumbbell Z-Press",
+      "id": "band-assisted-dips",
+      "name": "Band-assisted dips",
       "category": "strength",
-      "description": "Seated overhead press that forces core engagement; great for handstand lines.",
+      "description": "Dips performed with band assistance to reduce bodyweight load.",
       "youtube": ""
     },
     {
-      "id": "hollow-hold",
-      "name": "Hollow Body Hold",
-      "category": "core",
-      "description": "Foundation shape for all handstand balance.",
-      "youtube": ""
-    },
-    {
-      "id": "dead-bug",
-      "name": "Dead Bug",
-      "category": "core",
-      "description": "Anti-extension core drill reinforcing hollow mechanics.",
-      "youtube": ""
-    },
-    {
-      "id": "wall-facing-hspu-neg",
-      "name": "Wall-Facing HSPU Negatives",
+      "id": "strict-dips",
+      "name": "Strict dips",
       "category": "strength",
-      "description": "Eccentric handstand push-up practice for advanced shoulder strength.",
+      "description": "Full-range bodyweight dips on parallel bars or rings.",
+      "youtube": ""
+    },
+    {
+      "id": "strict-pull-ups",
+      "name": "Strict pull-ups",
+      "category": "strength",
+      "description": "Pull-ups performed without kipping to build back and arm strength.",
       "youtube": ""
     }
   ]
