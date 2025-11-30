@@ -1777,7 +1777,7 @@
        ============================================ */
     async function loadMovementLibrary() {
       try {
-        const response = await fetch('/data/movements.json');
+        const response = await fetch('../data/movements.json');
         const data = await response.json();
         const movements = data.movements;
         const container = document.getElementById('movement-list');
