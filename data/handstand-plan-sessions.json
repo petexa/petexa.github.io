@@ -1,0 +1,1546 @@
+{
+  "plan": {
+    "name": "12-Month Handstand Walk Plan",
+    "projectName": "The 2026 Strength & Skill Framework",
+    "projectSubtitle": "A structured progression for strength, inversion, balance, and endurance.",
+    "projectTagline": "Build Strength. Build Skill. Build Control.",
+    "goal": "Walk on my hands across the gym by December 2026",
+    "startDate": "2025-12-01",
+    "endDate": "2026-12-31",
+    "password": "Handstand2026"
+  },
+  "schedule": {
+    "gymDays": [
+      {
+        "day": "Saturday",
+        "time": "AM",
+        "label": "Morning"
+      },
+      {
+        "day": "Sunday",
+        "time": "AM",
+        "label": "Morning"
+      },
+      {
+        "day": "Monday",
+        "time": "PM",
+        "label": "Evening"
+      },
+      {
+        "day": "Thursday",
+        "time": "PM",
+        "label": "Evening"
+      }
+    ]
+  },
+  "gymSessions": {
+    "description": "Skill Training - Heavy Progressions",
+    "location": "Gym",
+    "sessions": [
+      {
+        "day": "Saturday",
+        "time": "AM",
+        "timing": "Before class",
+        "duration": "10 min",
+        "focus": "Box pike → wall plank → wall walks",
+        "exercises": [
+          "Box pike holds",
+          "Wall plank",
+          "Wall walks"
+        ]
+      },
+      {
+        "day": "Sunday",
+        "time": "AM",
+        "timing": "After class",
+        "duration": "10 min",
+        "focus": "Chest-to-wall holds → toe pulls → heel pulls",
+        "exercises": [
+          "Chest-to-wall holds",
+          "Toe pulls",
+          "Heel pulls"
+        ]
+      },
+      {
+        "day": "Monday",
+        "time": "PM",
+        "timing": "Before class",
+        "duration": "10 min",
+        "focus": "Wrist prep → scap prep → box pike",
+        "exercises": [
+          "Wrist rocks",
+          "Palm lifts",
+          "Fingertip holds",
+          "Scap push-ups",
+          "Box pike hold"
+        ]
+      },
+      {
+        "day": "Thursday",
+        "time": "PM",
+        "timing": "After class",
+        "duration": "10 min",
+        "focus": "Kick-up practice → wall kiss and come away",
+        "exercises": [
+          "Kick-up practice",
+          "Wall kiss and come away"
+        ]
+      },
+      {
+        "day": "Thursday",
+        "time": "PM",
+        "timing": "After class",
+        "duration": "10 min",
+        "focus": "Walking drills → step-outs → control drills",
+        "exercises": [
+          "Walking drills",
+          "Step-outs",
+          "Control drills"
+        ]
+      }
+    ],
+    "allExercises": [
+      "Box pike holds",
+      "Box pike shoulder taps",
+      "Wall walks (¾ height → full height)",
+      "Chest-to-wall holds",
+      "Toe pulls & heel pulls",
+      "Kick-up practice (controlled entry to wall)",
+      "Handstand step-outs",
+      "Short-distance handstand walks"
+    ]
+  },
+  "workSessions": {
+    "description": "In-the-office sessions (no floor rolling, desk/wall only)",
+    "location": "Office",
+    "workouts": [
+      {
+        "id": "office-wrist-scap-1",
+        "name": "Office Wrist + Scap Tune-Up",
+        "duration": "10 min",
+        "purpose": "Wrist tolerance and shoulder activation using desk + wall only",
+        "constraints": [
+          "No floor rolling",
+          "No big equipment",
+          "Can be done in office clothes"
+        ],
+        "exercises": [
+          {
+            "name": "Wrist rocks",
+            "reps": "2×12",
+            "notes": "Light load, small range"
+          },
+          {
+            "name": "Desk palm lifts",
+            "reps": "2×12",
+            "notes": "Fingers on desk, palms lifting"
+          },
+          {
+            "name": "Desk fingertip holds",
+            "reps": "2×10-15s",
+            "notes": "Lean gently into fingertips"
+          },
+          {
+            "name": "Standing scap push-ups (against wall)",
+            "reps": "2×10",
+            "notes": "Keep arms straight, move shoulder blades only"
+          },
+          {
+            "name": "Desk lean hold (standing incline plank)",
+            "reps": "2×20-30s",
+            "notes": "Straight line from head to heels"
+          }
+        ]
+      },
+      {
+        "id": "office-line-balance-1",
+        "name": "Office Line Balance & Core",
+        "duration": "10 min",
+        "purpose": "Standing balance and core drills to support handstand line",
+        "constraints": [
+          "No floor rolling",
+          "Uses wall and small space"
+        ],
+        "exercises": [
+          {
+            "name": "Standing ribs down hold",
+            "reps": "3×20s",
+            "notes": "Arms overhead, ribs pulled down"
+          },
+          {
+            "name": "Standing oblique brace",
+            "reps": "3×10s/side",
+            "notes": "Resist side-bend"
+          },
+          {
+            "name": "Standing knee lifts",
+            "reps": "2×10/side",
+            "notes": "Slow, controlled, tall posture"
+          },
+          {
+            "name": "Wall slides (Y overhead motions)",
+            "reps": "2×10",
+            "notes": "Back to wall, slide arms overhead"
+          }
+        ]
+      },
+      {
+        "id": "office-shoulder-mobility-1",
+        "name": "Office Shoulder Mobility & Health",
+        "duration": "10 min",
+        "purpose": "Keep shoulders moving well for overhead work",
+        "constraints": [
+          "No floor work",
+          "Desk + wall only"
+        ],
+        "exercises": [
+          {
+            "name": "Band shoulder work",
+            "reps": "2×15",
+            "notes": "If band available, light resistance only"
+          },
+          {
+            "name": "Band overhead pull-aparts",
+            "reps": "2×15",
+            "notes": "Control the return"
+          },
+          {
+            "name": "Arm circles",
+            "reps": "2×20",
+            "notes": "Forward and backward"
+          },
+          {
+            "name": "Chest openers",
+            "reps": "2×10",
+            "notes": "Hands behind back or on doorway"
+          }
+        ]
+      }
+    ]
+  },
+  "homeSessions": {
+    "description": "At-home boosters (no time pressure)",
+    "location": "Home",
+    "exercises": [
+      "Wrist conditioning",
+      "Scap push-ups",
+      "Tuck plank on box",
+      "Desk lean hold (standing incline plank)",
+      "Standing ribs down hold",
+      "Shoulder CARs"
+    ]
+  },
+  "adhocExercises": [
+    {
+      "id": "adhoc-wrist-reset",
+      "name": "Ad-hoc Wrist Reset",
+      "description": "Short 5-minute sequence to reset wrists after typing or lifting",
+      "whenToUse": "Any time wrists feel tight or tired",
+      "exercises": [
+        "Wrist rocks",
+        "Palm lifts",
+        "Fingertip holds",
+        "Forearm finger stretch (on desk)"
+      ]
+    },
+    {
+      "id": "adhoc-shoulder-reset",
+      "name": "Ad-hoc Shoulder Reset",
+      "description": "Quick shoulder flush on rest days or after class",
+      "whenToUse": "After upper body heavy sessions or desk days",
+      "exercises": [
+        "Band shoulder work",
+        "Band overhead pull-aparts",
+        "Chest openers",
+        "Arm circles"
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "phase": 1,
+      "name": "Foundations",
+      "months": [
+        "Dec",
+        "Jan",
+        "Feb"
+      ],
+      "dateRange": "2025-12-01 to 2026-02-28",
+      "theme": "Wrist tolerance, scap strength, early inversion confidence",
+      "goals": [
+        "Build pain-free wrist loading for handstands",
+        "Develop scapular control and overhead stability",
+        "Become comfortable with partial inversion (wall planks, box pike, half wall walks)"
+      ],
+      "sessionTemplate": {
+        "duration": "10 min",
+        "blocks": [
+          {
+            "name": "Wrist & Hand Prep",
+            "duration": "3 min",
+            "exercises": [
+              {
+                "name": "Wrist rocks",
+                "reps": "2×12",
+                "notes": "Small range, lean gently"
+              },
+              {
+                "name": "Palm lifts",
+                "reps": "2×12",
+                "notes": "Control the down phase"
+              },
+              {
+                "name": "Fingertip holds",
+                "reps": "2×10s",
+                "notes": "Spread fingers wide"
+              }
+            ]
+          },
+          {
+            "name": "Scap & Box Pike",
+            "duration": "4 min",
+            "exercises": [
+              {
+                "name": "Scap push-ups",
+                "reps": "2×10",
+                "notes": "Straight elbows"
+              },
+              {
+                "name": "Box pike hold",
+                "reps": "3×20s",
+                "notes": "Hips stacked over shoulders"
+              }
+            ]
+          },
+          {
+            "name": "Wall Plank / Intro Walks",
+            "duration": "3 min",
+            "exercises": [
+              {
+                "name": "Wall plank",
+                "reps": "2×30s",
+                "notes": "Ribs down, glutes on"
+              },
+              {
+                "name": "Wall walk to halfway",
+                "reps": "2×1-2 slow climbs",
+                "notes": "Only as far as feels safe"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "metric": "Wrist",
+          "target": "No sharp pain with 10 min load"
+        },
+        {
+          "metric": "Inversion",
+          "target": "Comfortable at half wall walk height"
+        }
+      ],
+      "deepSessions": [
+        {
+          "id": "p1_session_a",
+          "name": "Phase 1 – Wrist & Scap Foundations",
+          "duration": "60 min",
+          "focus": "Wrist tolerance, scapular strength, early inversion confidence",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Wrist & shoulder warm-up",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Wrist rocks",
+                  "sets": 2,
+                  "reps": 12
+                },
+                {
+                  "name": "Palm lifts",
+                  "sets": 2,
+                  "reps": 12
+                },
+                {
+                  "name": "Fingertip holds",
+                  "sets": 2,
+                  "duration": "10-15s"
+                },
+                {
+                  "name": "Arm circles",
+                  "sets": 2,
+                  "reps": 20
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Scap & pike strength",
+              "duration": "20 min",
+              "exercises": [
+                {
+                  "name": "Scap push-ups",
+                  "sets": 4,
+                  "reps": 10
+                },
+                {
+                  "name": "Box pike hold",
+                  "sets": 4,
+                  "duration": "20-30s"
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Wall plank & half wall walks",
+              "duration": "25 min",
+              "exercises": [
+                {
+                  "name": "Wall plank",
+                  "sets": 4,
+                  "duration": "30s"
+                },
+                {
+                  "name": "Wall walk to halfway",
+                  "sets": 4,
+                  "note": "slow, controlled reps"
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Easy mobility",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 2,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p1_session_b",
+          "name": "Phase 1 – Inversion Basics",
+          "duration": "60 min",
+          "focus": "Comfort getting partially upside-down with good shape",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Band & wrist prep",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Band shoulder work",
+                  "sets": 2,
+                  "reps": 15
+                },
+                {
+                  "name": "Wrist rocks",
+                  "sets": 2,
+                  "reps": 10
+                },
+                {
+                  "name": "Palm lifts",
+                  "sets": 2,
+                  "reps": 10
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Box & scap strength",
+              "duration": "20 min",
+              "exercises": [
+                {
+                  "name": "Box pike hold",
+                  "sets": 4,
+                  "duration": "20-30s"
+                },
+                {
+                  "name": "Scap push-ups",
+                  "sets": 3,
+                  "reps": 12
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Wall planks & shape",
+              "duration": "25 min",
+              "exercises": [
+                {
+                  "name": "Wall plank",
+                  "sets": 4,
+                  "duration": "30-40s"
+                },
+                {
+                  "name": "Wall walks",
+                  "sets": 3,
+                  "note": "¼–½ height only"
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Light mobility",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                },
+                {
+                  "name": "Arm circles",
+                  "sets": 1,
+                  "reps": 20
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p1_session_c",
+          "name": "Phase 1 – Core & Shape Control",
+          "duration": "60 min",
+          "focus": "Core control and stacked handstand shape foundations",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Core & wrist activation",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Wrist rocks",
+                  "sets": 2,
+                  "reps": 12
+                },
+                {
+                  "name": "Fingertip holds",
+                  "sets": 2,
+                  "duration": "10-15s"
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Tuck plank and scap",
+              "duration": "20 min",
+              "exercises": [
+                {
+                  "name": "Tuck plank on box",
+                  "sets": 4,
+                  "duration": "20-30s"
+                },
+                {
+                  "name": "Scap push-ups",
+                  "sets": 3,
+                  "reps": 10
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Wall plank & walks",
+              "duration": "25 min",
+              "exercises": [
+                {
+                  "name": "Wall plank",
+                  "sets": 3,
+                  "duration": "30s"
+                },
+                {
+                  "name": "Wall walk to halfway",
+                  "sets": 3,
+                  "note": "focus on slow placement"
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Chest & shoulder mobility",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 2,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "name": "Inversion Comfort",
+      "months": [
+        "Mar",
+        "Apr",
+        "May"
+      ],
+      "dateRange": "2026-03-01 to 2026-05-31",
+      "theme": "Stronger inversion, chest-to-wall holds, advanced wall walks",
+      "goals": [
+        "Comfortably hold chest-to-wall for 15–20s sets",
+        "Control wall walks up to ¾ height",
+        "Maintain good line and breathing while inverted"
+      ],
+      "sessionTemplate": {
+        "duration": "10 min",
+        "blocks": [
+          {
+            "name": "Wrist Prep (Higher Load)",
+            "duration": "3 min",
+            "exercises": [
+              {
+                "name": "Leaning wrist rocks",
+                "reps": "2×10",
+                "notes": "Bigger lean than Phase 1"
+              },
+              {
+                "name": "Wrist weight-shifts",
+                "reps": "2×10s",
+                "notes": "Side-to-side"
+              }
+            ]
+          },
+          {
+            "name": "Scap & Pike Strength",
+            "duration": "4 min",
+            "exercises": [
+              {
+                "name": "Box pike shoulder taps",
+                "reps": "3×6-8/side",
+                "notes": "Small taps only"
+              },
+              {
+                "name": "Tuck plank on box",
+                "reps": "2×20s",
+                "notes": "Knees tucked, ribs down"
+              }
+            ]
+          },
+          {
+            "name": "Chest-to-wall & Walks",
+            "duration": "3 min",
+            "exercises": [
+              {
+                "name": "Chest-to-wall hold",
+                "reps": "3×10-15s",
+                "notes": "Stacked line"
+              },
+              {
+                "name": "Wall walks to ¾ height",
+                "reps": "1-2 slow reps",
+                "notes": "Walk in and out with control"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "metric": "Chest-to-wall",
+          "target": "Hold 20s with good line"
+        },
+        {
+          "metric": "Wall walks",
+          "target": "¾ height feels stable"
+        }
+      ],
+      "deepSessions": [
+        {
+          "id": "p2_session_a",
+          "name": "Phase 2 – Wall Strength & Shape",
+          "duration": "60 min",
+          "focus": "Stronger inversion and chest-to-wall positions",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Wrist load prep",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Leaning wrist rocks",
+                  "sets": 2,
+                  "reps": 10
+                },
+                {
+                  "name": "Wrist weight-shifts",
+                  "sets": 2,
+                  "duration": "10s"
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Box & scap strength",
+              "duration": "20 min",
+              "exercises": [
+                {
+                  "name": "Box pike shoulder taps",
+                  "sets": 4,
+                  "reps": 6
+                },
+                {
+                  "name": "Tuck plank on box",
+                  "sets": 3,
+                  "duration": "20-30s"
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Chest-to-wall control",
+              "duration": "25 min",
+              "exercises": [
+                {
+                  "name": "Chest-to-wall hold",
+                  "sets": 5,
+                  "duration": "8-12s"
+                },
+                {
+                  "name": "Toe pulls from wall",
+                  "sets": 3,
+                  "reps": 8
+                },
+                {
+                  "name": "Heel pulls from wall",
+                  "sets": 3,
+                  "reps": 8
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Shoulder mobility",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                },
+                {
+                  "name": "Arm circles",
+                  "sets": 1,
+                  "reps": 20
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p2_session_b",
+          "name": "Phase 2 – Controlled Wall Walks",
+          "duration": "60 min",
+          "focus": "Slow, confident wall walks to ¾ height",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Band & scap prep",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Band overhead pull-aparts",
+                  "sets": 2,
+                  "reps": 15
+                },
+                {
+                  "name": "Serratus punches",
+                  "sets": 2,
+                  "reps": 12
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Scap & core strength",
+              "duration": "20 min",
+              "exercises": [
+                {
+                  "name": "Scap push-ups",
+                  "sets": 3,
+                  "reps": 12
+                },
+                {
+                  "name": "Tuck plank on box",
+                  "sets": 3,
+                  "duration": "20-30s"
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "¾ wall walks",
+              "duration": "25 min",
+              "exercises": [
+                {
+                  "name": "Wall walks to ¾ height",
+                  "sets": 5,
+                  "reps": 1
+                },
+                {
+                  "name": "Wall walks (¾ height → full height)",
+                  "sets": 2,
+                  "note": "only if feeling strong"
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Light mobility",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p2_session_c",
+          "name": "Phase 2 – Shoulder Endurance Builder",
+          "duration": "60 min",
+          "focus": "Endurance for longer time under tension upside-down",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Wall & band prep",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Standing scap push-ups (against wall)",
+                  "sets": 2,
+                  "reps": 12
+                },
+                {
+                  "name": "Band shoulder work",
+                  "sets": 2,
+                  "reps": 15
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Scap & box strength",
+              "duration": "20 min",
+              "exercises": [
+                {
+                  "name": "Box pike shoulder taps",
+                  "sets": 3,
+                  "reps": 8
+                },
+                {
+                  "name": "Scap elevation/depression",
+                  "sets": 3,
+                  "reps": 12
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Hold accumulation",
+              "duration": "25 min",
+              "exercises": [
+                {
+                  "name": "Chest-to-wall holds",
+                  "sets": 4,
+                  "duration": "10-15s"
+                },
+                {
+                  "name": "Wall walks to ¾ height",
+                  "sets": 3,
+                  "reps": 1
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Chest & shoulder stretch",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "Static Handstand",
+      "months": [
+        "Jun",
+        "Jul",
+        "Aug"
+      ],
+      "dateRange": "2026-06-01 to 2026-08-31",
+      "theme": "Freestanding balance for 3–5 seconds",
+      "goals": [
+        "Kick into a stable handstand with confidence",
+        "Hold freestanding handstand for 3–5s",
+        "Use wrist pressure and subtle shoulder shifts to correct balance"
+      ],
+      "sessionTemplate": {
+        "duration": "10 min",
+        "blocks": [
+          {
+            "name": "Wrist & Hand Activation",
+            "duration": "2 min",
+            "exercises": [
+              {
+                "name": "Wrist rocks",
+                "reps": "1×12",
+                "notes": "Familiar pattern"
+              },
+              {
+                "name": "Palm lifts",
+                "reps": "1×12",
+                "notes": "Wake up fingers"
+              }
+            ]
+          },
+          {
+            "name": "Scap & Core",
+            "duration": "3 min",
+            "exercises": [
+              {
+                "name": "Scap push-ups",
+                "reps": "2×10",
+                "notes": "Strong protraction"
+              },
+              {
+                "name": "Tuck plank on box",
+                "reps": "2×20s",
+                "notes": "Hollow-position focus"
+              }
+            ]
+          },
+          {
+            "name": "Wall-to-Free Transition",
+            "duration": "5 min",
+            "exercises": [
+              {
+                "name": "Toe pulls from wall",
+                "reps": "2×8",
+                "notes": "Find balance spot"
+              },
+              {
+                "name": "Heel pulls from wall",
+                "reps": "2×8",
+                "notes": "Control direction"
+              },
+              {
+                "name": "Controlled attempts",
+                "reps": "4-6",
+                "notes": "Freestanding balance attempts"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "metric": "Balance",
+          "target": "3–5 seconds unassisted"
+        }
+      ],
+      "deepSessions": [
+        {
+          "id": "p3_session_a",
+          "name": "Phase 3 – Balance Mechanics",
+          "duration": "60 min",
+          "focus": "Freestanding balance mechanics away from the wall",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Wrist & core prep",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Wrist rocks",
+                  "sets": 2,
+                  "reps": 12
+                },
+                {
+                  "name": "Palm lifts",
+                  "sets": 2,
+                  "reps": 12
+                },
+                {
+                  "name": "Standing ribs down hold",
+                  "sets": 3,
+                  "duration": "10s"
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Pike & core strength",
+              "duration": "15 min",
+              "exercises": [
+                {
+                  "name": "Box pike hold",
+                  "sets": 3,
+                  "duration": "25-30s"
+                },
+                {
+                  "name": "Tuck plank on box",
+                  "sets": 3,
+                  "duration": "20-30s"
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Wall balance and toe/heel pulls",
+              "duration": "30 min",
+              "exercises": [
+                {
+                  "name": "Toe pulls from wall",
+                  "sets": 3,
+                  "reps": 8
+                },
+                {
+                  "name": "Heel pulls from wall",
+                  "sets": 3,
+                  "reps": 8
+                },
+                {
+                  "name": "Controlled attempts",
+                  "reps": "8-10",
+                  "note": "freestanding balance attempts from wall or floor"
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Chest & shoulder mobility",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p3_session_b",
+          "name": "Phase 3 – Entry Mastery",
+          "duration": "60 min",
+          "focus": "Consistent kick-up entries into a stable line",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Band & scap prep",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Band overhead pull-aparts",
+                  "sets": 2,
+                  "reps": 15
+                },
+                {
+                  "name": "Arm circles",
+                  "sets": 2,
+                  "reps": 20
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Scap & box strength",
+              "duration": "15 min",
+              "exercises": [
+                {
+                  "name": "Scap push-ups",
+                  "sets": 3,
+                  "reps": 12
+                },
+                {
+                  "name": "Box pike shoulder taps",
+                  "sets": 3,
+                  "reps": 6
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Kick-up and brief holds",
+              "duration": "30 min",
+              "exercises": [
+                {
+                  "name": "Kick-up to wall (kiss and come away)",
+                  "reps": 15,
+                  "note": "soft touch"
+                },
+                {
+                  "name": "Freestanding attempts",
+                  "reps": 10,
+                  "note": "aim 2–5s holds"
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Shoulder & chest",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p3_session_c",
+          "name": "Phase 3 – Balance Endurance",
+          "duration": "60 min",
+          "focus": "More total time balancing on hands",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Core & wrist",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Standing ribs down hold",
+                  "sets": 3,
+                  "duration": "10s"
+                },
+                {
+                  "name": "Wrist rocks",
+                  "sets": 2,
+                  "reps": 12
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Pike & hollow strength",
+              "duration": "15 min",
+              "exercises": [
+                {
+                  "name": "Box pike hold",
+                  "sets": 3,
+                  "duration": "25-30s"
+                },
+                {
+                  "name": "Tuck plank on box",
+                  "sets": 3,
+                  "duration": "20-30s"
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Hold accumulation",
+              "duration": "30 min",
+              "exercises": [
+                {
+                  "name": "Chest-to-wall holds",
+                  "sets": 3,
+                  "duration": "10-15s"
+                },
+                {
+                  "name": "Freestanding attempts",
+                  "reps": 8,
+                  "note": "accumulate 20–30s total balance time"
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Light mobility",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phase": 4,
+      "name": "Walking Mechanics",
+      "months": [
+        "Sep",
+        "Oct",
+        "Nov"
+      ],
+      "dateRange": "2026-09-01 to 2026-11-30",
+      "theme": "Handstand walking mechanics and endurance",
+      "goals": [
+        "Take confident steps in handstand",
+        "Walk short distances (1–3m) under control",
+        "Build stamina in shoulders for repeated walk attempts"
+      ],
+      "sessionTemplate": {
+        "duration": "10 min",
+        "blocks": [
+          {
+            "name": "Wrist & Prep",
+            "duration": "2 min",
+            "exercises": [
+              {
+                "name": "Wrist rocks",
+                "reps": "1×12",
+                "notes": "Standard warm-up"
+              }
+            ]
+          },
+          {
+            "name": "Support Strength",
+            "duration": "3 min",
+            "exercises": [
+              {
+                "name": "Box pike hold",
+                "reps": "2×20s",
+                "notes": "Hips stacked"
+              },
+              {
+                "name": "Box pike shoulder taps",
+                "reps": "2×6/side",
+                "notes": "Strong lockout"
+              }
+            ]
+          },
+          {
+            "name": "Walking Mechanics",
+            "duration": "5 min",
+            "exercises": [
+              {
+                "name": "Wall walks with step-outs",
+                "reps": "2×4 steps",
+                "notes": "Focus on hand placement"
+              },
+              {
+                "name": "Short-distance handstand walks",
+                "reps": "4 attempts",
+                "notes": "Stay relaxed and breathe"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "metric": "Walking distance",
+          "target": "Walk 3–5m under control"
+        }
+      ],
+      "deepSessions": [
+        {
+          "id": "p4_session_a",
+          "name": "Phase 4 – Step Technique",
+          "duration": "60 min",
+          "focus": "Controlled first steps from static handstand",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Wall & scap",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Standing scap push-ups (against wall)",
+                  "sets": 2,
+                  "reps": 12
+                },
+                {
+                  "name": "Arm circles",
+                  "sets": 2,
+                  "reps": 20
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Box & line prep",
+              "duration": "15 min",
+              "exercises": [
+                {
+                  "name": "Box pike hold",
+                  "sets": 3,
+                  "duration": "25-30s"
+                },
+                {
+                  "name": "Box pike shoulder taps",
+                  "sets": 3,
+                  "reps": 8
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Wall step-outs & short walks",
+              "duration": "30 min",
+              "exercises": [
+                {
+                  "name": "Wall walks with step-outs",
+                  "sets": 4,
+                  "reps": 4
+                },
+                {
+                  "name": "Small distance free walks (1-2m)",
+                  "reps": 6,
+                  "note": "focus on control, not distance"
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Light mobility",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p4_session_b",
+          "name": "Phase 4 – Walking Practice",
+          "duration": "60 min",
+          "focus": "Improve confidence and distance in handstand walking",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Core & scap prep",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Standing ribs down hold",
+                  "sets": 3,
+                  "duration": "10s"
+                },
+                {
+                  "name": "Scap push-ups",
+                  "sets": 2,
+                  "reps": 12
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Straight-arm strength",
+              "duration": "15 min",
+              "exercises": [
+                {
+                  "name": "Box pike hold",
+                  "sets": 3,
+                  "duration": "25-30s"
+                },
+                {
+                  "name": "Tuck plank on box",
+                  "sets": 3,
+                  "duration": "20-30s"
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Free walks and line work",
+              "duration": "30 min",
+              "exercises": [
+                {
+                  "name": "Short-distance handstand walks",
+                  "reps": 8,
+                  "note": "aim 1–3m with control"
+                },
+                {
+                  "name": "Line walking between floor markers (optional)",
+                  "reps": 4
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Chest & shoulders",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "p4_session_c",
+          "name": "Phase 4 – Endurance & Control",
+          "duration": "60 min",
+          "focus": "More total walking volume with safe exits",
+          "blocks": [
+            {
+              "type": "warmup",
+              "name": "Band & scap",
+              "duration": "10 min",
+              "exercises": [
+                {
+                  "name": "Band overhead pull-aparts",
+                  "sets": 2,
+                  "reps": 15
+                },
+                {
+                  "name": "Arm circles",
+                  "sets": 2,
+                  "reps": 20
+                }
+              ]
+            },
+            {
+              "type": "strength",
+              "name": "Support strength",
+              "duration": "15 min",
+              "exercises": [
+                {
+                  "name": "Box pike hold",
+                  "sets": 3,
+                  "duration": "25-30s"
+                },
+                {
+                  "name": "Scap push-ups",
+                  "sets": 3,
+                  "reps": 12
+                }
+              ]
+            },
+            {
+              "type": "skill",
+              "name": "Walk practice",
+              "duration": "30 min",
+              "exercises": [
+                {
+                  "name": "Handstand step-outs",
+                  "reps": 8,
+                  "note": "from stable handstand"
+                },
+                {
+                  "name": "Short-distance handstand walks",
+                  "reps": 6,
+                  "note": "focus on smooth start and exit"
+                }
+              ]
+            },
+            {
+              "type": "cooldown",
+              "name": "Light mobility",
+              "duration": "5 min",
+              "exercises": [
+                {
+                  "name": "Chest openers",
+                  "sets": 1,
+                  "reps": 10
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notifications": {
+    "templates": {
+      "gymReminder": "🏋️ *Handstand Training at the Gym*\n\n*Today:* {day} {timeLabel}\n*Focus:* {focus}\n\n*Exercises:*\n{exercises}\n\n💪 10 minutes of skill work!",
+      "workReminder": "🏢 *Office Workout Available*\n\n*{workoutName}*\n⏱️ {duration}\n🎯 {purpose}\n\n{exercises}",
+      "weeklyProgress": "📊 *Weekly Handstand Progress*\n\n🏋️ Gym sessions: {gymCount}\n🏢 Office sessions: {workCount}\n🏠 Home boosters: {homeCount}\n\n*Current Phase:* {phase}\n*Target:* {target}",
+      "phaseTransition": "🎉 *Phase Complete!*\n\nYou've completed *{oldPhaseName}* and are moving to *{newPhaseName}*\n\n*New Focus:* {theme}\n\n*Goals:*\n{goals}"
+    }
+  },
+  "challenges2026": {
+    "primary": [
+      {
+        "id": "hs_walk_gym",
+        "name": "Handstand walk across the gym",
+        "category": "handstand",
+        "target": "Walk 3–5 metres on hands across the gym floor by December 2026",
+        "unit": "metres",
+        "goalValue": 3,
+        "stretchValue": 5
+      }
+    ],
+    "supporting": [
+      {
+        "id": "freestand_10s",
+        "name": "Freestanding handstand hold",
+        "category": "handstand",
+        "target": "Hold an unassisted freestanding handstand for 10 seconds",
+        "unit": "seconds",
+        "goalValue": 10
+      },
+      {
+        "id": "ctw_60s",
+        "name": "Chest-to-wall handstand hold",
+        "category": "handstand",
+        "target": "Hold a chest-to-wall handstand for 60 seconds with good form",
+        "unit": "seconds",
+        "goalValue": 60
+      },
+      {
+        "id": "micro_300",
+        "name": "300 handstand micro-sessions",
+        "category": "consistency",
+        "target": "Complete 300 separate 10-minute handstand micro-sessions in 2026",
+        "unit": "sessions",
+        "goalValue": 300
+      }
+    ],
+    "strength": [
+      {
+        "id": "pullups_5",
+        "name": "Strict pull-ups",
+        "category": "strength",
+        "target": "Achieve 5 bodyweight strict pull-ups",
+        "unit": "reps",
+        "goalValue": 5
+      },
+      {
+        "id": "pressups_10",
+        "name": "Strict press-ups",
+        "category": "strength",
+        "target": "Achieve 10 full strict press-ups with clean form",
+        "unit": "reps",
+        "goalValue": 10
+      },
+      {
+        "id": "dips_5",
+        "name": "Strict dips",
+        "category": "strength",
+        "target": "Achieve 5 strict bodyweight bar or ring dips with good shoulder position",
+        "unit": "reps",
+        "goalValue": 5
+      }
+    ]
+  }
+}
