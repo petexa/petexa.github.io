@@ -1559,29 +1559,12 @@
     document.getElementById('sidebar-year').textContent = currentYear;
 
     // Password protection
-    const PAGE_PASSWORD = 'Handstand2026';
-    
-    function checkPassword(event) {
-      event.preventDefault();
-      const password = document.getElementById('page-password').value;
-      const errorMsg = document.getElementById('password-error');
-      
-      if (password === PAGE_PASSWORD) {
-        document.getElementById('password-modal').style.display = 'none';
-        document.getElementById('page-content').style.display = '';
-        sessionStorage.setItem('handstandPlanAuth', 'true');
-      } else {
-        errorMsg.style.display = 'block';
-        document.getElementById('page-password').value = '';
-        document.getElementById('page-password').focus();
-      }
-    }
-    
-    // Check if already authenticated in this session
-    if (sessionStorage.getItem('handstandPlanAuth') === 'true') {
-      document.getElementById('password-modal').style.display = 'none';
-      document.getElementById('page-content').style.display = '';
-    }
+    // Password protection temporarily disabled
+    document.getElementById('password-modal').style.display = 'none';
+    document.getElementById('page-content').style.display = '';
+    // const PAGE_PASSWORD = 'Handstand2026';
+    // function checkPassword(event) { ... }
+    // if (sessionStorage.getItem('handstandPlanAuth') === 'true') { ... }
 
     /* ============================================
        NEXT WORKOUT DATA - Edit these values to update your next workout
