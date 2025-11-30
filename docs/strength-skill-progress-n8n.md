@@ -211,15 +211,20 @@ if (!progress.challenges || typeof progress.challenges !== 'object') {
 }
 
 // Helper to update a challenge
-function bumpChallenge(id, label, unit, target) {
+function bumpChallenge(id, label, unit, target, stretchTarget = null) {
   if (!progress.challenges[id]) {
-    progress.challenges[id] = {
+    const challenge = {
       id,
       name: label,
       unit,
       target,
       current: 0
     };
+    // Only add stretchTarget if provided
+    if (stretchTarget !== null) {
+      challenge.stretchTarget = stretchTarget;
+    }
+    progress.challenges[id] = challenge;
   }
   // For most metrics, we interpret value as "add" (sessions, reps).
   // For distances/time we can optionally track max, but keep it simple: add.
@@ -228,7 +233,7 @@ function bumpChallenge(id, label, unit, target) {
   }
 }
 
-bumpChallenge('hs_walk_gym', 'Handstand walk across the gym', 'metres', 3);
+bumpChallenge('hs_walk_gym', 'Handstand walk across the gym', 'metres', 3, 5);
 bumpChallenge('freestand_10s', 'Freestanding handstand hold', 'seconds', 10);
 bumpChallenge('ctw_60s', 'Chest-to-wall handstand hold', 'seconds', 60);
 bumpChallenge('pullups_5', 'Strict pull-ups', 'reps', 5);
