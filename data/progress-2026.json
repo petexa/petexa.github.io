@@ -1,0 +1,64 @@
+{
+  "updatedAt": "2025-11-30T00:00:00Z",
+  "microSessions": {
+    "completed": 0,
+    "goal": 300
+  },
+  "challenges": {
+    "hs_walk_gym": {
+      "id": "hs_walk_gym",
+      "name": "Handstand walk across the gym",
+      "unit": "metres",
+      "target": 3,
+      "stretchTarget": 5,
+      "current": 0
+    },
+    "freestand_10s": {
+      "id": "freestand_10s",
+      "name": "Freestanding handstand hold",
+      "unit": "seconds",
+      "target": 10,
+      "current": 0
+    },
+    "ctw_60s": {
+      "id": "ctw_60s",
+      "name": "Chest-to-wall handstand hold",
+      "unit": "seconds",
+      "target": 60,
+      "current": 0
+    },
+    "pullups_5": {
+      "id": "pullups_5",
+      "name": "Strict pull-ups",
+      "unit": "reps",
+      "target": 5,
+      "current": 0
+    },
+    "pressups_10": {
+      "id": "pressups_10",
+      "name": "Strict press-ups",
+      "unit": "reps",
+      "target": 10,
+      "current": 0
+    },
+    "dips_5": {
+      "id": "dips_5",
+      "name": "Strict dips",
+      "unit": "reps",
+      "target": 5,
+      "current": 0
+    }
+  },
+  "events": [
+    {
+      "timestamp": "2025-11-30T00:00:00Z",
+      "challengeId": "micro_300",
+      "value": 0,
+      "unit": "session",
+      "phase": null,
+      "context": null,
+      "note": "Initial stub entry – to be updated by n8n",
+      "source": "seed"
+    }
+  ]
+}
