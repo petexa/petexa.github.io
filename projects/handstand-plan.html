@@ -58,6 +58,133 @@
       font-weight: 600;
     }
     /* Workout Essentials Section */
+
+    /* Content Sections */
+    .content-section {
+      margin-top: 2.5rem;
+    }
+
+    /* Section heading */
+    .section-heading h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Deep Sessions UI */
+    .deep-session-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0 1.25rem 0;
+    }
+
+    .deep-session-button {
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .deep-session-button:hover {
+      background: var(--color-primary-50);
+      border-color: var(--color-primary-200);
+      color: var(--color-primary-700);
+    }
+
+    .theme-dark .deep-session-button:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: var(--color-primary-500);
+      color: var(--color-primary-50);
+    }
+
+    .active-deep-session-button {
+      background: var(--color-primary-600);
+      border-color: var(--color-primary-600);
+      color: #ffffff;
+    }
+
+    /* Deep session card / blocks reuse phase-card styling */
+    .deep-session-card .phase-body {
+      padding-top: 1rem;
+    }
+
+    .deep-block {
+      margin-bottom: 1rem;
+    }
+
+    .deep-block-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .deep-block-list {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+    }
+
+    .deep-block-list li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.125rem 0;
+    }
+
+    .exercise-name {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .exercise-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Movement Library Grid */
+    .movement-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .movement-card .phase-header {
+      padding: 1rem 1.5rem 0.5rem;
+    }
+
+    .movement-card .phase-body {
+      padding: 0 1.5rem 1rem;
+    }
+
+    .movement-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.125rem 0.5rem;
+      border-radius: 999px;
+      background: var(--color-primary-50);
+      color: var(--color-primary-700);
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-top: 0.25rem;
+    }
+
+    .theme-dark .movement-badge {
+      background: rgba(59, 130, 246, 0.25);
+      color: var(--color-primary-50);
+    }
+
+    .movement-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
     .workout-essentials {
       background: rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-lg);
@@ -956,6 +1083,45 @@
 
             </div>
           </section>
+
+            <!-- Optional 1-Hour Deep Sessions -->
+            <section id="deep-sessions" class="content-section">
+              <div class="section-heading">
+                <h2>Optional 1-Hour Deep Sessions</h2>
+                <p class="text-sm" style="color: var(--text-muted);">
+                  When you have a spare hour at the gym, pick a phase and we’ll pull a 60-minute skill session from your current plan.
+                </p>
+              </div>
+
+              <div class="deep-session-controls">
+                <button type="button" class="deep-session-button" data-deep-session-phase="1">
+                  Phase 1 – Foundations
+                </button>
+                <button type="button" class="deep-session-button" data-deep-session-phase="2">
+                  Phase 2 – Inversion Comfort
+                </button>
+                <button type="button" class="deep-session-button" data-deep-session-phase="3">
+                  Phase 3 – Static Handstand
+                </button>
+                <button type="button" class="deep-session-button" data-deep-session-phase="4">
+                  Phase 4 – Walking Mechanics
+                </button>
+              </div>
+
+              <div id="deep-session-card"></div>
+            </section>
+
+            <!-- Movement Library -->
+            <section id="movement-library" class="content-section">
+              <div class="section-heading">
+                <h2>Movement Library</h2>
+                <p class="text-sm" style="color: var(--text-muted);">
+                  All movements used in this plan. n8n will later attach movement standard videos to each one.
+                </p>
+              </div>
+
+              <div id="movement-grid" class="movement-grid"></div>
+            </section>
           <!-- Section 2.6: Where I Train Each Part of the Plan -->
           <section id="training-locations" class="mb-12" aria-labelledby="training-locations-title">
             <h2 id="training-locations-title" class="text-xl font-bold mb-4" style="color: var(--text);">
@@ -1762,8 +1928,143 @@
     }
 
     // Initialize
+        /* ============================================
+           MOVEMENT LIBRARY & DEEP SESSIONS UI
+           ============================================ */
+
+        async function fetchHandstandData() {
+          if (window.handstandPlanData) return window.handstandPlanData;
+          const res = await fetch('/data/handstand-plan-sessions.json');
+          if (!res.ok) throw new Error('Failed to load handstand plan sessions');
+          const data = await res.json();
+          window.handstandPlanData = data;
+          return data;
+        }
+
+        async function fetchMovements() {
+          if (window.movementsData) return window.movementsData;
+          const res = await fetch('/data/movements.json');
+          if (!res.ok) throw new Error('Failed to load movements');
+          const data = await res.json();
+          window.movementsData = data;
+          return data;
+        }
+
+        async function loadMovementLibrary() {
+          const container = document.getElementById('movement-grid');
+          if (!container) return;
+
+          try {
+            const data = await fetchMovements();
+            container.innerHTML = '';
+
+            (data.movements || []).forEach(m => {
+              const card = document.createElement('article');
+              card.className = 'movement-card phase-card';
+              card.innerHTML = `
+                <div class="phase-header movement-header">
+                  <h3>${m.name}</h3>
+                  <span class="movement-badge">${m.category}</span>
+                </div>
+                <div class="phase-body movement-body">
+                  <p class="movement-description">${m.description || ''}</p>
+                  ${
+                    m.youtube
+                      ? `<a class="exercise-video-link" href="${m.youtube}" target="_blank" rel="noopener">Video</a>`
+                      : ''
+                  }
+                </div>
+              `;
+              container.appendChild(card);
+            });
+          } catch (err) {
+            console.error('Failed to load movement library', err);
+            container.innerHTML = '<p class="text-sm" style="color: var(--text-muted);">Could not load movements.</p>';
+          }
+        }
+
+        function renderDeepSession(session, phase) {
+          const container = document.getElementById('deep-session-card');
+          if (!container) return;
+
+          const phaseName = phase && phase.name ? phase.name : (phase && phase.phase ? `Phase ${phase.phase}` : '');
+
+          const blocksHtml = (session.blocks || []).map(block => {
+            const exercisesHtml = (block.exercises || []).map(ex => {
+              const bits = [];
+              if (ex.sets) bits.push(`${ex.sets} sets`);
+              if (ex.reps) bits.push(`${ex.reps} reps`);
+              if (ex.duration) bits.push(ex.duration);
+              const meta = bits.length ? ` – ${bits.join(', ')}` : '';
+              const note = ex.note ? `<div class="exercise-note">${ex.note}</div>` : '';
+              return `<li><span class="exercise-name">${ex.name}</span>${meta}${note}</li>`;
+            }).join('');
+
+            return `
+              <div class="deep-block">
+                <h4 class="deep-block-title">${block.name}</h4>
+                <ul class="deep-block-list">
+                  ${exercisesHtml}
+                </ul>
+              </div>
+            `;
+          }).join('');
+
+          container.innerHTML = `
+            <article class="phase-card deep-session-card">
+              <div class="phase-header">
+                <h3>${session.name}</h3>
+                <p class="phase-theme">${phaseName}${session.focus ? ' · ' + session.focus : ''}</p>
+              </div>
+              <div class="phase-body">
+                ${blocksHtml}
+              </div>
+            </article>
+          `;
+        }
+
+        async function showRandomDeepSession(phaseNumber) {
+          try {
+            const data = await fetchHandstandData();
+            const phases = data.phases || [];
+            const phase = phases.find(p => p.phase === phaseNumber);
+            if (!phase || !phase.deepSessions || !phase.deepSessions.length) return;
+
+            const randomIndex = Math.floor(Math.random() * phase.deepSessions.length);
+            const session = phase.deepSessions[randomIndex];
+            renderDeepSession(session, phase);
+          } catch (err) {
+            console.error('Failed to load deep session', err);
+          }
+        }
+
+        function setupDeepSessionControls() {
+          const buttons = document.querySelectorAll('[data-deep-session-phase]');
+          if (!buttons.length) return;
+
+          buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+              buttons.forEach(b => b.classList.remove('active-deep-session-button'));
+              btn.classList.add('active-deep-session-button');
+              const phase = parseInt(btn.getAttribute('data-deep-session-phase'), 10);
+              showRandomDeepSession(phase);
+            });
+          });
+
+          // Auto-load current phase if we can detect it
+          if (typeof getCurrentPhase === 'function') {
+            const info = getCurrentPhase();
+            if (info && info.current) {
+              const activeBtn = document.querySelector(`[data-deep-session-phase="${info.current}"]`);
+              if (activeBtn) activeBtn.classList.add('active-deep-session-button');
+              showRandomDeepSession(info.current);
+            }
+          }
+        }
     updateNextWorkout();
     updateProgressTracker();
+    loadMovementLibrary();
+    setupDeepSessionControls();
 
     /* ============================================
        MOVEMENT LIBRARY
