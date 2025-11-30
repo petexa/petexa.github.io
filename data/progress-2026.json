@@ -49,16 +49,5 @@
       "current": 0
     }
   },
-  "events": [
-    {
-      "timestamp": "2025-11-30T00:00:00Z",
-      "challengeId": "micro_300",
-      "value": 0,
-      "unit": "session",
-      "phase": null,
-      "context": null,
-      "note": "Initial stub entry – to be updated by n8n",
-      "source": "seed"
-    }
-  ]
+  "events": []
 }
