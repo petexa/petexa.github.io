@@ -269,7 +269,8 @@
       try {
         const response = await fetch('../data/movements.json');
         if (!response.ok) throw new Error('Failed to load movements');
-        movementsData = await response.json();
+        const data = await response.json();
+        movementsData = Array.isArray(data) ? data : data.movements || [];
         populateCategoryFilter();
         renderMovements();
       } catch (error) {
