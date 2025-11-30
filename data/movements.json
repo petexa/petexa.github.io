@@ -1,0 +1,270 @@
+{
+  "movements": [
+    {
+      "id": "wrist-rocks",
+      "name": "Wrist Rocks",
+      "category": "wrist",
+      "description": "Shift weight forward/back over your palms to build wrist strength and tolerance.",
+      "youtube": ""
+    },
+    {
+      "id": "leaning-wrist-rocks",
+      "name": "Leaning Wrist Rocks",
+      "category": "wrist",
+      "description": "Increased angle wrist rocks to build more load tolerance before inversion.",
+      "youtube": ""
+    },
+    {
+      "id": "wrist-weight-shifts",
+      "name": "Wrist Weight-Shifts",
+      "category": "wrist",
+      "description": "Shift weight side to side to build balance corrections through the wrist.",
+      "youtube": ""
+    },
+    {
+      "id": "palm-lifts",
+      "name": "Palm Lifts",
+      "category": "wrist",
+      "description": "Lift palms while keeping fingers on ground to train finger flexors.",
+      "youtube": ""
+    },
+    {
+      "id": "fingertip-holds",
+      "name": "Fingertip Holds",
+      "category": "wrist",
+      "description": "Support weight through fingertips to develop handstand balance corrections.",
+      "youtube": ""
+    },
+    {
+      "id": "scap-pushups",
+      "name": "Scap Push-ups",
+      "category": "scapular",
+      "description": "Straight-arm protraction/retraction for shoulder stability.",
+      "youtube": ""
+    },
+    {
+      "id": "wall-scap-pushups",
+      "name": "Standing Scap Push-ups",
+      "category": "scapular",
+      "description": "Wall variation of scap push-ups for lighter loading.",
+      "youtube": ""
+    },
+    {
+      "id": "scap-elev-depress",
+      "name": "Scap Elevation/Depression",
+      "category": "scapular",
+      "description": "Shrug up and down while keeping arms straight to build overhead stability.",
+      "youtube": ""
+    },
+    {
+      "id": "serratus-punches",
+      "name": "Serratus Punches",
+      "category": "scapular",
+      "description": "Train serratus with forward pressing motions.",
+      "youtube": ""
+    },
+    {
+      "id": "box-pike-hold",
+      "name": "Box Pike Hold",
+      "category": "inversion-strength",
+      "description": "Inverted position loading shoulders with hips stacked over hands.",
+      "youtube": ""
+    },
+    {
+      "id": "box-pike-taps",
+      "name": "Box Pike Shoulder Taps",
+      "category": "inversion-strength",
+      "description": "Alternating shoulder taps while inverted on a box.",
+      "youtube": ""
+    },
+    {
+      "id": "wall-plank",
+      "name": "Wall Plank",
+      "category": "inversion-basics",
+      "description": "Feet on wall, hands on floor, training early inversion control.",
+      "youtube": ""
+    },
+    {
+      "id": "wall-walk-half",
+      "name": "Wall Walk to Halfway",
+      "category": "inversion-basics",
+      "description": "Walk feet up the wall until halfway inverted.",
+      "youtube": ""
+    },
+    {
+      "id": "wall-walk-threequarter",
+      "name": "Wall Walk to ¾ Height",
+      "category": "inversion-strength",
+      "description": "More advanced wall walk with greater shoulder loading.",
+      "youtube": ""
+    },
+    {
+      "id": "chest-to-wall-hold",
+      "name": "Chest-to-Wall Hold",
+      "category": "handstand",
+      "description": "True handstand line drill facing the wall.",
+      "youtube": ""
+    },
+    {
+      "id": "toe-pulls",
+      "name": "Toe Pulls",
+      "category": "handstand",
+      "description": "Pull toes away from wall to find balance.",
+      "youtube": ""
+    },
+    {
+      "id": "heel-pulls",
+      "name": "Heel Pulls",
+      "category": "handstand",
+      "description": "Lean back to tap heels lightly on wall.",
+      "youtube": ""
+    },
+    {
+      "id": "kickup-entries",
+      "name": "Kick-Up Practice",
+      "category": "handstand-entry",
+      "description": "Practise safe and consistent entry into handstand.",
+      "youtube": ""
+    },
+    {
+      "id": "wall-kiss",
+      "name": "Wall Kiss and Come Away",
+      "category": "handstand-entry",
+      "description": "Lightly tap wall and return to balance.",
+      "youtube": ""
+    },
+    {
+      "id": "handstand-stepouts",
+      "name": "Handstand Step-Outs",
+      "category": "handstand-walking",
+      "description": "Take small controlled steps in handstand.",
+      "youtube": ""
+    },
+    {
+      "id": "hs-short-walks",
+      "name": "Short-Distance Handstand Walks",
+      "category": "handstand-walking",
+      "description": "Walk 1–3 metres maintaining form.",
+      "youtube": ""
+    },
+    {
+      "id": "line-walking",
+      "name": "Line Walking",
+      "category": "handstand-walking",
+      "description": "Walk along a marked path or chalk line.",
+      "youtube": ""
+    },
+    {
+      "id": "desk-lean",
+      "name": "Desk Lean Holds",
+      "category": "strength",
+      "description": "Straight-arm bodyweight lean to simulate overhead pressing pattern.",
+      "youtube": ""
+    },
+    {
+      "id": "band-pullaparts",
+      "name": "Band Pull-Aparts",
+      "category": "strength",
+      "description": "Posterior shoulder strengthening drill.",
+      "youtube": ""
+    },
+    {
+      "id": "band-dislocates",
+      "name": "Band Dislocates",
+      "category": "mobility",
+      "description": "Shoulder mobility drill improving overhead position.",
+      "youtube": ""
+    },
+    {
+      "id": "tuck-plank",
+      "name": "Tuck Plank on Box",
+      "category": "core",
+      "description": "Core compression drill with shoulders loaded over hands.",
+      "youtube": ""
+    },
+    {
+      "id": "ribs-down",
+      "name": "Standing Ribs-Down Brace",
+      "category": "core",
+      "description": "Teach hollow-body mechanics while standing.",
+      "youtube": ""
+    },
+    {
+      "id": "pelvic-tilts",
+      "name": "Standing Pelvic Tilt Pulses",
+      "category": "core",
+      "description": "Control lumbar position for handstand neutrality.",
+      "youtube": ""
+    },
+    {
+      "id": "oblique-brace",
+      "name": "Standing Oblique Brace",
+      "category": "core",
+      "description": "Train lateral stability and bracing.",
+      "youtube": ""
+    },
+    {
+      "id": "knee-lifts",
+      "name": "Standing Controlled Knee Lifts",
+      "category": "core",
+      "description": "Train active hip flexion and balance.",
+      "youtube": ""
+    },
+    {
+      "id": "wall-serratus",
+      "name": "Wall Serratus Reach",
+      "category": "scapular",
+      "description": "Serratus activation while leaning on the wall.",
+      "youtube": ""
+    },
+    {
+      "id": "pike-pushup",
+      "name": "Pike Push-up",
+      "category": "strength",
+      "description": "Bodyweight vertical pressing drill to build handstand pushing strength.",
+      "youtube": ""
+    },
+    {
+      "id": "elevated-pike-pushup",
+      "name": "Feet-Elevated Pike Push-up",
+      "category": "strength",
+      "description": "Higher loading version that mimics handstand strength.",
+      "youtube": ""
+    },
+    {
+      "id": "dumbbell-strict-press",
+      "name": "Dumbbell Strict Press",
+      "category": "strength",
+      "description": "Builds overhead pressing strength directly transferable to handstand.",
+      "youtube": ""
+    },
+    {
+      "id": "dumbbell-z-press",
+      "name": "Dumbbell Z-Press",
+      "category": "strength",
+      "description": "Seated overhead press that forces core engagement; great for handstand lines.",
+      "youtube": ""
+    },
+    {
+      "id": "hollow-hold",
+      "name": "Hollow Body Hold",
+      "category": "core",
+      "description": "Foundation shape for all handstand balance.",
+      "youtube": ""
+    },
+    {
+      "id": "dead-bug",
+      "name": "Dead Bug",
+      "category": "core",
+      "description": "Anti-extension core drill reinforcing hollow mechanics.",
+      "youtube": ""
+    },
+    {
+      "id": "wall-facing-hspu-neg",
+      "name": "Wall-Facing HSPU Negatives",
+      "category": "strength",
+      "description": "Eccentric handstand push-up practice for advanced shoulder strength.",
+      "youtube": ""
+    }
+  ]
+}
