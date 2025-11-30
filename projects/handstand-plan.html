@@ -937,13 +937,84 @@
         </div>
       </header>
 
+<!-- Project Overview -->
+<section id="project-overview" class="content-section">
+  <article class="phase-card">
+    <div class="phase-header">
+      <h3>Project Overview</h3>
+      <p class="phase-theme">
+        The 2026 Strength &amp; Skill Framework · Build Strength. Build Skill. Build Control.
+      </p>
+    </div>
+    <div class="phase-body">
+      <div class="overview-grid">
+        <div class="overview-column">
+          <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Primary Outcome</h4>
+          <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
+            <li>• Walk on your hands 3–5 metres across the gym floor by December 2026.</li>
+          </ul>
+        </div>
+
+        <div class="overview-column">
+          <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Key Strength Targets</h4>
+          <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
+            <li>• 5 strict pull-ups</li>
+            <li>• 10 strict press-ups</li>
+            <li>• 5 strict dips (clean shoulder position)</li>
+          </ul>
+        </div>
+
+        <div class="overview-column">
+          <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Handstand & Skill Targets</h4>
+          <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
+            <li>• 10-second freestanding handstand hold</li>
+            <li>• 60-second chest-to-wall handstand hold</li>
+            <li>• 300× 10-minute micro-sessions in 2026</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+    /* Overview grid reuse */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .overview-column h4 {
+      color: var(--text);
+    }
+
       <main id="main-content" role="main">
         <div class="page-container">
           <!-- Page Header -->
           <header class="page-header">
-            <h1 class="page-title">🤸 Handstand Walk Plan</h1>
-            <p class="page-subtitle">Goal: Walk on my hands across the gym by December 2026</p>
-          </header>
+  <header class="page-header">
+    <div class="page-header-main" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+      <!-- Project logo -->
+      <div class="page-header-logo" aria-hidden="true">
+        <svg width="56" height="56" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="14" y="40" width="14" height="24" rx="3" fill="#1D4ED8"/>
+          <rect x="33" y="26" width="14" height="38" rx="3" fill="#3B82F6"/>
+          <rect x="52" y="34" width="14" height="30" rx="3" fill="#60A5FA"/>
+        </svg>
+      </div>
+
+      <div>
+        <h1 class="page-title">
+          The 2026 Strength &amp; Skill Framework
+        </h1>
+        <p class="page-subtitle">
+          A structured progression for strength, inversion, balance, and endurance.
+        </p>
+        <p class="text-sm" style="color: var(--text-muted); margin-top:0.25rem;">
+          Build Strength. Build Skill. Build Control.
+        </p>
+      </div>
+    </div>
+  </header>
 
           <!-- Quick Navigation -->
           <nav class="quick-nav" aria-label="Quick page navigation">

@@ -1,3 +1,7 @@
+
+[![The 2026 Strength & Skill Framework](https://img.shields.io/badge/Strength%20%26%20Skill-Framework%202026-3B82F6?style=for-the-badge)](https://gym.petefox.co.uk/projects/handstand-plan.html)
+![300 Micro-Sessions](https://img.shields.io/badge/300-Micro--Sessions-informational?style=flat-square&color=10B981)
+
 # 🍻 Iron & Ale
 
 > **"Sets and Reps. Cheers and Beers. That's the Program."**
