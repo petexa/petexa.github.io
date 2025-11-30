@@ -72,6 +72,17 @@
       margin-bottom: 0.25rem;
     }
 
+    /* Overview grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .overview-column h4 {
+      color: var(--text);
+    }
+
     /* Deep Sessions UI */
     .deep-session-controls {
       display: flex;
@@ -937,84 +948,73 @@
         </div>
       </header>
 
-<!-- Project Overview -->
-<section id="project-overview" class="content-section">
-  <article class="phase-card">
-    <div class="phase-header">
-      <h3>Project Overview</h3>
-      <p class="phase-theme">
-        The 2026 Strength &amp; Skill Framework · Build Strength. Build Skill. Build Control.
-      </p>
-    </div>
-    <div class="phase-body">
-      <div class="overview-grid">
-        <div class="overview-column">
-          <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Primary Outcome</h4>
-          <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
-            <li>• Walk on your hands 3–5 metres across the gym floor by December 2026.</li>
-          </ul>
-        </div>
-
-        <div class="overview-column">
-          <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Key Strength Targets</h4>
-          <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
-            <li>• 5 strict pull-ups</li>
-            <li>• 10 strict press-ups</li>
-            <li>• 5 strict dips (clean shoulder position)</li>
-          </ul>
-        </div>
-
-        <div class="overview-column">
-          <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Handstand & Skill Targets</h4>
-          <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
-            <li>• 10-second freestanding handstand hold</li>
-            <li>• 60-second chest-to-wall handstand hold</li>
-            <li>• 300× 10-minute micro-sessions in 2026</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </article>
-</section>
-    /* Overview grid reuse */
-    .overview-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .overview-column h4 {
-      color: var(--text);
-    }
-
       <main id="main-content" role="main">
         <div class="page-container">
           <!-- Page Header -->
-          <header class="page-header">
-  <header class="page-header">
-    <div class="page-header-main" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-      <!-- Project logo -->
-      <div class="page-header-logo" aria-hidden="true">
-        <svg width="56" height="56" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="14" y="40" width="14" height="24" rx="3" fill="#1D4ED8"/>
-          <rect x="33" y="26" width="14" height="38" rx="3" fill="#3B82F6"/>
-          <rect x="52" y="34" width="14" height="30" rx="3" fill="#60A5FA"/>
-        </svg>
-      </div>
+          <div class="page-header">
+            <div class="page-header-main" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+              <!-- Project logo -->
+              <div class="page-header-logo" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="14" y="40" width="14" height="24" rx="3" fill="#1D4ED8"/>
+                  <rect x="33" y="26" width="14" height="38" rx="3" fill="#3B82F6"/>
+                  <rect x="52" y="34" width="14" height="30" rx="3" fill="#60A5FA"/>
+                </svg>
+              </div>
 
-      <div>
-        <h1 class="page-title">
-          The 2026 Strength &amp; Skill Framework
-        </h1>
-        <p class="page-subtitle">
-          A structured progression for strength, inversion, balance, and endurance.
-        </p>
-        <p class="text-sm" style="color: var(--text-muted); margin-top:0.25rem;">
-          Build Strength. Build Skill. Build Control.
-        </p>
-      </div>
-    </div>
-  </header>
+              <div>
+                <h1 class="page-title">
+                  The 2026 Strength &amp; Skill Framework
+                </h1>
+                <p class="page-subtitle">
+                  A structured progression for strength, inversion, balance, and endurance.
+                </p>
+                <p class="text-sm" style="color: var(--text-muted); margin-top:0.25rem;">
+                  Build Strength. Build Skill. Build Control.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Overview -->
+          <section id="project-overview" class="content-section">
+            <article class="phase-card">
+              <div class="phase-header">
+                <h3>Project Overview</h3>
+                <p class="phase-theme">
+                  The 2026 Strength &amp; Skill Framework · Build Strength. Build Skill. Build Control.
+                </p>
+              </div>
+              <div class="phase-body">
+                <div class="overview-grid">
+                  <div class="overview-column">
+                    <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Primary Outcome</h4>
+                    <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
+                      <li>• Walk on your hands 3–5 metres across the gym floor by December 2026.</li>
+                    </ul>
+                  </div>
+
+                  <div class="overview-column">
+                    <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Key Strength Targets</h4>
+                    <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
+                      <li>• 5 strict pull-ups</li>
+                      <li>• 10 strict press-ups</li>
+                      <li>• 5 strict dips (clean shoulder position)</li>
+                    </ul>
+                  </div>
+
+                  <div class="overview-column">
+                    <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Handstand &amp; Skill Targets</h4>
+                    <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
+                      <li>• 10-second freestanding handstand hold</li>
+                      <li>• 60-second chest-to-wall handstand hold</li>
+                      <li>• 300× 10-minute micro-sessions in 2026</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
 
           <!-- Quick Navigation -->
           <nav class="quick-nav" aria-label="Quick page navigation">
@@ -1823,20 +1823,6 @@
             </article>
 
           </section>
-
-          <!-- Movement Library Section -->
-          <section id="movement-library" class="mb-12" aria-labelledby="movement-library-title">
-            <h2 id="movement-library-title" class="text-xl font-bold mb-4" style="color: var(--text);">
-              <span class="inline-flex items-center gap-2">
-                <span aria-hidden="true">📚</span>
-                Movement Library
-              </span>
-            </h2>
-            <p class="mb-6" style="color: var(--text-muted);">
-              All movements used in this plan. Later these will link to movement standard videos.
-            </p>
-            <div id="movement-list" class="movement-grid"></div>
-          </section>
         </div>
 
         <!-- Footer -->
@@ -1911,13 +1897,10 @@
       document.getElementById('workout-location').textContent = nextWorkout.location;
       document.getElementById('workout-duration').textContent = nextWorkout.duration;
       
-      // Update new fields
+      // Update category, difficulty, and format badges
       document.getElementById('workout-category').textContent = nextWorkout.category;
       document.getElementById('workout-difficulty').textContent = nextWorkout.difficulty;
       document.getElementById('workout-format').textContent = nextWorkout.format;
-      // Note: Instructions, equipment, scaling, coaching cues are now bullet-point formatted in HTML
-      // Only update score type which remains plain text
-      document.getElementById('workout-score-type').textContent = nextWorkout.scoreType;
     }
 
     /* ============================================
@@ -2136,41 +2119,6 @@
     updateProgressTracker();
     loadMovementLibrary();
     setupDeepSessionControls();
-
-    /* ============================================
-       MOVEMENT LIBRARY
-       Fetches and renders movements from data/movements.json
-       ============================================ */
-    async function loadMovementLibrary() {
-      try {
-        const response = await fetch('../data/movements.json');
-        const data = await response.json();
-        const movements = data.movements;
-        const container = document.getElementById('movement-list');
-        
-        if (!container) return;
-        
-        container.innerHTML = movements.map(movement => `
-          <div class="movement-card">
-            <div class="movement-header">
-              <h3>${movement.name}</h3>
-              <span class="movement-badge">${movement.category}</span>
-            </div>
-            <p class="movement-description">${movement.description}</p>
-            ${movement.youtube ? `<a href="${movement.youtube}" target="_blank" rel="noopener" class="movement-video-link">Video</a>` : ''}
-          </div>
-        `).join('');
-      } catch (error) {
-        console.error('Error loading movement library:', error);
-        const container = document.getElementById('movement-list');
-        if (container) {
-          container.innerHTML = '<p style="color: var(--text-muted);">Unable to load movement library.</p>';
-        }
-      }
-    }
-
-    // Load movement library on page load
-    loadMovementLibrary();
   </script>
 </body>
 </html>
