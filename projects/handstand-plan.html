@@ -951,7 +951,7 @@
       <main id="main-content" role="main">
         <div class="page-container">
           <!-- Page Header -->
-          <header class="page-header">
+          <div class="page-header">
             <div class="page-header-main" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
               <!-- Project logo -->
               <div class="page-header-logo" aria-hidden="true">
@@ -974,7 +974,7 @@
                 </p>
               </div>
             </div>
-          </header>
+          </div>
 
           <!-- Project Overview -->
           <section id="project-overview" class="content-section">
@@ -1897,11 +1897,10 @@
       document.getElementById('workout-location').textContent = nextWorkout.location;
       document.getElementById('workout-duration').textContent = nextWorkout.duration;
       
-      // Update new fields
+      // Update category, difficulty, and format badges
       document.getElementById('workout-category').textContent = nextWorkout.category;
       document.getElementById('workout-difficulty').textContent = nextWorkout.difficulty;
       document.getElementById('workout-format').textContent = nextWorkout.format;
-      // Note: Instructions, equipment, scaling, coaching cues are now bullet-point formatted in HTML
     }
 
     /* ============================================
