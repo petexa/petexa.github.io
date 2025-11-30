@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-11-30T00:00:00Z",
+  "updatedAt": "2025-11-30T21:25:09.957Z",
   "microSessions": {
     "completed": 0,
     "goal": 300
@@ -10,7 +10,6 @@
       "name": "Handstand walk across the gym",
       "unit": "metres",
       "target": 3,
-      "stretchTarget": 5,
       "current": 0
     },
     "freestand_10s": {
