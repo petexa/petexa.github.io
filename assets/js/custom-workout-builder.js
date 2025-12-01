@@ -633,7 +633,7 @@
         html2pdf().set(opt).from(element).save();
       } else {
         // Fallback to print
-        alert('PDF generation is loading. Please try again in a moment, or use the Print button.');
+        alert('PDF generation library not available. Please use the Print button instead (Ctrl+P / Cmd+P).');
       }
     });
   }
