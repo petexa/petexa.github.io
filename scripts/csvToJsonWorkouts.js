@@ -6,10 +6,10 @@ const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parser');
 
-// Input/output paths
-const inputFile = path.join(__dirname, 'data', 'workouts_table.csv');
-const outputFile = path.join(__dirname, 'data', 'workouts_table.json');
-const logFile = path.join(__dirname, 'data', 'conversionReport.log');
+// Input/output paths (relative to repository root, script is in scripts/)
+const inputFile = path.join(__dirname, '..', 'data', 'workouts_table.csv');
+const outputFile = path.join(__dirname, '..', 'data', 'workouts_table.json');
+const logFile = path.join(__dirname, '..', 'data', 'conversionReport.log');
 
 // Helpers
 function lbsToKg(lbs) {
