@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Handstand Plan | Iron & Ale</title>
-  <meta name="description" content="12-Month Handstand Walk Plan - Track progress toward handstand walking by December 2026 with structured workouts and exercises.">
+  <title>2026 Strength & Skill Framework | Iron & Ale</title>
+  <meta name="description" content="2026 Strength & Skill Framework - A structured 12-month handstand plan for strength, inversion, balance, and endurance. Track progress toward handstand walking by December 2026.">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
   <!-- Google Analytics -->
@@ -942,6 +942,27 @@
       padding-top: 1rem;
       border-top: 1px solid var(--card-border);
     }
+    /* ChatGPT Button Styles */
+    .chatgpt-session-button {
+      margin-left: 0.25rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+    }
+    .chatgpt-session-button:hover {
+      background: var(--color-primary-50);
+      border-color: var(--color-primary-300);
+    }
+    .theme-dark .chatgpt-session-button:hover {
+      background: rgba(59, 130, 246, 0.2);
+    }
+    #chatgpt-feedback {
+      transition: opacity 0.3s ease;
+    }
+    .theme-dark #chatgpt-feedback {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.3);
+      color: var(--color-success-400);
+    }
   </style>
 </head>
 <body class="bg-page">
@@ -954,7 +975,7 @@
       <div class="card-body text-center">
         <div class="tool-card-icon mx-auto mb-4 bg-primary-100 text-primary-600" aria-hidden="true">🤸</div>
         <h2 class="text-xl font-bold mb-4" style="color: var(--text);">Handstand Plan Access</h2>
-        <p class="mb-6" style="color: var(--text-muted);">Please enter the password to view this training plan.</p>
+        <p class="mb-6" style="color: var(--text-muted);">Please enter the password to view the 2026 Strength & Skill Framework.</p>
         <form id="password-form" onsubmit="checkPassword(event)">
           <input type="password" id="page-password" class="form-input mb-4" placeholder="Enter password" required aria-label="Page password">
           <button type="submit" class="btn btn-primary w-full">Access Plan</button>
@@ -1212,10 +1233,11 @@
             <h3>🧭 Quick Navigation</h3>
             <div class="quick-nav-links">
               <a href="#dashboard-2026" class="quick-nav-link">📊 2026 Dashboard</a>
-              <a href="#next-workout" class="quick-nav-link">📅 Today's Workout</a>
+              <a href="#todays-workout" class="quick-nav-link">📅 Today's Workout</a>
+              <a href="#deep-sessions" class="quick-nav-link">🎯 Deep Sessions</a>
               <a href="#training-locations" class="quick-nav-link">📍 Training Locations</a>
-              <a href="#work-workouts" class="quick-nav-link">🏢 Work Workouts</a>
-              <a href="#adhoc-exercises" class="quick-nav-link">⚡ Ad-hoc Exercises</a>
+              <a href="#work-workouts" class="quick-nav-link" data-expand-target="work-workouts">🏢 Work Workouts</a>
+              <a href="#adhoc-exercises" class="quick-nav-link" data-expand-target="adhoc-exercises">⚡ Ad-hoc Exercises</a>
               <a href="#twelve-month-plan" class="quick-nav-link">📋 12-Month Plan</a>
               <a href="#movement-library" class="quick-nav-link">📚 Movement Library</a>
             </div>
@@ -1257,9 +1279,9 @@
           </div>
 
           <!-- Section 1: Today's Workout -->
-          <section id="next-workout" class="mb-12" aria-labelledby="next-workout-title">
+          <section id="todays-workout" class="mb-12" aria-labelledby="todays-workout-title">
             <div class="next-workout-card">
-              <h2 id="next-workout-title">📅 Today's Workout</h2>
+              <h2 id="todays-workout-title">📅 Today's Workout</h2>
               
               <!-- Header Row: Name with Category, Difficulty, Format -->
               <div style="margin-bottom: 1.5rem;">
@@ -1347,12 +1369,13 @@
             </div>
           </section>
 
+
             <!-- Optional 1-Hour Deep Sessions -->
             <section id="deep-sessions" class="content-section">
               <div class="section-heading">
                 <h2>Optional 1-Hour Deep Sessions</h2>
                 <p class="text-sm" style="color: var(--text-muted);">
-                  When you have a spare hour at the gym, pick a phase and we’ll pull a 60-minute skill session from your current plan.
+                  When you have a spare hour at the gym, pick a phase for a 60-minute skill session from your plan. Or ask ChatGPT to design one for you!
                 </p>
               </div>
 
@@ -1360,20 +1383,35 @@
                 <button type="button" class="deep-session-button" data-deep-session-phase="1">
                   Phase 1 – Foundations
                 </button>
+                <button type="button" class="chatgpt-session-button btn btn-outline btn-sm" data-chatgpt-phase="1" title="Copy prompt and open ChatGPT">
+                  🤖 Ask ChatGPT
+                </button>
                 <button type="button" class="deep-session-button" data-deep-session-phase="2">
                   Phase 2 – Inversion Comfort
+                </button>
+                <button type="button" class="chatgpt-session-button btn btn-outline btn-sm" data-chatgpt-phase="2" title="Copy prompt and open ChatGPT">
+                  🤖 Ask ChatGPT
                 </button>
                 <button type="button" class="deep-session-button" data-deep-session-phase="3">
                   Phase 3 – Static Handstand
                 </button>
+                <button type="button" class="chatgpt-session-button btn btn-outline btn-sm" data-chatgpt-phase="3" title="Copy prompt and open ChatGPT">
+                  🤖 Ask ChatGPT
+                </button>
                 <button type="button" class="deep-session-button" data-deep-session-phase="4">
                   Phase 4 – Walking Mechanics
                 </button>
+                <button type="button" class="chatgpt-session-button btn btn-outline btn-sm" data-chatgpt-phase="4" title="Copy prompt and open ChatGPT">
+                  🤖 Ask ChatGPT
+                </button>
+              </div>
+              
+              <div id="chatgpt-feedback" style="display: none; margin-top: 0.75rem; padding: 0.5rem 1rem; background: var(--color-success-50); border: 1px solid var(--color-success-200); border-radius: var(--radius-md); color: var(--color-success-700); font-size: 0.875rem;">
+                ✅ Prompt copied! Paste into ChatGPT.
               </div>
 
               <div id="deep-session-card"></div>
             </section>
-
             <!-- Movement Library -->
             <section id="movement-library" class="content-section">
               <div class="section-heading">
@@ -2058,6 +2096,347 @@
     /* ============================================
        NEXT WORKOUT DATA - Edit these values to update your next workout
        ============================================ */
+    // Phase-aware session templates for dynamic Today's Workout
+    const StrengthSkillPlan = {
+      phases: [
+        {
+          id: 1,
+          name: "Foundations",
+          months: [11, 0, 1], // Dec (11), Jan (0), Feb (1) - 0-based
+          defaultSession: {
+            title: "Foundations Session",
+            tagLine: "Skill Development · Beginner · For Quality",
+            durationMinutes: 10,
+            category: "Skill Development",
+            difficulty: "Beginner",
+            format: "For Quality",
+            movements: [
+              "Wrist rocks 2×12",
+              "Palm lifts 2×12",
+              "Fingertip holds 2×10–15s",
+              "Scap push-ups 2×10",
+              "Box pike hold 2×20–25s",
+              "Wall plank 2×30s",
+              "Wall walks to halfway 2 slow reps"
+            ],
+            equipment: ["Floor space", "Wall", "Yoga mat", "Box/bench"],
+            scaling: ["Reduce hold times if wrists fatigue", "Use higher box for pike holds", "Skip wall walks if not comfortable inverted"],
+            coachingCues: ["Focus on quality over speed", "Keep wrists neutral", "Engage shoulders throughout pike holds", "Wall walks should be controlled", "Pause at each step"]
+          }
+        },
+        {
+          id: 2,
+          name: "Inversion Comfort",
+          months: [2, 3, 4], // Mar, Apr, May
+          defaultSession: {
+            title: "Inversion Comfort Session",
+            tagLine: "Skill Development · Intermediate · For Quality",
+            durationMinutes: 10,
+            category: "Skill Development",
+            difficulty: "Intermediate",
+            format: "For Quality",
+            movements: [
+              "Leaning wrist rocks 2×10",
+              "Wrist weight-shifts 2×10s",
+              "Wall walks to ¾ height 2×1",
+              "Chest-to-wall hold 3×6–10s",
+              "Box pike shoulder taps 2×6/side",
+              "Tuck plank on box 1×20–30s"
+            ],
+            equipment: ["Floor space", "Wall", "Box/bench"],
+            scaling: ["Use wall walks to ½ height if ¾ is too challenging", "Reduce chest-to-wall hold times", "Skip shoulder taps if unstable"],
+            coachingCues: ["Breathe while inverted", "Keep arms locked out", "Protract shoulders in holds", "Control the wall walk descent"]
+          }
+        },
+        {
+          id: 3,
+          name: "Static Handstand",
+          months: [5, 6, 7], // Jun, Jul, Aug
+          defaultSession: {
+            title: "Static Handstand Session",
+            tagLine: "Balance Work · Intermediate · For Quality",
+            durationMinutes: 10,
+            category: "Balance Work",
+            difficulty: "Intermediate",
+            format: "For Quality",
+            movements: [
+              "Wrist rocks 1×12",
+              "Palm lifts 1×12",
+              "Scap push-ups 2×10",
+              "Tuck plank on box 2×20s",
+              "Toe pulls from wall 2×8",
+              "Heel pulls from wall 2×8",
+              "Freestanding attempts 4–6 reps"
+            ],
+            equipment: ["Floor space", "Wall", "Box/bench"],
+            scaling: ["More wall support if balance is challenging", "Focus on shorter holds with good form", "Use spotter if available"],
+            coachingCues: ["Use fingertip pressure for balance", "Keep body tight and stacked", "Exit with control", "Breathe and stay relaxed"]
+          }
+        },
+        {
+          id: 4,
+          name: "Walking Mechanics",
+          months: [8, 9, 10], // Sep, Oct, Nov
+          defaultSession: {
+            title: "Walking Mechanics Session",
+            tagLine: "Walking Practice · Advanced · For Quality",
+            durationMinutes: 10,
+            category: "Walking Practice",
+            difficulty: "Advanced",
+            format: "For Quality",
+            movements: [
+              "Wrist rocks 1×12",
+              "Box pike hold 2×20s",
+              "Box pike shoulder taps 2×6/side",
+              "Wall walks with step-outs 2×4 steps",
+              "Short-distance handstand walks 4 attempts"
+            ],
+            equipment: ["Floor space", "Wall", "Box/bench"],
+            scaling: ["Reduce walking distance", "More wall-supported step practice", "Focus on entry and exit control"],
+            coachingCues: ["Small deliberate steps", "Shift weight smoothly", "Look at hands not floor", "Stay relaxed in shoulders", "Exit safely"]
+          }
+        }
+      ]
+    };
+
+    // Helper to get current phase based on month
+    function getCurrentPhaseFromPlan() {
+      const now = new Date();
+      const currentMonth = now.getMonth(); // 0-based
+      const currentYear = now.getFullYear();
+      
+      // Before plan starts (before Dec 2025)
+      if (currentYear < 2025 || (currentYear === 2025 && currentMonth < 11)) {
+        return StrengthSkillPlan.phases[0]; // Return Phase 1 as preview
+      }
+      
+      // After plan ends (after Nov 2026)
+      if (currentYear > 2026 || (currentYear === 2026 && currentMonth > 10)) {
+        return StrengthSkillPlan.phases[3]; // Return Phase 4
+      }
+      
+      // During 2026, find correct phase
+      if (currentYear === 2026) {
+        for (const phase of StrengthSkillPlan.phases) {
+          if (phase.months.includes(currentMonth)) {
+            return phase;
+          }
+        }
+      }
+      
+      // Dec 2025 = Phase 1
+      if (currentYear === 2025 && currentMonth === 11) {
+        return StrengthSkillPlan.phases[0];
+      }
+      
+      return StrengthSkillPlan.phases[0]; // Default to Phase 1
+    }
+
+    // Format today's date for Europe/London timezone
+    function formatTodaysDate() {
+      const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'Europe/London'
+      };
+      
+      const now = new Date();
+      const formatted = now.toLocaleString('en-GB', options);
+      // Convert to desired format: "Monday, Dec 1, 2025 @ 8:00 AM"
+      return formatted.replace(',', ',').replace(' at ', ' @ ').replace(/(\d{1,2}:\d{2})/, '$1');
+    }
+
+    // Dynamic Today's Workout update
+    function updateTodaysWorkout() {
+      const phase = getCurrentPhaseFromPlan();
+      const session = phase.defaultSession;
+      
+      // Update workout name with phase number
+      const workoutNameEl = document.getElementById('workout-name');
+      if (workoutNameEl) {
+        workoutNameEl.textContent = `${session.title} (Phase ${phase.id})`;
+      }
+      
+      // Update date/time to today
+      const datetimeEl = document.getElementById('workout-datetime');
+      if (datetimeEl) {
+        datetimeEl.textContent = formatTodaysDate();
+      }
+      
+      // Update category, difficulty, format
+      const categoryEl = document.getElementById('workout-category');
+      if (categoryEl) categoryEl.textContent = session.category;
+      
+      const difficultyEl = document.getElementById('workout-difficulty');
+      if (difficultyEl) difficultyEl.textContent = session.difficulty;
+      
+      const formatEl = document.getElementById('workout-format');
+      if (formatEl) formatEl.textContent = session.format;
+      
+      // Update duration
+      const durationEl = document.getElementById('workout-duration');
+      if (durationEl) durationEl.textContent = `${session.durationMinutes} minutes`;
+      
+      // Update instructions list
+      const instructionsEl = document.getElementById('workout-instructions');
+      if (instructionsEl) {
+        const ul = instructionsEl.querySelector('ul') || document.createElement('ul');
+        ul.innerHTML = session.movements.map(m => `<li>${m}</li>`).join('');
+        if (!instructionsEl.querySelector('ul')) {
+          instructionsEl.innerHTML = '';
+          instructionsEl.appendChild(ul);
+        }
+      }
+      
+      // Update equipment list
+      const equipmentEl = document.getElementById('workout-equipment');
+      if (equipmentEl) {
+        const ul = equipmentEl.querySelector('ul') || document.createElement('ul');
+        ul.innerHTML = session.equipment.map(e => `<li>${e}</li>`).join('');
+        if (!equipmentEl.querySelector('ul')) {
+          equipmentEl.innerHTML = '';
+          equipmentEl.appendChild(ul);
+        }
+      }
+      
+      // Update scaling list
+      const scalingEl = document.getElementById('workout-scaling');
+      if (scalingEl) {
+        const ul = scalingEl.querySelector('ul') || document.createElement('ul');
+        ul.innerHTML = session.scaling.map(s => `<li>${s}</li>`).join('');
+        if (!scalingEl.querySelector('ul')) {
+          scalingEl.innerHTML = '';
+          scalingEl.appendChild(ul);
+        }
+      }
+      
+      // Update coaching cues
+      const coachingEl = document.getElementById('workout-coaching');
+      if (coachingEl) {
+        const ul = coachingEl.querySelector('ul') || document.createElement('ul');
+        ul.innerHTML = session.coachingCues.map(c => `<li>${c}</li>`).join('');
+        if (!coachingEl.querySelector('ul')) {
+          coachingEl.innerHTML = '';
+          coachingEl.appendChild(ul);
+        }
+      }
+    }
+
+    /* ============================================
+       EXPANDABLE SECTIONS - Toggle functionality
+       ============================================ */
+    function toggleSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      
+      section.classList.toggle('is-open');
+    }
+
+    // Ensure sections expand when navigating via quick nav links
+    function setupQuickNavExpand() {
+      const quickNavLinks = document.querySelectorAll('.quick-nav-link[data-expand-target]');
+      quickNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const targetId = link.getAttribute('data-expand-target');
+          const targetSection = document.getElementById(targetId);
+          if (targetSection && targetSection.classList.contains('expandable-section')) {
+            // Ensure section is open
+            if (!targetSection.classList.contains('is-open')) {
+              targetSection.classList.add('is-open');
+            }
+          }
+        });
+      });
+    }
+
+    /* ============================================
+       CHATGPT PROMPT HELPERS FOR 1-HOUR SESSIONS
+       ============================================ */
+    function buildChatGPTPrompt(phaseId) {
+      const phaseNames = {
+        1: 'Foundations',
+        2: 'Inversion Comfort',
+        3: 'Static Handstand',
+        4: 'Walking Mechanics'
+      };
+      
+      const phaseName = phaseNames[phaseId] || 'Foundations';
+      
+      return `You are my coach for a handstand & strength framework.
+
+Context:
+- I'm following my "2026 Strength & Skill Framework".
+- Current phase: Phase ${phaseId} – ${phaseName}.
+- Environment: gym session with standard CrossFit-style kit (rig, wall, box/bench, floor space).
+- Time available: 60 minutes.
+- I already do bootcamp-style training 4×/week; this should be a focused skill/accessory session, not a brutal conditioning workout.
+
+Please design a 60-minute session for this phase using ONLY movements that make sense for handstand progressions, such as:
+- Wrist rocks, palm lifts, fingertip holds
+- Scap push-ups, box pike holds, box pike shoulder taps
+- Wall walks, chest-to-wall holds, wall plank
+- Toe pulls, heel pulls, kick-up practice, handstand step-outs, short handstand walks
+
+Requirements:
+- Include a brief warm-up, main skill work, and a short finisher.
+- Give clear sets/reps/hold times.
+- Add 2–3 simple coaching cues that match this phase (e.g. joint tolerance in Phase 1, inversion comfort in Phase 2, static balance in Phase 3, walking control in Phase 4).
+- Format the answer in markdown with clear headings and bullet points.`;
+    }
+
+    function setupChatGPTButtons() {
+      const buttons = document.querySelectorAll('.chatgpt-session-button[data-chatgpt-phase]');
+      const feedbackEl = document.getElementById('chatgpt-feedback');
+      
+      buttons.forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const phaseId = parseInt(btn.getAttribute('data-chatgpt-phase'), 10);
+          const prompt = buildChatGPTPrompt(phaseId);
+          
+          try {
+            // Copy prompt to clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(prompt);
+            } else {
+              // Fallback for older browsers
+              const textarea = document.createElement('textarea');
+              textarea.value = prompt;
+              textarea.style.position = 'fixed';
+              textarea.style.opacity = '0';
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textarea);
+            }
+            
+            // Show feedback
+            if (feedbackEl) {
+              feedbackEl.style.display = 'block';
+              setTimeout(() => {
+                feedbackEl.style.display = 'none';
+              }, 4000);
+            }
+            
+            // Open ChatGPT in new tab
+            window.open('https://chat.openai.com/', '_blank');
+            
+          } catch (err) {
+            console.error('Failed to copy prompt:', err);
+            // Still try to open ChatGPT
+            window.open('https://chat.openai.com/', '_blank');
+            if (window.showToast) {
+              window.showToast('Could not copy prompt - please copy manually', 'error');
+            }
+          }
+        });
+      });
+    }
+
     const nextWorkout = {
       name: "Foundations Session 1",
       datetime: "Saturday, Nov 30, 2025 @ 8:00 AM",
@@ -2083,7 +2462,7 @@
        - Thursday PM (evening)
        ============================================ */
 
-    // Update the page with next workout data
+    // Legacy function - kept for backwards compatibility but replaced by updateTodaysWorkout()
     function updateNextWorkout() {
       document.getElementById('workout-name').textContent = nextWorkout.name;
       document.getElementById('workout-datetime').textContent = nextWorkout.datetime;
@@ -2308,10 +2687,13 @@
             }
           }
         }
-    updateNextWorkout();
+    // Initialize all functionality
+    updateTodaysWorkout();  // Dynamic Today's Workout
     updateProgressTracker();
     loadMovementLibrary();
     setupDeepSessionControls();
+    setupChatGPTButtons();   // ChatGPT helper buttons
+    setupQuickNavExpand();   // Quick nav auto-expand
 
     /* ============================================
        2026 DASHBOARD INITIALIZATION
