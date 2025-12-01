@@ -1,6 +1,3 @@
-
----
-
 ## 📍 Data Location
 
 **Note:** Event data is stored at `data/production/events.json`, not in this directory. This folder contains documentation and n8n workflow configuration files only.
