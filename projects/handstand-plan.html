@@ -1137,109 +1137,37 @@
             </article>
           </section>
 
-          <!-- 2026 Dashboard Section -->
-          <section id="dashboard-2026" aria-labelledby="dashboard-2026-title">
-            <header class="dashboard-header">
-              <h2 id="dashboard-2026-title">📊 2026 Strength &amp; Skill Dashboard</h2>
-              <p class="dashboard-subtitle">Track micro-sessions and key strength/skill goals.</p>
-            </header>
-
-            <!-- Micro-sessions summary -->
-            <div class="dashboard-row">
-              <div class="dashboard-block">
-                <h3>Micro-sessions</h3>
-                <p class="dashboard-metric">
-                  <span id="micro-completed">0</span> / <span id="micro-goal">300</span>
+          <!-- 2026 Progress Bar - Links to full dashboard -->
+          <section id="progress-2026" class="content-section" aria-labelledby="progress-2026-title">
+            <a href="/projects/2026-dashboard.html" class="progress-bar-link" style="text-decoration: none; display: block;">
+              <div class="progress-bar-container" style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-xl); padding: 1.25rem 1.5rem; cursor: pointer; transition: box-shadow var(--transition-fast);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <h2 id="progress-2026-title" style="font-size: 1rem; font-weight: 600; color: var(--text); margin: 0;">📊 2026 Progress</h2>
+                  <span style="font-size: 0.875rem; color: var(--text-muted);">Click for full dashboard →</span>
+                </div>
+                <div class="progress-bar-outer" style="background: var(--bg-alt); border-radius: 999px; height: 1.25rem; overflow: hidden; position: relative;">
+                  <div id="progress-2026-fill" class="progress-bar-inner" style="background: linear-gradient(90deg, var(--color-primary-500), var(--color-primary-600)); height: 100%; width: 0%; border-radius: 999px; transition: width 0.5s ease-out;"></div>
+                  <span id="progress-2026-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.75rem; font-weight: 600; color: var(--text);">0% complete</span>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; margin-bottom: 0;">
+                  <span id="micro-completed">0</span> / <span id="micro-goal">300</span> micro-sessions logged
                 </p>
-                <button class="btn btn-primary btn-log-micro-session">
-                  +1 Micro-session
-                </button>
-                <p class="dashboard-hint">Each click = one 10-minute focused session.</p>
               </div>
-            </div>
-
-            <!-- Challenge cards -->
-            <div class="dashboard-row dashboard-challenges">
-              <article class="dashboard-card" data-challenge-id="hs_walk_gym">
-                <h3>Handstand Walk</h3>
-                <p class="dashboard-metric">
-                  <span class="challenge-current">0</span> / <span class="challenge-target">3</span> metres
-                </p>
-                <button class="btn btn-outline btn-log-challenge">
-                  +1 metre
-                </button>
-              </article>
-
-              <article class="dashboard-card" data-challenge-id="freestand_10s">
-                <h3>Freestanding Handstand</h3>
-                <p class="dashboard-metric">
-                  <span class="challenge-current">0</span> / <span class="challenge-target">10</span> seconds
-                </p>
-                <button class="btn btn-outline btn-log-challenge">
-                  +1 second
-                </button>
-              </article>
-
-              <article class="dashboard-card" data-challenge-id="ctw_60s">
-                <h3>Chest-to-wall Hold</h3>
-                <p class="dashboard-metric">
-                  <span class="challenge-current">0</span> / <span class="challenge-target">60</span> seconds
-                </p>
-                <button class="btn btn-outline btn-log-challenge">
-                  +5 seconds
-                </button>
-              </article>
-
-              <article class="dashboard-card" data-challenge-id="pullups_5">
-                <h3>Strict Pull-ups</h3>
-                <p class="dashboard-metric">
-                  <span class="challenge-current">0</span> / <span class="challenge-target">5</span> reps
-                </p>
-                <button class="btn btn-outline btn-log-challenge">
-                  +1 rep
-                </button>
-              </article>
-
-              <article class="dashboard-card" data-challenge-id="pressups_10">
-                <h3>Strict Press-ups</h3>
-                <p class="dashboard-metric">
-                  <span class="challenge-current">0</span> / <span class="challenge-target">10</span> reps
-                </p>
-                <button class="btn btn-outline btn-log-challenge">
-                  +1 rep
-                </button>
-              </article>
-
-              <article class="dashboard-card" data-challenge-id="dips_5">
-                <h3>Strict Dips</h3>
-                <p class="dashboard-metric">
-                  <span class="challenge-current">0</span> / <span class="challenge-target">5</span> reps
-                </p>
-                <button class="btn btn-outline btn-log-challenge">
-                  +1 rep
-                </button>
-              </article>
-            </div>
-
-            <footer class="dashboard-footer">
-              <p class="dashboard-note">
-                Note: values update optimistically in the browser when you click log. A future n8n read-only endpoint will keep this in sync with stored progress.
-              </p>
-            </footer>
+            </a>
           </section>
 
           <!-- Quick Navigation -->
           <nav class="quick-nav" aria-label="Quick page navigation">
             <h3>🧭 Quick Navigation</h3>
             <div class="quick-nav-links">
-              <a href="#dashboard-2026" class="quick-nav-link">📊 2026 Dashboard</a>
+              <a href="#progress-2026" class="quick-nav-link">📊 2026 Progress</a>
               <a href="#todays-workout" class="quick-nav-link">📅 Today's Workout</a>
-              <a href="#deep-sessions" class="quick-nav-link">🎯 Deep Sessions</a>
-              <a href="#training-locations" class="quick-nav-link">📍 Training Locations</a>
-              <a href="#work-workouts" class="quick-nav-link" data-expand-target="work-workouts">🏢 Work Workouts</a>
+              <a href="#deep-session" class="quick-nav-link">🎯 1-Hour Deep Session</a>
+              <a href="#movement-library-link" class="quick-nav-link">📚 Movement Library</a>
+              <a href="#training-summary" class="quick-nav-link">📍 Where I Train</a>
+              <a href="#office-workouts" class="quick-nav-link" data-expand-target="office-workouts">🏢 Office Workouts</a>
               <a href="#adhoc-exercises" class="quick-nav-link" data-expand-target="adhoc-exercises">⚡ Ad-hoc Exercises</a>
-              <a href="#twelve-month-plan" class="quick-nav-link">📋 12-Month Plan</a>
-              <a href="#movement-library" class="quick-nav-link">📚 Movement Library</a>
+              <a href="#plan-12-month" class="quick-nav-link">📋 12-Month Plan</a>
             </div>
           </nav>
 
@@ -1370,73 +1298,76 @@
           </section>
 
 
-            <!-- Optional 1-Hour Deep Sessions -->
-            <section id="deep-sessions" class="content-section">
+            <!-- 1-Hour Deep Session -->
+            <section id="deep-session" class="content-section">
               <div class="section-heading">
-                <h2>Optional 1-Hour Deep Sessions</h2>
+                <h2>🎯 1-Hour Deep Session</h2>
                 <p class="text-sm" style="color: var(--text-muted);">
-                  When you have a spare hour at the gym, pick a phase for a 60-minute skill session from your plan. Or ask ChatGPT to design one for you!
+                  When you have a spare hour at the gym, pick a phase for a 60-minute skill session. Click a phase button to see a sample session, or ask ChatGPT to design one for you with video demonstrations!
                 </p>
               </div>
 
               <div class="deep-session-controls">
                 <button type="button" class="deep-session-button" data-deep-session-phase="1">
-                  Phase 1 – Foundations
-                </button>
-                <button type="button" class="chatgpt-session-button btn btn-outline btn-sm" data-chatgpt-phase="1" title="Copy prompt and open ChatGPT">
-                  🤖 Ask ChatGPT
+                  Phase 1 — Foundations
                 </button>
                 <button type="button" class="deep-session-button" data-deep-session-phase="2">
-                  Phase 2 – Inversion Comfort
-                </button>
-                <button type="button" class="chatgpt-session-button btn btn-outline btn-sm" data-chatgpt-phase="2" title="Copy prompt and open ChatGPT">
-                  🤖 Ask ChatGPT
+                  Phase 2 — Inversion Comfort
                 </button>
                 <button type="button" class="deep-session-button" data-deep-session-phase="3">
-                  Phase 3 – Static Handstand
-                </button>
-                <button type="button" class="chatgpt-session-button btn btn-outline btn-sm" data-chatgpt-phase="3" title="Copy prompt and open ChatGPT">
-                  🤖 Ask ChatGPT
+                  Phase 3 — Static Handstand
                 </button>
                 <button type="button" class="deep-session-button" data-deep-session-phase="4">
-                  Phase 4 – Walking Mechanics
+                  Phase 4 — Walking Mechanics
                 </button>
-                <button type="button" class="chatgpt-session-button btn btn-outline btn-sm" data-chatgpt-phase="4" title="Copy prompt and open ChatGPT">
-                  🤖 Ask ChatGPT
-                </button>
+              </div>
+
+              <!-- Hidden workout card - appears when a phase button is clicked -->
+              <div id="deep-session-card" style="display: none;"></div>
+              
+              <!-- ChatGPT Button -->
+              <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-alt); border-radius: var(--radius-lg); border: 1px solid var(--card-border);">
+                <p class="text-sm" style="color: var(--text-secondary); margin-bottom: 0.75rem;">
+                  Want a custom session with video demonstrations? ChatGPT can design one for your current phase:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+                  <button type="button" class="btn btn-primary chatgpt-deep-session-button" id="chatgpt-main-button">
+                    🤖 Ask ChatGPT for a 1-hour session
+                  </button>
+                  <span class="text-sm" style="color: var(--text-muted);">(copies prompt with video requests)</span>
+                </div>
               </div>
               
               <div id="chatgpt-feedback" style="display: none; margin-top: 0.75rem; padding: 0.5rem 1rem; background: var(--color-success-50); border: 1px solid var(--color-success-200); border-radius: var(--radius-md); color: var(--color-success-700); font-size: 0.875rem;">
-                ✅ Prompt copied! Paste into ChatGPT.
+                ✅ Prompt copied — paste into ChatGPT!
               </div>
-
-              <div id="deep-session-card"></div>
             </section>
-            <!-- Movement Library -->
-            <section id="movement-library" class="content-section">
-              <div class="section-heading">
-                <h2>Movement Library</h2>
-                <p class="text-sm" style="color: var(--text-muted);">
-                  All movements used in this plan. n8n will later attach movement standard videos to each one.
-                </p>
-              </div>
 
-              <div id="movement-grid" class="movement-grid"></div>
+            <!-- Movement Library Link -->
+            <section id="movement-library-link" class="content-section">
+              <a href="/projects/movement-library.html" style="text-decoration: none; display: block;">
+                <div class="phase-card" style="cursor: pointer; transition: box-shadow var(--transition-fast);">
+                  <div class="phase-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <h3>📚 Movement Library</h3>
+                      <p class="phase-theme">Browse all movements used in The 2026 Strength &amp; Skill Framework</p>
+                    </div>
+                    <span style="font-size: 1.5rem; color: var(--text-muted);">→</span>
+                  </div>
+                </div>
+              </a>
             </section>
-          <!-- Section 2.6: Where I Train Each Part of the Plan -->
-          <section id="training-locations" class="mb-12" aria-labelledby="training-locations-title">
-            <h2 id="training-locations-title" class="text-xl font-bold mb-4" style="color: var(--text);">
+          <!-- Training Summary (Where I Train & Summary merged) -->
+          <section id="training-summary" class="mb-8" aria-labelledby="training-summary-title">
+            <h2 id="training-summary-title" class="text-xl font-bold mb-4" style="color: var(--text);">
               <span class="inline-flex items-center gap-2">
                 <span aria-hidden="true">📍</span>
-                Where I Train Each Part of the Plan
+                Where I Train &amp; Summary
               </span>
             </h2>
-            <p class="mb-6" style="color: var(--text-muted);">
-              My weekly gym schedule gives me access to much better equipment on these days:
-            </p>
-
-            <!-- Gym Schedule Reminder -->
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-4 mb-8">
+            
+            <!-- Gym Schedule -->
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4 mb-6">
               <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
                 <div style="font-weight: 600; color: var(--text);">Saturday</div>
                 <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
@@ -1455,126 +1386,20 @@
               </div>
             </div>
 
-            <p class="mb-6" style="color: var(--text-muted);">
-              Because of this, the handstand plan is split into three environments:
-            </p>
-
-            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-              <!-- Environment 1: Gym -->
-              <article class="phase-card">
-                <div class="phase-header">
-                  <h3>🏋️ 1. Gym Sessions – Skill Training</h3>
-                  <p class="phase-theme">Heavy Progressions</p>
-                </div>
-                <div class="phase-body">
-                  <p class="text-sm mb-4" style="color: var(--text-muted);">
-                    These sessions are where I do the serious handstand progressions that need walls, boxes, space, and safe surfaces.
-                  </p>
-                  
-                  <h4 class="font-semibold mb-2" style="color: var(--text);">These include:</h4>
-                  <ul class="workout-exercises mb-4">
-                    <li>Box pike holds</li>
-                    <li>Box pike shoulder taps</li>
-                    <li>Wall walks (¾ height → full height)</li>
-                    <li>Chest-to-wall holds</li>
-                    <li>Toe pulls & heel pulls</li>
-                    <li>Kick-up practice (controlled entry to wall)</li>
-                    <li>Handstand step-outs</li>
-                    <li>Short-distance handstand walks</li>
-                  </ul>
-
-                  <h4 class="font-semibold mb-2" style="color: var(--text);">Recommended timing:</h4>
-                  <div class="session-block">
-                    <h5>Saturday AM (Before class, 10 min)</h5>
-                    <p class="text-sm" style="color: var(--text-secondary);">Box pike → wall plank → wall walks</p>
-                  </div>
-                  <div class="session-block">
-                    <h5>Sunday AM (After class, 10 min)</h5>
-                    <p class="text-sm" style="color: var(--text-secondary);">Chest-to-wall holds → toe pulls → heel pulls</p>
-                  </div>
-                  <div class="session-block">
-                    <h5>Monday PM (Before class, 10 min)</h5>
-                    <p class="text-sm" style="color: var(--text-secondary);">Kick-up practice → wall "kiss and come away"</p>
-                  </div>
-                  <div class="session-block">
-                    <h5>Thursday PM (After class, 10 min)</h5>
-                    <p class="text-sm" style="color: var(--text-secondary);">Walking drills → step-outs → control drills</p>
-                  </div>
-                  <p class="text-sm mt-4" style="color: var(--color-primary-500); font-weight: 500;">
-                    This 4-day structure drives all major skill progression.
-                  </p>
-                </div>
-              </article>
-
-              <!-- Environment 2: Work -->
-              <article class="phase-card">
-                <div class="phase-header">
-                  <h3>🏢 2. Work Sessions – Support Training</h3>
-                  <p class="phase-theme">Discreet, No Floor Work</p>
-                </div>
-                <div class="phase-body">
-                  <p class="text-sm mb-4" style="color: var(--text-muted);">
-                    These sessions build the joint strength and shoulder stability required for handstands without lying on the floor or being upside-down.
-                  </p>
-                  
-                  <h4 class="font-semibold mb-2" style="color: var(--text);">These include:</h4>
-                  <ul class="workout-exercises mb-4">
-                    <li>Desk wrist leans</li>
-                    <li>Desk palm lifts</li>
-                    <li>Fingertip holds</li>
-                    <li>Standing scap push-ups</li>
-                    <li>Wall slides</li>
-                    <li>Desk-lean straight-arm holds</li>
-                    <li>Band external rotations</li>
-                    <li>Standing core activation</li>
-                  </ul>
-
-                  <p class="text-sm mt-4" style="color: var(--color-secondary-500); font-weight: 500;">
-                    These make the gym drills easier, safer, and more consistent.
-                  </p>
-                </div>
-              </article>
-
-              <!-- Environment 3: Home -->
-              <article class="phase-card">
-                <div class="phase-header">
-                  <h3>🏠 3. Home Sessions – Optional Micro Sessions</h3>
-                  <p class="phase-theme">Optional Boosters</p>
-                </div>
-                <div class="phase-body">
-                  <p class="text-sm mb-4" style="color: var(--text-muted);">
-                    These are not required but help accelerate progress:
-                  </p>
-                  
-                  <ul class="workout-exercises mb-4">
-                    <li>Wrist conditioning</li>
-                    <li>Band shoulder work</li>
-                    <li>Standing core control</li>
-                    <li>Light desk-lean holds</li>
-                  </ul>
-
-                  <p class="text-sm mt-4" style="color: var(--text-muted);">
-                    Even 5 minutes helps, but these are optional.
-                  </p>
-                </div>
-              </article>
-            </div>
-
             <!-- Summary Card -->
-            <div class="card mt-6">
+            <div class="card">
               <div class="card-body">
-                <h4 class="font-semibold mb-3" style="color: var(--text);">📋 Summary</h4>
                 <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
                   <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg);">
-                    <strong style="color: var(--color-primary-500);">Gym</strong>
+                    <strong style="color: var(--color-primary-500);">🏋️ Gym</strong>
                     <span style="color: var(--text-muted);"> = Skill work (inversion, balance, walking)</span>
                   </div>
                   <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg);">
-                    <strong style="color: var(--color-secondary-500);">Work</strong>
+                    <strong style="color: var(--color-secondary-500);">🏢 Work</strong>
                     <span style="color: var(--text-muted);"> = Support work (wrist, shoulder, scapula)</span>
                   </div>
                   <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg);">
-                    <strong style="color: var(--color-success-500);">Home</strong>
+                    <strong style="color: var(--color-success-500);">🏠 Home</strong>
                     <span style="color: var(--text-muted);"> = Optional booster</span>
                   </div>
                 </div>
@@ -1585,13 +1410,13 @@
             </div>
           </section>
 
-          <!-- Section 3: Workouts I Can Do at Work (Expandable) -->
-          <div class="expandable-section is-open" id="work-workouts">
-            <div class="expandable-header" onclick="toggleSection('work-workouts')">
+          <!-- Section 3: Workouts I Can Do at Work (Expandable - collapsed by default) -->
+          <div class="expandable-section" id="office-workouts">
+            <div class="expandable-header" onclick="toggleSection('office-workouts')">
               <h2>
                 <span class="inline-flex items-center gap-2">
                   <span aria-hidden="true">🏢</span>
-                  Workouts I Can Do at Work
+                  Workouts I Can Do in the Office
                 </span>
               </h2>
               <span class="expandable-icon">▼</span>
@@ -1723,8 +1548,8 @@
             </div>
           </div>
 
-          <!-- Section 4: Ad-hoc Exercises (Expandable) -->
-          <div class="expandable-section is-open" id="adhoc-exercises">
+          <!-- Section 4: Ad-hoc Exercises (Expandable - collapsed by default) -->
+          <div class="expandable-section" id="adhoc-exercises">
             <div class="expandable-header" onclick="toggleSection('adhoc-exercises')">
               <h2>
                 <span class="inline-flex items-center gap-2">
@@ -1793,9 +1618,9 @@
             </div>
           </div>
 
-          <!-- Section 5: Full 12-Month Plan (Expandable) -->
-          <section id="twelve-month-plan" aria-labelledby="twelve-month-plan-title">
-            <h2 id="twelve-month-plan-title" class="text-xl font-bold mb-4" style="color: var(--text);">
+          <!-- Section 5: Full 12-Month Plan -->
+          <section id="plan-12-month" aria-labelledby="plan-12-month-title">
+            <h2 id="plan-12-month-title" class="text-xl font-bold mb-4" style="color: var(--text);">
               <span class="inline-flex items-center gap-2">
                 <span aria-hidden="true">📋</span>
                 Full 12-Month Handstand Plan
@@ -2324,6 +2149,7 @@
 
     /* ============================================
        CHATGPT PROMPT HELPERS FOR 1-HOUR SESSIONS
+       (Includes video requests per requirement)
        ============================================ */
     function buildChatGPTPrompt(phaseId) {
       const phaseNames = {
@@ -2335,31 +2161,93 @@
       
       const phaseName = phaseNames[phaseId] || 'Foundations';
       
-      return `You are my coach for a handstand & strength framework.
+      return `You are my coach for a handstand + strength progression programme.
 
 Context:
-- I'm following my "2026 Strength & Skill Framework".
+- This session is part of my "2026 Strength & Skill Framework".
 - Current phase: Phase ${phaseId} – ${phaseName}.
-- Environment: gym session with standard CrossFit-style kit (rig, wall, box/bench, floor space).
+- I am training in a gym with standard CrossFit-style kit (rig, wall space, benches/boxes).
 - Time available: 60 minutes.
-- I already do bootcamp-style training 4×/week; this should be a focused skill/accessory session, not a brutal conditioning workout.
+- I already do 4×/week bootcamp training; this session should be strength/skill-focused, not brutal conditioning.
 
-Please design a 60-minute session for this phase using ONLY movements that make sense for handstand progressions, such as:
-- Wrist rocks, palm lifts, fingertip holds
-- Scap push-ups, box pike holds, box pike shoulder taps
-- Wall walks, chest-to-wall holds, wall plank
-- Toe pulls, heel pulls, kick-up practice, handstand step-outs, short handstand walks
+Your task:
+Design a 60-minute handstand progression session tailored to this phase.
 
 Requirements:
-- Include a brief warm-up, main skill work, and a short finisher.
-- Give clear sets/reps/hold times.
-- Add 2–3 simple coaching cues that match this phase (e.g. joint tolerance in Phase 1, inversion comfort in Phase 2, static balance in Phase 3, walking control in Phase 4).
-- Format the answer in markdown with clear headings and bullet points.`;
+1. Include a warm-up, main skill block(s), and a short finisher.
+2. Use only relevant movements for handstand development:
+   - Wrist prep, palm lifts, fingertip holds
+   - Scap push-ups, box pike holds/taps
+   - Wall walks, chest-to-wall holds
+   - Toe pulls, heel pulls
+   - Kick-ups, step-outs, handstand walking
+
+3. For EVERY movement you prescribe, provide visual learning aids:
+   - If you can generate video: create a short AI-generated movement demo video.
+   - Otherwise: provide a detailed positional breakdown with 3–5 stages showing the key positions.
+   - Include coaching cues, common faults, and progressions/regressions.
+
+4. Format the whole response in clean markdown with headings, bullet points, and each visual aid placed immediately below its movement.
+
+Make the session phase-appropriate with:
+- Phase 1 → joint tolerance, alignment, early inversion
+- Phase 2 → inversion comfort, tension, control
+- Phase 3 → static balance shaping
+- Phase 4 → walking mechanics & spatial control`;
     }
 
+    // Store selected phase for ChatGPT button
+    let selectedDeepSessionPhase = 1;
+
     function setupChatGPTButtons() {
-      const buttons = document.querySelectorAll('.chatgpt-session-button[data-chatgpt-phase]');
+      // Handle the main ChatGPT button
+      const mainButton = document.getElementById('chatgpt-main-button');
       const feedbackEl = document.getElementById('chatgpt-feedback');
+      
+      if (mainButton) {
+        mainButton.addEventListener('click', async () => {
+          const prompt = buildChatGPTPrompt(selectedDeepSessionPhase);
+          
+          try {
+            // Copy prompt to clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(prompt);
+            } else {
+              // Fallback for older browsers
+              const textarea = document.createElement('textarea');
+              textarea.value = prompt;
+              textarea.style.position = 'fixed';
+              textarea.style.opacity = '0';
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textarea);
+            }
+            
+            // Show feedback
+            if (feedbackEl) {
+              feedbackEl.style.display = 'block';
+              setTimeout(() => {
+                feedbackEl.style.display = 'none';
+              }, 4000);
+            }
+            
+            // Open ChatGPT in new tab
+            window.open('https://chat.openai.com/', '_blank');
+            
+          } catch (err) {
+            console.error('Failed to copy prompt:', err);
+            // Still try to open ChatGPT
+            window.open('https://chat.openai.com/', '_blank');
+            if (window.showToast) {
+              window.showToast('Could not copy prompt - please copy manually', 'error');
+            }
+          }
+        });
+      }
+      
+      // Legacy support for old chatgpt-session-button elements (if any remain)
+      const buttons = document.querySelectorAll('.chatgpt-session-button[data-chatgpt-phase]');
       
       buttons.forEach(btn => {
         btn.addEventListener('click', async () => {
@@ -2634,6 +2522,7 @@ Requirements:
 
         function setupDeepSessionControls() {
           const buttons = document.querySelectorAll('[data-deep-session-phase]');
+          const cardContainer = document.getElementById('deep-session-card');
           if (!buttons.length) return;
 
           buttons.forEach(btn => {
@@ -2641,6 +2530,15 @@ Requirements:
               buttons.forEach(b => b.classList.remove('active-deep-session-button'));
               btn.classList.add('active-deep-session-button');
               const phase = parseInt(btn.getAttribute('data-deep-session-phase'), 10);
+              
+              // Update the selected phase for ChatGPT button
+              selectedDeepSessionPhase = phase;
+              
+              // Show the deep session card container
+              if (cardContainer) {
+                cardContainer.style.display = 'block';
+              }
+              
               showRandomDeepSession(phase);
             });
           });
@@ -2649,112 +2547,56 @@ Requirements:
           if (typeof getCurrentPhase === 'function') {
             const info = getCurrentPhase();
             if (info && info.current) {
+              selectedDeepSessionPhase = info.current;
               const activeBtn = document.querySelector(`[data-deep-session-phase="${info.current}"]`);
               if (activeBtn) activeBtn.classList.add('active-deep-session-button');
-              showRandomDeepSession(info.current);
+              // Don't auto-show the card - keep it hidden until user clicks
             }
           }
         }
     // Initialize all functionality
     updateTodaysWorkout();  // Dynamic Today's Workout
     updateProgressTracker();
-    loadMovementLibrary();
     setupDeepSessionControls();
     setupChatGPTButtons();   // ChatGPT helper buttons
     setupQuickNavExpand();   // Quick nav auto-expand
 
     /* ============================================
-       2026 DASHBOARD INITIALIZATION
-       Future enhancement: Call a read-only n8n endpoint
-       to populate micro-completed, micro-goal, and each
-       .challenge-current / .challenge-target on page load.
+       2026 PROGRESS BAR INITIALIZATION
+       Load progress data and update the progress bar
        ============================================ */
-    (function initDashboard2026() {
-      // Challenge configuration: maps challengeId to increment value
-      const challengeConfig = {
-        'hs_walk_gym': { increment: 1, unit: 'metres' },
-        'freestand_10s': { increment: 1, unit: 'seconds' },
-        'ctw_60s': { increment: 5, unit: 'seconds' },
-        'pullups_5': { increment: 1, unit: 'reps' },
-        'pressups_10': { increment: 1, unit: 'reps' },
-        'dips_5': { increment: 1, unit: 'reps' }
-      };
-
-      // Micro-sessions handling
-      const microCompletedEl = document.getElementById('micro-completed');
-      const microGoalEl = document.getElementById('micro-goal');
-      const microBtn = document.querySelector('.btn-log-micro-session');
-
-      if (microBtn && microCompletedEl) {
-        microBtn.addEventListener('click', async () => {
-          microBtn.disabled = true;
-          const originalText = microBtn.innerText;
-          microBtn.innerText = 'Logging...';
-
-          try {
-            await StrengthSkillLogger.logFrameworkProgress('micro_300', 1, {
-              unit: 'session',
-              context: 'micro-session',
-              source: 'framework-dashboard'
-            });
-            // Optimistic UI update
-            const current = parseInt(microCompletedEl.textContent || '0', 10);
-            microCompletedEl.textContent = String(current + 1);
-            microBtn.innerText = 'Logged ✅';
-            setTimeout(() => {
-              microBtn.innerText = originalText;
-              microBtn.disabled = false;
-            }, 1200);
-          } catch (err) {
-            microBtn.innerText = 'Error ❌';
-            setTimeout(() => {
-              microBtn.innerText = originalText;
-              microBtn.disabled = false;
-            }, 1500);
-          }
-        });
+    async function init2026ProgressBar() {
+      try {
+        const response = await fetch('../data/progress-2026.json');
+        if (!response.ok) throw new Error('Failed to load progress data');
+        const progressData = await response.json();
+        
+        const completed = progressData?.microSessions?.completed ?? 0;
+        const goal = progressData?.microSessions?.goal ?? 300;
+        const percent = goal > 0 ? Math.min(100, Math.round((completed / goal) * 100)) : 0;
+        
+        // Update the progress bar
+        const fillEl = document.getElementById('progress-2026-fill');
+        const textEl = document.getElementById('progress-2026-text');
+        const completedEl = document.getElementById('micro-completed');
+        const goalEl = document.getElementById('micro-goal');
+        
+        if (fillEl) fillEl.style.width = `${percent}%`;
+        if (textEl) textEl.textContent = `${percent}% complete`;
+        if (completedEl) completedEl.textContent = completed;
+        if (goalEl) goalEl.textContent = goal;
+        
+      } catch (err) {
+        console.warn('Could not load progress data for 2026 progress bar', err);
       }
+    }
+    
+    init2026ProgressBar();
 
-      // Challenge cards handling
-      const challengeCards = document.querySelectorAll('.dashboard-card[data-challenge-id]');
-      challengeCards.forEach(card => {
-        const challengeId = card.dataset.challengeId;
-        const config = challengeConfig[challengeId];
-        if (!config) return;
-
-        const currentEl = card.querySelector('.challenge-current');
-        const btn = card.querySelector('.btn-log-challenge');
-        if (!btn || !currentEl) return;
-
-        btn.addEventListener('click', async () => {
-          btn.disabled = true;
-          const originalText = btn.innerText;
-          btn.innerText = 'Logging...';
-
-          try {
-            await StrengthSkillLogger.logFrameworkProgress(challengeId, config.increment, {
-              unit: config.unit,
-              context: 'challenge',
-              source: 'framework-dashboard'
-            });
-            // Optimistic UI update
-            const current = parseInt(currentEl.textContent || '0', 10);
-            currentEl.textContent = String(current + config.increment);
-            btn.innerText = 'Logged ✅';
-            setTimeout(() => {
-              btn.innerText = originalText;
-              btn.disabled = false;
-            }, 1200);
-          } catch (err) {
-            btn.innerText = 'Error ❌';
-            setTimeout(() => {
-              btn.innerText = originalText;
-              btn.disabled = false;
-            }, 1500);
-          }
-        });
-      });
-    })();
+    /* ============================================
+       2026 DASHBOARD INITIALIZATION (legacy - removed)
+       The dashboard is now on a separate page
+       ============================================ */
   </script>
 </body>
 </html>
