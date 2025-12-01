@@ -3,487 +3,2600 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2026 Strength &amp; Skill – Handstand Plan</title>
-  <meta name="description" content="Lean 2026 handstand plan with quick dashboard access, phase-specific sessions, and supporting resources.">
+  <title>2026 Strength & Skill Framework | Iron & Ale</title>
+  <meta name="description" content="2026 Strength & Skill Framework - A structured 12-month handstand plan for strength, inversion, balance, and endurance. Track progress toward handstand walking by December 2026.">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WW47GEZS2M');
+  </script>
   <style>
-    :root {
-      --card-bg: #fff;
-      --card-border: #e5e7eb;
-      --bg-alt: #f8fafc;
-      --text: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #94a3b8;
-      --color-primary-50: #eff6ff;
-      --color-primary-100: #dbeafe;
-      --color-primary-500: #3b82f6;
-      --color-primary-600: #2563eb;
-      --color-primary-700: #1d4ed8;
-      --radius-lg: 0.75rem;
-      --radius-xl: 1rem;
-      --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.08);
-      --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.12);
+    /* Next Workout Card Styles */
+    .next-workout-card {
+      background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-800) 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      color: white;
+      margin-bottom: 2rem;
     }
-    body.theme-dark {
-      --card-bg: #0b1223;
-      --card-border: #1e293b;
-      --bg-alt: #0f172a;
-      --text: #e2e8f0;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
+    .next-workout-card h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
     }
-    .page-shell { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
-    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); }
-    .section { margin-bottom: 2rem; }
-    .section h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
-    .section p { color: var(--text-secondary); }
-    .progress-shell { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-xl); padding: 1.25rem; }
-    .progress-bar { position: relative; background: var(--bg-alt); border-radius: 999px; height: 14px; overflow: hidden; }
-    .progress-fill { background: linear-gradient(90deg, var(--color-primary-500), var(--color-primary-700)); height: 100%; width: 0; transition: width 0.4s ease; }
-    .cta-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; font-weight: 600; color: var(--color-primary-600); text-decoration: none; }
-    .phase-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .phase-button { border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text); padding: 0.55rem 0.9rem; border-radius: 999px; cursor: pointer; font-weight: 600; }
-    .phase-button.active { background: var(--color-primary-600); color: #fff; border-color: var(--color-primary-600); }
-    .deep-session-card { display: none; margin-top: 1rem; }
-    .deep-block { margin-bottom: 1rem; }
-    .deep-block h4 { margin: 0 0 0.35rem 0; color: var(--text); }
-    .deep-block ul { padding-left: 1rem; color: var(--text-secondary); }
-    .video-link { color: var(--color-primary-600); font-weight: 600; text-decoration: none; margin-left: 0.5rem; font-size: 0.9rem; }
-    .today-card { background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-700)); color: #fff; padding: 1.5rem; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); }
-    .today-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin: 1rem 0; }
-    .badge { background: rgba(255,255,255,0.15); padding: 0.3rem 0.75rem; border-radius: 999px; font-size: 0.9rem; display: inline-block; }
-    details { border: 1px solid var(--card-border); border-radius: var(--radius-lg); padding: 0.75rem 1rem; background: var(--card-bg); }
-    details + details { margin-top: 1rem; }
-    details summary { cursor: pointer; font-weight: 700; color: var(--text); }
-    .plan-grid { display: grid; gap: 1rem; }
-    .plan-item { border: 1px solid var(--card-border); border-radius: var(--radius-lg); padding: 1rem; background: var(--card-bg); }
-    .muted { color: var(--text-muted); }
-    .small { font-size: 0.9rem; color: var(--text-secondary); }
+    .next-workout-details {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .next-workout-details {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .workout-detail-item {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.25rem;
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+    .workout-detail-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+    .workout-detail-value {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    /* Workout Essentials Section */
+
+    /* Content Sections */
+    .content-section {
+      margin-top: 2.5rem;
+    }
+
+    /* Section heading */
+    .section-heading h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Overview grid */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .overview-column h4 {
+      color: var(--text);
+    }
+
+    /* Deep Sessions UI */
+    .deep-session-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0 1.25rem 0;
+    }
+
+    .deep-session-button {
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .deep-session-button:hover {
+      background: var(--color-primary-50);
+      border-color: var(--color-primary-200);
+      color: var(--color-primary-700);
+    }
+
+    .theme-dark .deep-session-button:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: var(--color-primary-500);
+      color: var(--color-primary-50);
+    }
+
+    .active-deep-session-button {
+      background: var(--color-primary-600);
+      border-color: var(--color-primary-600);
+      color: #ffffff;
+    }
+
+    /* Deep session card / blocks reuse phase-card styling */
+    .deep-session-card .phase-body {
+      padding-top: 1rem;
+    }
+
+    .deep-block {
+      margin-bottom: 1rem;
+    }
+
+    .deep-block-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .deep-block-list {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+    }
+
+    .deep-block-list li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.125rem 0;
+    }
+
+    .exercise-name {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .exercise-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Movement Library Grid */
+    .movement-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .movement-card .phase-header {
+      padding: 1rem 1.5rem 0.5rem;
+    }
+
+    .movement-card .phase-body {
+      padding: 0 1.5rem 1rem;
+    }
+
+    .movement-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.125rem 0.5rem;
+      border-radius: 999px;
+      background: var(--color-primary-50);
+      color: var(--color-primary-700);
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-top: 0.25rem;
+    }
+
+    .theme-dark .movement-badge {
+      background: rgba(59, 130, 246, 0.25);
+      color: var(--color-primary-50);
+    }
+
+    .movement-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .workout-essentials {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .workout-essentials h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    .workout-info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      align-items: flex-start;
+    }
+    .workout-info-row:last-child {
+      margin-bottom: 0;
+    }
+    .workout-info-icon {
+      font-size: 1rem;
+      width: 1.5rem;
+      flex-shrink: 0;
+    }
+    .workout-info-label {
+      font-weight: 600;
+      min-width: 100px;
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+    .workout-info-value {
+      flex: 1;
+      min-width: 200px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    /* Responsive YouTube embed */
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      margin-top: 1rem;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    /* Work Workout Cards */
+    .workout-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      transition: all var(--transition-normal);
+    }
+    .workout-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+    .workout-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .workout-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+    }
+    .workout-meta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .workout-meta-item {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+    }
+    .workout-exercises {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .workout-exercises li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.25rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .workout-exercises li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--color-primary-500);
+    }
+    .adhoc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+    }
+    .adhoc-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .adhoc-location {
+      font-size: 0.75rem;
+      color: var(--color-primary-500);
+      margin-bottom: 0.5rem;
+    }
+    .adhoc-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    /* Phase Cards for 12-Month Plan */
+    .phase-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .phase-header {
+      background: var(--bg-alt);
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .phase-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .phase-theme {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .phase-body {
+      padding: 1.5rem;
+    }
+    .phase-section {
+      margin-bottom: 1.5rem;
+    }
+    .phase-section:last-child {
+      margin-bottom: 0;
+    }
+    .phase-section h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.75rem 0;
+    }
+    .phase-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .phase-section li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.25rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .phase-section li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--color-success-500);
+    }
+    .session-block {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .session-block h5 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .session-block ul {
+      list-style: disc;
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+    .session-block li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.125rem 0;
+    }
+    .session-block li::before {
+      content: none;
+    }
+    .targets-box {
+      background: linear-gradient(135deg, var(--color-success-100) 0%, var(--color-success-50) 100%);
+      border: 1px solid var(--color-success-200);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+    }
+    .theme-dark .targets-box {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+    .targets-box h5 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-success-700);
+      margin: 0 0 0.5rem 0;
+    }
+    .theme-dark .targets-box h5 {
+      color: var(--color-success-400);
+    }
+    .targets-box li::before {
+      content: "🎯";
+    }
+    /* Table of Contents */
+    .toc {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .toc h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.75rem 0;
+    }
+    .toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc li {
+      padding: 0.25rem 0;
+    }
+    .toc a {
+      font-size: 0.875rem;
+      color: var(--color-primary-500);
+      text-decoration: none;
+    }
+    .toc a:hover {
+      text-decoration: underline;
+    }
+    /* Plan intro */
+    .plan-intro {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .plan-intro h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .plan-intro .goal {
+      font-size: 1rem;
+      color: var(--color-primary-500);
+      margin-bottom: 1rem;
+    }
+    .assumptions-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .assumptions-list li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      padding: 0.25rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .assumptions-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0.25rem;
+      color: var(--text-muted);
+    }
+    /* Quick Navigation - Full Page */
+    .quick-nav {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      position: sticky;
+      top: 1rem;
+      z-index: 10;
+    }
+    .quick-nav h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1rem 0;
+    }
+    .quick-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .quick-nav-link {
+      font-size: 0.75rem;
+      padding: 0.375rem 0.75rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .quick-nav-link:hover {
+      background: var(--color-primary-100);
+      color: var(--color-primary-600);
+    }
+    .theme-dark .quick-nav-link:hover {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--color-primary-400);
+    }
+    /* Progress Tracker */
+    .progress-tracker {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .progress-tracker h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1rem 0;
+    }
+    .progress-phases {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    @media (min-width: 768px) {
+      .progress-phases {
+        flex-direction: row;
+        gap: 1rem;
+      }
+    }
+    .progress-phase {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      border: 2px solid transparent;
+      transition: all var(--transition-normal);
+    }
+    .progress-phase.current {
+      border-color: var(--color-primary-500);
+      background: var(--color-primary-50);
+    }
+    .theme-dark .progress-phase.current {
+      background: rgba(59, 130, 246, 0.1);
+    }
+    .progress-phase.completed {
+      border-color: var(--color-success-500);
+      background: var(--color-success-50);
+    }
+    .theme-dark .progress-phase.completed {
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .progress-checkbox {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      border: 2px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+    }
+    .progress-phase.completed .progress-checkbox {
+      background: var(--color-success-500);
+      border-color: var(--color-success-500);
+      color: white;
+    }
+    .progress-phase.current .progress-checkbox {
+      background: var(--color-primary-500);
+      border-color: var(--color-primary-500);
+      color: white;
+    }
+    .progress-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .progress-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .progress-dates {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    /* Current Phase Badge */
+    .current-phase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      background: var(--color-primary-500);
+      color: white;
+      font-size: 0.625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: var(--radius-md);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    /* Phase Card Current State */
+    .phase-card.current-phase {
+      border: 2px solid var(--color-primary-500);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+    .phase-card.current-phase .phase-header {
+      background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-primary-100) 100%);
+    }
+    .theme-dark .phase-card.current-phase .phase-header {
+      background: rgba(59, 130, 246, 0.15);
+    }
+    /* Exercise Video Link */
+    .exercise-video-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-left: 0.5rem;
+      padding: 0.125rem 0.375rem;
+      background: var(--color-danger-100);
+      color: var(--color-danger-600);
+      font-size: 0.625rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .exercise-video-link:hover {
+      background: var(--color-danger-500);
+      color: white;
+    }
+    .theme-dark .exercise-video-link {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--color-danger-400);
+    }
+    .theme-dark .exercise-video-link:hover {
+      background: var(--color-danger-500);
+      color: white;
+    }
+    /* Ad-hoc card video link */
+    .adhoc-card .exercise-video-link {
+      display: block;
+      margin: 0.5rem 0 0 0;
+      width: fit-content;
+    }
+    /* Expandable Section Styles */
+    .expandable-section {
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .expandable-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background: var(--bg-alt);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .expandable-header:hover {
+      background: var(--card-bg);
+    }
+    .expandable-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .expandable-icon {
+      font-size: 1.25rem;
+      transition: transform 0.3s;
+      color: var(--text-muted);
+    }
+    .expandable-section.is-open .expandable-icon {
+      transform: rotate(180deg);
+    }
+    .expandable-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+    .expandable-section.is-open .expandable-content {
+      max-height: none;
+    }
+    .expandable-body {
+      padding: 1.5rem;
+    }
+    /* Work Workouts Grid - 3 columns */
+    .work-workouts-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .work-workouts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .work-workouts-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    /* Ad-hoc Grid - 4 columns */
+    .adhoc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .adhoc-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .adhoc-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    /* Movement Library Styles */
+    .movement-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .movement-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 768px) {
+      .movement-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .movement-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .movement-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      transition: all var(--transition-normal);
+    }
+    .movement-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .movement-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .movement-header h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.3;
+    }
+    .movement-badge {
+      font-size: 0.625rem;
+      padding: 0.125rem 0.375rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      text-transform: capitalize;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .movement-description {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .movement-video-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--color-primary-500);
+      text-decoration: none;
+    }
+    .movement-video-link:hover {
+      text-decoration: underline;
+    }
+    /* Smooth Scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* 2026 Dashboard Styles */
+    #dashboard-2026 {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .dashboard-header {
+      margin-bottom: 1.5rem;
+    }
+    .dashboard-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 0.25rem 0;
+    }
+    .dashboard-subtitle {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .dashboard-row {
+      margin-bottom: 1.5rem;
+    }
+    .dashboard-block {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+    .dashboard-block h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .dashboard-metric {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-primary-600);
+      margin: 0 0 1rem 0;
+    }
+    .theme-dark .dashboard-metric {
+      color: var(--color-primary-400);
+    }
+    .dashboard-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 0.5rem 0 0 0;
+    }
+    .dashboard-challenges {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .dashboard-challenges {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .dashboard-challenges {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .dashboard-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      border: 1px solid var(--card-border);
+      transition: box-shadow var(--transition-fast);
+    }
+    .dashboard-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .dashboard-card h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+    }
+    .dashboard-card .dashboard-metric {
+      font-size: 1.25rem;
+      margin: 0 0 0.75rem 0;
+    }
+    .dashboard-card .btn {
+      width: 100%;
+    }
+    .dashboard-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 0;
+      font-style: italic;
+    }
+    .dashboard-footer {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--card-border);
+    }
+    /* ChatGPT Button Styles */
+    .chatgpt-session-button {
+      margin-left: 0.25rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+    }
+    .chatgpt-session-button:hover {
+      background: var(--color-primary-50);
+      border-color: var(--color-primary-300);
+    }
+    .theme-dark .chatgpt-session-button:hover {
+      background: rgba(59, 130, 246, 0.2);
+    }
+    #chatgpt-feedback {
+      transition: opacity 0.3s ease;
+    }
+    .theme-dark #chatgpt-feedback {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.3);
+      color: var(--color-success-400);
+    }
   </style>
 </head>
-<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
-  <div class="page-shell">
-    <header class="section">
-      <p class="text-sm font-semibold text-blue-600">Handstand / Strength &amp; Skill</p>
-      <h1 class="text-3xl font-bold text-slate-900 dark:text-slate-50">2026 Strength &amp; Skill – Handstand Plan</h1>
-      <p class="max-w-3xl text-slate-600 dark:text-slate-200">A focused 12-month handstand roadmap for busy lifters: light micro-sessions during the week, a weekly deep session, and clear checkpoints toward confident static balance and short handstand walks.</p>
-    </header>
+<body class="bg-page">
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <section class="section" aria-labelledby="dashboard-teaser">
-      <div class="progress-shell card">
-        <div class="flex items-center justify-between mb-2">
-          <h2 id="dashboard-teaser" class="text-xl font-semibold">2026 Dashboard</h2>
-          <span id="progress-2026-text" class="text-sm text-slate-500 dark:text-slate-300">Loading…</span>
-        </div>
-        <div class="progress-bar" aria-label="Overall completion">
-          <div id="progress-2026-fill" class="progress-fill"></div>
-        </div>
-        <p class="small mt-2">Tracking micro-sessions across the full year.</p>
-        <a class="cta-link" href="./2026-dashboard.html">Open full dashboard →</a>
+  <!-- Password Modal -->
+  <div id="password-modal" style="position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9999;display:flex;align-items:center;justify-content:center;">
+    <div class="card" style="max-width:400px;width:90%;margin:1rem;">
+      <div class="card-body text-center">
+        <div class="tool-card-icon mx-auto mb-4 bg-primary-100 text-primary-600" aria-hidden="true">🤸</div>
+        <h2 class="text-xl font-bold mb-4" style="color: var(--text);">Handstand Plan Access</h2>
+        <p class="mb-6" style="color: var(--text-muted);">Please enter the password to view the 2026 Strength & Skill Framework.</p>
+        <form id="password-form" onsubmit="checkPassword(event)">
+          <input type="password" id="page-password" class="form-input mb-4" placeholder="Enter password" required aria-label="Page password">
+          <button type="submit" class="btn btn-primary w-full">Access Plan</button>
+        </form>
+        <p id="password-error" class="text-danger-500 text-sm mt-4" style="display:none;">Incorrect password. Please try again.</p>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section class="section" aria-labelledby="phase-selector">
-      <div class="card p-6">
-        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 id="phase-selector" class="text-xl font-semibold">Pick a phase to load a 1-hour deep session</h2>
-            <p class="small">Sessions unlock only after you choose a phase. Each block includes warm-up, skill work, and a finisher. Optional video links sit next to movements.</p>
-          </div>
-          <div class="phase-buttons" role="group" aria-label="Phase selection">
-            <button class="phase-button" data-phase="1">Phase 1 · Foundations</button>
-            <button class="phase-button" data-phase="2">Phase 2 · Inversion Comfort</button>
-            <button class="phase-button" data-phase="3">Phase 3 · Static Balance</button>
-            <button class="phase-button" data-phase="4">Phase 4 · Walking Mechanics</button>
-          </div>
-        </div>
-        <div id="deep-session-card" class="deep-session-card card p-5 mt-4" aria-live="polite"></div>
+  <div class="site-wrapper" id="page-content" style="display:none;">
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <svg class="sidebar-nav-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+          <span>Iron & Ale</span>
+        </a>
       </div>
-    </section>
+      
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="../about/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>About</span>
+        </a>
+        <a href="../workouts/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span>Workouts</span>
+        </a>
+        <a href="../utilities/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Utilities</span>
+        </a>
+        <a href="../events.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Events</span>
+        </a>
+        <a href="../projects.html" class="sidebar-nav-item active" aria-current="page">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span>Projects</span>
+        </a>
+        <a href="../admin.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+          <span>Admin</span>
+        </a>
+      </nav>
 
-    <section class="section" aria-labelledby="todays-workout">
-      <div class="today-card">
-        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <h2 id="todays-workout" class="text-2xl font-semibold">Today's Workout</h2>
-          <p id="workout-datetime" class="text-sm text-white/80">Loading…</p>
+      <div class="sidebar-footer">
+        <p class="text-sm text-gray-400">&copy; <span id="sidebar-year">2024</span> Iron & Ale</p>
+      </div>
+    </aside>
+
+    <!-- Overlay for mobile sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Mobile Header -->
+      <header class="top-header">
+        <a href="../index.html" class="font-bold text-lg" style="color: var(--text);">Iron & Ale</a>
+        <div class="flex items-center gap-2">
+          <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
         </div>
-        <h3 id="workout-name" class="text-xl font-semibold mt-1">Loading session…</h3>
-        <div class="flex flex-wrap gap-2 mt-2">
-          <span class="badge">🏷️ <span id="workout-category">—</span></span>
-          <span class="badge">🔥 <span id="workout-difficulty">—</span></span>
-          <span class="badge">⏱️ <span id="workout-format">—</span></span>
-        </div>
-        <div class="today-meta">
-          <div>
-            <p class="text-sm text-white/70">Location</p>
-            <p id="workout-location" class="font-semibold">Gym</p>
-          </div>
-          <div>
-            <p class="text-sm text-white/70">Duration</p>
-            <p id="workout-duration" class="font-semibold">—</p>
-          </div>
-        </div>
-        <div class="grid gap-3 sm:grid-cols-2">
-          <div>
-            <p class="font-semibold">Instructions</p>
-            <ul id="workout-instructions" class="list-disc list-inside text-white/90"></ul>
-          </div>
-          <div class="grid gap-2">
-            <div>
-              <p class="font-semibold">Equipment</p>
-              <ul id="workout-equipment" class="list-disc list-inside text-white/90"></ul>
+      </header>
+
+      <main id="main-content" role="main">
+        <div class="page-container">
+          <!-- Page Header -->
+          <div class="page-header">
+            <div class="page-header-main" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+              <!-- Project logo -->
+              <div class="page-header-logo" aria-hidden="true">
+                <svg width="56" height="56" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="14" y="40" width="14" height="24" rx="3" fill="#1D4ED8"/>
+                  <rect x="33" y="26" width="14" height="38" rx="3" fill="#3B82F6"/>
+                  <rect x="52" y="34" width="14" height="30" rx="3" fill="#60A5FA"/>
+                </svg>
+              </div>
+
+              <div>
+                <h1 class="page-title">
+                  The 2026 Strength &amp; Skill Framework
+                </h1>
+                <p class="page-subtitle">
+                  A structured progression for strength, inversion, balance, and endurance.
+                </p>
+                <p class="text-sm" style="color: var(--text-muted); margin-top:0.25rem;">
+                  Build Strength. Build Skill. Build Control.
+                </p>
+              </div>
             </div>
-            <div>
-              <p class="font-semibold">Scaling</p>
-              <ul id="workout-scaling" class="list-disc list-inside text-white/90"></ul>
+          </div>
+
+          <!-- Project Overview -->
+          <section id="project-overview" class="content-section">
+            <article class="phase-card">
+              <div class="phase-header">
+                <h3>Project Overview</h3>
+                <p class="phase-theme">
+                  The 2026 Strength &amp; Skill Framework · Build Strength. Build Skill. Build Control.
+                </p>
+              </div>
+              <div class="phase-body">
+                <div class="overview-grid">
+                  <div class="overview-column">
+                    <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Primary Outcome</h4>
+                    <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
+                      <li>• Walk on your hands 3–5 metres across the gym floor by December 2026.</li>
+                    </ul>
+                  </div>
+
+                  <div class="overview-column">
+                    <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Key Strength Targets</h4>
+                    <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
+                      <li>• 5 strict pull-ups</li>
+                      <li>• 10 strict press-ups</li>
+                      <li>• 5 strict dips (clean shoulder position)</li>
+                    </ul>
+                  </div>
+
+                  <div class="overview-column">
+                    <h4 class="text-sm font-semibold" style="margin-bottom:0.4rem;">Handstand &amp; Skill Targets</h4>
+                    <ul class="text-sm" style="color: var(--text-secondary); padding-left:1rem; margin:0;">
+                      <li>• 10-second freestanding handstand hold</li>
+                      <li>• 60-second chest-to-wall handstand hold</li>
+                      <li>• 300× 10-minute micro-sessions in 2026</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <!-- 2026 Progress Bar - Links to full dashboard -->
+          <section id="progress-2026" class="content-section" aria-labelledby="progress-2026-title">
+            <a href="/projects/2026-dashboard.html" class="progress-bar-link" style="text-decoration: none; display: block;">
+              <div class="progress-bar-container" style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-xl); padding: 1.25rem 1.5rem; cursor: pointer; transition: box-shadow var(--transition-fast);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <h2 id="progress-2026-title" style="font-size: 1rem; font-weight: 600; color: var(--text); margin: 0;">📊 2026 Progress</h2>
+                  <span style="font-size: 0.875rem; color: var(--text-muted);">Click for full dashboard →</span>
+                </div>
+                <div class="progress-bar-outer" style="background: var(--bg-alt); border-radius: 999px; height: 1.25rem; overflow: hidden; position: relative;">
+                  <div id="progress-2026-fill" class="progress-bar-inner" style="background: linear-gradient(90deg, var(--color-primary-500), var(--color-primary-600)); height: 100%; width: 0%; border-radius: 999px; transition: width 0.5s ease-out;"></div>
+                  <span id="progress-2026-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.75rem; font-weight: 600; color: var(--text);">0% complete</span>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; margin-bottom: 0;">
+                  <span id="micro-completed">0</span> / <span id="micro-goal">300</span> micro-sessions logged
+                </p>
+              </div>
+            </a>
+          </section>
+
+          <!-- Quick Navigation -->
+          <nav class="quick-nav" aria-label="Quick page navigation">
+            <h3>🧭 Quick Navigation</h3>
+            <div class="quick-nav-links">
+              <a href="#progress-2026" class="quick-nav-link">📊 2026 Progress</a>
+              <a href="#todays-workout" class="quick-nav-link">📅 Today's Workout</a>
+              <a href="#deep-session" class="quick-nav-link">🎯 1-Hour Deep Session</a>
+              <a href="#movement-library-link" class="quick-nav-link">📚 Movement Library</a>
+              <a href="#training-summary" class="quick-nav-link">📍 Where I Train</a>
+              <a href="#office-workouts" class="quick-nav-link" data-expand-target="office-workouts">🏢 Office Workouts</a>
+              <a href="#adhoc-exercises" class="quick-nav-link" data-expand-target="adhoc-exercises">⚡ Ad-hoc Exercises</a>
+              <a href="#plan-12-month" class="quick-nav-link">📋 12-Month Plan</a>
             </div>
-            <div>
-              <p class="font-semibold">Coaching cues</p>
-              <ul id="workout-coaching" class="list-disc list-inside text-white/90"></ul>
+          </nav>
+
+          <!-- Progress Tracker -->
+          <div class="progress-tracker" id="progress-tracker">
+            <h3>📊 Progress Tracker <span id="current-phase-label" class="current-phase-badge">Loading...</span></h3>
+            <div class="progress-phases">
+              <div class="progress-phase" id="progress-phase-1" data-phase="1">
+                <div class="progress-checkbox">1</div>
+                <div class="progress-info">
+                  <div class="progress-name">Foundations</div>
+                  <div class="progress-dates">Dec – Feb</div>
+                </div>
+              </div>
+              <div class="progress-phase" id="progress-phase-2" data-phase="2">
+                <div class="progress-checkbox">2</div>
+                <div class="progress-info">
+                  <div class="progress-name">Inversion Comfort</div>
+                  <div class="progress-dates">Mar – May</div>
+                </div>
+              </div>
+              <div class="progress-phase" id="progress-phase-3" data-phase="3">
+                <div class="progress-checkbox">3</div>
+                <div class="progress-info">
+                  <div class="progress-name">Static Handstand</div>
+                  <div class="progress-dates">Jun – Aug</div>
+                </div>
+              </div>
+              <div class="progress-phase" id="progress-phase-4" data-phase="4">
+                <div class="progress-checkbox">4</div>
+                <div class="progress-info">
+                  <div class="progress-name">Walking Mechanics</div>
+                  <div class="progress-dates">Sep – Nov</div>
+                </div>
+              </div>
             </div>
           </div>
+
+          <!-- Section 1: Today's Workout -->
+          <section id="todays-workout" class="mb-12" aria-labelledby="todays-workout-title">
+            <div class="next-workout-card">
+              <h2 id="todays-workout-title">📅 Today's Workout</h2>
+              
+              <!-- Header Row: Name with Category, Difficulty, Format -->
+              <div style="margin-bottom: 1.5rem;">
+                <h3 id="workout-name" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Foundations Session 1</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                  <span style="background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: 0.375rem; font-size: 0.875rem;" title="Category">🏷️ <span id="workout-category">Skill Development</span></span>
+                  <span style="background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: 0.375rem; font-size: 0.875rem;" title="Difficulty">🔥 <span id="workout-difficulty">Beginner</span></span>
+                  <span style="background: rgba(255,255,255,0.2); padding: 0.25rem 0.75rem; border-radius: 0.375rem; font-size: 0.875rem;" title="Format">⏱️ <span id="workout-format">For Quality</span></span>
+                </div>
+              </div>
+              
+              <!-- EDIT THESE VALUES TO UPDATE YOUR NEXT WORKOUT -->
+              <div class="next-workout-details">
+                <div class="workout-detail-item">
+                  <div class="workout-detail-label">Date & Time</div>
+                  <div class="workout-detail-value" id="workout-datetime">Saturday, Nov 30, 2025 @ 8:00 AM</div>
+                </div>
+                <div class="workout-detail-item">
+                  <div class="workout-detail-label">Location</div>
+                  <div class="workout-detail-value" id="workout-location">Gym</div>
+                </div>
+                <div class="workout-detail-item">
+                  <div class="workout-detail-label">Duration</div>
+                  <div class="workout-detail-value" id="workout-duration">10 minutes</div>
+                </div>
+              </div>
+
+              <!-- Workout Essentials Section -->
+              <div class="workout-essentials">
+                <h3>Workout Essentials</h3>
+                <div class="workout-info-row">
+                  <span class="workout-info-icon">📋</span>
+                  <span class="workout-info-label">Instructions</span>
+                    <div class="workout-info-value" id="workout-instructions">
+                      <ul>
+                        <li>Wrist rocks 2×12</li>
+                        <li>Palm lifts 2×12</li>
+                        <li>Fingertip holds 2×10-15s</li>
+                        <li>Scap push-ups 2×10</li>
+                        <li>Box pike hold 2×20-25s</li>
+                        <li>Wall plank 2×30s</li>
+                        <li>Wall walks to halfway 2 slow reps</li>
+                      </ul>
+                    </div>
+                </div>
+                <div class="workout-info-row">
+                  <span class="workout-info-icon">🧰</span>
+                  <span class="workout-info-label">Equipment</span>
+                  <div class="workout-info-value" id="workout-equipment">
+                    <ul>
+                      <li>Floor space</li>
+                      <li>Wall</li>
+                      <li>Yoga mat</li>
+                      <li>Box/bench</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="workout-info-row">
+                  <span class="workout-info-icon">🔧</span>
+                  <span class="workout-info-label">Scaling</span>
+                  <div class="workout-info-value" id="workout-scaling">
+                    <ul>
+                      <li>Reduce hold times if wrists fatigue</li>
+                      <li>Use higher box for pike holds</li>
+                      <li>Skip wall walks if not comfortable inverted</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="workout-info-row">
+                  <span class="workout-info-icon">📝</span>
+                  <span class="workout-info-label">Coaching Cues</span>
+                  <div class="workout-info-value" id="workout-coaching">
+                    <ul>
+                      <li>Focus on quality over speed</li>
+                      <li>Keep wrists neutral</li>
+                      <li>Engage shoulders throughout pike holds</li>
+                      <li>Wall walks should be controlled</li>
+                      <li>Pause at each step</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </section>
+
+
+            <!-- 1-Hour Deep Session -->
+            <section id="deep-session" class="content-section">
+              <div class="section-heading">
+                <h2>🎯 1-Hour Deep Session</h2>
+                <p class="text-sm" style="color: var(--text-muted);">
+                  When you have a spare hour at the gym, pick a phase for a 60-minute skill session. Click a phase button to see a sample session, or ask ChatGPT to design one for you with video demonstrations!
+                </p>
+              </div>
+
+              <div class="deep-session-controls">
+                <button type="button" class="deep-session-button" data-deep-session-phase="1">
+                  Phase 1 — Foundations
+                </button>
+                <button type="button" class="deep-session-button" data-deep-session-phase="2">
+                  Phase 2 — Inversion Comfort
+                </button>
+                <button type="button" class="deep-session-button" data-deep-session-phase="3">
+                  Phase 3 — Static Handstand
+                </button>
+                <button type="button" class="deep-session-button" data-deep-session-phase="4">
+                  Phase 4 — Walking Mechanics
+                </button>
+              </div>
+
+              <!-- Hidden workout card - appears when a phase button is clicked -->
+              <div id="deep-session-card" style="display: none;"></div>
+              
+              <!-- ChatGPT Button -->
+              <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-alt); border-radius: var(--radius-lg); border: 1px solid var(--card-border);">
+                <p class="text-sm" style="color: var(--text-secondary); margin-bottom: 0.75rem;">
+                  Want a custom session with video demonstrations? ChatGPT can design one for your current phase:
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+                  <button type="button" class="btn btn-primary chatgpt-deep-session-button" id="chatgpt-main-button">
+                    🤖 Ask ChatGPT for a 1-hour session
+                  </button>
+                  <span class="text-sm" style="color: var(--text-muted);">(copies prompt with video requests)</span>
+                </div>
+              </div>
+              
+              <div id="chatgpt-feedback" style="display: none; margin-top: 0.75rem; padding: 0.5rem 1rem; background: var(--color-success-50); border: 1px solid var(--color-success-200); border-radius: var(--radius-md); color: var(--color-success-700); font-size: 0.875rem;">
+                ✅ Prompt copied — paste into ChatGPT!
+              </div>
+            </section>
+
+            <!-- Movement Library Link -->
+            <section id="movement-library-link" class="content-section">
+              <a href="/projects/movement-library.html" style="text-decoration: none; display: block;">
+                <div class="phase-card" style="cursor: pointer; transition: box-shadow var(--transition-fast);">
+                  <div class="phase-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <h3>📚 Movement Library</h3>
+                      <p class="phase-theme">Browse all movements used in The 2026 Strength &amp; Skill Framework</p>
+                    </div>
+                    <span style="font-size: 1.5rem; color: var(--text-muted);">→</span>
+                  </div>
+                </div>
+              </a>
+            </section>
+          <!-- Training Summary (Where I Train & Summary merged) -->
+          <section id="training-summary" class="mb-8" aria-labelledby="training-summary-title">
+            <h2 id="training-summary-title" class="text-xl font-bold mb-4" style="color: var(--text);">
+              <span class="inline-flex items-center gap-2">
+                <span aria-hidden="true">📍</span>
+                Where I Train &amp; Summary
+              </span>
+            </h2>
+            
+            <!-- Gym Schedule -->
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4 mb-6">
+              <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                <div style="font-weight: 600; color: var(--text);">Saturday</div>
+                <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
+              </div>
+              <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                <div style="font-weight: 600; color: var(--text);">Sunday</div>
+                <div style="font-size: 0.875rem; color: var(--color-primary-500);">AM (Morning)</div>
+              </div>
+              <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                <div style="font-weight: 600; color: var(--text);">Monday</div>
+                <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
+              </div>
+              <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg); text-align: center;">
+                <div style="font-weight: 600; color: var(--text);">Thursday</div>
+                <div style="font-size: 0.875rem; color: var(--color-secondary-500);">PM (Evening)</div>
+              </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="card">
+              <div class="card-body">
+                <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg);">
+                    <strong style="color: var(--color-primary-500);">🏋️ Gym</strong>
+                    <span style="color: var(--text-muted);"> = Skill work (inversion, balance, walking)</span>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg);">
+                    <strong style="color: var(--color-secondary-500);">🏢 Work</strong>
+                    <span style="color: var(--text-muted);"> = Support work (wrist, shoulder, scapula)</span>
+                  </div>
+                  <div style="background: var(--bg-alt); padding: 0.75rem; border-radius: var(--radius-lg);">
+                    <strong style="color: var(--color-success-500);">🏠 Home</strong>
+                    <span style="color: var(--text-muted);"> = Optional booster</span>
+                  </div>
+                </div>
+                <p class="text-sm mt-4" style="color: var(--text-muted);">
+                  This structure fits perfectly into my existing weekly routine and maximises progress toward my December 2026 handstand walk goal.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 3: Workouts I Can Do at Work (Expandable - collapsed by default) -->
+          <div class="expandable-section" id="office-workouts">
+            <div class="expandable-header" onclick="toggleSection('office-workouts')">
+              <h2>
+                <span class="inline-flex items-center gap-2">
+                  <span aria-hidden="true">🏢</span>
+                  Workouts I Can Do in the Office
+                </span>
+              </h2>
+              <span class="expandable-icon">▼</span>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-body">
+                <p class="mb-6" style="color: var(--text-muted);">
+                  These are office-friendly 10-minute sessions that require no floor work, no rolling around, and no inversions. They are designed to build wrist resilience, shoulder stability, and core control while looking completely normal in a workplace environment.
+                </p>
+
+                <div class="work-workouts-grid">
+                  <!-- Work Workout 1 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Desk Wrist & Forearm Prep</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 10 minutes</span>
+                      <span class="workout-meta-item">🖥️ Desk edge</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Build wrist tolerance needed for handstands</p>
+                    <ul class="workout-exercises">
+                      <li>Desk wrist leans — 3×12</li>
+                      <li>Desk palm lifts — 3×12</li>
+                      <li>Desk fingertip holds — 3×10s</li>
+                      <li>Forearm flexor extensions against desk — 2×10</li>
+                    </ul>
+                  </article>
+
+                  <!-- Work Workout 2 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Standing Scapular Strength</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 10 minutes</span>
+                      <span class="workout-meta-item">🧱 Wall</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Shoulder stability without using the floor</p>
+                    <ul class="workout-exercises">
+                      <li>Standing scap push-ups (against wall) — 3×12</li>
+                      <li>Wall slides ("Y" overhead motions) — 3×10</li>
+                      <li>Serratus punches — 3×12</li>
+                      <li>Band external rotations (optional) — 2×12 each arm</li>
+                    </ul>
+                  </article>
+
+                  <!-- Work Workout 3 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Desk "Handstand Muscles" Strength</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 10 minutes</span>
+                      <span class="workout-meta-item">🖥️ Desk + optional band</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Train handstand muscles while standing</p>
+                    <ul class="workout-exercises">
+                      <li>Desk lean hold (standing incline plank) — 3×20s</li>
+                      <li>Straight-arm desk shrugs — 3×12</li>
+                      <li>High-angle push-ups on desk — 2×10</li>
+                      <li>Band overhead pull-aparts — 2×12</li>
+                    </ul>
+                  </article>
+
+                  <!-- Work Workout 4 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Standing Core Activation</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 10 minutes</span>
+                      <span class="workout-meta-item">✋ No equipment</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Build hollow-body control without lying on the floor</p>
+                    <ul class="workout-exercises">
+                      <li>Standing "ribs down" hold — 5×10s</li>
+                      <li>Standing pelvic tilt pulses — 3×10</li>
+                      <li>Standing oblique brace — 3×10s per side</li>
+                      <li>Standing controlled knee lifts — 2×12</li>
+                    </ul>
+                  </article>
+
+                  <!-- Work Workout 5 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Shoulder Maintenance Micro-Session</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 5–10 minutes</span>
+                      <span class="workout-meta-item">✋ No equipment</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Keep shoulders healthy for overhead work</p>
+                    <ul class="workout-exercises">
+                      <li>Arm circles — 2×20</li>
+                      <li>Scap elevation/depression — 2×12</li>
+                      <li>Shoulder CARs — 2×5 each direction</li>
+                      <li>Chest openers — 2×10</li>
+                    </ul>
+                  </article>
+
+                  <!-- Work Workout 6 -->
+                  <article class="workout-card">
+                    <div class="workout-card-header">
+                      <h3>Quick Wrist Reset</h3>
+                    </div>
+                    <div class="workout-meta">
+                      <span class="workout-meta-item">⏱️ 5 minutes</span>
+                      <span class="workout-meta-item">🖥️ Desk or wall</span>
+                    </div>
+                    <p class="text-sm mb-2" style="color: var(--text-muted);">Fast wrist recovery between desk work</p>
+                    <ul class="workout-exercises">
+                      <li>Wrist circles — 2×10 each direction</li>
+                      <li>Prayer stretches — 2×15s</li>
+                      <li>Reverse prayer stretches — 2×15s</li>
+                      <li>Fist clenches with finger extensions — 2×10</li>
+                    </ul>
+                  </article>
+                </div>
+
+                <div class="card mt-6">
+                  <div class="card-body">
+                    <p style="color: var(--text-muted); font-size: 0.875rem;">
+                      <strong>Note:</strong> All movements appear discreet and normal in an office environment. No floor, no kneeling, no inversion, no awkward positions. Session duration remains 10 minutes or less.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Ad-hoc Exercises (Expandable - collapsed by default) -->
+          <div class="expandable-section" id="adhoc-exercises">
+            <div class="expandable-header" onclick="toggleSection('adhoc-exercises')">
+              <h2>
+                <span class="inline-flex items-center gap-2">
+                  <span aria-hidden="true">⚡</span>
+                  Ad-hoc Exercises
+                </span>
+              </h2>
+              <span class="expandable-icon">▼</span>
+            </div>
+            <div class="expandable-content">
+              <div class="expandable-body">
+                <p class="mb-6" style="color: var(--text-muted);">
+                  Quick, plug-and-play drills you can drop into warm-ups or random spare moments.
+                </p>
+
+                <div class="adhoc-grid">
+                  <div class="adhoc-card">
+                    <h4>Wrist Rocks</h4>
+                    <p class="adhoc-location">📍 Anywhere with floor space</p>
+                    <p class="adhoc-desc">Shift weight forward/back to build wrist tolerance.</p>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Palm Lifts</h4>
+                    <p class="adhoc-location">📍 At desk or on floor</p>
+                    <p class="adhoc-desc">Strengthens finger flexors and wrist stability.</p>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Scap Push-ups</h4>
+                    <p class="adhoc-location">📍 Home or gym</p>
+                    <p class="adhoc-desc">Keeps shoulders strong and stable for overhead work.</p>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Box Pike Hold</h4>
+                    <p class="adhoc-location">📍 Bench/box/sofa</p>
+                    <p class="adhoc-desc">Practice inverted loading safely with hips over shoulders.</p>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Desk Lean Holds</h4>
+                    <p class="adhoc-location">📍 Home or office</p>
+                    <p class="adhoc-desc">Incline hold against desk to train straight-arm strength.</p>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Wall Serratus Reach</h4>
+                    <p class="adhoc-location">📍 Any wall</p>
+                    <p class="adhoc-desc">Press forearms lightly into wall and reach upward to train serratus control.</p>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Wall Plank</h4>
+                    <p class="adhoc-location">📍 Near a wall</p>
+                    <p class="adhoc-desc">Beginner inversion confidence and core stiffness.</p>
+                  </div>
+
+                  <div class="adhoc-card">
+                    <h4>Fingertip Holds</h4>
+                    <p class="adhoc-location">📍 Desk edge or floor</p>
+                    <p class="adhoc-desc">Trains balance corrections through the hands.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Full 12-Month Plan -->
+          <section id="plan-12-month" aria-labelledby="plan-12-month-title">
+            <h2 id="plan-12-month-title" class="text-xl font-bold mb-4" style="color: var(--text);">
+              <span class="inline-flex items-center gap-2">
+                <span aria-hidden="true">📋</span>
+                Full 12-Month Handstand Plan
+              </span>
+            </h2>
+
+            <!-- Table of Contents -->
+            <nav class="toc" aria-label="Plan sections">
+              <h3>Quick Navigation</h3>
+              <ul>
+                <li><a href="#phase-1">Phase 1: Foundations (Months 1–3)</a></li>
+                <li><a href="#phase-2">Phase 2: Inversion Comfort (Months 4–6)</a></li>
+                <li><a href="#phase-3">Phase 3: Static Handstand (Months 7–9)</a></li>
+                <li><a href="#phase-4">Phase 4: Walking Mechanics (Months 10–12)</a></li>
+              </ul>
+            </nav>
+
+            <!-- Plan Intro -->
+            <div class="plan-intro">
+              <h2>12-Month Handstand Walk Plan (Dec 2025 → Dec 2026)</h2>
+              <p class="goal">🎯 Goal: By December 2026, be able to handstand walk across the gym.</p>
+              <h4 style="color: var(--text); font-weight: 600; margin-bottom: 0.5rem;">Assumptions:</h4>
+              <ul class="assumptions-list">
+                <li>3× per week, ~10 minutes per session</li>
+                <li>I already train 4×/week bootcamp-style (CrossFit/Hyrox style)</li>
+                <li>Focus is on wrists, shoulders, balance, and inversion confidence</li>
+              </ul>
+            </div>
+
+            <!-- Phase 1 -->
+            <article id="phase-1" class="phase-card">
+              <div class="phase-header">
+                <h3>Phase 1 – Foundations (Months 1–3: Dec–Feb)</h3>
+                <p class="phase-theme"><strong>Theme:</strong> Build joint tolerance and basic overhead structure.</p>
+              </div>
+              <div class="phase-body">
+                <div class="phase-section">
+                  <h4>Goals</h4>
+                  <ul>
+                    <li>Stronger, pain-free wrists under load</li>
+                    <li>Scapular strength and endurance for overhead positions</li>
+                    <li>Comfort with early inversion (planks, partial wall walks)</li>
+                  </ul>
+                </div>
+
+                <div class="phase-section">
+                  <h4>Session Template (3×/week, 10 minutes)</h4>
+                  
+                  <div class="session-block">
+                    <h5>1. Wrist Conditioning (~3 min)</h5>
+                    <ul>
+                      <li>Wrist rocks — 2×12</li>
+                      <li>Palm lifts — 2×12</li>
+                      <li>Fingertip holds — 2×10–15s</li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>2. Scapular Strength (~3 min)</h5>
+                    <ul>
+                      <li>Scap push-ups — 2×10</li>
+                      <li>Box pike hold — 2×20–25s</li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>3. Early Inversion (~4 min)</h5>
+                    <ul>
+                      <li>Wall plank — 2×30s</li>
+                      <li>Wall walk to halfway — 2 slow reps</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="phase-section">
+                  <div class="targets-box">
+                    <h5>End-of-Phase Targets (by end of Month 3)</h5>
+                    <ul>
+                      <li>Box pike hold: <strong>30–40 seconds</strong> with control</li>
+                      <li>Wall walk: comfortable to ~¾ height</li>
+                      <li>Wrist discomfort much reduced under load</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Phase 2 -->
+            <article id="phase-2" class="phase-card">
+              <div class="phase-header">
+                <h3>Phase 2 – Inversion Comfort (Months 4–6: Mar–May)</h3>
+                <p class="phase-theme"><strong>Theme:</strong> Become genuinely comfortable upside-down.</p>
+              </div>
+              <div class="phase-body">
+                <div class="phase-section">
+                  <h4>Goals</h4>
+                  <ul>
+                    <li>Confident, repeatable wall walks</li>
+                    <li>Short but solid chest-to-wall holds</li>
+                    <li>Better straight-arm shoulder strength</li>
+                  </ul>
+                </div>
+
+                <div class="phase-section">
+                  <h4>Session Template (3×/week, 10 minutes)</h4>
+                  
+                  <div class="session-block">
+                    <h5>1. Wrist Loading – Level 2 (~2 min)</h5>
+                    <ul>
+                      <li>Leaning wrist rocks — 2×10</li>
+                      <li>Wrist weight-shifts — 2×10s each direction</li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>2. Wall Walks & Holds (~5 min)</h5>
+                    <ul>
+                      <li>Wall walks to ¾ height — 2×1</li>
+                      <li>Chest-to-wall hold — 3×6–10s</li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>3. Box Control (~3 min)</h5>
+                    <ul>
+                      <li>Box pike shoulder taps — 2×6 per side</li>
+                      <li>Tuck plank on box — 1×20–30s</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="phase-section">
+                  <div class="targets-box">
+                    <h5>End-of-Phase Targets (by end of Month 6)</h5>
+                    <ul>
+                      <li>Chest-to-wall holds: <strong>15 seconds</strong> with good form</li>
+                      <li>Wall walks feel controlled (not panicky)</li>
+                      <li>Shoulder taps on box feel stable</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Phase 3 -->
+            <article id="phase-3" class="phase-card">
+              <div class="phase-header">
+                <h3>Phase 3 – Static Handstand (Months 7–9: Jun–Aug)</h3>
+                <p class="phase-theme"><strong>Theme:</strong> Learn to balance on the hands.</p>
+              </div>
+              <div class="phase-body">
+                <div class="phase-section">
+                  <h4>Goals</h4>
+                  <ul>
+                    <li>Consistent kick-up entries</li>
+                    <li>3–5 second freestanding holds</li>
+                    <li>Better control via wrist pressure (important because of my single-sided deafness / balance limitation)</li>
+                  </ul>
+                </div>
+
+                <div class="phase-section">
+                  <h4>Session Template (3×/week, 10 minutes)</h4>
+                  
+                  <div class="session-block">
+                    <h5>1. Wall Balance Mechanics (~4 min)</h5>
+                    <ul>
+                      <li>Toe pulls from wall — 2×8</li>
+                      <li>Heel pulls from wall — 2×8</li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>2. Kick-Up Practice (~3 min)</h5>
+                    <ul>
+                      <li>Kick-up to wall "kiss and come away" — 3×3 reps</li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>3. Freestanding Attempts (~3 min)</h5>
+                    <ul>
+                      <li>6–8 controlled attempts, focusing on consistency, not max hold time</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="phase-section">
+                  <div class="targets-box">
+                    <h5>End-of-Phase Targets (by end of Month 9)</h5>
+                    <ul>
+                      <li>3–5 second unassisted freestanding handstand</li>
+                      <li>Kick-ups are predictable (not slamming into the wall)</li>
+                      <li>Able to leave the wall and return smoothly</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Phase 4 -->
+            <article id="phase-4" class="phase-card">
+              <div class="phase-header">
+                <h3>Phase 4 – Walking Mechanics (Months 10–12: Sep–Nov)</h3>
+                <p class="phase-theme"><strong>Theme:</strong> Turn static balance into controlled movement.</p>
+              </div>
+              <div class="phase-body">
+                <div class="phase-section">
+                  <h4>Goals</h4>
+                  <ul>
+                    <li>Initiate and control steps while in handstand</li>
+                    <li>Walk 3–5 metres under control</li>
+                    <li>Confident entry, walk, and exit pattern</li>
+                  </ul>
+                </div>
+
+                <div class="phase-section">
+                  <h4>Session Template (3×/week, 10 minutes)</h4>
+                  
+                  <div class="session-block">
+                    <h5>1. Activation Hold (~2 min)</h5>
+                    <ul>
+                      <li>Chest-to-wall hold — 1×10–15s to "prime" the shoulders</li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>2. Walking Technique (~5 min)</h5>
+                    <ul>
+                      <li>Wall walks with step-outs — 2×4 steps</li>
+                      <li>Small distance free walks (1–2m) — 4 attempts</li>
+                      <li>Optional line walking between two floor markers — 2 attempts</li>
+                    </ul>
+                  </div>
+
+                  <div class="session-block">
+                    <h5>3. Freestanding Control (~3 min)</h5>
+                    <ul>
+                      <li>4–6 freestanding attempts with a focus on <em>controlled exits</em></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="phase-section">
+                  <div class="targets-box">
+                    <h5>End-of-Phase Targets (by December 2026)</h5>
+                    <ul>
+                      <li>Kick into a stable handstand with confidence</li>
+                      <li>Walk 3–5m across the gym</li>
+                      <li>Use wrist pressure and small steps to correct balance</li>
+                      <li>Exit safely and consistently</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </section>
         </div>
-      </div>
-    </section>
 
-    <section class="section" aria-labelledby="plan-12-month">
-      <div class="card p-6">
-        <div class="flex flex-col gap-2 mb-4">
-          <h2 id="plan-12-month">12-Month Handstand Plan</h2>
-          <p class="small">High-level checkpoints for each phase. Use the full dashboard for weekly detail.</p>
-        </div>
-        <div class="plan-grid md:grid-cols-2">
-          <div class="plan-item">
-            <h3 class="font-semibold text-lg">Phase 1 · Foundations (Dec–Feb)</h3>
-            <ul class="list-disc list-inside small">
-              <li>Wrist tolerance + scapular strength</li>
-              <li>Box pike holds and wall planks</li>
-              <li>Comfortable half wall walks</li>
-            </ul>
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 px-6 mt-12" role="contentinfo">
+          <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+              <div class="flex items-center gap-3">
+                <svg class="sidebar-nav-icon text-primary-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+                </svg>
+                <span class="font-semibold">Iron & Ale</span>
+              </div>
+              
+              <p class="text-sm text-gray-400">
+                &copy; <span id="footer-year">2024</span> Iron & Ale. All rights reserved.
+              </p>
+            </div>
           </div>
-          <div class="plan-item">
-            <h3 class="font-semibold text-lg">Phase 2 · Inversion Comfort (Mar–May)</h3>
-            <ul class="list-disc list-inside small">
-              <li>¾ wall walks and chest-to-wall holds</li>
-              <li>Box shoulder taps and tuck plank time</li>
-              <li>Stable exits from the wall</li>
-            </ul>
-          </div>
-          <div class="plan-item">
-            <h3 class="font-semibold text-lg">Phase 3 · Static Balance (Jun–Aug)</h3>
-            <ul class="list-disc list-inside small">
-              <li>Toe/heel pulls without collapsing</li>
-              <li>Freestanding kick-up practice</li>
-              <li>10–15s supported holds</li>
-            </ul>
-          </div>
-          <div class="plan-item">
-            <h3 class="font-semibold text-lg">Phase 4 · Walking Mechanics (Sep–Nov)</h3>
-            <ul class="list-disc list-inside small">
-              <li>Step-outs and short supported walks</li>
-              <li>Controlled weight shifts</li>
-              <li>Safe exits and repeatable entries</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="training-summary">
-      <div class="card p-6">
-        <h2 id="training-summary">Where I train &amp; how I’m approaching it</h2>
-        <p class="small">Mostly at a CrossFit-style gym, with quick micro-sessions at home or in the office when travel gets busy.</p>
-        <ul class="list-disc list-inside small mt-2">
-          <li>Home/office: 5–15 minute wrist prep and balance touches.</li>
-          <li>Gym: weekly 60-minute deep session tied to the active phase.</li>
-          <li>Goal: confident static handstand and intro walking mechanics by Dec 2026.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="collapsibles">
-      <div class="card p-6">
-        <h2 id="collapsibles" class="text-xl font-semibold mb-3">Supporting sessions</h2>
-        <details id="office-workouts">
-          <summary>Workouts I can do in the office</summary>
-          <div class="small mt-2 space-y-1">
-            <p>3×/week micro-practice: wrist rocks, palm lifts, fingertip holds, scap push-ups, plank shoulder taps.</p>
-            <p>5–10 minute holds/entries using a sturdy wall; keep shoes on, keep volume low.</p>
-          </div>
-        </details>
-        <details id="adhoc-exercises">
-          <summary>Ad-hoc exercises</summary>
-          <div class="small mt-2 space-y-1">
-            <p>Between meetings: 2–3 wrist drills, 30s hollow, 30s arch, gentle box pike holds.</p>
-            <p>Travel safe: elevated pike holds on a bench, walkouts, forearm planks to keep shoulders awake.</p>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="movement-library-link">
-      <div class="card p-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h2 id="movement-library-link">Movement Library</h2>
-          <p class="small">Regressions, progressions, and cues for every movement live in one place.</p>
-        </div>
-        <a class="cta-link" href="./movement-library.html">Explore the Movement Library →</a>
-      </div>
-    </section>
-
-    <footer class="section text-center text-sm text-slate-500 dark:text-slate-400">
-      <p>&copy; <span id="footer-year"></span> Iron &amp; Ale</p>
-    </footer>
+        </footer>
+      </main>
+    </div>
   </div>
 
   <script src="../assets/js/theme.js"></script>
   <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/strength-skill-logger.js"></script>
   <script>
+    // Set current year
     const currentYear = new Date().getFullYear();
     document.getElementById('footer-year').textContent = currentYear;
+    document.getElementById('sidebar-year').textContent = currentYear;
 
+    // Password protection
+    // Password protection temporarily disabled
+    document.getElementById('password-modal').style.display = 'none';
+    document.getElementById('page-content').style.display = '';
+    // const PAGE_PASSWORD = 'Handstand2026';
+    // function checkPassword(event) { ... }
+    // if (sessionStorage.getItem('handstandPlanAuth') === 'true') { ... }
+
+    /* ============================================
+       NEXT WORKOUT DATA - Edit these values to update your next workout
+       ============================================ */
+    // Phase-aware session templates for dynamic Today's Workout
     const StrengthSkillPlan = {
       phases: [
         {
           id: 1,
-          name: 'Foundations',
-          months: [11, 0, 1],
-          deepSession: {
-            name: '60-Min Foundations Builder',
-            focus: 'Joint prep, alignment, safe inversion',
-            blocks: [
-              { name: 'Warm-up (10–12m)', exercises: [
-                { name: 'Wrist rocks', reps: '2×12' },
-                { name: 'Palm lifts', reps: '2×12' },
-                { name: 'Cat–cow + scap push-ups', reps: '2×10' }
-              ]},
-              { name: 'Skill block (30m)', exercises: [
-                { name: 'Box pike hold', duration: '3×25s', video: 'https://youtu.be/ntYQOsa2ONk' },
-                { name: 'Wall plank with protraction', duration: '3×30s' },
-                { name: 'Half wall walks', reps: '3×2 slow' }
-              ]},
-              { name: 'Finisher (10m)', exercises: [
-                { name: 'Hollow / arch holds', duration: '3×20s' },
-                { name: 'Kick-up attempts to stack', reps: '6–8 attempts' }
-              ]},
-              { name: 'Notes', exercises: [
-                { name: 'Exit early if wrists complain; quality over volume.' }
-              ]}
-            ]
-          },
+          name: "Foundations",
+          months: [11, 0, 1], // Dec (11), Jan (0), Feb (1) - 0-based
           defaultSession: {
-            title: 'Foundations micro-session',
-            category: 'Skill Development',
-            difficulty: 'Beginner',
-            format: 'For Quality',
-            durationMinutes: 12,
-            movements: ['Wrist rocks 2×12', 'Palm lifts 2×12', 'Fingertip holds 2×15s', 'Scap push-ups 2×10', 'Box pike hold 2×25s', 'Wall plank 2×30s'],
-            equipment: ['Floor space', 'Wall', 'Box/bench'],
-            scaling: ['Reduce hold times if wrists fatigue', 'Use higher box for pike holds', 'Skip wall walks if not comfortable inverted'],
-            coachingCues: ['Focus on quality over speed', 'Keep wrists neutral', 'Protract shoulders', 'Pause each step']
+            title: "Foundations Session",
+            tagLine: "Skill Development · Beginner · For Quality",
+            durationMinutes: 10,
+            category: "Skill Development",
+            difficulty: "Beginner",
+            format: "For Quality",
+            movements: [
+              "Wrist rocks 2×12",
+              "Palm lifts 2×12",
+              "Fingertip holds 2×10–15s",
+              "Scap push-ups 2×10",
+              "Box pike hold 2×20–25s",
+              "Wall plank 2×30s",
+              "Wall walks to halfway 2 slow reps"
+            ],
+            equipment: ["Floor space", "Wall", "Yoga mat", "Box/bench"],
+            scaling: ["Reduce hold times if wrists fatigue", "Use higher box for pike holds", "Skip wall walks if not comfortable inverted"],
+            coachingCues: ["Focus on quality over speed", "Keep wrists neutral", "Engage shoulders throughout pike holds", "Wall walks should be controlled", "Pause at each step"]
           }
         },
         {
           id: 2,
-          name: 'Inversion Comfort',
-          months: [2,3,4],
-          deepSession: {
-            name: '60-Min Inversion Comfort',
-            focus: 'Time upside down + exits',
-            blocks: [
-              { name: 'Warm-up (10m)', exercises: [
-                { name: 'Leaning wrist rocks', reps: '2×10' },
-                { name: 'Frog stand rocks', duration: '3×20s' }
-              ]},
-              { name: 'Skill block (35m)', exercises: [
-                { name: '¾ wall walks', reps: '3×2' },
-                { name: 'Chest-to-wall hold', duration: '4×10–20s', video: 'https://youtu.be/t3kRrBDuX5M' },
-                { name: 'Box shoulder taps', reps: '3×6/side' }
-              ]},
-              { name: 'Finisher (8m)', exercises: [
-                { name: 'Handstand entry practice', reps: '6–8 kick-ups' }
-              ]}
-            ]
-          },
+          name: "Inversion Comfort",
+          months: [2, 3, 4], // Mar, Apr, May
           defaultSession: {
-            title: 'Inversion comfort micro-session',
-            category: 'Skill Development',
-            difficulty: 'Intermediate',
-            format: 'For Quality',
-            durationMinutes: 12,
-            movements: ['Leaning wrist rocks 2×10', 'Wall walks to ¾ height 2×1', 'Chest-to-wall hold 3×10s', 'Box pike shoulder taps 2×6/side'],
-            equipment: ['Floor space', 'Wall', 'Box/bench'],
-            scaling: ['Use ½ wall walks if needed', 'Shorten chest-to-wall holds', 'Skip taps if unstable'],
-            coachingCues: ['Breathe while inverted', 'Protract shoulders', 'Smooth wall walk descent']
+            title: "Inversion Comfort Session",
+            tagLine: "Skill Development · Intermediate · For Quality",
+            durationMinutes: 10,
+            category: "Skill Development",
+            difficulty: "Intermediate",
+            format: "For Quality",
+            movements: [
+              "Leaning wrist rocks 2×10",
+              "Wrist weight-shifts 2×10s",
+              "Wall walks to ¾ height 2×1",
+              "Chest-to-wall hold 3×6–10s",
+              "Box pike shoulder taps 2×6/side",
+              "Tuck plank on box 1×20–30s"
+            ],
+            equipment: ["Floor space", "Wall", "Box/bench"],
+            scaling: ["Use wall walks to ½ height if ¾ is too challenging", "Reduce chest-to-wall hold times", "Skip shoulder taps if unstable"],
+            coachingCues: ["Breathe while inverted", "Keep arms locked out", "Protract shoulders in holds", "Control the wall walk descent"]
           }
         },
         {
           id: 3,
-          name: 'Static Handstand',
-          months: [5,6,7],
-          deepSession: {
-            name: '60-Min Static Balance',
-            focus: 'Shape + fingertip balance',
-            blocks: [
-              { name: 'Warm-up (8m)', exercises: [
-                { name: 'Wrist prep flow', duration: '6–8 minutes' }
-              ]},
-              { name: 'Skill block (35m)', exercises: [
-                { name: 'Toe/heel pulls', reps: '4×6 each' },
-                { name: 'Tuck plank on box', duration: '3×25s' },
-                { name: 'Freestanding kick-ups', reps: '8–10 attempts', video: 'https://youtu.be/F2hVYmnZY9A' }
-              ]},
-              { name: 'Finisher (10m)', exercises: [
-                { name: 'Wall handstand holds', duration: '3×20s' },
-                { name: 'Slow negatives from wall', reps: '3×3' }
-              ]}
-            ]
-          },
+          name: "Static Handstand",
+          months: [5, 6, 7], // Jun, Jul, Aug
           defaultSession: {
-            title: 'Static balance micro-session',
-            category: 'Balance Work',
-            difficulty: 'Intermediate',
-            format: 'For Quality',
-            durationMinutes: 15,
-            movements: ['Palm lifts 1×12', 'Scap push-ups 2×10', 'Tuck plank on box 2×25s', 'Toe pulls from wall 2×8', 'Heel pulls from wall 2×8', 'Freestanding attempts 6 reps'],
-            equipment: ['Floor space', 'Wall', 'Box/bench'],
-            scaling: ['Use more wall support if balance is hard', 'Shorter holds with good form', 'Use spotter if available'],
-            coachingCues: ['Use fingertip pressure', 'Keep body stacked', 'Exit with control']
+            title: "Static Handstand Session",
+            tagLine: "Balance Work · Intermediate · For Quality",
+            durationMinutes: 10,
+            category: "Balance Work",
+            difficulty: "Intermediate",
+            format: "For Quality",
+            movements: [
+              "Wrist rocks 1×12",
+              "Palm lifts 1×12",
+              "Scap push-ups 2×10",
+              "Tuck plank on box 2×20s",
+              "Toe pulls from wall 2×8",
+              "Heel pulls from wall 2×8",
+              "Freestanding attempts 4–6 reps"
+            ],
+            equipment: ["Floor space", "Wall", "Box/bench"],
+            scaling: ["More wall support if balance is challenging", "Focus on shorter holds with good form", "Use spotter if available"],
+            coachingCues: ["Use fingertip pressure for balance", "Keep body tight and stacked", "Exit with control", "Breathe and stay relaxed"]
           }
         },
         {
           id: 4,
-          name: 'Walking Mechanics',
-          months: [8,9,10],
-          deepSession: {
-            name: '60-Min Walking Mechanics',
-            focus: 'Step quality + shoulder endurance',
-            blocks: [
-              { name: 'Warm-up (10m)', exercises: [
-                { name: 'Wrist prep + scap circles', duration: '10 minutes' }
-              ]},
-              { name: 'Skill block (35m)', exercises: [
-                { name: 'Box pike shoulder taps', reps: '4×6/side' },
-                { name: 'Wall walks with step-outs', reps: '3×4 steps', video: 'https://youtu.be/1lkx9nqYpOk' },
-                { name: 'Short handstand walk attempts', reps: '6 attempts' }
-              ]},
-              { name: 'Finisher (10m)', exercises: [
-                { name: 'Hollow rocks + arch rocks', reps: '3×15 each' }
-              ]}
-            ]
-          },
+          name: "Walking Mechanics",
+          months: [8, 9, 10], // Sep, Oct, Nov
           defaultSession: {
-            title: 'Walking micro-session',
-            category: 'Walking Practice',
-            difficulty: 'Advanced',
-            format: 'For Quality',
-            durationMinutes: 15,
-            movements: ['Box pike hold 2×25s', 'Box pike shoulder taps 2×6/side', 'Wall walks with step-outs 2×4 steps', 'Short handstand walk attempts 4 reps'],
-            equipment: ['Floor space', 'Wall', 'Box/bench'],
-            scaling: ['Reduce walking distance', 'Use wall-supported step practice', 'Focus on entry/exit control'],
-            coachingCues: ['Small deliberate steps', 'Shift weight smoothly', 'Look at hands', 'Stay relaxed in shoulders']
+            title: "Walking Mechanics Session",
+            tagLine: "Walking Practice · Advanced · For Quality",
+            durationMinutes: 10,
+            category: "Walking Practice",
+            difficulty: "Advanced",
+            format: "For Quality",
+            movements: [
+              "Wrist rocks 1×12",
+              "Box pike hold 2×20s",
+              "Box pike shoulder taps 2×6/side",
+              "Wall walks with step-outs 2×4 steps",
+              "Short-distance handstand walks 4 attempts"
+            ],
+            equipment: ["Floor space", "Wall", "Box/bench"],
+            scaling: ["Reduce walking distance", "More wall-supported step practice", "Focus on entry and exit control"],
+            coachingCues: ["Small deliberate steps", "Shift weight smoothly", "Look at hands not floor", "Stay relaxed in shoulders", "Exit safely"]
           }
         }
       ]
     };
 
+    // Helper to get current phase based on month
     function getCurrentPhaseFromPlan() {
       const now = new Date();
-      const month = now.getMonth();
-      const year = now.getFullYear();
-      if (year < 2025 || (year === 2025 && month < 11)) return StrengthSkillPlan.phases[0];
-      if (year > 2026 || (year === 2026 && month > 10)) return StrengthSkillPlan.phases.at(-1);
-      return StrengthSkillPlan.phases.find(p => p.months.includes(month)) || StrengthSkillPlan.phases[0];
+      const currentMonth = now.getMonth(); // 0-based
+      const currentYear = now.getFullYear();
+      
+      // Before plan starts (before Dec 2025) - show Phase 1 as preview
+      if (currentYear < 2025 || (currentYear === 2025 && currentMonth < 11)) {
+        return StrengthSkillPlan.phases[0];
+      }
+      
+      // After plan ends (after Nov 2026) - show Phase 4
+      if (currentYear > 2026 || (currentYear === 2026 && currentMonth > 10)) {
+        return StrengthSkillPlan.phases[3];
+      }
+      
+      // Dec 2025 = Phase 1 (month 11 is in Phase 1's months array)
+      // Jan-Nov 2026 = find correct phase based on month
+      for (const phase of StrengthSkillPlan.phases) {
+        if (phase.months.includes(currentMonth)) {
+          return phase;
+        }
+      }
+      
+      return StrengthSkillPlan.phases[0]; // Default fallback to Phase 1
     }
 
-    function formatDateTime() {
-      const options = { weekday: 'long', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Europe/London' };
-      return new Date().toLocaleString('en-GB', options).replace(' at ', ' · ');
+    // Format today's date for Europe/London timezone
+    function formatTodaysDate() {
+      const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'Europe/London'
+      };
+      
+      const now = new Date();
+      const formatted = now.toLocaleString('en-GB', options);
+      // Replace " at " with " @ " for cleaner format
+      return formatted.replace(' at ', ' @ ');
     }
 
+    // Dynamic Today's Workout update
     function updateTodaysWorkout() {
       const phase = getCurrentPhaseFromPlan();
       const session = phase.defaultSession;
-      const fallback = 'Set a gentle 10-minute wrist + balance circuit today.';
-
-      document.getElementById('workout-name').textContent = `${session.title} (Phase ${phase.id})`;
-      document.getElementById('workout-datetime').textContent = formatDateTime();
-      document.getElementById('workout-category').textContent = session.category;
-      document.getElementById('workout-difficulty').textContent = session.difficulty;
-      document.getElementById('workout-format').textContent = session.format;
-      document.getElementById('workout-duration').textContent = `${session.durationMinutes} minutes`;
-
-      const listMap = [
-        ['workout-instructions', session.movements],
-        ['workout-equipment', session.equipment],
-        ['workout-scaling', session.scaling],
-        ['workout-coaching', session.coachingCues]
-      ];
-      listMap.forEach(([id, items]) => {
-        const el = document.getElementById(id);
+      
+      // Update workout name with phase number
+      const workoutNameEl = document.getElementById('workout-name');
+      if (workoutNameEl) {
+        workoutNameEl.textContent = `${session.title} (Phase ${phase.id})`;
+      }
+      
+      // Update date/time to today
+      const datetimeEl = document.getElementById('workout-datetime');
+      if (datetimeEl) {
+        datetimeEl.textContent = formatTodaysDate();
+      }
+      
+      // Update category, difficulty, format
+      const categoryEl = document.getElementById('workout-category');
+      if (categoryEl) categoryEl.textContent = session.category;
+      
+      const difficultyEl = document.getElementById('workout-difficulty');
+      if (difficultyEl) difficultyEl.textContent = session.difficulty;
+      
+      const formatEl = document.getElementById('workout-format');
+      if (formatEl) formatEl.textContent = session.format;
+      
+      // Update duration
+      const durationEl = document.getElementById('workout-duration');
+      if (durationEl) durationEl.textContent = `${session.durationMinutes} minutes`;
+      
+      // Helper to update a list element with items
+      function updateListElement(elementId, items) {
+        const el = document.getElementById(elementId);
         if (!el) return;
-        el.innerHTML = '';
-        (items && items.length ? items : [fallback]).forEach(item => {
-          const li = document.createElement('li');
-          li.textContent = item;
-          el.appendChild(li);
+        const ul = el.querySelector('ul') || document.createElement('ul');
+        ul.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+        if (!el.querySelector('ul')) {
+          el.innerHTML = '';
+          el.appendChild(ul);
+        }
+      }
+      
+      // Update all list sections
+      updateListElement('workout-instructions', session.movements);
+      updateListElement('workout-equipment', session.equipment);
+      updateListElement('workout-scaling', session.scaling);
+      updateListElement('workout-coaching', session.coachingCues);
+    }
+
+    /* ============================================
+       EXPANDABLE SECTIONS - Toggle functionality
+       ============================================ */
+    function toggleSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      
+      section.classList.toggle('is-open');
+    }
+
+    // Ensure sections expand when navigating via quick nav links
+    function setupQuickNavExpand() {
+      const quickNavLinks = document.querySelectorAll('.quick-nav-link[data-expand-target]');
+      quickNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const targetId = link.getAttribute('data-expand-target');
+          const targetSection = document.getElementById(targetId);
+          if (targetSection && targetSection.classList.contains('expandable-section')) {
+            // Ensure section is open
+            if (!targetSection.classList.contains('is-open')) {
+              targetSection.classList.add('is-open');
+            }
+          }
         });
       });
     }
 
-    function renderDeepSession(phase) {
-      const container = document.getElementById('deep-session-card');
-      if (!container) return;
-      const session = phase.deepSession;
-      const blocks = session.blocks.map(block => {
-        const items = block.exercises.map(ex => {
-          const meta = [ex.reps, ex.duration].filter(Boolean).join(' · ');
-          const video = ex.video ? `<a class="video-link" href="${ex.video}" target="_blank" rel="noopener">▶ Video</a>` : '';
-          return `<li><span class="font-semibold">${ex.name}</span>${meta ? ` – ${meta}` : ''}${video}</li>`;
-        }).join('');
-        return `<div class="deep-block"><h4 class="text-lg font-semibold">${block.name}</h4><ul class="list-disc list-inside small">${items}</ul></div>`;
-      }).join('');
+    /* ============================================
+       CHATGPT PROMPT HELPERS FOR 1-HOUR SESSIONS
+       (Includes video requests per requirement)
+       ============================================ */
+    function buildChatGPTPrompt(phaseId) {
+      const phaseNames = {
+        1: 'Foundations',
+        2: 'Inversion Comfort',
+        3: 'Static Handstand',
+        4: 'Walking Mechanics'
+      };
+      
+      const phaseName = phaseNames[phaseId] || 'Foundations';
+      
+      return `You are my coach for a handstand + strength progression programme.
 
-      container.innerHTML = `
-        <h3 class="text-xl font-semibold mb-1">${session.name}</h3>
-        <p class="small mb-4">${phase.name} · ${session.focus}</p>
-        <div class="space-y-3">${blocks}</div>
-      `;
-      container.style.display = 'block';
+Context:
+- This session is part of my "2026 Strength & Skill Framework".
+- Current phase: Phase ${phaseId} – ${phaseName}.
+- I am training in a gym with standard CrossFit-style kit (rig, wall space, benches/boxes).
+- Time available: 60 minutes.
+- I already do 4×/week bootcamp training; this session should be strength/skill-focused, not brutal conditioning.
+
+Your task:
+Design a 60-minute handstand progression session tailored to this phase.
+
+Requirements:
+1. Include a warm-up, main skill block(s), and a short finisher.
+2. Use only relevant movements for handstand development:
+   - Wrist prep, palm lifts, fingertip holds
+   - Scap push-ups, box pike holds/taps
+   - Wall walks, chest-to-wall holds
+   - Toe pulls, heel pulls
+   - Kick-ups, step-outs, handstand walking
+
+3. For EVERY movement you prescribe, provide visual learning aids:
+   - If you can generate video: create a short AI-generated movement demo video.
+   - Otherwise: provide a detailed positional breakdown with 3–5 stages showing the key positions.
+   - Include coaching cues, common faults, and progressions/regressions.
+
+4. Format the whole response in clean markdown with headings, bullet points, and each visual aid placed immediately below its movement.
+
+Make the session phase-appropriate with:
+- Phase 1 → joint tolerance, alignment, early inversion
+- Phase 2 → inversion comfort, tension, control
+- Phase 3 → static balance shaping
+- Phase 4 → walking mechanics & spatial control`;
     }
 
-    function setupPhaseButtons() {
-      const buttons = document.querySelectorAll('.phase-button');
+    // Store selected phase for ChatGPT button
+    let selectedDeepSessionPhase = 1;
+
+    function setupChatGPTButtons() {
+      // Handle the main ChatGPT button
+      const mainButton = document.getElementById('chatgpt-main-button');
+      const feedbackEl = document.getElementById('chatgpt-feedback');
+      
+      if (mainButton) {
+        mainButton.addEventListener('click', async () => {
+          const prompt = buildChatGPTPrompt(selectedDeepSessionPhase);
+          
+          try {
+            // Copy prompt to clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(prompt);
+            } else {
+              // Fallback for older browsers
+              const textarea = document.createElement('textarea');
+              textarea.value = prompt;
+              textarea.style.position = 'fixed';
+              textarea.style.opacity = '0';
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textarea);
+            }
+            
+            // Show feedback
+            if (feedbackEl) {
+              feedbackEl.style.display = 'block';
+              setTimeout(() => {
+                feedbackEl.style.display = 'none';
+              }, 4000);
+            }
+            
+            // Open ChatGPT in new tab
+            window.open('https://chat.openai.com/', '_blank');
+            
+          } catch (err) {
+            console.error('Failed to copy prompt:', err);
+            // Still try to open ChatGPT
+            window.open('https://chat.openai.com/', '_blank');
+            if (window.showToast) {
+              window.showToast('Could not copy prompt - please copy manually', 'error');
+            }
+          }
+        });
+      }
+      
+      // Legacy support for old chatgpt-session-button elements (if any remain)
+      const buttons = document.querySelectorAll('.chatgpt-session-button[data-chatgpt-phase]');
+      
       buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          buttons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const phaseId = Number(btn.dataset.phase);
-          const phase = StrengthSkillPlan.phases.find(p => p.id === phaseId);
-          if (phase) renderDeepSession(phase);
+        btn.addEventListener('click', async () => {
+          const phaseId = parseInt(btn.getAttribute('data-chatgpt-phase'), 10);
+          const prompt = buildChatGPTPrompt(phaseId);
+          
+          try {
+            // Copy prompt to clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(prompt);
+            } else {
+              // Fallback for older browsers
+              const textarea = document.createElement('textarea');
+              textarea.value = prompt;
+              textarea.style.position = 'fixed';
+              textarea.style.opacity = '0';
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textarea);
+            }
+            
+            // Show feedback
+            if (feedbackEl) {
+              feedbackEl.style.display = 'block';
+              setTimeout(() => {
+                feedbackEl.style.display = 'none';
+              }, 4000);
+            }
+            
+            // Open ChatGPT in new tab
+            window.open('https://chat.openai.com/', '_blank');
+            
+          } catch (err) {
+            console.error('Failed to copy prompt:', err);
+            // Still try to open ChatGPT
+            window.open('https://chat.openai.com/', '_blank');
+            if (window.showToast) {
+              window.showToast('Could not copy prompt - please copy manually', 'error');
+            }
+          }
         });
       });
     }
 
-    async function initProgressBar() {
+    const nextWorkout = {
+      name: "Foundations Session 1",
+      datetime: "Saturday, Nov 30, 2025 @ 8:00 AM",
+      location: "Gym",
+      duration: "10 minutes",
+      // New fields for enhanced workout info display
+      category: "Skill Development",
+      difficulty: "Beginner",
+      format: "For Quality",
+      instructions: "Wrist rocks 2×12, palm lifts 2×12, fingertip holds 2×10-15s; then scap push-ups 2×10 and box pike hold 2×20-25s; finish with wall plank 2×30s and wall walks to halfway 2 slow reps.",
+      equipment: "Floor space, wall, yoga mat, box/bench",
+      scaling: "Reduce hold times if wrists fatigue. Use higher box for pike holds. Skip wall walks if not comfortable inverted.",
+      scoreType: "Quality",
+      coachingCues: "Focus on quality over speed. Keep wrists neutral, engage shoulders throughout pike holds. Wall walks should be controlled - pause at each step.",
+      flavor: "Foundations Session – Build the base. Every handstand walker started exactly here."
+    };
+
+    /* ============================================
+       YOUR GYM SCHEDULE
+       - Saturday AM (morning)
+       - Sunday AM (morning)  
+       - Monday PM (evening)
+       - Thursday PM (evening)
+       ============================================ */
+
+    // Legacy function - kept for backwards compatibility but replaced by updateTodaysWorkout()
+    function updateNextWorkout() {
+      document.getElementById('workout-name').textContent = nextWorkout.name;
+      document.getElementById('workout-datetime').textContent = nextWorkout.datetime;
+      document.getElementById('workout-location').textContent = nextWorkout.location;
+      document.getElementById('workout-duration').textContent = nextWorkout.duration;
+      
+      // Update category, difficulty, and format badges
+      document.getElementById('workout-category').textContent = nextWorkout.category;
+      document.getElementById('workout-difficulty').textContent = nextWorkout.difficulty;
+      document.getElementById('workout-format').textContent = nextWorkout.format;
+    }
+
+    /* ============================================
+       PHASE PROGRESS TRACKER
+       Auto-detects current phase based on date
+       ============================================ */
+    const phases = [
+      { id: 1, name: 'Foundations', startMonth: 12, startYear: 2025, endMonth: 2, endYear: 2026 },
+      { id: 2, name: 'Inversion Comfort', startMonth: 3, startYear: 2026, endMonth: 5, endYear: 2026 },
+      { id: 3, name: 'Static Handstand', startMonth: 6, startYear: 2026, endMonth: 8, endYear: 2026 },
+      { id: 4, name: 'Walking Mechanics', startMonth: 9, startYear: 2026, endMonth: 11, endYear: 2026 }
+    ];
+
+    function getCurrentPhase() {
+      const now = new Date();
+      const currentMonth = now.getMonth() + 1; // 1-12
+      const currentYear = now.getFullYear();
+
+      for (let i = 0; i < phases.length; i++) {
+        const phase = phases[i];
+        const startDate = new Date(phase.startYear, phase.startMonth - 1, 1);
+        const endDate = new Date(phase.endYear, phase.endMonth, 0); // Last day of end month
+
+        if (now >= startDate && now <= endDate) {
+          return { current: i + 1, completed: i };
+        }
+      }
+
+      // Before Phase 1
+      if (currentYear < 2025 || (currentYear === 2025 && currentMonth < 12)) {
+        return { current: 1, completed: 0, preStart: true };
+      }
+
+      // After Phase 4
+      return { current: 4, completed: 4, complete: true };
+    }
+
+    function updateProgressTracker() {
+      const { current, completed, preStart, complete } = getCurrentPhase();
+      const label = document.getElementById('current-phase-label');
+
+      // Update progress tracker UI
+      for (let i = 1; i <= 4; i++) {
+        const phaseEl = document.getElementById(`progress-phase-${i}`);
+        const checkbox = phaseEl.querySelector('.progress-checkbox');
+
+        if (i < current || (complete && i <= completed)) {
+          phaseEl.classList.add('completed');
+          phaseEl.classList.remove('current');
+          checkbox.innerHTML = '✓';
+        } else if (i === current && !complete) {
+          phaseEl.classList.add('current');
+          phaseEl.classList.remove('completed');
+          checkbox.innerHTML = '●';
+        } else {
+          phaseEl.classList.remove('completed', 'current');
+          checkbox.innerHTML = i;
+        }
+      }
+
+      // Update current phase badge
+      if (complete) {
+        label.textContent = '🎉 Complete!';
+        label.style.background = 'var(--color-success-500)';
+      } else if (preStart) {
+        label.textContent = `Starting Soon: Phase ${current}`;
+      } else {
+        label.textContent = `Current: Phase ${current}`;
+      }
+
+      // Highlight the current phase card in the 12-month plan
+      document.querySelectorAll('.phase-card').forEach((card, index) => {
+        if (index + 1 === current && !complete) {
+          card.classList.add('current-phase');
+        } else {
+          card.classList.remove('current-phase');
+        }
+      });
+    }
+
+    // Initialize
+        /* ============================================
+           MOVEMENT LIBRARY & DEEP SESSIONS UI
+           ============================================ */
+
+        async function fetchHandstandData() {
+          if (window.handstandPlanData) return window.handstandPlanData;
+          const res = await fetch('/data/handstand-plan-sessions.json');
+          if (!res.ok) throw new Error('Failed to load handstand plan sessions');
+          const data = await res.json();
+          window.handstandPlanData = data;
+          return data;
+        }
+
+        async function fetchMovements() {
+          if (window.movementsData) return window.movementsData;
+          const res = await fetch('/data/movements.json');
+          if (!res.ok) throw new Error('Failed to load movements');
+          const data = await res.json();
+          window.movementsData = data;
+          return data;
+        }
+
+        async function loadMovementLibrary() {
+          const container = document.getElementById('movement-grid');
+          if (!container) return;
+
+          try {
+            const data = await fetchMovements();
+            container.innerHTML = '';
+
+            (data.movements || []).forEach(m => {
+              const card = document.createElement('article');
+              card.className = 'movement-card phase-card';
+              card.innerHTML = `
+                <div class="phase-header movement-header">
+                  <h3>${m.name}</h3>
+                  <span class="movement-badge">${m.category}</span>
+                </div>
+                <div class="phase-body movement-body">
+                  <p class="movement-description">${m.description || ''}</p>
+                  ${
+                    m.youtube
+                      ? `<a class="exercise-video-link" href="${m.youtube}" target="_blank" rel="noopener">Video</a>`
+                      : ''
+                  }
+                </div>
+              `;
+              container.appendChild(card);
+            });
+          } catch (err) {
+            console.error('Failed to load movement library', err);
+            container.innerHTML = '<p class="text-sm" style="color: var(--text-muted);">Could not load movements.</p>';
+          }
+        }
+
+        function renderDeepSession(session, phase) {
+          const container = document.getElementById('deep-session-card');
+          if (!container) return;
+
+          const phaseName = phase && phase.name ? phase.name : (phase && phase.phase ? `Phase ${phase.phase}` : '');
+
+          const blocksHtml = (session.blocks || []).map(block => {
+            const exercisesHtml = (block.exercises || []).map(ex => {
+              const bits = [];
+              if (ex.sets) bits.push(`${ex.sets} sets`);
+              if (ex.reps) bits.push(`${ex.reps} reps`);
+              if (ex.duration) bits.push(ex.duration);
+              const meta = bits.length ? ` – ${bits.join(', ')}` : '';
+              const note = ex.note ? `<div class="exercise-note">${ex.note}</div>` : '';
+              return `<li><span class="exercise-name">${ex.name}</span>${meta}${note}</li>`;
+            }).join('');
+
+            return `
+              <div class="deep-block">
+                <h4 class="deep-block-title">${block.name}</h4>
+                <ul class="deep-block-list">
+                  ${exercisesHtml}
+                </ul>
+              </div>
+            `;
+          }).join('');
+
+          container.innerHTML = `
+            <article class="phase-card deep-session-card">
+              <div class="phase-header">
+                <h3>${session.name}</h3>
+                <p class="phase-theme">${phaseName}${session.focus ? ' · ' + session.focus : ''}</p>
+              </div>
+              <div class="phase-body">
+                ${blocksHtml}
+              </div>
+            </article>
+          `;
+        }
+
+        async function showRandomDeepSession(phaseNumber) {
+          try {
+            const data = await fetchHandstandData();
+            const phases = data.phases || [];
+            const phase = phases.find(p => p.phase === phaseNumber);
+            if (!phase || !phase.deepSessions || !phase.deepSessions.length) return;
+
+            const randomIndex = Math.floor(Math.random() * phase.deepSessions.length);
+            const session = phase.deepSessions[randomIndex];
+            renderDeepSession(session, phase);
+          } catch (err) {
+            console.error('Failed to load deep session', err);
+          }
+        }
+
+        function setupDeepSessionControls() {
+          const buttons = document.querySelectorAll('[data-deep-session-phase]');
+          const cardContainer = document.getElementById('deep-session-card');
+          if (!buttons.length) return;
+
+          buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+              buttons.forEach(b => b.classList.remove('active-deep-session-button'));
+              btn.classList.add('active-deep-session-button');
+              const phase = parseInt(btn.getAttribute('data-deep-session-phase'), 10);
+              
+              // Update the selected phase for ChatGPT button
+              selectedDeepSessionPhase = phase;
+              
+              // Show the deep session card container
+              if (cardContainer) {
+                cardContainer.style.display = 'block';
+              }
+              
+              showRandomDeepSession(phase);
+            });
+          });
+
+          // Auto-load current phase if we can detect it
+          if (typeof getCurrentPhase === 'function') {
+            const info = getCurrentPhase();
+            if (info && info.current) {
+              selectedDeepSessionPhase = info.current;
+              const activeBtn = document.querySelector(`[data-deep-session-phase="${info.current}"]`);
+              if (activeBtn) activeBtn.classList.add('active-deep-session-button');
+              // Don't auto-show the card - keep it hidden until user clicks
+            }
+          }
+        }
+    // Initialize all functionality
+    updateTodaysWorkout();  // Dynamic Today's Workout
+    updateProgressTracker();
+    setupDeepSessionControls();
+    setupChatGPTButtons();   // ChatGPT helper buttons
+    setupQuickNavExpand();   // Quick nav auto-expand
+
+    /* ============================================
+       2026 PROGRESS BAR INITIALIZATION
+       Load progress data and update the progress bar
+       ============================================ */
+    async function init2026ProgressBar() {
       try {
-        const res = await fetch('../data/progress-2026.json');
-        if (!res.ok) throw new Error('missing');
-        const data = await res.json();
-        const completed = data?.microSessions?.completed ?? 0;
-        const goal = data?.microSessions?.goal ?? 300;
-        const percent = goal ? Math.min(100, Math.round((completed / goal) * 100)) : 0;
-        document.getElementById('progress-2026-fill').style.width = `${percent}%`;
-        document.getElementById('progress-2026-text').textContent = `${percent}% complete (${completed}/${goal})`;
+        const response = await fetch('../data/progress-2026.json');
+        if (!response.ok) throw new Error('Failed to load progress data');
+        const progressData = await response.json();
+        
+        const completed = progressData?.microSessions?.completed ?? 0;
+        const goal = progressData?.microSessions?.goal ?? 300;
+        const percent = goal > 0 ? Math.min(100, Math.round((completed / goal) * 100)) : 0;
+        
+        // Update the progress bar
+        const fillEl = document.getElementById('progress-2026-fill');
+        const textEl = document.getElementById('progress-2026-text');
+        const completedEl = document.getElementById('micro-completed');
+        const goalEl = document.getElementById('micro-goal');
+        
+        if (fillEl) fillEl.style.width = `${percent}%`;
+        if (textEl) textEl.textContent = `${percent}% complete`;
+        if (completedEl) completedEl.textContent = completed;
+        if (goalEl) goalEl.textContent = goal;
+        
       } catch (err) {
-        document.getElementById('progress-2026-text').textContent = 'Progress data coming soon';
+        console.warn('Could not load progress data for 2026 progress bar', err);
       }
     }
+    
+    init2026ProgressBar();
 
-    updateTodaysWorkout();
-    setupPhaseButtons();
-    initProgressBar();
+    /* ============================================
+       2026 DASHBOARD INITIALIZATION (legacy - removed)
+       The dashboard is now on a separate page
+       ============================================ */
   </script>
 </body>
 </html>
