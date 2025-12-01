@@ -51,7 +51,6 @@
       workout: workout,
       level: level,
       duration: duration,
-      equipment: undefined, // reserved for later
       focus: focus
     };
 
