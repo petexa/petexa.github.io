@@ -13,7 +13,10 @@ This document maps the key folders and files that power **gym.petefox.co.uk** as
 - `/about/` — About page content.
 - `/images/` — Static image assets referenced by pages and JSON.
 - `/scripts/` — Data-processing utilities and automation helpers.
-- `/docs/` — Documentation (architecture, pipeline notes, onboarding, feature guides).
+- `/docs/` — All documentation, organized into subfolders:
+  - `docs/workflows/` — n8n workflows, data pipeline, enrichment processes
+  - `docs/features/` — Feature-specific documentation
+  - `docs/legacy/` — Archived historical documentation
 - `/style-guide/` — UI reference and component examples.
 - `/archive/`, `/backup/` — Legacy or experimental assets retained for reference (gitignored but may still be tracked).
 - Root HTML pages (`index.html`, `events.html`, `utilities.html`, `admin.html`, `pb-matrix.html`, `past.html`) — Entry points for the main site areas.
