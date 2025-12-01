@@ -307,6 +307,118 @@
       color: var(--text-muted);
       font-style: italic;
     }
+
+    /* Chalkboard warm-up/main layout */
+    #chalkboard-container {
+      display: grid;
+      grid-template-rows: 1fr 2fr;
+      gap: var(--space-4);
+      min-height: 500px;
+    }
+
+    .chalkboard-section {
+      padding: var(--space-4);
+    }
+
+    .chalkboard-warmup-section {
+      border-bottom: 2px dashed #555;
+    }
+
+    .chalkboard-warmup-section h4,
+    .chalkboard-main-section h4 {
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: var(--text-lg);
+      margin-bottom: var(--space-2);
+    }
+
+    .chalkboard-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .chalkboard-section li {
+      color: #fff;
+      font-size: var(--text-lg);
+      line-height: 1.8;
+      padding: var(--space-1) 0;
+    }
+
+    .chalkboard-section .time-cap {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      text-align: center;
+      margin-top: var(--space-4);
+      color: #ffcc00;
+    }
+
+    /* Fullscreen chalkboard mode */
+    body.chalkboard-fullscreen {
+      overflow: hidden;
+    }
+
+    body.chalkboard-fullscreen .site-wrapper > *:not(#chalkboard-fullscreen-overlay) {
+      display: none !important;
+    }
+
+    #chalkboard-fullscreen-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #1a1a1a;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-6);
+    }
+
+    #chalkboard-fullscreen-overlay .chalkboard-output {
+      flex: 1;
+      display: grid;
+      grid-template-rows: 1fr 2fr;
+      gap: var(--space-4);
+    }
+
+    #chalkboard-fullscreen-overlay .exit-fullscreen-btn {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    #chalkboard-fullscreen-overlay .exit-fullscreen-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* AI Prompt textarea styling */
+    .ai-prompt-textarea {
+      width: 100%;
+      min-height: 400px;
+      padding: var(--space-4);
+      font-family: 'Courier New', monospace;
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      color: var(--text);
+      resize: vertical;
+    }
+
+    .ai-prompt-textarea:focus {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: var(--focus-ring-offset);
+    }
   </style>
 </head>
 <body class="bg-page">
@@ -481,6 +593,7 @@
                         <option value="mobility">Mobility / Flexibility</option>
                         <option value="skill">Skill Work</option>
                         <option value="endurance">Endurance</option>
+                        <option value="handstand-framework">Handstand Framework</option>
                       </select>
                     </div>
 
@@ -605,6 +718,9 @@
               <button type="button" class="output-tab" role="tab" aria-selected="false" aria-controls="panel-chalkboard" id="tab-chalkboard">
                 📋 Chalkboard
               </button>
+              <button type="button" class="output-tab" role="tab" aria-selected="false" aria-controls="panel-ai-prompt" id="tab-ai-prompt">
+                🤖 AI Prompt
+              </button>
             </div>
 
             <!-- Full Coaching Panel -->
@@ -637,8 +753,38 @@
 
             <!-- Chalkboard Panel -->
             <div id="panel-chalkboard" class="output-panel" role="tabpanel" aria-labelledby="tab-chalkboard">
-              <div class="chalkboard-output" id="chalkboard-output">
-                <div class="empty-output" style="color: #888;">Generate a workout to see the chalkboard WOD here.</div>
+              <div class="mb-4 flex gap-4 flex-wrap">
+                <button type="button" id="fullscreenChalkboardBtn" class="btn btn-secondary">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                  </svg>
+                  Full Screen
+                </button>
+              </div>
+              <div id="chalkboard-output-wrapper">
+                <div class="chalkboard-output" id="chalkboard-container">
+                  <div id="chalkboard-warmup" class="chalkboard-section chalkboard-warmup-section">
+                    <div class="empty-output" style="color: #888;">Warm-up will appear here.</div>
+                  </div>
+                  <div id="chalkboard-main" class="chalkboard-section chalkboard-main-section">
+                    <div class="empty-output" style="color: #888;">Main workout will appear here.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI Prompt Panel -->
+            <div id="panel-ai-prompt" class="output-panel" role="tabpanel" aria-labelledby="tab-ai-prompt">
+              <div class="mb-4 flex gap-4 flex-wrap">
+                <button type="button" id="copyAiPromptBtn" class="btn btn-primary">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+                  </svg>
+                  Copy AI Prompt
+                </button>
+              </div>
+              <div class="workout-output" id="ai-prompt-output">
+                <textarea id="ai-prompt-text" class="ai-prompt-textarea" readonly rows="20" placeholder="Generate a workout to see the AI prompt here."></textarea>
               </div>
             </div>
           </section>

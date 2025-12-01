@@ -1521,17 +1521,17 @@
         "id": "pullups_5",
         "name": "Strict pull-ups",
         "category": "strength",
-        "target": "Achieve 5 bodyweight strict pull-ups",
+        "target": "Achieve 8 bodyweight strict pull-ups",
         "unit": "reps",
-        "goalValue": 5
+        "goalValue": 8
       },
       {
         "id": "pressups_10",
         "name": "Strict press-ups",
         "category": "strength",
-        "target": "Achieve 10 full strict press-ups with clean form",
+        "target": "Achieve 20 full strict press-ups with clean form",
         "unit": "reps",
-        "goalValue": 10
+        "goalValue": 20
       },
       {
         "id": "dips_5",

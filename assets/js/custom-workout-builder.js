@@ -4,18 +4,29 @@
  * - Full Coaching Version (detailed instructions)
  * - Printable A4 Version (minimal, PDF-friendly)
  * - Chalkboard Mode (ultra-minimal WOD board style)
+ * - AI Prompt (for external AI review/enhancement)
  */
 (function () {
   'use strict';
+
+  // Current strength profile (baseline capabilities)
+  const strengthProfile = {
+    strictPullUps: 5,
+    strictPushUps: 10
+  };
 
   // DOM Elements
   const form = document.getElementById('workoutBuilderForm');
   const outputSection = document.getElementById('output-section');
   const coachingOutput = document.getElementById('coaching-output');
   const printArea = document.getElementById('print-area');
-  const chalkboardOutput = document.getElementById('chalkboard-output');
+  const chalkboardWarmup = document.getElementById('chalkboard-warmup');
+  const chalkboardMain = document.getElementById('chalkboard-main');
+  const aiPromptText = document.getElementById('ai-prompt-text');
   const printBtn = document.getElementById('printBtn');
   const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+  const copyAiPromptBtn = document.getElementById('copyAiPromptBtn');
+  const fullscreenChalkboardBtn = document.getElementById('fullscreenChalkboardBtn');
   const tabs = document.querySelectorAll('.output-tab');
   const panels = document.querySelectorAll('.output-panel');
   const collapsibleHeaders = document.querySelectorAll('.collapsible-header');
@@ -55,7 +66,7 @@
       ],
       upper: [
         { name: 'Bench Press', sets: '4', reps: '6-8', notes: 'Full ROM' },
-        { name: 'Pull-ups', sets: '4', reps: 'Max', notes: 'Strict form' },
+        { name: 'Strict Pull-ups', sets: '4', reps: '3-5', notes: 'Full ROM, no kip. Add band if needed.' },
         { name: 'Dumbbell Shoulder Press', sets: '3', reps: '10', notes: 'Neutral grip' },
         { name: 'Barbell Curl', sets: '3', reps: '12', notes: 'No swinging' },
         { name: 'Tricep Dips', sets: '3', reps: '12', notes: 'Elbows back' }
@@ -82,7 +93,7 @@
         { name: 'Cable Flyes', sets: '3', reps: '12', notes: 'Squeeze at centre' }
       ],
       pull: [
-        { name: 'Pull-ups', sets: '4', reps: 'Max', notes: 'Full dead hang' },
+        { name: 'Strict Pull-ups', sets: '4', reps: '3-5', notes: 'Full ROM, dead hang. Add band only if needed.' },
         { name: 'Barbell Row', sets: '4', reps: '8', notes: 'Chest to bar' },
         { name: 'Face Pulls', sets: '3', reps: '15', notes: 'External rotation at end' },
         { name: 'Lat Pulldown', sets: '3', reps: '10', notes: 'Wide grip' },
@@ -97,7 +108,7 @@
       ],
       back: [
         { name: 'Deadlift', sets: '5', reps: '3', notes: 'Maintain neutral spine' },
-        { name: 'Pull-ups', sets: '4', reps: 'Max', notes: 'Chin over bar' },
+        { name: 'Strict Pull-ups', sets: '4', reps: '3-5', notes: 'Chin over bar, full ROM' },
         { name: 'T-Bar Row', sets: '4', reps: '8', notes: 'Chest supported' },
         { name: 'Single Arm Dumbbell Row', sets: '3', reps: '10 each', notes: 'Full stretch' },
         { name: 'Good Mornings', sets: '3', reps: '12', notes: 'Slight knee bend' }
@@ -131,7 +142,7 @@
       bodyweight: [
         'Burpees (10-15)',
         'Air Squats (20)',
-        'Push-ups (15-20)',
+        'Strict Push-ups (8-10)',
         'Sit-ups (20)',
         'Lunges (20 total)',
         'Mountain Climbers (30 sec)',
@@ -337,14 +348,109 @@
       });
     }
 
-    // Cool-down section
-    const cooldownExercises = getRandomItems(exerciseDB.cooldown, 5);
-    workout.sections.push({
-      name: 'Cool-Down',
-      duration: cooldownTime,
-      exercises: cooldownExercises,
-      notes: 'Focus on deep breathing and relaxation. Hold each stretch gently.'
-    });
+    // Handstand Framework - dedicated handstand and strength session
+    if (sessionType === 'handstand-framework') {
+      // Override warmup with handstand-specific warm-up
+      workout.sections = [];
+      
+      // Warm-Up (6-8 min)
+      workout.sections.push({
+        name: 'Warm-Up',
+        duration: Math.min(8, Math.floor(durationMins * 0.15)),
+        exercises: [
+          'Light cardio (row/bike) – 2 min',
+          '2 rounds:',
+          '  - Wrist rocks (10 each direction)',
+          '  - Palm lifts (10 reps)',
+          '  - Scap push-ups (8-10 reps)',
+          '  - Hollow hold (20 sec)'
+        ],
+        notes: 'Focus on wrist prep and scapular activation.',
+        isHandstandWarmup: true
+      });
+
+      // Block A – Tolerance & Shapes (3 rounds, ~12 min)
+      workout.sections.push({
+        name: 'Block A – Tolerance & Shapes',
+        duration: 12,
+        format: '3 Rounds',
+        exercises: [
+          { name: 'Wall plank (nose to wall)', reps: '20-30 sec', notes: 'Maintain hollow position' },
+          { name: 'Hollow hold', reps: '20-30 sec', notes: 'Press lower back into floor' },
+          { name: 'Scap push-ups', reps: '8-10 reps', notes: 'Full protraction at top' }
+        ],
+        notes: 'Rest 30-45 sec between exercises. Build joint tolerance and body shapes.',
+        isHandstandBlock: true
+      });
+
+      // Block B – EMOM 12 (4 rounds of 3 min)
+      workout.sections.push({
+        name: 'Block B – Inversion Practice',
+        duration: 12,
+        format: 'EMOM 12',
+        exercises: [
+          { name: 'Min 1: Chest-to-wall handstand hold', reps: '20-30 sec', notes: 'Fingertips engaged, ribs in' },
+          { name: 'Min 2: Box pike hold', reps: '20-25 sec', notes: 'Hips stacked over shoulders' },
+          { name: 'Min 3: Box pike shoulder taps', reps: '6-8 reps', notes: 'Slow and controlled' }
+        ],
+        notes: '4 rounds through the 3-minute cycle. Focus on quality positions.',
+        isHandstandBlock: true
+      });
+
+      // Block C – Practice (10-12 min cap)
+      workout.sections.push({
+        name: 'Block C – Freestanding Practice',
+        duration: Math.min(12, Math.floor(durationMins * 0.25)),
+        format: '10-12 min cap',
+        exercises: [
+          'Wall kick-ups (5-8 reps) – control the entry',
+          'Wall walks (3-5 reps) – smooth and steady',
+          'Toe/heel pulls (5 each) – balance awareness',
+          'Optional: Freestanding attempts (if ready)'
+        ],
+        notes: 'Take rest as needed. Quality over quantity.',
+        isHandstandBlock: true
+      });
+
+      // Optional Finisher (3 min)
+      workout.sections.push({
+        name: 'Optional Finisher',
+        duration: 3,
+        exercises: [
+          'Loaded carry (farmer carry or front rack) – 2x30m',
+          'Focus: upright posture, engaged core'
+        ],
+        notes: 'Skip if short on time. Good for posture work.',
+        isHandstandBlock: true
+      });
+
+      // Cool-down (3-5 min)
+      workout.sections.push({
+        name: 'Cool-Down',
+        duration: Math.min(5, Math.floor(durationMins * 0.1)),
+        exercises: [
+          'Wrist stretches (30 sec each direction)',
+          'Lat stretch (30 sec each side)',
+          'Child\'s pose with arms extended (60 sec)',
+          'Deep breathing (2 min) – box breathing'
+        ],
+        notes: 'Essential for wrist and shoulder recovery.'
+      });
+
+      // Mark as handstand session
+      workout.isHandstandFramework = true;
+    }
+
+    // Cool-down section (only if not handstand-framework, which has its own)
+    if (sessionType !== 'handstand-framework') {
+      const cooldownExercises = getRandomItems(exerciseDB.cooldown, 5);
+      workout.sections.push({
+        name: 'Cool-Down',
+        duration: cooldownTime,
+        exercises: cooldownExercises,
+        notes: 'Focus on deep breathing and relaxation. Hold each stretch gently.'
+      });
+    }
 
     // Add video references if requested
     if (includeVideos) {
@@ -368,8 +474,14 @@
    */
   function renderCoachingVersion(workout) {
     const { meta, sections } = workout;
+    
+    // Special title for Handstand Framework
+    const sessionTitle = workout.isHandstandFramework 
+      ? `🤸 HANDSTAND & STRENGTH FRAMEWORK – ${meta.duration} MIN – ${formatLabel(meta.skillLevel).toUpperCase()}`
+      : '🏋️ Custom Workout Session';
+    
     let html = `
-      <h3>🏋️ Custom Workout Session</h3>
+      <h3>${sessionTitle}</h3>
       <div class="workout-meta">
         <span class="workout-meta-item"><strong>Duration:</strong> ${meta.duration} min</span>
         <span class="workout-meta-item"><strong>Type:</strong> ${formatLabel(meta.sessionType)}</span>
@@ -380,8 +492,15 @@
       </div>
     `;
 
+    // Add handstand-specific context if applicable
+    if (workout.isHandstandFramework) {
+      html += `
+        <p><em>Focus: Handstand progression with joint tolerance, shapes, and inversion practice.</em></p>
+      `;
+    }
+
     sections.forEach(section => {
-      html += `<h4>${section.name} (${section.duration} min${section.format ? ` - ${section.format}` : ''})</h4>`;
+      html += `<h4>${section.name} (${section.duration} min${section.format ? ` – ${section.format}` : ''})</h4>`;
       
       if (section.notes) {
         html += `<p><em>${section.notes}</em></p>`;
@@ -397,6 +516,12 @@
           if (ex.rest) html += ` (Rest: ${ex.rest})`;
           if (ex.video) html += `<br><small>🎥 ${ex.video}</small>`;
           html += '</li>';
+        } else if (ex.reps) {
+          // Handstand-style exercises with just reps (no sets)
+          html += `<li><strong>${ex.name}</strong>: ${ex.reps}`;
+          if (ex.notes) html += ` – <em>${ex.notes}</em>`;
+          if (ex.video) html += `<br><small>🎥 ${ex.video}</small>`;
+          html += '</li>';
         } else {
           html += `<li>${ex.name}`;
           if (ex.video) html += `<br><small>🎥 ${ex.video}</small>`;
@@ -406,15 +531,29 @@
       html += '</ul>';
     });
 
-    html += `
-      <h4>💡 Coaching Tips</h4>
-      <ul>
-        <li>Listen to your body and adjust intensity as needed.</li>
-        <li>Stay hydrated throughout the session.</li>
-        <li>Focus on form over speed, especially when fatigued.</li>
-        <li>Log your results to track progress over time.</li>
-      </ul>
-    `;
+    // Different coaching tips for handstand sessions
+    if (workout.isHandstandFramework) {
+      html += `
+        <h4>💡 Handstand Coaching Tips</h4>
+        <ul>
+          <li>Wrist prep is essential – never skip the warm-up.</li>
+          <li>Quality positions over time under tension.</li>
+          <li>Rest fully between inversion work.</li>
+          <li>If you feel wrist fatigue, stop and stretch.</li>
+          <li>Log your holds and progress to track improvement.</li>
+        </ul>
+      `;
+    } else {
+      html += `
+        <h4>💡 Coaching Tips</h4>
+        <ul>
+          <li>Listen to your body and adjust intensity as needed.</li>
+          <li>Stay hydrated throughout the session.</li>
+          <li>Focus on form over speed, especially when fatigued.</li>
+          <li>Log your results to track progress over time.</li>
+        </ul>
+      `;
+    }
 
     return html;
   }
@@ -431,8 +570,13 @@
       day: 'numeric' 
     });
 
+    // Title for handstand framework sessions
+    const sessionTitle = workout.isHandstandFramework 
+      ? `HANDSTAND & STRENGTH FRAMEWORK – ${meta.duration} MIN`
+      : `Workout Session – ${today}`;
+
     let html = `
-      <h3 style="margin-bottom: 10pt;">Workout Session – ${today}</h3>
+      <h3 style="margin-bottom: 10pt;">${sessionTitle}</h3>
       <div class="workout-meta" style="margin-bottom: 15pt;">
         <span class="workout-meta-item">${meta.duration} min</span>
         <span class="workout-meta-item">${formatLabel(meta.sessionType)}</span>
@@ -450,6 +594,9 @@
           html += `<li>${ex}</li>`;
         } else if (ex.sets && ex.reps) {
           html += `<li>${ex.name}: ${ex.sets} × ${ex.reps}</li>`;
+        } else if (ex.reps) {
+          // Handstand-style exercises with just reps
+          html += `<li>${ex.name}: ${ex.reps}</li>`;
         } else {
           html += `<li>${ex.name}</li>`;
         }
@@ -469,51 +616,214 @@
   }
 
   /**
-   * Render Chalkboard Version
+   * Render Chalkboard Version (returns object with warmup and main HTML)
    */
   function renderChalkboardVersion(workout) {
     const { meta, sections } = workout;
-    const mainSection = sections.find(s => 
-      s.name.includes('Strength') || 
-      s.name.includes('Conditioning') || 
-      s.name.includes('HIIT') ||
-      s.name.includes('Skill') ||
-      s.name.includes('Mobility') ||
-      s.name.includes('Endurance')
-    ) || sections[0];
-
-    let html = `
-      <h3>WOD</h3>
-      <div class="wod-title">${mainSection.format || formatLabel(meta.sessionType)}</div>
-      <div class="wod-content">
-    `;
-
-    if (mainSection.format) {
-      html += `<p>${mainSection.format === 'AMRAP' ? `${mainSection.duration} Min AMRAP` : 
-                  mainSection.format === 'EMOM' ? `${mainSection.duration} Min EMOM` :
-                  'For Time'}</p>`;
+    
+    // Find warm-up and main sections
+    const warmupSection = sections.find(s => s.name.toLowerCase().includes('warm'));
+    const mainSections = sections.filter(s => 
+      !s.name.toLowerCase().includes('warm') && 
+      !s.name.toLowerCase().includes('cool')
+    );
+    
+    // Render warm-up
+    let warmupHtml = '<h4>WARM-UP</h4>';
+    if (warmupSection) {
+      warmupHtml += `<p>${warmupSection.duration} min</p>`;
+      warmupHtml += '<ul>';
+      warmupSection.exercises.forEach(ex => {
+        if (typeof ex === 'string') {
+          warmupHtml += `<li>${ex}</li>`;
+        } else {
+          warmupHtml += `<li>${ex.name}${ex.reps ? ': ' + ex.reps : ''}</li>`;
+        }
+      });
+      warmupHtml += '</ul>';
+    } else {
+      warmupHtml += '<p>No warm-up included</p>';
     }
 
-    html += '<ul>';
-    mainSection.exercises.forEach(ex => {
-      if (typeof ex === 'string') {
-        html += `<li>${ex}</li>`;
-      } else if (ex.sets && ex.reps) {
-        html += `<li>${ex.name} ${ex.sets}×${ex.reps}</li>`;
-      } else {
-        html += `<li>${ex.name}</li>`;
+    // Render main workout
+    let mainHtml = '';
+    
+    if (workout.isHandstandFramework) {
+      // Special chalkboard layout for handstand framework
+      mainHtml = `<h4>HANDSTAND FRAMEWORK</h4>`;
+      
+      mainSections.forEach(section => {
+        let shortName = section.name
+          .replace('Block ', '')
+          .replace(' – Tolerance & Shapes', ') TOL & SHAPES')
+          .replace(' – Inversion Practice', ') INVERSIONS')
+          .replace(' – Freestanding Practice', ') PRACTICE')
+          .replace('Optional Finisher', 'FINISHER (OPT)');
+        
+        if (section.format) {
+          mainHtml += `<p><strong>${shortName}</strong> – ${section.format}</p>`;
+        } else {
+          mainHtml += `<p><strong>${shortName}</strong> – ${section.duration} min</p>`;
+        }
+        
+        mainHtml += '<ul>';
+        section.exercises.forEach(ex => {
+          if (typeof ex === 'string') {
+            // Shorten for chalkboard
+            const shortEx = ex.replace(/\(.*?\)/g, '').trim();
+            mainHtml += `<li>${shortEx}</li>`;
+          } else {
+            // Shorten exercise names for chalkboard
+            let shortName = ex.name
+              .replace('Chest-to-wall handstand hold', 'C2W HS hold')
+              .replace('Box pike hold', 'Box pike')
+              .replace('Box pike shoulder taps', 'Pike taps');
+            mainHtml += `<li>${shortName}${ex.reps ? ': ' + ex.reps : ''}</li>`;
+          }
+        });
+        mainHtml += '</ul>';
+      });
+      
+      mainHtml += `<p class="time-cap">TOTAL CAP: ${meta.duration} MIN</p>`;
+    } else {
+      // Standard chalkboard layout
+      const primarySection = mainSections[0] || sections[0];
+      
+      mainHtml = `<h4>WOD</h4>`;
+      mainHtml += `<div class="wod-title">${primarySection.format || formatLabel(meta.sessionType)}</div>`;
+      
+      if (primarySection.format) {
+        const formatText = primarySection.format === 'AMRAP' 
+          ? `${primarySection.duration} MIN AMRAP` 
+          : primarySection.format === 'EMOM' 
+          ? `${primarySection.duration} MIN EMOM`
+          : primarySection.format;
+        mainHtml += `<p>${formatText}</p>`;
       }
-    });
-    html += '</ul>';
+      
+      mainHtml += '<ul>';
+      primarySection.exercises.forEach(ex => {
+        if (typeof ex === 'string') {
+          mainHtml += `<li>${ex}</li>`;
+        } else if (ex.sets && ex.reps) {
+          mainHtml += `<li>${ex.name} ${ex.sets}×${ex.reps}</li>`;
+        } else if (ex.reps) {
+          mainHtml += `<li>${ex.name}: ${ex.reps}</li>`;
+        } else {
+          mainHtml += `<li>${ex.name}</li>`;
+        }
+      });
+      mainHtml += '</ul>';
+      
+      // Add additional sections if present
+      if (mainSections.length > 1) {
+        mainSections.slice(1).forEach(section => {
+          mainHtml += `<p><strong>${section.name}</strong>${section.format ? ' – ' + section.format : ''}</p>`;
+          mainHtml += '<ul>';
+          section.exercises.slice(0, 4).forEach(ex => {
+            if (typeof ex === 'string') {
+              mainHtml += `<li>${ex}</li>`;
+            } else {
+              mainHtml += `<li>${ex.name}</li>`;
+            }
+          });
+          mainHtml += '</ul>';
+        });
+      }
+      
+      mainHtml += `<p class="time-cap">${meta.duration} MIN | ${formatLabel(meta.intensity).toUpperCase()}</p>`;
+    }
 
-    html += `
-      </div>
-      <p style="text-align: center; margin-top: 20px; font-size: 14px; color: #666;">
-        ${formatLabel(meta.skillLevel)} | ${formatLabel(meta.intensity)} intensity
-      </p>
-    `;
+    return { warmup: warmupHtml, main: mainHtml };
+  }
 
-    return html;
+  /**
+   * Build AI Prompt for external AI review
+   */
+  function buildAiPrompt(workout, coachingHtml, printableHtml, chalkboardWarmup, chalkboardMain) {
+    const { meta } = workout;
+    
+    // Strip HTML for clean text
+    const stripHtml = (html) => {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || '';
+    };
+    
+    const coachingText = stripHtml(coachingHtml);
+    const printableText = stripHtml(printableHtml);
+    const chalkWarmupText = stripHtml(chalkboardWarmup);
+    const chalkMainText = stripHtml(chalkboardMain);
+    
+    // Build the prompt
+    let prompt = `=== WORKOUT REVIEW REQUEST ===
+
+CONTEXT:
+- Duration: ${meta.duration} minutes
+- Session Type: ${formatLabel(meta.sessionType)}
+- Target Area: ${formatLabel(meta.targetArea)}
+- Location: ${formatLabel(meta.location)}
+- Intensity: ${formatLabel(meta.intensity)}
+- Skill Level: ${formatLabel(meta.skillLevel)}
+
+CURRENT STRENGTH PROFILE:
+- I can currently perform ${strengthProfile.strictPullUps} strict pull-ups (full ROM, no kip).
+- I can currently perform ${strengthProfile.strictPushUps} strict push-ups with solid form.
+`;
+
+    // Add handstand-specific context if applicable
+    if (workout.isHandstandFramework) {
+      prompt += `
+HANDSTAND FRAMEWORK CONTEXT:
+- This session is part of my ongoing handstand & strength framework.
+- Focus areas: joint tolerance, shapes, inversion practice.
+- Goal: Progress toward freestanding handstand.
+`;
+    }
+
+    prompt += `
+=== COACHING VERSION ===
+${coachingText}
+
+=== PRINTABLE VERSION ===
+${printableText}
+
+=== CHALKBOARD LAYOUT ===
+WARM-UP:
+${chalkWarmupText}
+
+MAIN WORKOUT:
+${chalkMainText}
+
+=== REQUEST ===
+Please review this workout and:
+
+1) REVIEW: Check the structure, progression, and safety of this session.
+   - Is the warm-up adequate for the main work?
+   - Is the volume appropriate for my current capacity?
+   - Are there any safety concerns or missing elements?
+
+2) SUGGEST: Provide 2-3 small improvements or variations for the NEXT similar session.
+   - Consider progressive overload where appropriate.
+   - Suggest any skill progressions I should focus on.
+
+3) OUTPUT FORMAT:
+   Return your response in two parts:
+   
+   A) COACH NOTES (short bullets):
+   - Key observations
+   - Safety reminders
+   - Progress indicators
+   
+   B) UPDATED SESSION (if changes suggested):
+   Provide in the same structured format:
+   - Coaching version
+   - Printable version
+   - Chalkboard layout (warm-up + main)
+
+Thank you!`;
+
+    return prompt;
   }
 
   /**
@@ -548,10 +858,26 @@
 
     const workout = generateWorkout(values);
 
-    // Render all versions
-    coachingOutput.innerHTML = renderCoachingVersion(workout);
-    printArea.innerHTML = renderPrintableVersion(workout);
-    chalkboardOutput.innerHTML = renderChalkboardVersion(workout);
+    // Render coaching and printable versions
+    const coachingHtml = renderCoachingVersion(workout);
+    const printableHtml = renderPrintableVersion(workout);
+    coachingOutput.innerHTML = coachingHtml;
+    printArea.innerHTML = printableHtml;
+    
+    // Render chalkboard with separate warm-up and main sections
+    const chalkboard = renderChalkboardVersion(workout);
+    if (chalkboardWarmup) {
+      chalkboardWarmup.innerHTML = chalkboard.warmup;
+    }
+    if (chalkboardMain) {
+      chalkboardMain.innerHTML = chalkboard.main;
+    }
+    
+    // Build and display AI prompt
+    if (aiPromptText) {
+      const aiPrompt = buildAiPrompt(workout, coachingHtml, printableHtml, chalkboard.warmup, chalkboard.main);
+      aiPromptText.value = aiPrompt;
+    }
 
     // Show output section
     outputSection.classList.remove('hidden');
@@ -646,10 +972,81 @@
       outputSection.classList.add('hidden');
       coachingOutput.innerHTML = '<div class="empty-output">Generate a workout to see the full coaching version here.</div>';
       printArea.innerHTML = '<div class="empty-output">Generate a workout to see the printable version here.</div>';
-      chalkboardOutput.innerHTML = '<div class="empty-output" style="color: #888;">Generate a workout to see the chalkboard WOD here.</div>';
+      if (chalkboardWarmup) {
+        chalkboardWarmup.innerHTML = '<div class="empty-output" style="color: #888;">Warm-up will appear here.</div>';
+      }
+      if (chalkboardMain) {
+        chalkboardMain.innerHTML = '<div class="empty-output" style="color: #888;">Main workout will appear here.</div>';
+      }
+      if (aiPromptText) {
+        aiPromptText.value = '';
+      }
       switchTab('tab-coaching');
     }, 0);
   });
+
+  /**
+   * Copy AI Prompt to clipboard
+   */
+  if (copyAiPromptBtn) {
+    copyAiPromptBtn.addEventListener('click', () => {
+      if (aiPromptText && aiPromptText.value) {
+        navigator.clipboard.writeText(aiPromptText.value).then(() => {
+          // Visual feedback
+          const originalText = copyAiPromptBtn.innerHTML;
+          copyAiPromptBtn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Copied!';
+          setTimeout(() => {
+            copyAiPromptBtn.innerHTML = originalText;
+          }, 2000);
+        }).catch(() => {
+          // Fallback: select the text
+          aiPromptText.select();
+          alert('Press Ctrl+C (Cmd+C on Mac) to copy the prompt.');
+        });
+      }
+    });
+  }
+
+  /**
+   * Fullscreen chalkboard mode
+   */
+  if (fullscreenChalkboardBtn) {
+    fullscreenChalkboardBtn.addEventListener('click', () => {
+      // Get current chalkboard content
+      const warmupHtml = chalkboardWarmup ? chalkboardWarmup.innerHTML : '';
+      const mainHtml = chalkboardMain ? chalkboardMain.innerHTML : '';
+      
+      // Create fullscreen overlay
+      const overlay = document.createElement('div');
+      overlay.id = 'chalkboard-fullscreen-overlay';
+      overlay.innerHTML = `
+        <button class="exit-fullscreen-btn" aria-label="Exit fullscreen">✕ Exit</button>
+        <div class="chalkboard-output">
+          <div class="chalkboard-section chalkboard-warmup-section">${warmupHtml}</div>
+          <div class="chalkboard-section chalkboard-main-section">${mainHtml}</div>
+        </div>
+      `;
+      
+      document.body.appendChild(overlay);
+      document.body.classList.add('chalkboard-fullscreen');
+      
+      // Exit fullscreen handler
+      overlay.querySelector('.exit-fullscreen-btn').addEventListener('click', () => {
+        document.body.classList.remove('chalkboard-fullscreen');
+        overlay.remove();
+      });
+      
+      // Also exit on Escape key
+      const escHandler = (e) => {
+        if (e.key === 'Escape') {
+          document.body.classList.remove('chalkboard-fullscreen');
+          overlay.remove();
+          document.removeEventListener('keydown', escHandler);
+        }
+      };
+      document.addEventListener('keydown', escHandler);
+    });
+  }
 
   // Attach form submit handler
   form.addEventListener('submit', handleSubmit);
