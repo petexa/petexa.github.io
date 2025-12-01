@@ -1,16 +1,18 @@
 # Cleanup Suggestions
 
-These are non-breaking recommendations to simplify the repo over time. No files have been removed yet.
+These are non-breaking recommendations to simplify the repo over time.
+
+## Completed Items ✅
+- ~~`concat('events` directory and nested filename string artifacts~~ — **Removed** (was an accidental folder from a failed script run).
+- ~~`agents/` directory~~ — **Moved** content to `docs/workout-youtube-agent.md` for better organization.
 
 ## Unused or Legacy Files
-- `concat('events` directory and nested filename string artifacts — appears to be an accidental folder from a failed script run; safe to remove after confirming nothing references it.
-- `backup/` and `archive/` folders — legacy assets/styles; keep for now but consider pruning after verifying they are not linked.
-- `agents/` directory — historical content; verify necessity.
-- `assets/js/main.js` — mostly utility toggles duplicated elsewhere; confirm active usage before refactoring or removing.
+- `backup/` and `archive/` folders — legacy assets/styles; keep for now but consider pruning after verifying they are not linked. Both are gitignored.
+- `assets/js/main.js` — mostly utility toggles duplicated elsewhere; only referenced from `backup/` files. Consider removing if no active pages use it.
 
 ## Naming/Path Inconsistencies
-- Mixed casing in `readme` vs `README.md`; prefer a single canonical README.
-- Event data lives under `data/production/events.json` while `events/` contains only a README. Align folder naming or update documentation.
+- Mixed casing in `readme/` folder vs `README.md` file — This is intentional: the lowercase `readme/` folder contains supplementary documentation while `README.md` is the canonical entry point. Consider consolidating with `docs/` folder in a future cleanup.
+- ~~Event data lives under `data/production/events.json` while `events/` contains only a README~~ — **Updated** `events/README.md` to document the actual data location.
 - Some utilities use inline scripts while others lean on shared modules; consider consolidating script patterns.
 
 ## Centralisation Opportunities

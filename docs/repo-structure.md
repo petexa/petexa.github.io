@@ -15,7 +15,7 @@ This document maps the key folders and files that power **gym.petefox.co.uk** as
 - `/scripts/` — Data-processing utilities and automation helpers.
 - `/docs/` — Documentation (architecture, pipeline notes, onboarding, feature guides).
 - `/style-guide/` — UI reference and component examples.
-- `/archive/`, `/backup/`, `/agents/` — Legacy or experimental assets retained for reference.
+- `/archive/`, `/backup/` — Legacy or experimental assets retained for reference (gitignored but may still be tracked).
 - Root HTML pages (`index.html`, `events.html`, `utilities.html`, `admin.html`, `pb-matrix.html`, `past.html`) — Entry points for the main site areas.
 
 ## Key Directories
@@ -43,8 +43,9 @@ This document maps the key folders and files that power **gym.petefox.co.uk** as
 ### scripts/
 - Assorted helper scripts (e.g., data conversion). New data-fix utilities live under `scripts/data-fixes/`.
 
-### archive/, backup/, agents/
+### archive/, backup/
 - Legacy styles and historical experiments preserved for reference; not loaded by the live site.
+- Note: Agent documentation (e.g., workout-youtube-agent.md) has been moved to `/docs/`.
 
 ### Root HTML Pages
 - **index.html**: Homepage with navigation, Workout of the Day widget, events teaser, and feature highlights.

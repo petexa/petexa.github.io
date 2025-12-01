@@ -1,6 +1,12 @@
 
 ---
 
+## 📍 Data Location
+
+**Note:** Event data is stored at `data/production/events.json`, not in this directory. This folder contains documentation and n8n workflow configuration files only.
+
+---
+
 ## 🚀 Quick Start: Simplified Single-File Approach (Recommended)
 
 The simplest way to manage events is using a **single `events.json` file** that contains all events. The n8n workflow receives new events from the admin form, optionally generates AI descriptions, and merges them into this file.
@@ -9,7 +15,7 @@ The simplest way to manage events is using a **single `events.json` file** that 
 
 1. **Admin Form** submits event data to n8n webhook
 2. **n8n Workflow** validates the data, optionally generates AI description, fetches existing events, merges the new event, and saves back to GitHub
-3. **Website** loads all events from `events/events.json`
+3. **Website** loads all events from `data/production/events.json`
 
 ### Setup Steps
 
