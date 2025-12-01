@@ -95,13 +95,27 @@
         return;
       }
 
+      // Check if clipboard API is available
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        // Fallback: select the text so user can copy manually
+        promptBox.select();
+        promptBox.setSelectionRange(0, promptBox.value.length);
+        if (copyStatus) {
+          copyStatus.textContent = 'Clipboard not available – text selected, use Ctrl+C / Cmd+C to copy.';
+        }
+        return;
+      }
+
       try {
         await navigator.clipboard.writeText(text);
         if (copyStatus) copyStatus.textContent = 'Prompt copied to clipboard.';
       } catch (err) {
+        // Fallback: select the text so user can copy manually
+        promptBox.select();
+        promptBox.setSelectionRange(0, promptBox.value.length);
         if (copyStatus) {
           copyStatus.textContent =
-            'Could not copy – please select and copy manually.';
+            'Could not copy – text selected, use Ctrl+C / Cmd+C to copy.';
         }
       }
     });
