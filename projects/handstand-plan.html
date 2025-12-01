@@ -2205,31 +2205,25 @@
       const currentMonth = now.getMonth(); // 0-based
       const currentYear = now.getFullYear();
       
-      // Before plan starts (before Dec 2025)
+      // Before plan starts (before Dec 2025) - show Phase 1 as preview
       if (currentYear < 2025 || (currentYear === 2025 && currentMonth < 11)) {
-        return StrengthSkillPlan.phases[0]; // Return Phase 1 as preview
-      }
-      
-      // After plan ends (after Nov 2026)
-      if (currentYear > 2026 || (currentYear === 2026 && currentMonth > 10)) {
-        return StrengthSkillPlan.phases[3]; // Return Phase 4
-      }
-      
-      // During 2026, find correct phase
-      if (currentYear === 2026) {
-        for (const phase of StrengthSkillPlan.phases) {
-          if (phase.months.includes(currentMonth)) {
-            return phase;
-          }
-        }
-      }
-      
-      // Dec 2025 = Phase 1
-      if (currentYear === 2025 && currentMonth === 11) {
         return StrengthSkillPlan.phases[0];
       }
       
-      return StrengthSkillPlan.phases[0]; // Default to Phase 1
+      // After plan ends (after Nov 2026) - show Phase 4
+      if (currentYear > 2026 || (currentYear === 2026 && currentMonth > 10)) {
+        return StrengthSkillPlan.phases[3];
+      }
+      
+      // Dec 2025 = Phase 1 (month 11 is in Phase 1's months array)
+      // Jan-Nov 2026 = find correct phase based on month
+      for (const phase of StrengthSkillPlan.phases) {
+        if (phase.months.includes(currentMonth)) {
+          return phase;
+        }
+      }
+      
+      return StrengthSkillPlan.phases[0]; // Default fallback to Phase 1
     }
 
     // Format today's date for Europe/London timezone
@@ -2247,8 +2241,8 @@
       
       const now = new Date();
       const formatted = now.toLocaleString('en-GB', options);
-      // Convert to desired format: "Monday, Dec 1, 2025 @ 8:00 AM"
-      return formatted.replace(',', ',').replace(' at ', ' @ ').replace(/(\d{1,2}:\d{2})/, '$1');
+      // Replace " at " with " @ " for cleaner format
+      return formatted.replace(' at ', ' @ ');
     }
 
     // Dynamic Today's Workout update
@@ -2282,49 +2276,23 @@
       const durationEl = document.getElementById('workout-duration');
       if (durationEl) durationEl.textContent = `${session.durationMinutes} minutes`;
       
-      // Update instructions list
-      const instructionsEl = document.getElementById('workout-instructions');
-      if (instructionsEl) {
-        const ul = instructionsEl.querySelector('ul') || document.createElement('ul');
-        ul.innerHTML = session.movements.map(m => `<li>${m}</li>`).join('');
-        if (!instructionsEl.querySelector('ul')) {
-          instructionsEl.innerHTML = '';
-          instructionsEl.appendChild(ul);
+      // Helper to update a list element with items
+      function updateListElement(elementId, items) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const ul = el.querySelector('ul') || document.createElement('ul');
+        ul.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+        if (!el.querySelector('ul')) {
+          el.innerHTML = '';
+          el.appendChild(ul);
         }
       }
       
-      // Update equipment list
-      const equipmentEl = document.getElementById('workout-equipment');
-      if (equipmentEl) {
-        const ul = equipmentEl.querySelector('ul') || document.createElement('ul');
-        ul.innerHTML = session.equipment.map(e => `<li>${e}</li>`).join('');
-        if (!equipmentEl.querySelector('ul')) {
-          equipmentEl.innerHTML = '';
-          equipmentEl.appendChild(ul);
-        }
-      }
-      
-      // Update scaling list
-      const scalingEl = document.getElementById('workout-scaling');
-      if (scalingEl) {
-        const ul = scalingEl.querySelector('ul') || document.createElement('ul');
-        ul.innerHTML = session.scaling.map(s => `<li>${s}</li>`).join('');
-        if (!scalingEl.querySelector('ul')) {
-          scalingEl.innerHTML = '';
-          scalingEl.appendChild(ul);
-        }
-      }
-      
-      // Update coaching cues
-      const coachingEl = document.getElementById('workout-coaching');
-      if (coachingEl) {
-        const ul = coachingEl.querySelector('ul') || document.createElement('ul');
-        ul.innerHTML = session.coachingCues.map(c => `<li>${c}</li>`).join('');
-        if (!coachingEl.querySelector('ul')) {
-          coachingEl.innerHTML = '';
-          coachingEl.appendChild(ul);
-        }
-      }
+      // Update all list sections
+      updateListElement('workout-instructions', session.movements);
+      updateListElement('workout-equipment', session.equipment);
+      updateListElement('workout-scaling', session.scaling);
+      updateListElement('workout-coaching', session.coachingCues);
     }
 
     /* ============================================
