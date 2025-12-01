@@ -122,13 +122,13 @@
     lines.push('- Ensure the entire session fits within the stated duration.');
 
     // Video requirement (conditional)
-    if (includeVideos === 'true' || includeVideos === true) {
+    if (includeVideos === 'true') {
       lines.push('');
       lines.push("🎥 For each exercise, include a short demonstration video link or a clear search term (e.g. \"search: '[exercise name] tutorial'\").");
     }
 
     // PDF requirement (conditional)
-    if (generatePdf === 'true' || generatePdf === true) {
+    if (generatePdf === 'true') {
       lines.push('');
       lines.push('📄 After designing the workout, also provide a compact, single-page printable version of the session with minimal extra commentary, suitable for exporting as a PDF.');
     }
