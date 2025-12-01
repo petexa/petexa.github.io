@@ -1,6 +1,9 @@
 # Ignore backup folder
 /backup/
 
+# Ignore archive folder (legacy assets)
+/archive/
+
 # Ignore cache directory for workout cleaning script
 .cache/
 
