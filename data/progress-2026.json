@@ -30,15 +30,15 @@
       "id": "pullups_5",
       "name": "Strict pull-ups",
       "unit": "reps",
-      "target": 5,
-      "current": 0
+      "target": 8,
+      "current": 5
     },
     "pressups_10": {
       "id": "pressups_10",
       "name": "Strict press-ups",
       "unit": "reps",
-      "target": 10,
-      "current": 0
+      "target": 20,
+      "current": 10
     },
     "dips_5": {
       "id": "dips_5",
