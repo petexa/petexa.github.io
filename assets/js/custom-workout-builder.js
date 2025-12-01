@@ -739,6 +739,12 @@
 
   /**
    * Build AI Prompt for external AI review
+   * @param {Object} workout - The generated workout object containing meta and sections
+   * @param {string} coachingHtml - HTML content of the coaching version
+   * @param {string} printableHtml - HTML content of the printable version
+   * @param {string} chalkboardWarmup - HTML content of the chalkboard warm-up section
+   * @param {string} chalkboardMain - HTML content of the chalkboard main section
+   * @returns {string} A formatted AI prompt ready for copying
    */
   function buildAiPrompt(workout, coachingHtml, printableHtml, chalkboardWarmup, chalkboardMain) {
     const { meta } = workout;
