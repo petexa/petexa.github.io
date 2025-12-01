@@ -1,5 +1,5 @@
-# Personal Bests (PB) Matrix - Google Apps Script Web App
+# PB Matrix Setup (Legacy)
 
-This document provides step-by-step instructions for setting up and deploying the Personal Bests Matrix Web App using Google Apps Script. **No coding experience required!**
+> **Note:** This is a legacy document. The current PB Matrix setup documentation is in [docs/workflows/PB-MATRIX-SETUP.md](../workflows/PB-MATRIX-SETUP.md).
 
-...existing content...
+This document contained an earlier version of the PB Matrix setup instructions.

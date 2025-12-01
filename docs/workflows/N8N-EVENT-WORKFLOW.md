@@ -1,7 +1,3 @@
 # n8n Event Workflow Guide
 
-(Moved from `N8N-EVENT-WORKFLOW.md`)
-
----
-
-[Full content from previous N8N-EVENT-WORKFLOW.md will be here.]
+> **Note:** This documentation has been consolidated. See [Events n8n Workflow](./events-n8n.md) for the complete events workflow guide.

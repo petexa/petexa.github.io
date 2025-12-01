@@ -115,6 +115,8 @@ Visit `http://localhost:8000` to view the site.
 - **Style Guide**: [/style-guide/](https://gym.petefox.co.uk/style-guide/)
 - **Workouts**: [/workouts/](https://gym.petefox.co.uk/workouts/)
 - **Events**: [/events.html](https://gym.petefox.co.uk/events.html)
+- **Handstand Plan**: [/projects/handstand-plan.html](https://gym.petefox.co.uk/projects/handstand-plan.html)
+- **PB Matrix**: [/pb-matrix.html](https://gym.petefox.co.uk/pb-matrix.html)
 
 ---
 
