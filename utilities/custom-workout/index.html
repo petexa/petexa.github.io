@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Workout Builder | Iron & Ale</title>
+  <meta name="description" content="Build a custom workout session with personalized parameters. Generate full coaching versions, printable PDFs, and chalkboard-style WOD boards.">
+  <link rel="stylesheet" href="../../assets/css/tailwind.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'%3E%3Cpath d='M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z'/%3E%3C/svg%3E">
+  <!-- html2pdf.js for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb" crossorigin="anonymous"></script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WW47GEZS2M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WW47GEZS2M');
+  </script>
+  <style>
+    /* Collapsible sections */
+    .collapsible-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4);
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+
+    .collapsible-header:hover {
+      background: var(--surface);
+      border-color: var(--border-strong);
+    }
+
+    .collapsible-header:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    .collapsible-icon {
+      transition: transform var(--transition-fast);
+    }
+
+    .collapsible-header[aria-expanded="true"] .collapsible-icon {
+      transform: rotate(180deg);
+    }
+
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-slow) ease-out;
+    }
+
+    .collapsible-content.is-open {
+      max-height: 2000px;
+    }
+
+    .collapsible-inner {
+      padding: var(--space-4) 0;
+    }
+
+    /* Output mode tabs */
+    .output-tabs {
+      display: flex;
+      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .output-tab {
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-weight: 500;
+      font-size: var(--text-sm);
+    }
+
+    .output-tab:hover {
+      background: var(--bg-alt);
+      border-color: var(--border-strong);
+    }
+
+    .output-tab.active {
+      background: var(--color-primary-600);
+      border-color: var(--color-primary-600);
+      color: white;
+    }
+
+    .output-tab:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    .output-panel {
+      display: none;
+    }
+
+    .output-panel.active {
+      display: block;
+    }
+
+    /* Output blocks styling */
+    .workout-output {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      font-family: var(--font-sans);
+      line-height: var(--leading-relaxed);
+    }
+
+    .workout-output h3 {
+      color: var(--text);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      margin-bottom: var(--space-4);
+      border-bottom: 2px solid var(--color-primary-500);
+      padding-bottom: var(--space-2);
+    }
+
+    .workout-output h4 {
+      color: var(--text);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      margin: var(--space-4) 0 var(--space-2) 0;
+    }
+
+    .workout-output p,
+    .workout-output li {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .workout-output ul {
+      padding-left: var(--space-5);
+      list-style: disc;
+    }
+
+    .workout-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+      padding: var(--space-3);
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+    }
+
+    .workout-meta-item {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    /* Printable A4 styles */
+    #print-area {
+      background: white;
+      color: #111;
+      padding: 20mm;
+      font-size: 12pt;
+      line-height: 1.5;
+    }
+
+    #print-area h3 {
+      color: #111;
+      border-color: #333;
+    }
+
+    #print-area h4 {
+      color: #111;
+    }
+
+    #print-area p,
+    #print-area li {
+      color: #333;
+    }
+
+    #print-area .workout-meta {
+      background: #f5f5f5;
+    }
+
+    /* Chalkboard Mode */
+    .chalkboard-output {
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      padding: var(--space-8);
+      border-radius: var(--radius-xl);
+      border: 4px solid #333;
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+    }
+
+    .chalkboard-output h3 {
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: center;
+      border-bottom: 2px dashed #555;
+      margin-bottom: var(--space-6);
+    }
+
+    .chalkboard-output .wod-title {
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: var(--space-4);
+    }
+
+    .chalkboard-output .wod-content {
+      font-size: var(--text-xl);
+      text-align: center;
+      line-height: 2;
+    }
+
+    .chalkboard-output .wod-content li {
+      color: #fff;
+      list-style: none;
+      margin-bottom: var(--space-2);
+    }
+
+    .theme-dark .chalkboard-output {
+      background: #0a0a0a;
+      border-color: #444;
+    }
+
+    /* Form styling enhancements */
+    .form-row {
+      display: grid;
+      gap: var(--space-4);
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .form-row {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .checkbox-item label {
+      cursor: pointer;
+      font-size: var(--text-sm);
+      color: var(--text);
+    }
+
+    /* Print styles */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+
+      #print-area,
+      #print-area * {
+        visibility: visible;
+      }
+
+      #print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 210mm;
+        min-height: 297mm;
+        padding: 15mm;
+        margin: 0;
+        border: none;
+        box-shadow: none;
+      }
+
+      @page {
+        size: A4;
+        margin: 15mm;
+      }
+    }
+
+    /* Empty state */
+    .empty-output {
+      text-align: center;
+      padding: var(--space-8);
+      color: var(--text-muted);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body class="bg-page">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="site-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="../../index.html" class="sidebar-logo">
+          <svg class="sidebar-nav-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+          </svg>
+          <span>Iron & Ale</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="../../index.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="../../about/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>About</span>
+        </a>
+        <a href="../../workouts/" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span>Workouts</span>
+        </a>
+        <a href="../../utilities/" class="sidebar-nav-item active" aria-current="page">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span>Utilities</span>
+        </a>
+        <a href="../../events.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Events</span>
+        </a>
+        <a href="../../projects.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span>Projects</span>
+        </a>
+        <a href="../../admin.html" class="sidebar-nav-item">
+          <svg class="sidebar-nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+          <span>Admin</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="text-sm text-gray-400">&copy; <span id="sidebar-year">2024</span> Iron & Ale</p>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header class="top-header">
+        <a href="../../index.html" class="font-bold text-lg" style="color: var(--text);">Iron & Ale</a>
+        <div class="flex items-center gap-2">
+          <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main id="main-content" role="main">
+        <div class="page-container">
+          <!-- Breadcrumb -->
+          <nav class="mb-6" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-2 text-sm text-gray-500">
+              <li><a href="../../utilities/" class="hover:text-primary-600">Utilities</a></li>
+              <li aria-hidden="true">/</li>
+              <li class="font-medium" style="color: var(--text);">Custom Workout Builder</li>
+            </ol>
+          </nav>
+
+          <!-- Page Header -->
+          <header class="page-header">
+            <h1 class="page-title">Custom Workout Builder</h1>
+            <p class="page-subtitle">Design your perfect training session with personalized parameters</p>
+          </header>
+
+          <!-- Workout Builder Form -->
+          <form id="workoutBuilderForm" class="mb-8">
+            <!-- Session Parameters Section -->
+            <div class="mb-6">
+              <button type="button" class="collapsible-header" aria-expanded="true" aria-controls="session-params-content">
+                <span class="font-semibold" style="color: var(--text);">
+                  <span class="inline-flex items-center gap-2">
+                    <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                    </svg>
+                    Session Parameters
+                  </span>
+                </span>
+                <svg class="collapsible-icon w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+              <div id="session-params-content" class="collapsible-content is-open">
+                <div class="collapsible-inner">
+                  <div class="form-row mb-4">
+                    <!-- Duration -->
+                    <div class="form-group">
+                      <label for="duration" class="form-label">Duration (minutes)</label>
+                      <select id="duration" name="duration" class="form-select" required>
+                        <option value="">Select duration</option>
+                        <option value="15">15 minutes</option>
+                        <option value="20">20 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45" selected>45 minutes</option>
+                        <option value="60">60 minutes</option>
+                        <option value="75">75 minutes</option>
+                        <option value="90">90 minutes</option>
+                      </select>
+                    </div>
+
+                    <!-- Warm-Up -->
+                    <div class="form-group">
+                      <label for="warmup" class="form-label">Include Warm-Up?</label>
+                      <select id="warmup" name="warmup" class="form-select" required>
+                        <option value="yes" selected>Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </div>
+
+                    <!-- Intensity -->
+                    <div class="form-group">
+                      <label for="intensity" class="form-label">Intensity</label>
+                      <select id="intensity" name="intensity" class="form-select" required>
+                        <option value="">Select intensity</option>
+                        <option value="low">Low – Recovery / Active Rest</option>
+                        <option value="moderate" selected>Moderate – Steady State</option>
+                        <option value="high">High – Challenging</option>
+                        <option value="max">Maximum – All Out</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row mb-4">
+                    <!-- Session Type -->
+                    <div class="form-group">
+                      <label for="sessionType" class="form-label">Session Type</label>
+                      <select id="sessionType" name="sessionType" class="form-select" required>
+                        <option value="">Select type</option>
+                        <option value="strength">Strength</option>
+                        <option value="conditioning">Conditioning / Cardio</option>
+                        <option value="mixed" selected>Mixed / CrossFit Style</option>
+                        <option value="hiit">HIIT</option>
+                        <option value="mobility">Mobility / Flexibility</option>
+                        <option value="skill">Skill Work</option>
+                        <option value="endurance">Endurance</option>
+                      </select>
+                    </div>
+
+                    <!-- Target Area -->
+                    <div class="form-group">
+                      <label for="targetArea" class="form-label">Target Area</label>
+                      <select id="targetArea" name="targetArea" class="form-select" required>
+                        <option value="">Select target</option>
+                        <option value="full-body" selected>Full Body</option>
+                        <option value="upper">Upper Body</option>
+                        <option value="lower">Lower Body</option>
+                        <option value="core">Core</option>
+                        <option value="back">Back</option>
+                        <option value="push">Push (Chest/Shoulders/Triceps)</option>
+                        <option value="pull">Pull (Back/Biceps)</option>
+                        <option value="legs">Legs</option>
+                      </select>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="form-group">
+                      <label for="location" class="form-label">Location</label>
+                      <select id="location" name="location" class="form-select" required>
+                        <option value="">Select location</option>
+                        <option value="gym" selected>Gym (Full Equipment)</option>
+                        <option value="home">Home Gym</option>
+                        <option value="bodyweight">Bodyweight Only</option>
+                        <option value="outdoor">Outdoor / Park</option>
+                        <option value="minimal">Minimal Equipment</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <!-- Skill Level -->
+                    <div class="form-group">
+                      <label for="skillLevel" class="form-label">Skill Level</label>
+                      <select id="skillLevel" name="skillLevel" class="form-select" required>
+                        <option value="">Select level</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate" selected>Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                        <option value="beast">Beast Mode 🦁</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Output Options Section -->
+            <div class="mb-6">
+              <button type="button" class="collapsible-header" aria-expanded="true" aria-controls="output-options-content">
+                <span class="font-semibold" style="color: var(--text);">
+                  <span class="inline-flex items-center gap-2">
+                    <svg class="w-5 h-5 text-secondary-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Output Options
+                  </span>
+                </span>
+                <svg class="collapsible-icon w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+              <div id="output-options-content" class="collapsible-content is-open">
+                <div class="collapsible-inner">
+                  <div class="checkbox-group">
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="includeVideos" name="includeVideos" class="form-checkbox">
+                      <label for="includeVideos">🎥 Include Videos</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="generatePdf" name="generatePdf" class="form-checkbox">
+                      <label for="generatePdf">📄 Generate PDF</label>
+                    </div>
+                    <div class="checkbox-item">
+                      <input type="checkbox" id="chalkboardMode" name="chalkboardMode" class="form-checkbox">
+                      <label for="chalkboardMode">📋 Chalkboard Mode</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Generate Button -->
+            <div class="flex flex-wrap gap-4 justify-center">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                Generate Workout
+              </button>
+              <button type="reset" class="btn btn-secondary btn-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Reset
+              </button>
+            </div>
+          </form>
+
+          <!-- Output Section -->
+          <section id="output-section" class="hidden" aria-labelledby="output-title">
+            <h2 id="output-title" class="text-xl font-bold mb-6" style="color: var(--text);">
+              <span class="inline-flex items-center gap-2">
+                <svg class="w-5 h-5 text-success-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Generated Workout
+              </span>
+            </h2>
+
+            <!-- Output Mode Tabs -->
+            <div class="output-tabs" role="tablist" aria-label="Output format selection">
+              <button type="button" class="output-tab active" role="tab" aria-selected="true" aria-controls="panel-coaching" id="tab-coaching">
+                📖 Full Coaching
+              </button>
+              <button type="button" class="output-tab" role="tab" aria-selected="false" aria-controls="panel-printable" id="tab-printable">
+                🖨️ Printable A4
+              </button>
+              <button type="button" class="output-tab" role="tab" aria-selected="false" aria-controls="panel-chalkboard" id="tab-chalkboard">
+                📋 Chalkboard
+              </button>
+            </div>
+
+            <!-- Full Coaching Panel -->
+            <div id="panel-coaching" class="output-panel active" role="tabpanel" aria-labelledby="tab-coaching">
+              <div class="workout-output" id="coaching-output">
+                <div class="empty-output">Generate a workout to see the full coaching version here.</div>
+              </div>
+            </div>
+
+            <!-- Printable A4 Panel -->
+            <div id="panel-printable" class="output-panel" role="tabpanel" aria-labelledby="tab-printable">
+              <div class="mb-4 flex gap-4 flex-wrap">
+                <button type="button" id="printBtn" class="btn btn-primary">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                  </svg>
+                  Print (Ctrl+P)
+                </button>
+                <button type="button" id="downloadPdfBtn" class="btn btn-success">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                  Download PDF
+                </button>
+              </div>
+              <div id="print-area" class="workout-output">
+                <div class="empty-output">Generate a workout to see the printable version here.</div>
+              </div>
+            </div>
+
+            <!-- Chalkboard Panel -->
+            <div id="panel-chalkboard" class="output-panel" role="tabpanel" aria-labelledby="tab-chalkboard">
+              <div class="chalkboard-output" id="chalkboard-output">
+                <div class="empty-output" style="color: #888;">Generate a workout to see the chalkboard WOD here.</div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-8 px-6 mt-12" role="contentinfo">
+          <div class="max-w-6xl mx-auto text-center">
+            <p class="text-sm text-gray-400">
+              &copy; <span id="footer-year">2024</span> Iron & Ale. All rights reserved.
+            </p>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/app.js"></script>
+  <script src="../../assets/js/custom-workout-builder.js"></script>
+  <script>
+    const currentYear = new Date().getFullYear();
+    document.getElementById('footer-year').textContent = currentYear;
+    document.getElementById('sidebar-year').textContent = currentYear;
+  </script>
+</body>
+</html>
