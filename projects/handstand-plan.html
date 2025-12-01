@@ -964,59 +964,45 @@
       color: var(--color-success-400);
     }
 
-    /* Workout Shorts Finder Styles */
-    .workout-shorts .form-group {
-      margin-bottom: 1rem;
+    /* Workout Prompt Builder Styles */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
-    .workout-shorts-status {
-      margin-top: 1rem;
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      min-height: 1.5em;
+    @media (min-width: 640px) {
+      .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
-    .workout-shorts-list {
+    .form-field {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      margin-top: 1.5rem;
     }
-    .workout-short-card {
-      background: var(--bg-alt);
-      border-radius: var(--radius-lg);
-      padding: 1rem;
-      border: 1px solid var(--card-border);
+    .form-field--full {
+      grid-column: 1 / -1;
     }
-    .workout-short-card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin: 0 0 0.5rem 0;
+    .form-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
     }
-    .workout-short-card h3 a {
-      color: var(--color-primary-600);
-      text-decoration: none;
-    }
-    .workout-short-card h3 a:hover {
-      text-decoration: underline;
-    }
-    .theme-dark .workout-short-card h3 a {
-      color: var(--color-primary-400);
-    }
-    .workout-short-meta {
+    .help-text {
       font-size: 0.75rem;
       color: var(--text-muted);
-      margin: 0 0 0.5rem 0;
+      margin-top: 0.25rem;
     }
-    .workout-short-reason {
+    #generatedPrompt {
+      font-family: var(--font-mono, monospace);
       font-size: 0.875rem;
-      color: var(--text-secondary);
-      margin: 0;
-      line-height: 1.4;
+      line-height: 1.5;
+      resize: vertical;
     }
-    .workout-short-empty {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      font-style: italic;
-      margin-top: 1rem;
+    #copyStatus {
+      min-height: 1.25rem;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
@@ -1223,7 +1209,7 @@
               <a href="#office-workouts" class="quick-nav-link" data-expand-target="office-workouts">🏢 Office Workouts</a>
               <a href="#adhoc-exercises" class="quick-nav-link" data-expand-target="adhoc-exercises">⚡ Ad-hoc Exercises</a>
               <a href="#plan-12-month" class="quick-nav-link">📋 12-Month Plan</a>
-              <a href="#workout-shorts" class="quick-nav-link">🎬 Shorts Finder</a>
+              <a href="#workout-prompt-builder" class="quick-nav-link">🏋️ Prompt Builder</a>
             </div>
           </nav>
 
@@ -1935,41 +1921,141 @@
 
           </section>
 
-          <!-- Workout Shorts Finder -->
-          <section id="workout-shorts" class="workout-shorts content-section" aria-labelledby="workout-shorts-title">
+          <!-- Workout Prompt Builder -->
+          <section class="card content-section" id="workout-prompt-builder" aria-labelledby="workout-prompt-builder-title">
             <div class="phase-card">
               <div class="phase-header">
-                <h2 id="workout-shorts-title">🎬 Workout Shorts Finder</h2>
-                <p class="phase-theme">Find quick YouTube Shorts-style videos for any skill or workout</p>
+                <h2 class="card__title" id="workout-prompt-builder-title">🏋️ Workout Prompt Builder</h2>
+                <p class="card__subtitle phase-theme">
+                  Fill this in and copy the generated prompt into your AI assistant.
+                </p>
               </div>
               <div class="phase-body">
-                <form id="workout-shorts-form">
-                  <div class="form-group">
-                    <label class="form-label" for="ws-workout">Skill / Workout *</label>
-                    <input type="text" id="ws-workout" class="form-input" required placeholder="e.g. handstand, wall walk, wrist mobility">
+                <form id="workoutPromptForm" class="form-grid">
+                  <!-- Duration -->
+                  <div class="form-field">
+                    <label class="form-label" for="duration">Session duration (minutes)</label>
+                    <input
+                      type="number"
+                      id="duration"
+                      name="duration"
+                      class="form-input"
+                      min="10"
+                      max="120"
+                      step="5"
+                      value="45"
+                      required
+                    />
                   </div>
-                  <div class="form-group">
-                    <label class="form-label" for="ws-level">Level</label>
-                    <select id="ws-level" class="form-input">
-                      <option value="any">Any</option>
-                      <option value="beginner">Beginner</option>
-                      <option value="intermediate">Intermediate</option>
-                      <option value="advanced">Advanced</option>
+
+                  <!-- Warm-up -->
+                  <div class="form-field">
+                    <label class="form-label" for="includeWarmup">Warm-up?</label>
+                    <select id="includeWarmup" name="includeWarmup" class="form-input">
+                      <option value="yes" selected>Yes – include a warm-up</option>
+                      <option value="no">No warm-up</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label" for="ws-duration">Duration (optional)</label>
-                    <input type="text" id="ws-duration" class="form-input" placeholder="e.g. 5 minutes">
+
+                  <!-- Session type -->
+                  <div class="form-field">
+                    <label class="form-label" for="sessionType">Session type</label>
+                    <select id="sessionType" name="sessionType" class="form-input">
+                      <option value="strength" selected>Strength</option>
+                      <option value="cardio">Cardio / conditioning</option>
+                      <option value="mobility">Mobility / flexibility</option>
+                      <option value="skill">Skill / technique</option>
+                      <option value="mixed">Mixed / metcon</option>
+                    </select>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label" for="ws-focus">Focus (optional)</label>
-                    <input type="text" id="ws-focus" class="form-input" placeholder="e.g. balance, shoulders, core">
+
+                  <!-- Difficulty (comedic) -->
+                  <div class="form-field">
+                    <label class="form-label" for="difficulty">Difficulty 💪</label>
+                    <select id="difficulty" name="difficulty" class="form-input">
+                      <option value="just woke up from a nap">🛋️ Just woke up from a nap</option>
+                      <option value="feeling human today" selected>🚶 Feeling human today</option>
+                      <option value="had my coffee, let's go">☕ Had my coffee, let's go</option>
+                      <option value="beast mode activated">🦁 Beast mode activated</option>
+                      <option value="I have chosen violence">🔥 I have chosen violence</option>
+                      <option value="make me question my life choices">💀 Make me question my life choices</option>
+                    </select>
                   </div>
-                  <button type="submit" class="btn btn-primary">Find Shorts</button>
+
+                  <!-- Focus area -->
+                  <div class="form-field">
+                    <label class="form-label" for="focusArea">What to work out</label>
+                    <select id="focusArea" name="focusArea" class="form-input">
+                      <option value="full body" selected>Full body</option>
+                      <option value="upper body (arms, chest, back)">
+                        Upper body (arms / back / chest)
+                      </option>
+                      <option value="lower body (legs, glutes)">
+                        Lower body (legs / glutes)
+                      </option>
+                      <option value="core">Core</option>
+                      <option value="handstand & shoulder strength">
+                        Handstand / shoulders
+                      </option>
+                    </select>
+                  </div>
+
+                  <!-- Location -->
+                  <div class="form-field">
+                    <label class="form-label" for="location">Location</label>
+                    <select id="location" name="location" class="form-input">
+                      <option value="home" selected>Home</option>
+                      <option value="gym">Gym</option>
+                      <option value="outdoors or other">Other / outdoors</option>
+                    </select>
+                  </div>
+
+                  <!-- Garmin training readiness -->
+                  <div class="form-field">
+                    <label class="form-label" for="trainingReadiness">Garmin training readiness</label>
+                    <select id="trainingReadiness" name="trainingReadiness" class="form-input">
+                      <option value="skip" selected>Skip / not using</option>
+                      <option value="low">Low</option>
+                      <option value="moderate">Moderate</option>
+                      <option value="high">High</option>
+                    </select>
+                    <small class="help-text form-helper">
+                      If set, the prompt will ask the AI to scale intensity using this.
+                    </small>
+                  </div>
+
+                  <!-- Extra notes (optional) -->
+                  <div class="form-field form-field--full">
+                    <label class="form-label" for="extraNotes">Extra notes (optional)</label>
+                    <textarea
+                      id="extraNotes"
+                      name="extraNotes"
+                      class="form-input"
+                      rows="2"
+                      placeholder="Any injuries, equipment, preferences, or goals for this session..."
+                    ></textarea>
+                  </div>
+
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Generate Prompt</button>
+                    <button type="button" id="copyPromptBtn" class="btn btn-secondary">
+                      Copy Prompt
+                    </button>
+                  </div>
                 </form>
 
-                <div id="workout-shorts-status" class="workout-shorts-status" aria-live="polite"></div>
-                <div id="workout-shorts-results"></div>
+                <div class="form-field form-field--full" style="margin-top: 1.5rem;">
+                  <label class="form-label" for="generatedPrompt">Generated ChatGPT prompt</label>
+                  <textarea
+                    id="generatedPrompt"
+                    class="form-input"
+                    rows="8"
+                    readonly
+                    placeholder="Fill in the form and click Generate Prompt…"
+                  ></textarea>
+                </div>
+
+                <p id="copyStatus" class="help-text form-helper" aria-live="polite"></p>
               </div>
             </div>
           </section>
@@ -2693,6 +2779,6 @@ Make the session phase-appropriate with:
        The dashboard is now on a separate page
        ============================================ */
   </script>
-  <script src="../assets/js/workout-shorts.js"></script>
+  <script src="../assets/js/workout-prompt-builder.js"></script>
 </body>
 </html>
