@@ -963,6 +963,61 @@
       border-color: rgba(34, 197, 94, 0.3);
       color: var(--color-success-400);
     }
+
+    /* Workout Shorts Finder Styles */
+    .workout-shorts .form-group {
+      margin-bottom: 1rem;
+    }
+    .workout-shorts-status {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      min-height: 1.5em;
+    }
+    .workout-shorts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .workout-short-card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      border: 1px solid var(--card-border);
+    }
+    .workout-short-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+    }
+    .workout-short-card h3 a {
+      color: var(--color-primary-600);
+      text-decoration: none;
+    }
+    .workout-short-card h3 a:hover {
+      text-decoration: underline;
+    }
+    .theme-dark .workout-short-card h3 a {
+      color: var(--color-primary-400);
+    }
+    .workout-short-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin: 0 0 0.5rem 0;
+    }
+    .workout-short-reason {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .workout-short-empty {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body class="bg-page">
@@ -1168,6 +1223,7 @@
               <a href="#office-workouts" class="quick-nav-link" data-expand-target="office-workouts">🏢 Office Workouts</a>
               <a href="#adhoc-exercises" class="quick-nav-link" data-expand-target="adhoc-exercises">⚡ Ad-hoc Exercises</a>
               <a href="#plan-12-month" class="quick-nav-link">📋 12-Month Plan</a>
+              <a href="#workout-shorts" class="quick-nav-link">🎬 Shorts Finder</a>
             </div>
           </nav>
 
@@ -1877,6 +1933,45 @@
               </div>
             </article>
 
+          </section>
+
+          <!-- Workout Shorts Finder -->
+          <section id="workout-shorts" class="workout-shorts content-section" aria-labelledby="workout-shorts-title">
+            <div class="phase-card">
+              <div class="phase-header">
+                <h2 id="workout-shorts-title">🎬 Workout Shorts Finder</h2>
+                <p class="phase-theme">Find quick YouTube Shorts-style videos for any skill or workout</p>
+              </div>
+              <div class="phase-body">
+                <form id="workout-shorts-form">
+                  <div class="form-group">
+                    <label class="form-label" for="ws-workout">Skill / Workout *</label>
+                    <input type="text" id="ws-workout" class="form-input" required placeholder="e.g. handstand, wall walk, wrist mobility">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ws-level">Level</label>
+                    <select id="ws-level" class="form-input">
+                      <option value="any">Any</option>
+                      <option value="beginner">Beginner</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="advanced">Advanced</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ws-duration">Duration (optional)</label>
+                    <input type="text" id="ws-duration" class="form-input" placeholder="e.g. 5 minutes">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="ws-focus">Focus (optional)</label>
+                    <input type="text" id="ws-focus" class="form-input" placeholder="e.g. balance, shoulders, core">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Find Shorts</button>
+                </form>
+
+                <div id="workout-shorts-status" class="workout-shorts-status" aria-live="polite"></div>
+                <div id="workout-shorts-results"></div>
+              </div>
+            </div>
           </section>
         </div>
 
@@ -2598,5 +2693,6 @@ Make the session phase-appropriate with:
        The dashboard is now on a separate page
        ============================================ */
   </script>
+  <script src="../assets/js/workout-shorts.js"></script>
 </body>
 </html>
