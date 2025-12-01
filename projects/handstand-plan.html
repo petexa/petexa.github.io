@@ -2182,12 +2182,12 @@ Requirements:
    - Toe pulls, heel pulls
    - Kick-ups, step-outs, handstand walking
 
-3. For EVERY movement you prescribe, generate a short VIDEO demonstration clip.
-   - If possible: create an AI-generated movement demo video.
-   - If video is not possible: provide a fallback animated sequence or 3–5 stage positional breakdown.
+3. For EVERY movement you prescribe, provide visual learning aids:
+   - If you can generate video: create a short AI-generated movement demo video.
+   - Otherwise: provide a detailed positional breakdown with 3–5 stages showing the key positions.
    - Include coaching cues, common faults, and progressions/regressions.
 
-4. Format the whole response in clean markdown with headings, bullet points, and each video placed immediately below its movement.
+4. Format the whole response in clean markdown with headings, bullet points, and each visual aid placed immediately below its movement.
 
 Make the session phase-appropriate with:
 - Phase 1 → joint tolerance, alignment, early inversion
@@ -2567,7 +2567,7 @@ Make the session phase-appropriate with:
        ============================================ */
     async function init2026ProgressBar() {
       try {
-        const response = await fetch('/data/progress-2026.json');
+        const response = await fetch('../data/progress-2026.json');
         if (!response.ok) throw new Error('Failed to load progress data');
         const progressData = await response.json();
         
