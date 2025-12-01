@@ -1925,16 +1925,16 @@
           <section class="card content-section" id="workout-prompt-builder" aria-labelledby="workout-prompt-builder-title">
             <div class="phase-card">
               <div class="phase-header">
-                <h2 class="card__title" id="workout-prompt-builder-title">🏋️ Workout Prompt Builder</h2>
+                <h2 class="card__title" id="workout-prompt-builder-title">🏋️ Workout Prompt Generator</h2>
                 <p class="card__subtitle phase-theme">
-                  Fill this in and copy the generated prompt into your AI assistant.
+                  Fill this in and copy the generated prompt into your AI coach.
                 </p>
               </div>
               <div class="phase-body">
                 <form id="workoutPromptForm" class="form-grid">
                   <!-- Duration -->
                   <div class="form-field">
-                    <label class="form-label" for="duration">Session duration (minutes)</label>
+                    <label class="form-label" for="duration">⏱ Duration (minutes)</label>
                     <input
                       type="number"
                       id="duration"
@@ -1950,90 +1950,128 @@
 
                   <!-- Warm-up -->
                   <div class="form-field">
-                    <label class="form-label" for="includeWarmup">Warm-up?</label>
-                    <select id="includeWarmup" name="includeWarmup" class="form-input">
-                      <option value="yes" selected>Yes – include a warm-up</option>
-                      <option value="no">No warm-up</option>
+                    <label class="form-label" for="warmup">🚀 Include Warm-Up?</label>
+                    <select id="warmup" name="warmup" class="form-input">
+                      <option value="yes" selected>Yes</option>
+                      <option value="no">No</option>
                     </select>
                   </div>
 
                   <!-- Session type -->
                   <div class="form-field">
-                    <label class="form-label" for="sessionType">Session type</label>
+                    <label class="form-label" for="sessionType">🎯 Session Type</label>
                     <select id="sessionType" name="sessionType" class="form-input">
-                      <option value="strength" selected>Strength</option>
-                      <option value="cardio">Cardio / conditioning</option>
-                      <option value="mobility">Mobility / flexibility</option>
-                      <option value="skill">Skill / technique</option>
-                      <option value="mixed">Mixed / metcon</option>
+                      <option value="Strength" selected>Strength</option>
+                      <option value="Cardio">Cardio</option>
+                      <option value="Mobility">Mobility</option>
+                      <option value="Conditioning">Conditioning</option>
+                      <option value="Mixed">Mixed</option>
                     </select>
                   </div>
 
-                  <!-- Difficulty (comedic) -->
+                  <!-- Target Area -->
                   <div class="form-field">
-                    <label class="form-label" for="difficulty">Difficulty 💪</label>
-                    <select id="difficulty" name="difficulty" class="form-input">
-                      <option value="just woke up from a nap">🛋️ Just woke up from a nap</option>
-                      <option value="feeling human today" selected>🚶 Feeling human today</option>
-                      <option value="had my coffee, let's go">☕ Had my coffee, let's go</option>
-                      <option value="beast mode activated">🦁 Beast mode activated</option>
-                      <option value="I have chosen violence">🔥 I have chosen violence</option>
-                      <option value="make me question my life choices">💀 Make me question my life choices</option>
-                    </select>
-                  </div>
-
-                  <!-- Focus area -->
-                  <div class="form-field">
-                    <label class="form-label" for="focusArea">What to work out</label>
-                    <select id="focusArea" name="focusArea" class="form-input">
-                      <option value="full body" selected>Full body</option>
-                      <option value="upper body (arms, chest, back)">
-                        Upper body (arms / back / chest)
-                      </option>
-                      <option value="lower body (legs, glutes)">
-                        Lower body (legs / glutes)
-                      </option>
-                      <option value="core">Core</option>
-                      <option value="handstand & shoulder strength">
-                        Handstand / shoulders
-                      </option>
+                    <label class="form-label" for="targetArea">🧩 Target Area</label>
+                    <select id="targetArea" name="targetArea" class="form-input">
+                      <option value="Full Body" selected>Full Body</option>
+                      <option value="Upper">Upper</option>
+                      <option value="Lower">Lower</option>
+                      <option value="Core">Core</option>
+                      <option value="Skill">Skill</option>
                     </select>
                   </div>
 
                   <!-- Location -->
                   <div class="form-field">
-                    <label class="form-label" for="location">Location</label>
+                    <label class="form-label" for="location">📍 Location</label>
                     <select id="location" name="location" class="form-input">
-                      <option value="home" selected>Home</option>
-                      <option value="gym">Gym</option>
-                      <option value="outdoors or other">Other / outdoors</option>
+                      <option value="Home" selected>Home</option>
+                      <option value="Gym">Gym</option>
+                      <option value="Other">Other</option>
                     </select>
                   </div>
 
                   <!-- Garmin training readiness -->
                   <div class="form-field">
-                    <label class="form-label" for="trainingReadiness">Garmin training readiness</label>
-                    <select id="trainingReadiness" name="trainingReadiness" class="form-input">
-                      <option value="skip" selected>Skip / not using</option>
-                      <option value="low">Low</option>
-                      <option value="moderate">Moderate</option>
+                    <label class="form-label" for="readiness">📊 Training Readiness</label>
+                    <select id="readiness" name="readiness" class="form-input">
+                      <option value="skip" selected>Skip</option>
                       <option value="high">High</option>
+                      <option value="moderate">Moderate</option>
+                      <option value="low">Low</option>
                     </select>
                     <small class="help-text form-helper">
-                      If set, the prompt will ask the AI to scale intensity using this.
+                      Garmin readiness – adjusts volume/intensity guidance.
                     </small>
                   </div>
 
-                  <!-- Extra notes (optional) -->
+                  <!-- Intensity (comedic scale) -->
+                  <div class="form-field">
+                    <label class="form-label" for="intensity">🔥 Intensity</label>
+                    <select id="intensity" name="intensity" class="form-input">
+                      <option value="warm-hug">Warm Hug 🤗 – gentle, supportive</option>
+                      <option value="try-harder-chad" selected>Try Harder, Chad 💪 – moderate push</option>
+                      <option value="beast-mode">Beast Mode Activated 🦁 – strong, focused effort</option>
+                      <option value="chosen-violence">I Have Chosen Violence 🔥 – very hard</option>
+                      <option value="call-ambulance">Call an Ambulance (But Not for Me) 🚑 – max intensity</option>
+                    </select>
+                  </div>
+
+                  <!-- Equipment -->
+                  <div class="form-field">
+                    <label class="form-label" for="equipment">🛠 Equipment Available</label>
+                    <input
+                      type="text"
+                      id="equipment"
+                      name="equipment"
+                      class="form-input"
+                      placeholder="e.g. dumbbells, kettlebell, pull-up bar..."
+                    />
+                    <small class="help-text form-helper">
+                      Leave empty if no specific equipment or bodyweight only.
+                    </small>
+                  </div>
+
+                  <!-- Notes -->
                   <div class="form-field form-field--full">
-                    <label class="form-label" for="extraNotes">Extra notes (optional)</label>
+                    <label class="form-label" for="notes">📝 Notes (optional)</label>
                     <textarea
-                      id="extraNotes"
-                      name="extraNotes"
+                      id="notes"
+                      name="notes"
                       class="form-input"
                       rows="2"
-                      placeholder="Any injuries, equipment, preferences, or goals for this session..."
+                      placeholder="Any injuries, preferences, or goals for this session..."
                     ></textarea>
+                  </div>
+
+                  <!-- Include Videos -->
+                  <div class="form-field">
+                    <label class="form-label">🎥 Include Demo Videos?</label>
+                    <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="includeVideos" value="true" />
+                        Yes
+                      </label>
+                      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="includeVideos" value="false" checked />
+                        No
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Generate PDF -->
+                  <div class="form-field">
+                    <label class="form-label">📄 Generate Printable PDF?</label>
+                    <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="generatePdf" value="true" />
+                        Yes
+                      </label>
+                      <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="generatePdf" value="false" checked />
+                        No
+                      </label>
+                    </div>
                   </div>
 
                   <div class="form-actions">
@@ -2045,17 +2083,40 @@
                 </form>
 
                 <div class="form-field form-field--full" style="margin-top: 1.5rem;">
-                  <label class="form-label" for="generatedPrompt">Generated ChatGPT prompt</label>
+                  <label class="form-label" for="generatedPrompt">Generated Prompt (for AI Coach)</label>
                   <textarea
                     id="generatedPrompt"
                     class="form-input"
-                    rows="8"
+                    rows="14"
                     readonly
                     placeholder="Fill in the form and click Generate Prompt…"
                   ></textarea>
                 </div>
 
                 <p id="copyStatus" class="help-text form-helper" aria-live="polite"></p>
+
+                <!-- AI Coach Links -->
+                <div class="form-field form-field--full" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--card-border);">
+                  <label class="form-label">🤖 Open in AI Coach</label>
+                  <p class="help-text form-helper" style="margin-bottom: 0.75rem;">Copy the prompt above, then click a button to open your preferred AI coach:</p>
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                      <span style="font-size: 1.1rem;">💬</span> ChatGPT
+                    </a>
+                    <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                      <span style="font-size: 1.1rem;">🧠</span> Claude
+                    </a>
+                    <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                      <span style="font-size: 1.1rem;">✨</span> Gemini
+                    </a>
+                    <a href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                      <span style="font-size: 1.1rem;">🪟</span> Copilot
+                    </a>
+                    <a href="https://poe.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                      <span style="font-size: 1.1rem;">🔮</span> Poe
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </section>

@@ -1,6 +1,6 @@
 /**
  * Workout Prompt Builder Widget
- * Generates a ChatGPT prompt for building a personalized workout session.
+ * Generates a structured, copy-pasteable prompt for an AI coach to design a personalized workout session.
  */
 (function () {
   'use strict';
@@ -12,59 +12,128 @@
 
   if (!form || !promptBox) return; // page safety guard
 
+  /**
+   * Intensity mappings: comedic label → serious training intent
+   */
+  const intensityDescriptions = {
+    'warm-hug': 'Warm Hug 🤗 – very gentle, low-stress session',
+    'try-harder-chad': 'Try Harder, Chad 💪 – moderate challenge',
+    'beast-mode': 'Beast Mode Activated 🦁 – hard work, but sustainable',
+    'chosen-violence': 'I Have Chosen Violence 🔥 – very demanding but still safe',
+    'call-ambulance': 'Call an Ambulance (But Not for Me) 🚑 – maximal effort, only if appropriate'
+  };
+
+  /**
+   * Readiness guidance based on Garmin readiness levels
+   */
+  const readinessGuidance = {
+    high: 'Training readiness is high – allow full volume and intensity within the chosen intensity label.',
+    moderate: 'Training readiness is moderate – use sensible, moderate volume.',
+    low: 'Training readiness is low – reduce volume and/or intensity accordingly.'
+  };
+
+  /**
+   * Build the final structured prompt for another AI coach
+   */
   function buildPrompt(values) {
     const {
       duration,
-      includeWarmup,
+      warmup,
       sessionType,
-      difficulty,
-      focusArea,
+      targetArea,
       location,
-      trainingReadiness,
-      extraNotes,
+      readiness,
+      intensity,
+      equipment,
+      notes,
+      includeVideos,
+      generatePdf
     } = values;
 
     const lines = [];
 
-    lines.push(
-      'You are an experienced coach and workout programmer. Design a single training session for me.'
-    );
+    // Opening statement addressing the AI coach
+    lines.push('You are an experienced coach and workout programmer.');
+    lines.push('Please design a custom training session based on the following details:');
+    lines.push('');
 
-    lines.push(
-      `Session details: I have about ${duration} minutes for a ${sessionType} session at ${location}.`
-    );
-
-    lines.push(`Primary focus: ${focusArea}.`);
-
-    lines.push(
-      `Difficulty level: ${difficulty}. Scale the intensity and exercise selection accordingly.`
-    );
-
-    if (includeWarmup === 'yes') {
-      lines.push(
-        'Include a short warm-up at the start (5–10 minutes) that prepares me for the main work.'
-      );
-    } else {
-      lines.push(
-        'Skip any dedicated warm-up block and go straight into the main work.'
-      );
+    // Duration
+    if (duration) {
+      lines.push(`⏱ Duration: ${duration} minutes`);
+      lines.push('');
     }
 
-    if (trainingReadiness !== 'skip') {
-      lines.push(
-        `My Garmin training readiness is ${trainingReadiness}. Adjust intensity and volume to match that readiness level.`
-      );
+    // Warm-up
+    if (warmup) {
+      lines.push(`🚀 Warm-Up Included: ${warmup === 'yes' ? 'Yes' : 'No'}`);
+      lines.push('');
     }
 
-    if (extraNotes && extraNotes.trim().length > 0) {
-      lines.push(`Additional context / constraints: ${extraNotes.trim()}`);
+    // Intensity with explanation
+    if (intensity && intensityDescriptions[intensity]) {
+      lines.push(`🔥 Intensity: ${intensityDescriptions[intensity]}`);
+      lines.push('');
     }
 
-    lines.push(
-      'Output format: use clear section headings (Warm-up, Main Session, Optional Finisher, Cool-down), with bullet points, sets/reps or time, and brief coaching cues where helpful.'
-    );
+    // Session type
+    if (sessionType) {
+      lines.push(`🎯 Session Type: ${sessionType}`);
+      lines.push('');
+    }
 
-    return lines.join('\n\n');
+    // Target area
+    if (targetArea) {
+      lines.push(`🧩 Target Area: ${targetArea}`);
+      lines.push('');
+    }
+
+    // Location
+    if (location) {
+      lines.push(`📍 Location: ${location}`);
+      lines.push('');
+    }
+
+    // Training readiness (only if not skipped)
+    if (readiness && readiness !== 'skip' && readinessGuidance[readiness]) {
+      lines.push(`📊 Training Readiness: ${readiness.charAt(0).toUpperCase() + readiness.slice(1)}`);
+      lines.push(`   ${readinessGuidance[readiness]}`);
+      lines.push('');
+    }
+
+    // Equipment
+    if (equipment && equipment.trim().length > 0) {
+      lines.push(`🛠 Equipment Available: ${equipment.trim()}`);
+      lines.push('');
+    }
+
+    // Notes
+    if (notes && notes.trim().length > 0) {
+      lines.push(`📝 Notes: ${notes.trim()}`);
+      lines.push('');
+    }
+
+    // Requirements section
+    lines.push('Requirements:');
+    lines.push('');
+    lines.push('- Use clear section headings (Warm-Up, Main Session, Optional Finisher, Cool-Down).');
+    lines.push('- Provide sets, reps, and/or work/rest intervals for each exercise.');
+    lines.push('- Match overall difficulty to the combination of intensity and readiness.');
+    lines.push('- Only include movements that respect the location and available equipment.');
+    lines.push('- Ensure the entire session fits within the stated duration.');
+
+    // Video requirement (conditional)
+    if (includeVideos === 'true') {
+      lines.push('');
+      lines.push("🎥 For each exercise, include a short demonstration video link or a clear search term (e.g. \"search: '[exercise name] tutorial'\").");
+    }
+
+    // PDF requirement (conditional)
+    if (generatePdf === 'true') {
+      lines.push('');
+      lines.push('📄 After designing the workout, also provide a compact, single-page printable version of the session with minimal extra commentary, suitable for exporting as a PDF.');
+    }
+
+    return lines.join('\n');
   }
 
   form.addEventListener('submit', function (event) {
@@ -72,14 +141,17 @@
 
     const formData = new FormData(form);
     const values = {
-      duration: formData.get('duration') || '45',
-      includeWarmup: formData.get('includeWarmup') || 'yes',
-      sessionType: formData.get('sessionType') || 'strength',
-      difficulty: formData.get('difficulty') || 'feeling human today',
-      focusArea: formData.get('focusArea') || 'full body',
-      location: formData.get('location') || 'home',
-      trainingReadiness: formData.get('trainingReadiness') || 'skip',
-      extraNotes: formData.get('extraNotes') || '',
+      duration: formData.get('duration') || '',
+      warmup: formData.get('warmup') || '',
+      sessionType: formData.get('sessionType') || '',
+      targetArea: formData.get('targetArea') || '',
+      location: formData.get('location') || '',
+      readiness: formData.get('readiness') || 'skip',
+      intensity: formData.get('intensity') || '',
+      equipment: formData.get('equipment') || '',
+      notes: formData.get('notes') || '',
+      includeVideos: formData.get('includeVideos') || 'false',
+      generatePdf: formData.get('generatePdf') || 'false'
     };
 
     const prompt = buildPrompt(values);
