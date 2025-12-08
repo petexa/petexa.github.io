@@ -1,0 +1,12 @@
+# Jekyll Configuration for GitHub Pages
+# Exclude files and directories from Jekyll processing to prevent Liquid parsing errors
+
+exclude:
+  - src
+  - node_modules
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - vite.config.*
+  - README.md
+  - docs
