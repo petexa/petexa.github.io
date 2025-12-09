@@ -4,6 +4,9 @@
   "description": "> **\"Sets and Reps. Cheers and Beers. That's the Program.\"**",
   "main": "index.js",
   "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,12 +16,30 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/petexa/petexa.github.io/issues"
   },
   "homepage": "https://github.com/petexa/petexa.github.io#readme",
   "dependencies": {
-    "csv-parser": "^3.2.0"
+    "@phosphor-icons/react": "^2.1.10",
+    "@tailwindcss/postcss": "^4.1.17",
+    "autoprefixer": "^10.4.22",
+    "csv-parser": "^3.2.0",
+    "postcss": "^8.5.6",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "react-router-dom": "^7.10.1",
+    "tailwindcss": "^4.1.17"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.7"
   }
 }

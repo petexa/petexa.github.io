@@ -20,3 +20,20 @@ data/logs/
 
 # Workout pipeline snapshots (historical, can be committed selectively)
 data/snapshots/
+
+# Node modules and build artifacts
+node_modules/
+dist/
+lab/
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
